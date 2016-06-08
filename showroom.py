@@ -33,7 +33,7 @@ import itertools
 
 
 import pytz
-import requests.Session
+from requests import Session
 
 
 MAX_DOWNLOADS = 20
@@ -326,7 +326,7 @@ def format_name(rootdir, time_str, member):
 class Watcher(object):
     def __init__(self, member, start_time = None):
         self._member = member
-        self.session  = requests.Session()
+        self.session  = Session()
         self.start_time = start_time
 
     def check(self):
@@ -366,7 +366,8 @@ class Watcher(object):
 
 class Schedule(object):
     def __init__(self, start_time, index, web_url=None, room_id=None, is_live=False, dt=None):
-        self.start_time = self.convert_time(start_time, dt=dt)
+        self.start_time = start_time
+        
         if web_url:
             self.member = self.find_member_by_url(web_url, index)
         elif room_id:
@@ -376,6 +377,11 @@ class Schedule(object):
 
         self._live = is_live
 
+    def __bool__(self):
+        return bool(self.member)
+    
+    # TODO: use this again, but accept timestamps instead
+    '''
     def convert_time(self, time_str, dt=None):
         # This seems to differ from platform to platform, need a way to 
         # for the site to report a specific date format
@@ -392,7 +398,7 @@ class Schedule(object):
         pattern = '%Y-%m-%d %I:%M %p'
         # return datetime.datetime.strptime(time_str, pattern).replace(tzinfo=LA_TZ).astimezone(tz=TOKYO_TZ)
         return datetime.datetime.strptime(time_str, pattern).replace(tzinfo=TOKYO_TZ)
-        
+    '''
 
     def find_member_by_url(self, web_url, index):
         for e in index:
@@ -402,7 +408,7 @@ class Schedule(object):
 
     def find_member_by_room(self, room_id, index):
         for e in index:
-            if e['showroom_id'] == room_id:
+            if e['showroom_id'] == str(room_id):
                 return e
         return None
 
@@ -417,6 +423,7 @@ class Schedule(object):
 
     def go_live(self):
         self._live = True
+
 
     @property
     def priority(self):
@@ -573,7 +580,7 @@ class Scheduler(object):
         self._index         = index
         self._rooms         = frozenset([e['showroom_id'] for e in self.index])
         
-        self.session        = requests.Session()
+        self.session        = Session()
         self.upcoming       = {}
         self.live           = {}
         self._scheduled     = {}
@@ -612,12 +619,18 @@ class Scheduler(object):
                 self.scheduled.update({schedule.room_id: schedule})
             
 
-    def update_live(self, soup):
+    def update_live(self):
         self.live.clear()
-        lives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']['lives']
+        onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
         
-        for item in [e for e in lives if e['room_id'] in self.rooms]:
-            room_id = item['room_id']
+        # find the idol genre
+        for e in onlives:
+            if int(e['genre_id']) == 102:
+                lives = e['lives']
+                break
+        
+        for item in [e for e in lives if 'room_id' in e and str(e['room_id']) in self.rooms]:
+            room_id = str(item['room_id'])
             start_time = datetime.datetime.fromtimestamp(float(item['started_at']), tz=TOKYO_TZ)
             
             # it's possible to get the stream_url here, from streaming_url_list[]
@@ -632,13 +645,13 @@ class Scheduler(object):
                 self.live.update({new.room_id: new})
             
 
-    def update_schedule(self, soup):
+    def update_schedule(self):
         upcoming = self.session.get('https://www.showroom-live.com/api/live/upcoming?genre_id=102').json()['upcomings']
-        
-        for item in [e for e in upcoming if e['room_id'] in self.rooms]:
+        for item in [e for e in upcoming if str(e['room_id']) in self.rooms]:
             start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), tz=TOKYO_TZ)
-            new = Schedule(start_time, self.index, room_id=item['room_id'])
-            self.add(new)
+            new = Schedule(start_time, self.index, room_id=str(item['room_id']))
+            if new:
+                self.add(new)
     
 
     def add(self, schedule):
@@ -668,7 +681,7 @@ class Scheduler(object):
 class Controller(object):
     def __init__(self, index, outdir=OUTDIR, 
                  max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES):
-        self.session = requests.Session()
+        self.session = Session()
         self.index   = index
         self.settings = {'outdir':        outdir,
                          'max_downloads': max_downloads,
@@ -692,7 +705,7 @@ class Controller(object):
 
 
 def watch(member, outdir):
-    s = requests.Session()
+    s = Session()
 
     params = {'room_id': member['showroom_id']}
     member_name = member['engName']
