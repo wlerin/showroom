@@ -23,13 +23,7 @@ For additional options:
 ### Install Required Packages
 
     pip3 install pytz requests
-
-### Install Optional Packages
-
-    pip3 install lxml
-
-_this will probably fail on Windows_
-
+    
 
 
 ### INDEX PRIORITIES
