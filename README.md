@@ -1,5 +1,5 @@
 # showroom
-Requires Requests, Pytz, BeautifulSoup, and a working installation of ffmpeg
+Requires Requests, Pytz, and a working installation of ffmpeg
 
 
 Syntax:
@@ -22,7 +22,7 @@ For additional options:
 
 ### Install Required Packages
 
-    pip3 install pytz requests beautifulsoup4
+    pip3 install pytz requests
 
 ### Install Optional Packages
 
