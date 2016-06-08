@@ -1,17 +1,25 @@
-# Requires Requests, Pytz, BeautifulSoup, and a working installation of ffmpeg
-#
-# Syntax:
-# python3 showroom.py "<Member Name>"
-#   OR
-# python3 showroom.py --all [<output directory>]
-#
-# https://www.showroom-live.com/room/is_live?room_id=61879
-# {"ok":0}
-# https://www.showroom-live.com/room/get_live_data?room_id=61747
+"""
+URLs of note
 
-# https://www.showroom-live.com/event/akb48_sousenkyo_45th poll for time schedule
+https://www.showroom-live.com/room/is_live?room_id=61879
+{"ok": 0} == not live
+{"ok": 1} == live (may be other keys)
 
-# https://www.showroom-live.com/event/all_rooms?event_id=1364
+https://www.showroom-live.com/room/get_live_data?room_id=61747
+
+https://www.showroom-live.com/event/akb48_sousenkyo_45th poll for time schedule
+
+https://www.showroom-live.com/event/all_rooms?event_id=1364
+
+List of all current live broadcasts w/ streaming links
+https://www.showroom-live.com/api/live/onlives
+
+All upcoming lives in the Idol genre
+https://www.showroom-live.com/api/live/upcoming?genre_id=102
+
+Find the next live for a room
+https://www.showroom-live.com/api/room/next_live?room_id=61576
+"""
 
 import os
 import time
@@ -23,20 +31,10 @@ import argparse
 from heapq import heapify, heappush, heappop, heappushpop
 import itertools
 
-# Third party packages, must be installed
-# pip3 install pytz requests beautifulsoup4
-# and try
-# pip3 install lxml
-# but this will probably fail on Windows, see below
-import pytz
-import requests
-from bs4 import BeautifulSoup, FeatureNotFound
 
-SOUP_PARSER = 'lxml'
-ALT_PARSER  = 'html.parser'
-# Automatically switches to html.parser if lxml is not found
-# can still set via --parser argument
-# SOUP_PARSER = 'html.parser'
+import pytz
+import requests.Session
+
 
 MAX_DOWNLOADS = 20
 MAX_WATCHES = 10
@@ -50,17 +48,6 @@ OUTDIR = 'output'
 # Or add custom headers to the requests.get() call in Scheduler.tick()
 TOKYO_TZ = pytz.timezone('Asia/Tokyo')
 
-##############
-# PRIORITIES
-# First and most importantly, lower numbers == more important
-# Then, a member with a lower priority can trump one with a higher priority, if that higher priority is double or more
-# e.g. A priority 1 member takes precedence over priority 2 and above
-#      while a priority 2 member takes precedence over priority 4 and above
-#      If there are no open watch or download slots (see MAX_WATCHES and MAX_DOWNLOADS above)
-#      but a low priority member is waiting for one, that member might bump a high priority member 
-#      completely off, killing any ongoing downloads and removing watches from the queue
-# Be very careful who you give low priorities to, especially ones less than 10 (the default is 20)
-##############
 
 WATCHSECONDS = [600, 420, 360, 360, 300, 300, 240, 240, 180, 150]
 
@@ -255,7 +242,6 @@ class Downloader(object):
             if self.outfile:
                 self.move_to_dest()
             if self.is_live():
-                # TODO: move "completed" file to a new directory
                 time.sleep(1) # give the stream some time to restart
                 self.start()
                 return False
@@ -456,7 +442,6 @@ class DownloadManager(object):
         # self._live      = live # from Scheduler
         self._time      = datetime.datetime.now(tz=TOKYO_TZ)
         self._scheduled = scheduled
-        # TODO: Make DownloadQueue a list of threads or processes?
 
 
     def __len__(self):
@@ -586,6 +571,7 @@ class Scheduler(object):
     def __init__(self, index, settings):
         self.settings       = settings
         self._index         = index
+        self._rooms         = frozenset([e['showroom_id'] for e in self.index])
         
         self.session        = requests.Session()
         self.upcoming       = {}
@@ -604,23 +590,15 @@ class Scheduler(object):
             self.firstrun = False
             self._time = new_time
             
-
-            r = self.session.get('https://www.showroom-live.com/event/akb48_sousenkyo_45th')
-            try:
-                soup = BeautifulSoup(r.text, self.settings['soup_parser'])
-            except FeatureNotFound:
-                self.settings['soup_parser'] = ALT_PARSER
-                soup = BeautifulSoup(r.text, self.settings['soup_parser'])
-
             if self._tick_count % 10 == 0:
-                self.update_schedule(soup)
+                self.update_schedule()
 
             if self._tick_count % 50 == 0:
                 print('Current Time is {}'.format(self._time.strftime('%H:%M')))
                 
             self._tick_count += 1
 
-            self.update_live(soup)
+            self.update_live()
 
             for key in self.upcoming.copy():
                 if self.upcoming[key].check(self._time):
@@ -636,10 +614,14 @@ class Scheduler(object):
 
     def update_live(self, soup):
         self.live.clear()
-        for item in [e for e in soup.select('div.js-liveroom')]:
-            room_id = [e for e in item['class'] if 'js-liveroom-' in e][0].rsplit('-', 1)[1]
-
-            start_time = item.select_one('div.is-start-time').text
+        lives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']['lives']
+        
+        for item in [e for e in lives if e['room_id'] in self.rooms]:
+            room_id = item['room_id']
+            start_time = datetime.datetime.fromtimestamp(float(item['started_at']), tz=TOKYO_TZ)
+            
+            # it's possible to get the stream_url here, from streaming_url_list[]
+            
             if room_id in self.upcoming:
                 new = self.upcoming.pop(room_id)
                 new.go_live()
@@ -651,15 +633,18 @@ class Scheduler(object):
             
 
     def update_schedule(self, soup):
-        for card in [e for e in soup.select_one('ul.mt-b2').contents if e.name == 'li']:
-            web_url = card.a['href']
-            start_time = card.select_one('div.listcardrow-sub').text
-            new = Schedule(start_time, self.index, web_url=web_url)
+        upcoming = self.session.get('https://www.showroom-live.com/api/live/upcoming?genre_id=102').json()['upcomings']
+        
+        for item in [e for e in upcoming if e['room_id'] in self.rooms]:
+            start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), tz=TOKYO_TZ)
+            new = Schedule(start_time, self.index, room_id=item['room_id'])
             self.add(new)
     
 
     def add(self, schedule):
-        if schedule.room_id not in self.upcoming.keys() and schedule.room_id not in self.scheduled.keys() and schedule.priority <= self.settings['max_priority']:
+        if (schedule.room_id not in self.upcoming.keys()
+            and schedule.room_id not in self.scheduled.keys() 
+            and schedule.priority <= self.settings['max_priority']):
             print('Scheduling {} for {}'.format(schedule.name, schedule.formatted_time))
             self.upcoming.update({schedule.room_id: schedule})
 
@@ -675,18 +660,20 @@ class Scheduler(object):
     def scheduled(self):
         return self._scheduled
 
+    @property
+    def rooms(self):
+        return self._rooms
+
 
 class Controller(object):
     def __init__(self, index, outdir=OUTDIR, 
-                 max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES, 
-                 soup_parser=SOUP_PARSER):
+                 max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES):
         self.session = requests.Session()
         self.index   = index
         self.settings = {'outdir':        outdir,
                          'max_downloads': max_downloads,
                          'max_watches':   max_watches,
-                         'max_priority':  max_priority,
-                         'soup_parser':   soup_parser}
+                         'max_priority':  max_priority}
 
     def run(self):
         self.scheduler = Scheduler(index=self.index, settings=self.settings)
@@ -752,17 +739,16 @@ def simple_watcher(members, max_downloads):
 if __name__ == "__main__":
     """
     Syntax:
-    python3 showroom.py --member="Member Name"|-m "Member Name"|watch
+    python3 showroom.py "Member Name"|--all
     """
-    # TODO: implement additional options
     # TODO: add verbosity levels
     parser = argparse.ArgumentParser(description="Watches Showroom for live videos and downloads them when they become available. Most options only apply in --all mode", 
                                      epilog="The max-* options, parser, index, and output-dir haven't been fully tested yet")
-    parser.add_argument('names', nargs='*', 
+    parser.add_argument('names', nargs='*',
                         help='A single quoted Member Name to watch. Technically accepts a list of names but only the first matched name will be used. For now. \n\nCompletely ignored if --all is given.')
-    parser.add_argument('--all', '-a', action='store_true', 
+    parser.add_argument('--all', '-a', action='store_true',
                         help='Watch the main showroom page for live shows and record all of them. Noisy and probably still buggy.')
-    parser.add_argument('--output-dir', '-o', default=OUTDIR, 
+    parser.add_argument('--output-dir', '-o', default=OUTDIR,
                         help='Directory in which to store active and completed downloads. Defaults to "%(default)s"')
     parser.add_argument('--index', '-i', default=DEFAULT_INDEX, 
                         help='Path to an index file, e.g. members.json or ske48_only.json. All members must be included, this is just used to give them different priorities. Defaults to %(default)s')
@@ -772,8 +758,6 @@ if __name__ == "__main__":
                         help='Maximum number of rooms to watch at once (waiting for them to go live). Defaults to %(default)s')
     parser.add_argument('--max-priority', '-P', default=MAX_PRIORITY, type=int,
                         help='Any members with priority over this value will be ignored. Defaults to %(default)s')
-    parser.add_argument('--parser', default=SOUP_PARSER,
-                        help='The parser BeautifulSoup will use. Should be one of "html.parser", "lxml", or "html5lib". The latter two require additional libraries.')
     args = parser.parse_args()
     
     # will raise an exception if not found but that's probably best
@@ -786,8 +770,7 @@ if __name__ == "__main__":
                        outdir=args.output_dir, 
                        max_downloads=args.max_downloads,
                        max_priority=args.max_priority,
-                       max_watches=args.max_watches,
-                       soup_parser=args.parser)
+                       max_watches=args.max_watches)
         c.run()
     elif len(args.names) > 0:
         # silently discards all but the first matched member
