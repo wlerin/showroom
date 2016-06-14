@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 URLs of note
 
@@ -723,8 +725,8 @@ class Controller(object):
             self.time = datetime.datetime.now(tz=TOKYO_TZ)
             
             if self.resume_time > self.time.time() > self.end_time:
-                print('Time is {}, sleeping until {}'.format(self.time.strftime('%H:%M'), self.resume_time.strftime('%H:%M')))
-                sleep_seconds = (self.resume_time - self.time.time()).total_seconds() + 1.0
+                sleep_seconds = (datetime.datetime.combine(self.time, self.resume_time) - self.time).total_seconds() + 1.0
+                print('Time is {}, sleeping for {} seconds, until {}'.format(self.time.strftime('%H:%M'), sleep_seconds, self.resume_time.strftime('%H:%M')))
                 time.sleep(sleep_seconds)
             else:
                 self.scheduler.tick(self.time) # Scheduler object
