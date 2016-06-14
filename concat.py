@@ -37,37 +37,6 @@ import json
 from math import floor
 
 
-# old version
-def create_concat_files(target_dir, target_ext):
-    oldcwd = os.getcwd()
-    os.chdir(target_dir)
-    
-    
-    # TODO: use ffprobe to separate files with incompatible resolutions and those with a gap greater than ~10 minutes
-    
-    files = sorted(glob.glob('{}/*.{}'.format(target_dir, target_ext)))
-
-    member_dict = {}
-    for file in files:
-        member_name = file.rsplit(' ', 1)[0]
-        if member_name not in member_dict:
-            member_dict[member_name] = []
-        member_dict[member_name].append(file)
-
-    concat_files = {}
-    for key in member_dict.keys():
-        filename = key +' ' + member_dict[key][0].rsplit(' ', 1)[1][:4] + '.mp4.concat'
-        text = ""
-        for item in member_dict[key]:
-            text += "file '" + item + "'\n"
-        concat_files.update({filename:text})
-        
-    for key in concat_files.keys():
-        with open(key, 'w', encoding='utf8') as outfp:
-            _ = outfp.write(concat_files[key])
-    
-    os.chdir(oldcwd)
-
 """
 {
     "member1" : [
@@ -88,8 +57,6 @@ video: {
     "valid"      : true or false (false for stuff with no video content),
     "file"       : location of file
 }
-"duration"
-"height"
 
 sample ffprobe output:
 {
@@ -103,8 +70,6 @@ sample ffprobe output:
         }
     ]
 }
-for member in members:
-
 
 """
 def generate_concat_files(target_dir, target_ext, max_gap):
