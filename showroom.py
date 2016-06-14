@@ -37,8 +37,8 @@ import pytz
 from requests import Session
 
 
-MAX_DOWNLOADS = 20
-MAX_WATCHES = 10
+MAX_DOWNLOADS = 40
+MAX_WATCHES = 30
 MAX_PRIORITY = 40
 DEFAULT_INDEX = 'index/default_members.json'
 
