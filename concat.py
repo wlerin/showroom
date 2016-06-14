@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 python3 concat.py [-h] [--generate] [--merge] [--both] [--max-gap MAX_GAP]
                  [-e EXT]
@@ -23,10 +25,7 @@ When merging, watch the output for "Non-monotonous DTS in output stream" -- A
 few of these are harmless but a wall of them means that video is probably
 corrupted.
 
-TODO:
-    Check output of ffmpeg for "Non-monotonous DTS in output stream" and "DTS discontinuity in stream",
-    notify user of the problem as well as suggest fixes if fixes are possible (are they?)
-    Alternatively log ffmpeg's output the way showroom.py does
+
 """
 
 import os
@@ -36,6 +35,37 @@ from subprocess import check_output, run
 import json
 from math import floor
 
+
+# old version
+def create_concat_files(target_dir, target_ext):
+    oldcwd = os.getcwd()
+    os.chdir(target_dir)
+    
+    
+    # TODO: use ffprobe to separate files with incompatible resolutions and those with a gap greater than ~10 minutes
+    
+    files = sorted(glob.glob('{}/*.{}'.format(target_dir, target_ext)))
+
+    member_dict = {}
+    for file in files:
+        member_name = file.rsplit(' ', 1)[0]
+        if member_name not in member_dict:
+            member_dict[member_name] = []
+        member_dict[member_name].append(file)
+
+    concat_files = {}
+    for key in member_dict.keys():
+        filename = key +' ' + member_dict[key][0].rsplit(' ', 1)[1][:4] + '.mp4.concat'
+        text = ""
+        for item in member_dict[key]:
+            text += "file '" + item + "'\n"
+        concat_files.update({filename:text})
+        
+    for key in concat_files.keys():
+        with open(key, 'w', encoding='utf8') as outfp:
+            _ = outfp.write(concat_files[key])
+    
+    os.chdir(oldcwd)
 
 """
 {
@@ -57,6 +87,8 @@ video: {
     "valid"      : true or false (false for stuff with no video content),
     "file"       : location of file
 }
+"duration"
+"height"
 
 sample ffprobe output:
 {
@@ -70,6 +102,8 @@ sample ffprobe output:
         }
     ]
 }
+for member in members:
+
 
 """
 def generate_concat_files(target_dir, target_ext, max_gap):
@@ -79,7 +113,7 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     max_gap = float(max_gap)
     
     # TODO: deal with leftovers (from after 24:00)
-    files = sorted(glob.glob('{}/*.{}'.format(target_dir, target_ext)))
+    files = sorted(glob.glob('*.{}'.format(target_ext)))
     
     def get_start_seconds(file):
         time_str = file.rsplit(' ', 1)[1].split('.')[0]
@@ -115,7 +149,7 @@ def generate_concat_files(target_dir, target_ext, max_gap):
             new_video['file']     = file
             new_video['duration'] = float(stream['duration'])
             new_video['height']   = int(stream['height'])
-            if new_video['duration'] >= 0.001:
+            if new_video['duration'] >= 0.001 and 197 < new_video['height'] < 500:
                 new_video['valid']  = True
             else:
                 new_video['valid']  = False
@@ -195,10 +229,22 @@ def merge_videos(target_dir):
     
     for concat_file in glob.glob('*.concat'):
         outfile = os.path.splitext(concat_file)[0]
+        
+        # wish i didn't have to read it twice...
+        with open(concat_file, encoding='utf8') as infp:
+            data = infp.read()
+        if data.count('file \'') == 1:
+            src = data[5:].strip('\'\n./')
+            instructions = ['-i', src]
+        elif data.count('file \'') > 1:
+            instructions = ['-f', 'concat', '-i', concat_file]
+        else:
+            print("Empty concat file")
+            raise FileNotFoundError
+        
         run(['ffmpeg',
             '-copytb', '1',
-            '-f', 'concat',
-            '-i', concat_file,
+            *instructions,
             '-movflags', '+faststart',
             '-c', 'copy', outfile])
     
