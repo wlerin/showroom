@@ -28,7 +28,7 @@ For additional options:
 
 ### INDEX PRIORITIES
 
-First and most importantly, lower numbers == more important
+First and most importantly, lower numbers == more important.
 Then, a member with a lower priority can trump one with a higher priority, if that higher priority is double or more
 e.g. A priority 1 member takes precedence over priority 2 and above
 while a priority 2 member takes precedence over priority 4 and above.
