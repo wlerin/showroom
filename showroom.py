@@ -31,7 +31,6 @@ import argparse
 from heapq import heapify, heappush, heappop, heappushpop
 import itertools
 
-
 import pytz
 from requests import Session
 
@@ -43,10 +42,9 @@ DEFAULT_INDEX = 'index/default_members.json'
 
 OUTDIR = 'output'
 
-# The times and dates reported on the website are screwy, but when fetched through BeautifulSoup they *seem* to come in JST
-# If you're getting incorrect times you probably need to mess with Schedule.convert_time()
-# Or add custom headers to the requests.get() call in Scheduler.tick()
 TOKYO_TZ = pytz.timezone('Asia/Tokyo')
+
+
 
 
 WATCHSECONDS = [600, 420, 360, 360, 300, 300, 240, 240, 180, 150]
@@ -202,6 +200,7 @@ class Downloader(object):
         self.failures = 0
         self.rootdir = outdir # set by WatchManager
         self.destdir, self.tempdir, self.outfile = "", "", ""
+        self._url = ""
 
     @property
     def name(self):
@@ -242,7 +241,7 @@ class Downloader(object):
             if self.outfile:
                 self.move_to_dest()
             if self.is_live():
-                time.sleep(1) # give the stream some time to restart
+                time.sleep(2) # give the stream some time to restart
                 self.start()
                 return False
             return True # how to respond to failed exits?
@@ -273,7 +272,7 @@ class Downloader(object):
                 # before creating a file. right now, do nothing
                 # Most likely what's happening is the script is trying to access the stream
                 # while it's down (but the site still reports it as live)
-                print('Download for {} failed'.format(self.name))
+                # print('Download for {} failed'.format(self.name))
                 pass
             else:
                 print('Completed {}/{}'.format(self.destdir, self.outfile))
@@ -286,18 +285,30 @@ class Downloader(object):
         stream_name = data['streaming_name_rtmp']
         stream_url  = data["streaming_url_rtmp"]
         tokyo_time = datetime.datetime.now(tz=TOKYO_TZ)
-        
+        new_url = '{}/{}'.format(stream_url, stream_name)
         self.tempdir, self.destdir, self.outfile = format_name(self.rootdir, tokyo_time.strftime('%Y-%m-%d %H%M%S'), self.member)
         
+        
         self.sent_quit = False
+        
+        if new_url != self.url:
+            self._url = new_url 
+            print('Downloading {}\'s Showroom\n{}'.format(self.name, self.url))
+        
         self.process = subprocess.Popen([
-                'ffmpeg', 
-                '-loglevel', '16', 
-                '-i', '{}/{}'.format(stream_url, stream_name), 
-                '-c', 'copy', 
+                'ffmpeg',
+                '-loglevel', '16',
+                '-copytb', '1',
+                '-i', self.url,
+                '-c', 'copy',
                 '{}/{}'.format(self.tempdir, self.outfile)
             ],
-            stdin=subprocess.PIPE)
+            stdin=subprocess.PIPE,
+            env={'FFREPORT':'file={}/logs/{}.log:level=40'.format(self.destdir, self.outfile)})
+    
+    @property
+    def url(self):
+        return self._url
     
 
 def format_name(rootdir, time_str, member):
@@ -306,9 +317,14 @@ def format_name(rootdir, time_str, member):
     name_format ='{date} Showroom - {team} {name} {time}{count}.mp4'
     count       = 0 
     count_str   = '_{:02d}'
-    destdir  = dir_format.format(root=rootdir, date=time_str[:10], team=member['engTeam'][:5])
+    if '48' in member['engTeam']:
+        team = member['engTeam'][:5]
+    else:
+        team = member['engTeam'] # just Nogizaka46 right now
     
-    os.makedirs(destdir, exist_ok=True)
+    destdir  = dir_format.format(root=rootdir, date=time_str[:10], team=team)
+    
+    os.makedirs('{}/logs'.format(destdir), exist_ok=True)
     
     _date, _time = time_str.split(' ')
     short_date = _date[2:].replace('-', '')
@@ -476,7 +492,6 @@ class DownloadManager(object):
 
     def add(self, new_dl):
         if self.downloads.add(new_dl):
-            print('Downloading {}\'s Showroom'.format(new_dl.name))
             new_dl.start()
 
     def prune(self, member):
@@ -590,17 +605,18 @@ class Scheduler(object):
         self._tick_count    = 0
         self.firstrun       = True
         
+        
 
     def tick(self, new_time):
         # tick rate per 33 seconds
-        if (new_time - self._time).total_seconds() >= 13.0 or self.firstrun:
+        if (new_time - self._time).total_seconds() >= 11.0 or self.firstrun:
             self.firstrun = False
             self._time = new_time
             
-            if self._tick_count % 10 == 0:
+            if self._tick_count % 20 == 0:
                 self.update_schedule()
 
-            if self._tick_count % 50 == 0:
+            if self._tick_count % 81 == 0:
                 print('Current Time is {}'.format(self._time.strftime('%H:%M')))
                 
             self._tick_count += 1
@@ -687,6 +703,9 @@ class Controller(object):
                          'max_downloads': max_downloads,
                          'max_watches':   max_watches,
                          'max_priority':  max_priority}
+        
+        self.end_time = datetime.time(hour=0, minute=15, tzinfo=TOKYO_TZ)
+        self.resume_time = datetime.time(hour=4, minute=20, tzinfo=TOKYO_TZ)
 
     def run(self):
         self.scheduler = Scheduler(index=self.index, settings=self.settings)
@@ -696,10 +715,14 @@ class Controller(object):
 
         while True:
             self.time = datetime.datetime.now(tz=TOKYO_TZ)
-
-            self.scheduler.tick(self.time) # Scheduler object
-            self.watchers.tick(self.time) # WatchManager object
-            self.downloaders.tick(self.time) #DownloadManager object
+            sleep_minutes = 20
+            if self.resume_time > self.time.time() > self.end_time:
+                print('Time is {}, sleeping for {} minutes'.format(self.time.strftime('%H:%M'), sleep_minutes))
+                time.sleep(sleep_minutes*60)
+            else:
+                self.scheduler.tick(self.time) # Scheduler object
+                self.watchers.tick(self.time) # WatchManager object
+                self.downloaders.tick(self.time) #DownloadManager object
             
             # TODO: allow soft exit i.e. on user input, rather than ctrl+c
 
@@ -740,6 +763,7 @@ def find_member(target, index):
 
     return None
 
+# def merge_fragments(fragment_list, ):
 
 # TODO: implement this, probably using WatchQueue + concurrent.futures
 def simple_watcher(members, max_downloads):
@@ -790,7 +814,7 @@ if __name__ == "__main__":
         names = args.names[:args.max_downloads]
         members = [find_member(name, member_index) for name in names]
         if members[0]:
-            os.makedirs(args.output_dir)
+            os.makedirs(args.output_dir, exist_ok=True)
             watch(members[0], args.output_dir)
         else:
             print("Member not found")
