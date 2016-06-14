@@ -31,6 +31,8 @@ import argparse
 from heapq import heapify, heappush, heappop, heappushpop
 import itertools
 
+
+
 import pytz
 from requests import Session
 
@@ -42,6 +44,9 @@ DEFAULT_INDEX = 'index/default_members.json'
 
 OUTDIR = 'output'
 
+# The times and dates reported on the website are screwy, but when fetched through BeautifulSoup they *seem* to come in JST
+# If you're getting incorrect times you probably need to mess with Schedule.convert_time()
+# Or add custom headers to the requests.get() call in Scheduler.tick()
 TOKYO_TZ = pytz.timezone('Asia/Tokyo')
 
 
@@ -705,20 +710,22 @@ class Controller(object):
                          'max_priority':  max_priority}
         
         self.end_time = datetime.time(hour=0, minute=15, tzinfo=TOKYO_TZ)
-        self.resume_time = datetime.time(hour=4, minute=20, tzinfo=TOKYO_TZ)
+        self.resume_time = datetime.time(hour=4, minute=45, tzinfo=TOKYO_TZ)
 
     def run(self):
         self.scheduler = Scheduler(index=self.index, settings=self.settings)
         self.watchers  = self.scheduler.watchmanager
         self.downloaders = self.watchers.downloads
-        self.downloaders
-
+        # self.downloaders
+        # sleep_minutes = 20
+        
         while True:
             self.time = datetime.datetime.now(tz=TOKYO_TZ)
-            sleep_minutes = 20
+            
             if self.resume_time > self.time.time() > self.end_time:
-                print('Time is {}, sleeping for {} minutes'.format(self.time.strftime('%H:%M'), sleep_minutes))
-                time.sleep(sleep_minutes*60)
+                print('Time is {}, sleeping until {}'.format(self.time.strftime('%H:%M'), self.resume_time.strftime('%H:%M')))
+                sleep_seconds = (self.resume_time - self.time.time()).total_seconds() + 1.0
+                time.sleep(sleep_seconds)
             else:
                 self.scheduler.tick(self.time) # Scheduler object
                 self.watchers.tick(self.time) # WatchManager object
