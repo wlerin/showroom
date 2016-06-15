@@ -200,7 +200,7 @@ class DownloadQueue(WatchQueue):
 
 
 class Downloader(object):
-    def __init__(self, member, session, outdir):
+    def __init__(self, member, session, outdir, logging):
         self.session = session
         self._member = member
         self.process = None
@@ -208,6 +208,7 @@ class Downloader(object):
         self.rootdir = outdir # set by WatchManager
         self.destdir, self.tempdir, self.outfile = "", "", ""
         self._url = ""
+        self._logging = logging
 
     @property
     def name(self):
@@ -224,6 +225,10 @@ class Downloader(object):
     @property
     def member(self):
         return self._member
+    
+    @property
+    def logging(self):
+        return self._logging
 
     def is_live(self):
         while True:
@@ -302,6 +307,12 @@ class Downloader(object):
             self._url = new_url 
             print('Downloading {}\'s Showroom\n{}'.format(self.name, self.url))
         
+        if self.logging == True:
+            log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
+            ENV = {'FFREPORT':'file={}:level=40'.format(log_file)}
+        else:
+            ENV = None
+        
         self.process = subprocess.Popen([
                 'ffmpeg',
                 '-loglevel', '16',
@@ -311,7 +322,7 @@ class Downloader(object):
                 '{}/{}'.format(self.tempdir, self.outfile)
             ],
             stdin=subprocess.PIPE,
-            env={'FFREPORT':'file={}/logs/{}.log:level=40'.format(self.destdir, self.outfile)})
+            env=ENV)
     
     @property
     def url(self):
@@ -367,8 +378,8 @@ class Watcher(object):
             elif status == 1:
                 return True
 
-    def download(self, outdir):
-        return Downloader(self._member, self.session, outdir)
+    def download(self, outdir, logging):
+        return Downloader(self._member, self.session, outdir, logging)
 
     @property
     def name(self):
@@ -547,7 +558,7 @@ class WatchManager(object):
                         # add to downloads
                         if len(self.downloads) < self.max_downloads or self.downloads.prune(watch.member):
                             watch = self.watches.dirty_pop(watch)
-                            self.downloads.add(watch.download(self.outdir))
+                            self.downloads.add(watch.download(self.outdir, self.settings['logging']))
                 except TimeoutError:
                     print('{}\'s Watch expired'.format(watch.name))
                     if watch.room_id in self._scheduled:
@@ -703,13 +714,14 @@ class Scheduler(object):
 
 class Controller(object):
     def __init__(self, index, outdir=OUTDIR, 
-                 max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES):
+                 max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES, logging=False):
         self.session = Session()
         self.index   = index
         self.settings = {'outdir':        outdir,
                          'max_downloads': max_downloads,
                          'max_watches':   max_watches,
-                         'max_priority':  max_priority}
+                         'max_priority':  max_priority,
+                         'logging':       logging}
         
         self.end_time = datetime.time(hour=0, minute=15, tzinfo=TOKYO_TZ)
         self.resume_time = datetime.time(hour=4, minute=45, tzinfo=TOKYO_TZ)
@@ -804,6 +816,7 @@ if __name__ == "__main__":
                         help='Maximum number of rooms to watch at once (waiting for them to go live). Defaults to %(default)s')
     parser.add_argument('--max-priority', '-P', default=MAX_PRIORITY, type=int,
                         help='Any members with priority over this value will be ignored. Defaults to %(default)s')
+    parser.add_argument('--logging', action='store_true', help="Turns on ffmpeg logging.")
     args = parser.parse_args()
     
     # will raise an exception if not found but that's probably best
@@ -816,7 +829,8 @@ if __name__ == "__main__":
                        outdir=args.output_dir, 
                        max_downloads=args.max_downloads,
                        max_priority=args.max_priority,
-                       max_watches=args.max_watches)
+                       max_watches=args.max_watches,
+                       logging=args.logging)
         c.run()
     elif len(args.names) > 0:
         # silently discards all but the first matched member
