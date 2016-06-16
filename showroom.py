@@ -22,7 +22,7 @@ https://www.showroom-live.com/api/live/upcoming?genre_id=102
 Find the next live for a room
 https://www.showroom-live.com/api/room/next_live?room_id=61576
 """
-
+from sys import stdout
 import os
 import time
 import subprocess
@@ -33,7 +33,22 @@ import argparse
 from heapq import heapify, heappush, heappop, heappushpop
 import itertools
 
-
+try:
+    from announce import Announcer
+except ImportError:
+    class DefaultAnnouncer(object):
+        def __init__(self, separator='\n', outfp=stdout):
+            self.sep = separator
+            self.outfp = outfp
+        
+        def send_message(self, msg):
+            """
+            Receives and prints either a string or a list of strings. If a list of strings,
+            the separator specified when creating the class will be used (default newline)
+            """
+            print(*msg, sep=self.sep, file=self.outfp)
+    
+    Announcer = DefaultAnnouncer
 
 import pytz
 from requests import Session
@@ -204,11 +219,12 @@ class Downloader(object):
         self.session = session
         self._member = member
         self.process = None
-        self.failures = 0
+        # self.failures = 0
         self.rootdir = outdir # set by WatchManager
         self.destdir, self.tempdir, self.outfile = "", "", ""
         self._url = ""
         self._logging = logging
+        self._announcer = Announcer()
 
     @property
     def name(self):
@@ -229,7 +245,14 @@ class Downloader(object):
     @property
     def logging(self):
         return self._logging
+    
+    @property
+    def web_url(self):
+        return self._member['web_url']
 
+    def announce(self, msg):
+        self._announcer.send_message(msg)
+        
     def is_live(self):
         while True:
             try:
@@ -305,7 +328,8 @@ class Downloader(object):
         
         if new_url != self.url:
             self._url = new_url 
-            print('Downloading {}\'s Showroom\n{}'.format(self.name, self.url))
+            print('Downloading {}\'s Showroom'.format(self.name, self.url))
+            self.announce((self.web_url, self.url))
         
         if self.logging == True:
             log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
@@ -313,13 +337,14 @@ class Downloader(object):
         else:
             ENV = None
         
+        normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
         self.process = subprocess.Popen([
                 'ffmpeg',
                 '-loglevel', '16',
                 '-copytb', '1',
                 '-i', self.url,
                 '-c', 'copy',
-                '{}/{}'.format(self.tempdir, self.outfile)
+                normed_outpath
             ],
             stdin=subprocess.PIPE,
             env=ENV)
@@ -771,10 +796,11 @@ def watch(member, outdir):
             data = s.get('https://www.showroom-live.com/room/get_live_data', params=params).json()
             stream_name = data['streaming_name_rtmp']
             stream_url  = data["streaming_url_rtmp"]
+            normed_path = os.path.normpath('{}/{}.mp4'.format(outdir, member_name.lower()))
             subprocess.call(['ffmpeg', '-i', '{}/{}'.format(stream_url, stream_name), 
                 '-user-agent', 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36', 
                 '-headers', 'Referer: {}'.format(member['web_url']),
-                '-c', 'copy', '{}/{}.mp4'.format(outdir, member_name.lower())])
+                '-c', 'copy', normed_path])
             break
 
 def find_member(target, index):
