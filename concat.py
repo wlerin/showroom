@@ -31,7 +31,7 @@ corrupted.
 import os
 import glob
 import argparse
-from subprocess import check_output, run
+from subprocess import check_output, run, CalledProcessError
 import json
 from math import floor
 
@@ -117,7 +117,7 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     
     def get_start_seconds(file):
         time_str = file.rsplit(' ', 1)[1].split('.')[0]
-        hours, minutes, seconds = int(time_str[:2]), int(time_str[2:4]), int(time_str[4:])
+        hours, minutes, seconds = int(time_str[:2]), int(time_str[2:4]), int(time_str[4:6])
         return float(hours*60*60 + minutes*60 + seconds)
     
     def get_start_hhmm(seconds):
@@ -127,20 +127,24 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     
     member_dict = {}
     for file in files:
+        try:
+            results = check_output([
+                    "ffprobe",
+                    '-loglevel', '16',
+                    '-show_entries', 'stream=duration,height',
+                    '-select_streams', 'v',
+                    '-i', file,
+                    '-of', 'json'
+                ],
+                universal_newlines=True
+                )
+        except CalledProcessError:
+            continue
+        
         member_name = file.rsplit(' ', 1)[0]
         if member_name not in member_dict:
             member_dict[member_name] = []
         new_video = {"start_time": get_start_seconds(file)}
-        results = check_output([
-                "ffprobe",
-                '-loglevel', '16',
-                '-show_entries', 'stream=duration,height',
-                '-select_streams', 'v',
-                '-i', file,
-                '-of', 'json'
-            ],
-            universal_newlines=True
-        )
         try:
             stream = json.loads(results)['streams'][0]
         except IndexError:
@@ -192,6 +196,9 @@ def generate_concat_files(target_dir, target_ext, max_gap):
                 concat_files[filename] = working
                 filename, working = new_concat_file(member, item)
             else:
+                if (item['start_time'] < working['last_time'] - 2.0):
+                    print('{} overlaps {}'.format(item['file'], working['files'][-1]))
+                    # these have to be dealt with manually
                 working['files'].append(item['file'])
                 working['last_time'] = item['start_time'] + item['duration']
         concat_files[filename] = working
@@ -223,27 +230,30 @@ for f in ./*.concat; do
 done
 """
     
-def merge_videos(target_dir):
+def merge_videos(target_dir, copytb=1):
     oldcwd = os.getcwd()
     os.chdir(target_dir)
     
     for concat_file in glob.glob('*.concat'):
         outfile = os.path.splitext(concat_file)[0]
         
+        instructions = ['-copytb', str(copytb)]
+        
         # wish i didn't have to read it twice...
         with open(concat_file, encoding='utf8') as infp:
             data = infp.read()
         if data.count('file \'') == 1:
             src = data[5:].strip('\'\n./')
-            instructions = ['-i', src]
+            instructions.extend(['-i', src])
         elif data.count('file \'') > 1:
-            instructions = ['-f', 'concat', '-i', concat_file]
+            instructions.extend(['-f', 'concat', '-i', concat_file])
         else:
             print("Empty concat file")
             raise FileNotFoundError
         
+        
+        
         run(['ffmpeg',
-            '-copytb', '1',
             *instructions,
             '-movflags', '+faststart',
             '-c', 'copy', outfile])
@@ -257,11 +267,12 @@ if __name__ == '__main__':
     parser.add_argument("--both", action='store_true', help='both generates concat files and merges videos')
     parser.add_argument("target_dir", nargs='?', default='.', help='Optional. defaults to the current working directory.', metavar='TARGET_DIR')
     parser.add_argument("--max-gap", type=float, default=300.0, help='maximum gap between merged videos, in seconds. anything larger is treated as a separate broadcast. default = 300.0')
-    parser.add_argument('-e', dest='ext', default='mp4', help='extension to merge, defaults to mp4')
+    parser.add_argument("-e", dest='ext', default='mp4', help='extension to merge, defaults to mp4')
+    parser.add_argument("--copytb", type=int, choices=[-1, 0, 1], default=1, help='it may be useful to try setting this to 0 or -1 if a video has timing issues')
     args = parser.parse_args()
 
     if not args.merge:
         generate_concat_files(args.target_dir, args.ext, args.max_gap)
     if args.merge or args.both:
-        merge_videos(args.target_dir)
+        merge_videos(args.target_dir, args.copytb)
 

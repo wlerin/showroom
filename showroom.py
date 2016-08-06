@@ -52,11 +52,14 @@ except ImportError:
 
 import pytz
 from requests import Session
+from requests.exceptions import ConnectionError, ChunkedEncodingError
 
 
 MAX_DOWNLOADS = 40
 MAX_WATCHES = 30
 MAX_PRIORITY = 40
+LIVE_RATE = 11.0
+SCHEDULE_TICKS = 20
 DEFAULT_INDEX = 'index/default_members.json'
 
 OUTDIR = 'output'
@@ -76,6 +79,24 @@ def watch_seconds(priority):
         return 120
     else:
         return WATCHSECONDS[priority-1]
+
+
+
+
+class WatchSession(Session):
+    def __init__(self, *args, **kwargs):
+        # TODO: 
+        super(WatchSession, self).__init__(*args, **kwargs)
+    
+    def get(self, url, params=None, **kwargs):
+        while True:
+            try:
+                r = super().get(url, params=params, **kwargs)
+            except (ConnectionError, ChunkedEncodingError):
+                # TODO: Back off gradually if errors keep happening
+                time.sleep(1.0)
+            else:
+                return r
 
 
 class WatchQueue(object):
@@ -356,7 +377,7 @@ class Downloader(object):
 
 def format_name(rootdir, time_str, member):
     dir_format  ='{root}/{date}/{team}'
-    tempdir     = '{root}/active'.format(root=rootdir)
+    tempdir     ='{root}/active'.format(root=rootdir)
     name_format ='{date} Showroom - {team} {name} {time}{count}.mp4'
     count       = 0 
     count_str   = '_{:02d}'
@@ -385,7 +406,7 @@ def format_name(rootdir, time_str, member):
 class Watcher(object):
     def __init__(self, member, start_time = None):
         self._member = member
-        self.session  = Session()
+        self.session  = WatchSession()
         self.start_time = start_time
 
     def check(self):
@@ -518,7 +539,7 @@ class DownloadManager(object):
         # tick rate per 10 sec
         # check if download has stopped
         # recheck to see if was just interrupted
-        if (new_time - self._time).total_seconds() >= 5.0:
+        if (new_time - self._time).total_seconds() >= 4.0:
             # print('Running DownloadManager')
             self._time = new_time
         
@@ -567,6 +588,9 @@ class WatchManager(object):
         # self.max_watches = MAX_WATCHES
         # self.max_dls     = MAX_DOWNLOADS
         # self.outdir     = 'output'
+
+    def __len__(self):
+        return len(self.watches)
 
     def keys(self):
         return self.watches.keys()
@@ -618,7 +642,7 @@ class WatchManager(object):
     def rebuild(self):
         self.watches.rebuild()
         self._inqueue.rebuild()
-    
+
     @property
     def outdir(self):
         return self.settings['outdir']
@@ -638,25 +662,29 @@ class Scheduler(object):
         self._index         = index
         self._rooms         = frozenset([e['showroom_id'] for e in self.index])
         
-        self.session        = Session()
+        self.session        = WatchSession()
         self.upcoming       = {}
         self.live           = {}
         self._scheduled     = {}
         self._watchmanager  = WatchManager(settings=self.settings, scheduled=self._scheduled, live=self.live)
         
-        self._time          = datetime.datetime.now(tz=TOKYO_TZ)
+        self._time = datetime.datetime.now(tz=TOKYO_TZ)
         self._tick_count    = 0
         self.firstrun       = True
-        
+
         
 
     def tick(self, new_time):
         # tick rate per 33 seconds
-        if (new_time - self._time).total_seconds() >= 11.0 or self.firstrun:
-            self.firstrun = False
+        time_diff = (new_time - self._time).total_seconds()
+        #print(time_diff)
+        if time_diff >= self.settings['live_rate'] or self.firstrun:
+            #print('Checking lives')
             self._time = new_time
-            
-            if self._tick_count % 20 == 0:
+            self.firstrun = False
+
+            if self._tick_count % self.settings['schedule_ticks'] == 0 or self.firstrun:
+                #print('Checking schedules')
                 self.update_schedule()
 
             if self._tick_count % 81 == 0:
@@ -676,12 +704,14 @@ class Scheduler(object):
             for schedule in [self.live[x] for x in self.live if x not in self.scheduled.keys()]:
                 self.watchmanager.add(Watcher(schedule.member))
                 self.scheduled.update({schedule.room_id: schedule})
+
+
             
 
     def update_live(self):
         self.live.clear()
         onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
-        
+
         # find the idol genre
         for e in onlives:
             if int(e['genre_id']) == 102:
@@ -738,18 +768,23 @@ class Scheduler(object):
 
 
 class Controller(object):
-    def __init__(self, index, outdir=OUTDIR, 
-                 max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES, logging=False):
-        self.session = Session()
+    def __init__(self, index, outdir=OUTDIR,
+                 max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES,
+                 live_rate=LIVE_RATE, schedule_ticks=SCHEDULE_TICKS, logging=False):
+        self.session = WatchSession()
         self.index   = index
-        self.settings = {'outdir':        outdir,
-                         'max_downloads': max_downloads,
-                         'max_watches':   max_watches,
-                         'max_priority':  max_priority,
-                         'logging':       logging}
+        self.settings = {'outdir':         outdir,
+                         'max_downloads':  max_downloads,
+                         'max_watches':    max_watches,
+                         'max_priority':   max_priority,
+                         'live_rate':      live_rate,
+                         'schedule_ticks':  schedule_ticks,
+                         'logging':        logging}
         
         self.end_time = datetime.time(hour=0, minute=15, tzinfo=TOKYO_TZ)
         self.resume_time = datetime.time(hour=4, minute=45, tzinfo=TOKYO_TZ)
+
+        self.live_rate = self.settings['live_rate']
 
     def run(self):
         self.scheduler = Scheduler(index=self.index, settings=self.settings)
@@ -765,16 +800,22 @@ class Controller(object):
                 sleep_seconds = (datetime.datetime.combine(self.time, self.resume_time) - self.time).total_seconds() + 1.0
                 print('Time is {}, sleeping for {} seconds, until {}'.format(self.time.strftime('%H:%M'), sleep_seconds, self.resume_time.strftime('%H:%M')))
                 time.sleep(sleep_seconds)
+                
             else:
                 self.scheduler.tick(self.time) # Scheduler object
                 self.watchers.tick(self.time) # WatchManager object
                 self.downloaders.tick(self.time) #DownloadManager object
+
+                if len(self.watchers) == 0 and len(self.downloaders) == 0:
+                    time.sleep(self.live_rate)
+                else:
+                    time.sleep(1.0)
             
             # TODO: allow soft exit i.e. on user input, rather than ctrl+c
 
 
 def watch(member, outdir):
-    s = Session()
+    s = WatchSession()
 
     params = {'room_id': member['showroom_id']}
     member_name = member['engName']
@@ -830,18 +871,22 @@ if __name__ == "__main__":
                                      epilog="The max-* options, parser, index, and output-dir haven't been fully tested yet")
     parser.add_argument('names', nargs='*',
                         help='A single quoted Member Name to watch. Technically accepts a list of names but only the first matched name will be used. For now. \n\nCompletely ignored if --all is given.')
-    parser.add_argument('--all', '-a', action='store_true',
+    parser.add_argument('--all',            '-a', action='store_true',
                         help='Watch the main showroom page for live shows and record all of them. Noisy and probably still buggy.')
-    parser.add_argument('--output-dir', '-o', default=OUTDIR,
+    parser.add_argument('--output-dir',     '-o', default=OUTDIR,
                         help='Directory in which to store active and completed downloads. Defaults to "%(default)s"')
-    parser.add_argument('--index', '-i', default=DEFAULT_INDEX, 
+    parser.add_argument('--index',          '-i', default=DEFAULT_INDEX,
                         help='Path to an index file, e.g. members.json or ske48_only.json. All members must be included, this is just used to give them different priorities. Defaults to %(default)s')
-    parser.add_argument('--max-downloads', '-D', default=MAX_DOWNLOADS, type=int,
+    parser.add_argument('--max-downloads',  '-D', default=MAX_DOWNLOADS, type=int,
                         help='Maximum number of concurrent downloads. Defaults to %(default)s')
-    parser.add_argument('--max-watches', '-W', default=MAX_WATCHES, type=int,
+    parser.add_argument('--max-watches',    '-W', default=MAX_WATCHES, type=int,
                         help='Maximum number of rooms to watch at once (waiting for them to go live). Defaults to %(default)s')
-    parser.add_argument('--max-priority', '-P', default=MAX_PRIORITY, type=int,
+    parser.add_argument('--max-priority',   '-P', default=MAX_PRIORITY, type=int,
                         help='Any members with priority over this value will be ignored. Defaults to %(default)s')
+    parser.add_argument('--live-rate',      '-R', default=LIVE_RATE, type=float,
+                        help='Seconds between each poll of ONLIVES. Defaults to %(default)s')
+    parser.add_argument('--schedule-ticks', '-S', default=SCHEDULE_TICKS, type=float,
+                        help='Live ticks between each check of the schedule. Defaults to %(default)s')
     parser.add_argument('--logging', action='store_true', help="Turns on ffmpeg logging.")
     args = parser.parse_args()
     
@@ -851,11 +896,13 @@ if __name__ == "__main__":
     
     if args.all == True:
         os.makedirs(args.output_dir + '/active', exist_ok=True)
-        c = Controller(index=member_index, 
-                       outdir=args.output_dir, 
+        c = Controller(index=member_index,
+                       outdir=args.output_dir,
                        max_downloads=args.max_downloads,
                        max_priority=args.max_priority,
                        max_watches=args.max_watches,
+                       live_rate=args.live_rate,
+                       schedule_ticks=args.schedule_ticks,
                        logging=args.logging)
         c.run()
     elif len(args.names) > 0:
