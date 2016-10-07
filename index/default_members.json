@@ -1,2666 +1,3332 @@
 [
   {
-    "web_url": "https://www.showroom-live.com/48_Chiyori_Nakanishi",
-    "engName": "Nakanishi Chiyori",
-    "showroom_id": "61539",
-    "jpnName": "中西 智代梨",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yui_Yokoyama_A",
-    "engName": "Yokoyama Yui",
-    "showroom_id": "61547",
-    "jpnName": "横山 由依",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Anna_Iriyama",
-    "engName": "Iriyama Anna",
-    "showroom_id": "61528",
-    "jpnName": "入山 杏奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Shizuka_Oya",
-    "engName": "Oya Shizuka",
-    "showroom_id": "61529",
-    "jpnName": "大家 志津香",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rina_Hirata",
-    "engName": "Hirata Rina",
-    "showroom_id": "61542",
-    "jpnName": "平田 梨奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Miho_Miyazaki",
-    "engName": "Miyazaki Miho",
-    "showroom_id": "61546",
-    "jpnName": "宮崎 美穂",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yui_Hiwatashi",
-    "engName": "Hiwatashi Yui",
-    "showroom_id": "61544",
-    "jpnName": "樋渡 結依",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Mariko_Nakamura",
-    "engName": "Nakamura Mariko",
-    "showroom_id": "61541",
-    "jpnName": "中村 麻里子",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Megu_Taniguchi",
-    "engName": "Taniguchi Megu",
-    "showroom_id": "61538",
-    "jpnName": "谷口 めぐ",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Haruka_Shimazaki",
-    "engName": "Shimazaki Haruka",
-    "showroom_id": "61536",
-    "jpnName": "島崎 遥香",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Natsuki_Kojima",
-    "engName": "Kojima Natsuki",
-    "showroom_id": "61533",
-    "jpnName": "小嶋 菜月",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yukari_Sasaki",
-    "engName": "Sasaki Yukari",
-    "showroom_id": "61534",
-    "jpnName": "佐々木 優佳里",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nana_Owada",
-    "engName": "Owada Nana",
-    "showroom_id": "61531",
-    "jpnName": "大和田 南那",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kayoko_Takita",
-    "engName": "Takita Kayoko",
-    "showroom_id": "61537",
-    "jpnName": "田北 香世子",
-    "priority": 20,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yuki_Kashiwagi",
-    "engName": "Kashiwagi Yuki",
-    "showroom_id": "61565",
-    "jpnName": "柏木 由紀",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Aeri_Yokoshima",
-    "engName": "Yokoshima Aeri",
-    "showroom_id": "61580",
-    "jpnName": "横島 亜衿",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yuria_Kizaki",
-    "engName": "Kizaki Yuria",
-    "showroom_id": "61568",
-    "jpnName": "木﨑 ゆりあ",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rena_Kato",
-    "engName": "Kato Rena",
-    "showroom_id": "61567",
-    "jpnName": "加藤 玲奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ryoka_Oshima",
-    "engName": "Oshima Ryoka",
-    "showroom_id": "61564",
-    "jpnName": "大島 涼花",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Moe_Goto",
-    "engName": "Goto Moe",
-    "showroom_id": "61572",
-    "jpnName": "後藤 萌咲",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Mayu_Watanabe",
-    "engName": "Watanabe Mayu",
-    "showroom_id": "61582",
-    "jpnName": "渡辺 麻友",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Makiho_Tatsuya",
-    "engName": "Tatsuya Makiho",
-    "showroom_id": "61574",
-    "jpnName": "達家 真姫宝",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Seina_Fukuoka",
-    "engName": "Fukuoka Seina",
-    "showroom_id": "61576",
-    "jpnName": "福岡 聖菜",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kira_Takahashi",
-    "engName": "Takahashi Kira",
-    "showroom_id": "61808",
-    "jpnName": "高橋 希良",
-    "priority": 20,
-    "engTeam": "AKB48 Team B Draft KKS",
-    "jpnTeam": "AKB48 チームB ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rei_Nishikawa",
-    "engName": "Nishikawa Rei",
-    "showroom_id": "61809",
-    "jpnName": "西川 怜",
-    "priority": 20,
-    "engTeam": "AKB48 Team B Draft KKS",
-    "jpnTeam": "AKB48 チームB ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ayu_Yamabe",
-    "engName": "Yamabe Ayu",
-    "showroom_id": "61810",
-    "jpnName": "山邊 歩夢",
-    "priority": 20,
-    "engTeam": "AKB48 Team B Draft KKS",
-    "jpnTeam": "AKB48 チームB ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Chia-Ling_Ma",
-    "engName": "Ma Chia-Ling",
-    "showroom_id": "61578",
-    "jpnName": "馬 嘉伶",
-    "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB 台湾留学生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ayana_Shinozaki",
-    "engName": "Shinozaki Ayana",
-    "showroom_id": "61551",
-    "jpnName": "篠崎 彩奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Haruka_Shimada",
-    "engName": "Shimada Haruka",
-    "showroom_id": "61552",
-    "jpnName": "島田 晴香",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yuuka_Tano",
-    "engName": "Tano Yuka",
-    "showroom_id": "61554",
-    "jpnName": "田野 優花",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nana_Fujita",
-    "engName": "Fujita Nana",
-    "showroom_id": "61556",
-    "jpnName": "藤田 奈那",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Minami_Minegishi",
-    "engName": "Minegishi Minami",
-    "showroom_id": "61557",
-    "jpnName": "峯岸 みなみ",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Mion_Mukaichi",
-    "engName": "Mukaichi Mion",
-    "showroom_id": "61559",
-    "jpnName": "向井地 美音",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ami_Yumoto",
-    "engName": "Yumoto Ami",
-    "showroom_id": "61562",
-    "jpnName": "湯本 亜美",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Manami_Ichikawa",
-    "engName": "Ichikawa Manami",
-    "showroom_id": "61549",
-    "jpnName": "市川 愛美",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Shinobu_Mogi",
-    "engName": "Mogi Shinobu",
-    "showroom_id": "61561",
-    "jpnName": "茂木 忍",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
     "web_url": "https://www.showroom-live.com/48_Tomu_Mutou",
     "engName": "Muto Tomu",
     "showroom_id": "61560",
+    "priority": 1,
     "jpnName": "武藤 十夢",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Hinana_Shimoguchi",
-    "engName": "Shimoguchi Hinana",
-    "showroom_id": "61553",
-    "jpnName": "下口 ひなな",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Maria_Abe",
-    "engName": "Abe Maria",
-    "showroom_id": "61548",
-    "jpnName": "阿部 マリア",
-    "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Satone_Kubo",
-    "engName": "Kubo Satone",
-    "showroom_id": "61807",
-    "jpnName": "久保 怜音",
-    "priority": 20,
-    "engTeam": "AKB48 Team K Draft KKS",
-    "jpnTeam": "AKB48 チームK ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nao_Nomura",
-    "engName": "Nomura Nao",
-    "showroom_id": "61806",
-    "jpnName": "野村 奈央",
-    "priority": 20,
-    "engTeam": "AKB48 Team K Draft KKS",
-    "jpnTeam": "AKB48 チームK ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rina_Izuta",
-    "engName": "Izuta Rina",
-    "showroom_id": "61584",
-    "jpnName": "伊豆田 莉奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Saya_Kawamoto",
-    "engName": "Kawamoto Saya",
-    "showroom_id": "61594",
-    "jpnName": "川本 紗矢",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ayaka_Okada",
-    "engName": "Okada Ayaka",
-    "showroom_id": "61589",
-    "jpnName": "岡田 彩花",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Haruka_Komiyama",
-    "engName": "Komiyama Haruka",
-    "showroom_id": "61602",
-    "jpnName": "込山 榛香",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Miyuu_Omori",
-    "engName": "Omori Miyu",
-    "showroom_id": "61588",
-    "jpnName": "大森 美優",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Mako_Kojima",
-    "engName": "Kojima Mako",
-    "showroom_id": "61601",
-    "jpnName": "小嶋 真子",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Miyabi_Iino",
-    "engName": "Ino Miyabi",
-    "showroom_id": "61583",
-    "jpnName": "飯野 雅",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rio_Okawa",
-    "engName": "Okawa Rio",
-    "showroom_id": "61587",
-    "jpnName": "大川 莉央",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Saho_Iwatate",
-    "engName": "Iwatate Saho",
-    "showroom_id": "61585",
-    "jpnName": "岩立 沙穂",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kiara_Sato",
-    "engName": "Sato Kiara",
-    "showroom_id": "61603",
-    "jpnName": "佐藤 妃星",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Juri_Takahashi",
-    "engName": "Takahashi Juri",
-    "showroom_id": "61604",
-    "jpnName": "高橋 朱里",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Saki_Kitazawa",
-    "engName": "Kitazawa Saki",
-    "showroom_id": "61596",
-    "jpnName": "北澤 早紀",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nana_Okada",
-    "engName": "Okada Nana",
-    "showroom_id": "61590",
-    "jpnName": "岡田 奈々",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Miki_Nishino",
-    "engName": "Nishino Miki",
-    "showroom_id": "61605",
-    "jpnName": "西野 未姫",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4",
-    "jpnTeam": "AKB48 チーム４"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Erii_Chiba",
-    "engName": "Chiba Erii",
-    "showroom_id": "61811",
-    "jpnName": "千葉 恵里",
-    "priority": 20,
-    "engTeam": "AKB48 Team 4 Draft KKS",
-    "jpnTeam": "AKB48 チーム４ ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yui_Yokoyama_8",
-    "engName": "Yokoyama Yui 8",
-    "showroom_id": "61610",
-    "jpnName": "横山 結衣",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Moeri_Kondo",
-    "engName": "Kondo Moeri",
-    "showroom_id": "61616",
-    "jpnName": "近藤 萌恵里",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Tsumugi_Hayasaka",
-    "engName": "Hayasaka Tsumugi",
-    "showroom_id": "61613",
-    "jpnName": "早坂 つむぎ",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Karin_Shimoaoki",
-    "engName": "Shimoaoki Karin",
-    "showroom_id": "61804",
-    "jpnName": "下青木 香鈴",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Moka_Yaguchi",
-    "engName": "Yaguchi Moka",
-    "showroom_id": "61645",
-    "jpnName": "谷口 もか",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kaoru_Takaoka",
-    "engName": "Takaoka Kaoru",
-    "showroom_id": "61637",
-    "jpnName": "高岡 薫",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Hijiri_Tanikawa",
-    "engName": "Tanikawa Hijiri",
-    "showroom_id": "61611",
-    "jpnName": "谷川 聖",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Karen_Yoshida",
-    "engName": "Yoshida Karen",
-    "showroom_id": "61639",
-    "jpnName": "吉田 華恋",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kurena_Cho",
-    "engName": "Chou Kurena",
-    "showroom_id": "61592",
-    "jpnName": "長 久玲奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Maria_Shimizu",
-    "engName": "Shimizu Maria",
-    "showroom_id": "61530",
-    "jpnName": "清水 麻璃亜",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nao_Ota",
-    "engName": "Ota Nao",
-    "showroom_id": "61621",
-    "jpnName": "太田 奈緒",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kotone_Hitomi",
-    "engName": "Hitomi Kotone",
-    "showroom_id": "61631",
-    "jpnName": "人見 古都音",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rira_Miyazato",
-    "engName": "Miyazato Rira",
-    "showroom_id": "61805",
-    "jpnName": "宮里 莉羅",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Miyu_Yoshino",
-    "engName": "Yoshino Miyu",
-    "showroom_id": "61643",
-    "jpnName": "吉野 未優",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ruka_Yamamoto",
-    "engName": "Yamamoto Ruka",
-    "showroom_id": "61626",
-    "jpnName": "山本 瑠香",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Sayuna_Hama",
-    "engName": "Hama Sayuna",
-    "showroom_id": "61628",
-    "jpnName": "濵 咲友菜",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Narumi_Kuranoo",
-    "engName": "Kuranoo Narumi",
-    "showroom_id": "61641",
-    "jpnName": "倉野尾 成美",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Natsuki_Hirose",
-    "engName": "Hirose Natsuki",
-    "showroom_id": "61638",
-    "jpnName": "廣瀬 なつき",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Haruna_Hashimoto",
-    "engName": "Hashimoto Haruna",
-    "showroom_id": "61570",
-    "jpnName": "橋本 陽菜",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yuri_Tani",
-    "engName": "Tani Yuri",
-    "showroom_id": "61632",
-    "jpnName": "谷 優里",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nanase_Yoshikawa",
-    "engName": "Yoshikawa Nanase",
-    "showroom_id": "61535",
-    "jpnName": "吉川 七瀬",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Shiori_Sato",
-    "engName": "Sato Shiori",
-    "showroom_id": "61545",
-    "jpnName": "佐藤 栞",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yuna_Hattori",
-    "engName": "Hattori Yuna",
-    "showroom_id": "61563",
-    "jpnName": "服部 有菜",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Riona_Hamamatsu",
-    "engName": "Hamamatsu Riona",
-    "showroom_id": "61634",
-    "jpnName": "濵松 里緒菜",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Reina_Kita",
-    "engName": "Kita Reina",
-    "showroom_id": "61586",
-    "jpnName": "北 玲名",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nanami_Sato",
-    "engName": "Sato Nanami",
-    "showroom_id": "61612",
-    "jpnName": "佐藤 七海",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Kasumi_Mougi",
-    "engName": "Mogi Kasumi",
-    "showroom_id": "61615",
-    "jpnName": "舞木 香純",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yurina_Gyoten",
-    "engName": "Gyouten Yurina",
-    "showroom_id": "61636",
-    "jpnName": "行天 優莉奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yuri_Yokomichi",
-    "engName": "Yokomichi Yuri",
-    "showroom_id": "61555",
-    "jpnName": "横道 侑里",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rena_Fukuchi",
-    "engName": "Fukuchi Rena",
-    "showroom_id": "61640",
-    "jpnName": "福地 礼奈",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ayaka_Hidaritomo",
-    "engName": "Hidaritomo Ayaka",
-    "showroom_id": "61550",
-    "jpnName": "左伴 彩佳",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nanami_Yamada",
-    "engName": "Yamada Nanami",
-    "showroom_id": "61622",
-    "jpnName": "山田 菜々美",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Akari_Sato",
-    "engName": "Sato Akari",
-    "showroom_id": "61614",
-    "jpnName": "佐藤 朱",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Serika_Nagano",
-    "engName": "Nagano Serika",
-    "showroom_id": "61619",
-    "jpnName": "永野 芹佳",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Momoka_Onishi",
-    "engName": "Onishi Momoka",
-    "showroom_id": "61627",
-    "jpnName": "大西 桃香",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Miu_Shitao",
-    "engName": "Shitao Miu",
-    "showroom_id": "61633",
-    "jpnName": "下尾 みう",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Rin_Okabe",
-    "engName": "Okabe Rin",
-    "showroom_id": "61617",
-    "jpnName": "岡部 麟",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nagisa_Sakaguchi",
-    "engName": "Sakaguchi Nagisa",
-    "showroom_id": "61609",
-    "jpnName": "坂口 渚沙",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ikumi_Nakano",
-    "engName": "Nakano Ikumi",
-    "showroom_id": "61629",
-    "jpnName": "中野 郁海",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Hitomi_Honda",
-    "engName": "Honda Hitomi",
-    "showroom_id": "61618",
-    "jpnName": "本田 仁美",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Erina_Oda",
-    "engName": "Oda Erina",
-    "showroom_id": "61543",
-    "jpnName": "小田 えりな",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Ayane_Takahashi",
-    "engName": "Takahashi Ayane",
-    "showroom_id": "61532",
-    "jpnName": "髙橋 彩音",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Yui_Oguri",
-    "engName": "Oguri Yui",
-    "showroom_id": "61540",
-    "jpnName": "小栗 有以",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Mei_Abe",
-    "engName": "Abe Mei",
-    "showroom_id": "61630",
-    "jpnName": "阿部 芽唯",
-    "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_Nyannyan_Kamen",
-    "engName": "Nyan Nyan Kamen",
-    "showroom_id": "61812",
-    "jpnName": "にゃんにゃん仮面",
-    "priority": 20,
-    "engTeam": "AKB48",
-    "jpnTeam": "AKB48？"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NATSUMI_MATSUOKA",
-    "engName": "Matsuoka Natsumi",
-    "showroom_id": "61778",
-    "jpnName": "松岡 菜摘",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MARINA_YAMADA",
-    "engName": "Yamada Marina",
-    "showroom_id": "61781",
-    "jpnName": "山田 麻莉奈",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HARUKA_UENO",
-    "engName": "Ueno Haruka",
-    "showroom_id": "61768",
-    "jpnName": "上野 遥",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAKO_YABUKI",
-    "engName": "Yabuki Nako",
-    "showroom_id": "61780",
-    "jpnName": "矢吹 奈子",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RINO_SASHIHARA",
-    "engName": "Sashihara Rino",
-    "showroom_id": "61774",
-    "jpnName": "指原 莉乃",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NATSUMI_TANAKA",
-    "engName": "Tanaka Natsumi",
-    "showroom_id": "61776",
-    "jpnName": "田中 菜津美",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HIROKA_KOMADA",
-    "engName": "Komada Hiroka",
-    "showroom_id": "61772",
-    "jpnName": "駒田 京伽",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YURIYA_INOUE",
-    "engName": "Inoue Yuriya",
-    "showroom_id": "61766",
-    "jpnName": "井上 由莉耶",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIKU_TANAKA",
-    "engName": "Tanaka Miku",
-    "showroom_id": "61777",
-    "jpnName": "田中 美久",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKA_AKIYOSHI",
-    "engName": "Akiyoshi Yuka",
-    "showroom_id": "61765",
-    "jpnName": "秋吉 優花",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAOKO_OKAMOTO",
-    "engName": "Okamoto Naoko",
-    "showroom_id": "61769",
-    "jpnName": "岡本 尚子",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAO_YAMAMOTO",
-    "engName": "Yamamoto Mao",
-    "showroom_id": "61782",
-    "jpnName": "山本 茉央",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MERU_TASHIMA",
-    "engName": "Tashima Meru",
-    "showroom_id": "61775",
-    "jpnName": "田島 芽瑠",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MASHIRO_UI",
-    "engName": "Ui Mashiro",
-    "showroom_id": "61767",
-    "jpnName": "宇井 真白",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HARUKA_WAKATABE",
-    "engName": "Wakatabe Haruka",
-    "showroom_id": "61783",
-    "jpnName": "若田部 遥",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HARUKA_KODAMA",
-    "engName": "Kodama Haruka",
-    "showroom_id": "61771",
-    "jpnName": "兒玉 遥",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RIKO_SAKAGUCHI",
-    "engName": "Sakaguchi Riko",
-    "showroom_id": "61773",
-    "jpnName": "坂口 理子",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUI_KOJINA",
-    "engName": "Kojina Yui",
-    "showroom_id": "61770",
-    "jpnName": "神志那 結衣",
-    "priority": 20,
-    "engTeam": "HKT48 Team H",
-    "jpnTeam": "HKT48 チームH"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAO_UEKI",
-    "engName": "Ueki Nao",
-    "showroom_id": "61786",
-    "jpnName": "植木 南央",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SHINO_IWAHANA",
-    "engName": "Iwahana Shino",
-    "showroom_id": "61785",
-    "jpnName": "岩花 詩乃",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAI_FUCHIGAMI",
-    "engName": "Fuchigami Mai",
-    "showroom_id": "61793",
-    "jpnName": "渕上 舞",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SAKURA_MIYAWAKI",
-    "engName": "Miyawaki Sakura",
-    "showroom_id": "61794",
-    "jpnName": "宮脇 咲良",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAIKO_FUKAGAWA",
-    "engName": "Fukagawa Maiko",
-    "showroom_id": "61792",
-    "jpnName": "深川 舞子",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_ASUKA_TOMIYOSHI",
-    "engName": "Tomiyoshi Asuka",
-    "showroom_id": "61790",
-    "jpnName": "冨吉 明日香",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_ANNA_MURASHIGE",
-    "engName": "Murashige Anna",
-    "showroom_id": "61795",
-    "jpnName": "村重 杏奈",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AOI_MOTOMURA",
-    "engName": "Motomura Aoi",
-    "showroom_id": "61796",
-    "jpnName": "本村 碧唯",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKA_TANAKA",
-    "engName": "Tanaka Yuka",
-    "showroom_id": "61789",
-    "jpnName": "田中 優香",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKI_SHIMONO",
-    "engName": "Shimono Yuki",
-    "showroom_id": "61788",
-    "jpnName": "下野 由貴",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MINA_IMADA",
-    "engName": "Imada Mina",
-    "showroom_id": "61784",
-    "jpnName": "今田 美奈",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SERINA_KUMAZAWA",
-    "engName": "Kumazawa Serina",
-    "showroom_id": "61787",
-    "jpnName": "熊沢 世莉奈",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIO_TOMONAGA",
-    "engName": "Tomonaga Mio",
-    "showroom_id": "61791",
-    "jpnName": "朝長 美桜",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MADOKA_MORIYASU",
-    "engName": "Moriyasu Madoka",
-    "showroom_id": "61798",
-    "jpnName": "森保 まどか",
-    "priority": 20,
-    "engTeam": "HKT48 Team KIV",
-    "jpnTeam": "HKT48 チームKⅣ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_BIBIAN_MURAKAWA",
-    "engName": "Murakawa Vivian",
-    "showroom_id": "61704",
-    "jpnName": "村川 緋杏",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RIKO_TSUTSUI",
-    "engName": "Tsutsui Riko",
-    "showroom_id": "61701",
-    "jpnName": "筒井 莉子",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_EMIRI_YAMASHITA",
-    "engName": "Yamashita Emiri",
-    "showroom_id": "61706",
-    "jpnName": "山下 エミリー",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_ERENA_SAKAMOTO",
-    "engName": "Sakamoto Erena",
-    "showroom_id": "61802",
-    "jpnName": "坂本 愛玲菜",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUNA_YAMAUCHI",
-    "engName": "Yamauchi Yuna",
-    "showroom_id": "61705",
-    "jpnName": "山内 祐奈",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SAE_KURIHARA",
-    "engName": "Kurihara Sae",
-    "showroom_id": "61801",
-    "jpnName": "栗原 紗英",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HANA_MATSUOKA",
-    "engName": "Matsuoka Hana",
-    "showroom_id": "61703",
-    "jpnName": "松岡 はな",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MARIA_IMAMURA",
-    "engName": "Imamura Maria",
-    "showroom_id": "61800",
-    "jpnName": "今村 麻莉愛",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HAZUKI_HOKAZONO",
-    "engName": "Hokazono Hazuki",
-    "showroom_id": "61702",
-    "jpnName": "外薗 葉月",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MISAKI_ARAMAKI",
-    "engName": "Aramaki Misaki",
-    "showroom_id": "61799",
-    "jpnName": "荒巻 美咲",
-    "priority": 20,
-    "engTeam": "HKT48 Team TII",
-    "jpnTeam": "HKT48 チームTⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_OGINO_YUKA",
-    "engName": "Ogino Yuka",
-    "showroom_id": "61707",
-    "jpnName": "荻野 由佳",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_TANO_AYAKA",
-    "engName": "Tano Ayaka",
-    "showroom_id": "61719",
-    "jpnName": "太野 彩香",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_TAKAKURA_MOEKA",
-    "engName": "Takakura Moeka",
-    "showroom_id": "61885",
-    "jpnName": "高倉 萌香",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HASEGAWA_RENA",
-    "engName": "Hasegawa Rena",
-    "showroom_id": "61722",
-    "jpnName": "長谷川 玲奈",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SATO_ANJU",
-    "engName": "Sato Anju",
-    "showroom_id": "61712",
-    "jpnName": "佐藤 杏樹",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NISHIGATA_MARINA",
-    "engName": "Nishigata Marina",
-    "showroom_id": "61721",
-    "jpnName": "西潟 茉莉奈",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HOMMA_HINATA",
-    "engName": "Honma Hinata",
-    "showroom_id": "61723",
-    "jpnName": "本間 日陽",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SUGAHARA_RIKO",
-    "engName": "Sugahara Riko",
-    "showroom_id": "61713",
-    "jpnName": "菅原 りこ",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YAMAGUCHI_MAHO",
-    "engName": "Yamaguchi Maho",
-    "showroom_id": "61725",
-    "jpnName": "山口 真帆",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KITAHARA_RIE",
-    "engName": "Kitahara Rie",
-    "showroom_id": "61711",
-    "jpnName": "北原 里英",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAKAI_RIKA",
-    "engName": "Nakai Rika",
-    "showroom_id": "61720",
-    "jpnName": "中井 りか",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MURAKUMO_FUKA",
-    "engName": "Murakumo Fuka",
-    "showroom_id": "61724",
-    "jpnName": "村雲 颯香",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YAMADA_NOE",
-    "engName": "Yamada Noe",
-    "showroom_id": "61726",
-    "jpnName": "山田 野絵",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KATO_MINAMI",
-    "engName": "Kato Minami",
-    "showroom_id": "61710",
-    "jpnName": "加藤 美南",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_OGUMA_TSUGUMI",
-    "engName": "Oguma Tsugumi",
-    "showroom_id": "61884",
-    "jpnName": "小熊 倫実",
-    "priority": 20,
-    "engTeam": "NGT48 Team NIII",
-    "jpnTeam": "NGT48 チームNⅢ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NISHIMURA_NANAKO",
-    "engName": "Nishimura Nanako",
-    "showroom_id": "61734",
-    "jpnName": "西村 菜那子",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KADO_YURIA",
-    "engName": "Kado Yuria",
-    "showroom_id": "61728",
-    "jpnName": "角 ゆりあ",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NARA_MIHARU",
-    "engName": "Nara Miharu",
-    "showroom_id": "61733",
-    "jpnName": "奈良 未遥",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_OTAKI_YURIA",
-    "engName": "Otaki Yuria",
-    "showroom_id": "61727",
-    "jpnName": "大滝 友梨亜",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIZUSAWA_AYAKA",
-    "engName": "Mizusawa Ayaka",
-    "showroom_id": "61735",
-    "jpnName": "水澤 彩佳",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIYAJIMA_AYA",
-    "engName": "Miyajima Aya",
-    "showroom_id": "61736",
-    "jpnName": "宮島 亜弥",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SEIJI_REINA",
-    "engName": "Seiji Reina",
-    "showroom_id": "61730",
-    "jpnName": "清司 麗菜",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_TAKAHASHI_MAU",
-    "engName": "Takahashi Mau",
-    "showroom_id": "61731",
-    "jpnName": "髙橋 真生",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KUSAKABE_AINA",
-    "engName": "Kusakabe Aina",
-    "showroom_id": "61729",
-    "jpnName": "日下部 愛菜 ",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAKAMURA_AYUKA",
-    "engName": "Nakamura Ayuka",
-    "showroom_id": "61732",
-    "jpnName": "中村 歩加",
-    "priority": 20,
-    "engTeam": "NGT48 KKS",
-    "jpnTeam": "NGT48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_EMIKA_KAMIEDA",
-    "engName": "Kamieda Emika",
-    "showroom_id": "61749",
-    "jpnName": "上枝 恵美加",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KANAE_ISO",
-    "engName": "Iso Kanae",
-    "showroom_id": "61744",
-    "jpnName": "磯 佳奈江",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAGISA_SHIBUYA",
-    "engName": "Shibuya Nagisa",
-    "showroom_id": "61753",
-    "jpnName": "渋谷 凪咲",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_CHIHO_MATSUOKA",
-    "engName": "Matsuoka Chiho",
-    "showroom_id": "61756",
-    "jpnName": "松岡 知穂",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KONOMI_KUSAKA",
-    "engName": "Kusaka Konomi",
-    "showroom_id": "61751",
-    "jpnName": "日下 このみ",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_ANNA_IJIRI",
-    "engName": "Ijiri Anna",
-    "showroom_id": "61743",
-    "jpnName": "井尻 晏菜",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIREI_UEDA",
-    "engName": "Ueda Mirei",
-    "showroom_id": "61746",
-    "jpnName": "植田 碧麗",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KOKORO_NAIKI",
-    "engName": "Naiki Kokoro",
-    "showroom_id": "61754",
-    "jpnName": "内木 志",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAI_ODAN",
-    "engName": "Odan Mai",
-    "showroom_id": "61747",
-    "jpnName": "大段 舞依",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MOMOKA_HAYASHI",
-    "engName": "Hayashi Momoka",
-    "showroom_id": "61755",
-    "jpnName": "林 萌々香",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIORI_ICHIKAWA",
-    "engName": "Ichikawa Miori",
-    "showroom_id": "61745",
-    "jpnName": "市川 美織",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_CHIHIRO_KAWAKAMI",
-    "engName": "Kawakami Chihiro",
-    "showroom_id": "61750",
-    "jpnName": "川上 千尋",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SHU_YABUSHITA",
-    "engName": "Yabushita Shu",
-    "showroom_id": "61757",
-    "jpnName": "薮下 柊",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HAZUKI_KUROKAWA",
-    "engName": "Kurokawa Hazuki",
-    "showroom_id": "61752",
-    "jpnName": "黒川 葉月",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_ERINA_ANDO",
-    "engName": "Ando Erina",
-    "showroom_id": "61762",
-    "jpnName": "安藤 愛璃菜",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII Draft KKS",
-    "jpnTeam": "NMB48 チームBⅡ ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKI_MURANAKA",
-    "engName": "Muranaka Yuki",
-    "showroom_id": "61763",
-    "jpnName": "村中 有基",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII Draft KKS",
-    "jpnTeam": "NMB48 チームBⅡドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MOMONE_YASUDA",
-    "engName": "Yasuda Momone",
-    "showroom_id": "61764",
-    "jpnName": "安田 桃寧",
-    "priority": 20,
-    "engTeam": "NMB48 Team BII Draft KKS",
-    "jpnTeam": "NMB48 チームBⅡドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RINA_KUSHIRO",
-    "engName": "Kushiro Rina",
-    "showroom_id": "61875",
-    "jpnName": "久代 梨奈",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKI_AZUMA",
-    "engName": "Azuma Yuki",
-    "showroom_id": "61868",
-    "jpnName": "東 由樹",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAO_MITA",
-    "engName": "Mita Mao",
-    "showroom_id": "61739",
-    "jpnName": "三田 麻央",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_FUUKO_YAGURA",
-    "engName": "Yagura Fuuko",
-    "showroom_id": "61742",
-    "jpnName": "矢倉 楓子",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AYAKA_MORITA",
-    "engName": "Morita Ayaka",
-    "showroom_id": "61741",
-    "jpnName": "森田 彩花",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AKARI_ISHIZUKA",
-    "engName": "Ishizuka Akari",
-    "showroom_id": "61869",
-    "jpnName": "石塚 朱莉",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIZUKI_UNO",
-    "engName": "Uno Mizuki",
-    "showroom_id": "61872",
-    "jpnName": "鵜野 みずき",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_REINA_NAKANO",
-    "engName": "Nakano Reina",
-    "showroom_id": "61878",
-    "jpnName": "中野 麗来",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MEGUMI_MATSUMURA",
-    "engName": "Matsumura Megumi",
-    "showroom_id": "61880",
-    "jpnName": "松村 芽久未",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SARA_TAKEI",
-    "engName": "Takei Sara",
-    "showroom_id": "61877",
-    "jpnName": "武井 紗良",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MIRU_SHIROMA",
-    "engName": "Shiroma Miru",
-    "showroom_id": "61876",
-    "jpnName": "白間 美瑠",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AZUSA_UEMURA",
-    "engName": "Uemura Azusa",
-    "showroom_id": "61871",
-    "jpnName": "植村 梓",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SAE_MURASE",
-    "engName": "Murase Sae",
-    "showroom_id": "61740",
-    "jpnName": "村瀬 紗英",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RENA_KAWAKAMI",
-    "engName": "Kawakami Rena",
-    "showroom_id": "61874",
-    "jpnName": "川上 礼奈",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AYAKA_OKITA",
-    "engName": "Okita Ayaka",
-    "showroom_id": "61873",
-    "jpnName": "沖田 彩華",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
   },
   {
     "web_url": "https://www.showroom-live.com/48_REINA_FUJIE",
     "engName": "Fujie Reina",
     "showroom_id": "61879",
+    "priority": 2,
     "jpnName": "藤江 れいな",
-    "priority": 20,
-    "engTeam": "NMB48 Team M",
-    "jpnTeam": "NMB48 チームM"
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_SHION_HORI",
-    "engName": "Hori Shion",
-    "showroom_id": "61761",
-    "jpnName": "堀 詩音",
-    "priority": 20,
-    "engTeam": "NMB48 Team M Draft KKS",
-    "jpnTeam": "NMB48 チームM ドラフト研究生"
+    "web_url": "https://www.showroom-live.com/48_Megu_Taniguchi",
+    "engName": "Taniguchi Megu",
+    "showroom_id": "61538",
+    "priority": 3,
+    "jpnName": "谷口 めぐ",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_RIKA_KISHINO",
-    "engName": "Kishino Rika",
-    "showroom_id": "61860",
-    "jpnName": "岸野 里香",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
+    "web_url": "https://www.showroom-live.com/48_Manami_Ichikawa",
+    "engName": "Ichikawa Manami",
+    "showroom_id": "61549",
+    "priority": 3,
+    "jpnName": "市川 愛美",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_ERIKO_JO",
-    "engName": "Jo Eriko",
-    "showroom_id": "61862",
-    "jpnName": "城 恵理子",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
+    "web_url": "https://www.showroom-live.com/48_Nana_Okada",
+    "engName": "Okada Nana",
+    "showroom_id": "61590",
+    "priority": 4,
+    "jpnName": "岡田 奈々",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_NATSUKO_AKASHI",
-    "engName": "Akashi Natsuko",
-    "showroom_id": "61856",
-    "jpnName": "明石 奈津子",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RURINA_NISHIZAWA",
-    "engName": "Nishizawa Rurina",
-    "showroom_id": "61864",
-    "jpnName": "西澤 瑠莉奈",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SAYAKA_YAMAMOTO",
-    "engName": "Yamamoto Sayaka",
-    "showroom_id": "61866",
-    "jpnName": "山本 彩",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RINA_YAMAO",
-    "engName": "Yamao Rina",
-    "showroom_id": "61865",
-    "jpnName": "山尾 梨奈",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUURI_OTA",
-    "engName": "Ota Yuuri",
-    "showroom_id": "61858",
-    "jpnName": "太田 夢莉",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUUMI_ISHIDA",
-    "engName": "Ishida Yuumi",
-    "showroom_id": "61857",
-    "jpnName": "石田 優美",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NARUMI_KOGA",
-    "engName": "Koga Narumi",
-    "showroom_id": "61861",
-    "jpnName": "古賀 成美",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RIRIKA_SUTO",
-    "engName": "Suto Ririka",
-    "showroom_id": "61863",
-    "jpnName": "須藤 凜々花",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AKARI_YOSHIDA",
-    "engName": "Yoshida Akari",
-    "showroom_id": "61867",
-    "jpnName": "吉田 朱里",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUUKA_KATO",
-    "engName": "Kato Yuuka",
-    "showroom_id": "61859",
-    "jpnName": "加藤 夕夏",
-    "priority": 20,
-    "engTeam": "NMB48 Team N",
-    "jpnTeam": "NMB48 チームN"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NANAMI_NISHINAKA",
-    "engName": "Nishinaka Nanami",
-    "showroom_id": "61759",
-    "jpnName": "西仲 七海",
-    "priority": 20,
-    "engTeam": "NMB48 Team N Draft KKS",
-    "jpnTeam": "NMB48 チームN ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUZUHA_HONGO",
-    "engName": "Hongou Yuzuha",
-    "showroom_id": "61760",
-    "jpnName": "本郷 柚巴",
-    "priority": 20,
-    "engTeam": "NMB48 Team N Draft KKS",
-    "jpnTeam": "NMB48 チームN ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_KANON_KIMOTO",
-    "engName": "Kimoto Kanon",
-    "showroom_id": "61683",
-    "jpnName": "木本 花音",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MARIKA_TANI",
-    "engName": "Tani Marika",
-    "showroom_id": "61840",
-    "jpnName": "谷 真理佳",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RARA_GOTO",
-    "engName": "Goto Rara",
-    "showroom_id": "61882",
-    "jpnName": "後藤 楽々",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_REONA_IDA",
-    "engName": "Ida Reona",
-    "showroom_id": "61679",
-    "jpnName": "井田 玲音名",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SANA_TAKATERA",
-    "engName": "Takatera Sana",
-    "showroom_id": "61883",
-    "jpnName": "髙寺 沙菜",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SUMIRE_SATO",
-    "engName": "Sato Sumire",
-    "showroom_id": "61836",
-    "jpnName": "佐藤 すみれ",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAKIKO_SAITO",
-    "engName": "Saito Makiko",
-    "showroom_id": "61834",
-    "jpnName": "斉藤 真木子",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AKARI_SUDA",
-    "engName": "Suda Akari",
-    "showroom_id": "61838",
-    "jpnName": "須田 亜香里",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NAO_FUKUSHI",
-    "engName": "Fukushi Nao",
-    "showroom_id": "61841",
-    "jpnName": "福士 奈央",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MEI_SAKAI",
-    "engName": "Sakai Mei",
-    "showroom_id": "61835",
-    "jpnName": "酒井 萌衣",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HARUKA_KUMAZAKI",
-    "engName": "Kumazaki Haruka",
-    "showroom_id": "61684",
-    "jpnName": "熊崎 晴香",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAYA_SUGAWARA",
-    "engName": "Sugawara Maya",
-    "showroom_id": "61837",
-    "jpnName": "菅原 茉椰",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NATSUKI_KAMATA",
-    "engName": "Kamata Natsuki",
-    "showroom_id": "61682",
-    "jpnName": "鎌田 菜月",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NARUMI_ICHINO",
-    "engName": "Ichino Narumi",
-    "showroom_id": "61680",
-    "jpnName": "市野 成美",
-    "priority": 20,
-    "engTeam": "SKE48 Team E",
-    "jpnTeam": "SKE48 チームE"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MINA_OBA",
-    "engName": "Oba Mina",
-    "showroom_id": "61573",
-    "jpnName": "大場 美奈",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SHIORI_AOKI",
-    "engName": "Aoki Shiori",
-    "showroom_id": "61833",
-    "jpnName": "青木 詩織",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Seina_Fukuoka",
+    "engName": "Fukuoka Seina",
+    "showroom_id": "61576",
+    "priority": 4,
+    "jpnName": "福岡 聖菜",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
   },
   {
     "web_url": "https://www.showroom-live.com/48_NAO_FURUHATA",
     "engName": "Furuhata Nao",
     "showroom_id": "61678",
+    "priority": 4,
     "jpnName": "古畑 奈和",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Saho_Iwatate",
+    "engName": "Iwatate Saho",
+    "showroom_id": "61585",
+    "priority": 5,
+    "jpnName": "岩立 沙穂",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Shinobu_Mogi",
+    "engName": "Mogi Shinobu",
+    "showroom_id": "61561",
+    "priority": 5,
+    "jpnName": "茂木 忍",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RARA_GOTO",
+    "engName": "Goto Rara",
+    "showroom_id": "61882",
+    "priority": 5,
+    "jpnName": "後藤 楽々",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
   },
   {
     "web_url": "https://www.showroom-live.com/48_AKANE_TAKAYANAGI",
     "engName": "Takayanagi Akane",
     "showroom_id": "61675",
+    "priority": 5,
     "jpnName": "高柳 明音",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_YUNA_EGO",
-    "engName": "Ego Yuna",
-    "showroom_id": "61571",
-    "jpnName": "江籠 裕奈",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Miu_Shitao",
+    "engName": "Shitao Miu",
+    "showroom_id": "61633",
+    "priority": 6,
+    "jpnName": "下尾 みう",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_SARINA_SODA",
-    "engName": "Souda Sarina",
-    "showroom_id": "61593",
-    "jpnName": "惣田 紗莉渚",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Yuuka_Tano",
+    "engName": "Tano Yuka",
+    "showroom_id": "61554",
+    "priority": 6,
+    "jpnName": "田野 優花",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_SAKI_TAKEUCHI",
-    "engName": "Takeuchi Saki",
-    "showroom_id": "61676",
-    "jpnName": "竹内 彩姫",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Miyuu_Omori",
+    "engName": "Omori Miyu",
+    "showroom_id": "61588",
+    "priority": 7,
+    "jpnName": "大森 美優",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_YUZUKI_HIDAKA",
-    "engName": "Hidaka Yuzuki",
-    "showroom_id": "61677",
-    "jpnName": "日高 優月",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Miyabi_Iino",
+    "engName": "Ino Miyabi",
+    "showroom_id": "61583",
+    "priority": 7,
+    "jpnName": "飯野 雅",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_YUKI_ARAI",
-    "engName": "Arai Yuki",
-    "showroom_id": "61566",
-    "jpnName": "荒井 優希",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Rina_Hirata",
+    "engName": "Hirata Rina",
+    "showroom_id": "61542",
+    "priority": 7,
+    "jpnName": "平田 梨奈",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_KOTONO_SHIRAI",
-    "engName": "Shirai Kotono",
-    "showroom_id": "61591",
-    "jpnName": "白井 琴望",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_Ami_Yumoto",
+    "engName": "Yumoto Ami",
+    "showroom_id": "61562",
+    "priority": 7,
+    "jpnName": "湯本 亜美",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_RUKA_KITANO",
-    "engName": "Kitano Ruka",
-    "showroom_id": "61581",
-    "jpnName": "北野 瑠華",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_NATSUMI_MATSUOKA",
+    "engName": "Matsuoka Natsumi",
+    "showroom_id": "61778",
+    "priority": 7,
+    "jpnName": "松岡 菜摘",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_NATSUKI_TAKATSUKA",
-    "engName": "Takatsuka Natsuki",
-    "showroom_id": "61595",
-    "jpnName": "髙塚 夏生",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_YAMAGUCHI_MAHO",
+    "engName": "Yamaguchi Maho",
+    "showroom_id": "61725",
+    "priority": 7,
+    "jpnName": "山口 真帆",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_MIKOTO_UCHIYAMA",
-    "engName": "Uchiyama Mikoto",
-    "showroom_id": "61569",
-    "jpnName": "内山 命",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_REINA_NAKANO",
+    "engName": "Nakano Reina",
+    "showroom_id": "61878",
+    "priority": 7,
+    "jpnName": "中野 麗来",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_YUNA_OBATA",
-    "engName": "Obata Yuna",
-    "showroom_id": "61577",
-    "jpnName": "小畑 優奈",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "web_url": "https://www.showroom-live.com/48_MIRU_SHIROMA",
+    "engName": "Shiroma Miru",
+    "showroom_id": "61876",
+    "priority": 7,
+    "jpnName": "白間 美瑠",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_AIRI_MIZUNO",
-    "engName": "Mizuno Airi",
-    "showroom_id": "61855",
-    "jpnName": "水野 愛理",
-    "priority": 20,
-    "engTeam": "SKE48 Team KII Draft KKS",
-    "jpnTeam": "SKE48 チームKⅡ ドラフト研究生"
+    "web_url": "https://www.showroom-live.com/48_Moe_Goto",
+    "engName": "Goto Moe",
+    "showroom_id": "61572",
+    "priority": 8,
+    "jpnName": "後藤 萌咲",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SAYAKA_YAMAMOTO",
+    "engName": "Yamamoto Sayaka",
+    "showroom_id": "61866",
+    "priority": 8,
+    "jpnName": "山本 彩",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
   },
   {
     "web_url": "https://www.showroom-live.com/48_RYOHA_KITAGAWA",
     "engName": "Kitagawa Ryoha",
     "showroom_id": "61816",
+    "priority": 8,
     "jpnName": "北川 綾巴",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_AIKA_SUGIYAMA",
-    "engName": "Sugiyama Aika",
-    "showroom_id": "61818",
-    "jpnName": "杉山 愛佳",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "web_url": "https://www.showroom-live.com/48_Yukari_Sasaki",
+    "engName": "Sasaki Yukari",
+    "showroom_id": "61534",
+    "priority": 9,
+    "jpnName": "佐々木 優佳里",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Hinana_Shimoguchi",
+    "engName": "Shimoguchi Hinana",
+    "showroom_id": "61553",
+    "priority": 9,
+    "jpnName": "下口 ひなな",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nana_Fujita",
+    "engName": "Fujita Nana",
+    "showroom_id": "61556",
+    "priority": 9,
+    "jpnName": "藤田 奈那",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Satone_Kubo",
+    "engName": "Kubo Satone",
+    "showroom_id": "61807",
+    "priority": 9,
+    "jpnName": "久保 怜音",
+    "jpnTeam": "AKB48 チームK ドラフト研究生",
+    "engTeam": "AKB48 Team K Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUURI_OTA",
+    "engName": "Ota Yuuri",
+    "showroom_id": "61858",
+    "priority": 9,
+    "jpnName": "太田 夢莉",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Tsumugi_Hayasaka",
+    "engName": "Hayasaka Tsumugi",
+    "showroom_id": "61613",
+    "priority": 10,
+    "jpnName": "早坂 つむぎ",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yui_Yokoyama_A",
+    "engName": "Yokoyama Yui",
+    "showroom_id": "61547",
+    "priority": 10,
+    "jpnName": "横山 由依",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ryoka_Oshima",
+    "engName": "Oshima Ryoka",
+    "showroom_id": "61564",
+    "priority": 10,
+    "jpnName": "大島 涼花",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ikumi_Nakano",
+    "engName": "Nakano Ikumi",
+    "showroom_id": "61629",
+    "priority": 10,
+    "jpnName": "中野 郁海",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Sayuna_Hama",
+    "engName": "Hama Sayuna",
+    "showroom_id": "61628",
+    "priority": 10,
+    "jpnName": "濵 咲友菜",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Haruka_Shimazaki",
+    "engName": "Shimazaki Haruka",
+    "showroom_id": "61536",
+    "priority": 10,
+    "jpnName": "島崎 遥香",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Mayu_Watanabe",
+    "engName": "Watanabe Mayu",
+    "showroom_id": "61582",
+    "priority": 10,
+    "jpnName": "渡辺 麻友",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Makiho_Tatsuya",
+    "engName": "Tatsuya Makiho",
+    "showroom_id": "61574",
+    "priority": 10,
+    "jpnName": "達家 真姫宝",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Mion_Mukaichi",
+    "engName": "Mukaichi Mion",
+    "showroom_id": "61559",
+    "priority": 10,
+    "jpnName": "向井地 美音",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Maria_Abe",
+    "engName": "Abe Maria",
+    "showroom_id": "61548",
+    "priority": 10,
+    "jpnName": "阿部 マリア",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nao_Nomura",
+    "engName": "Nomura Nao",
+    "showroom_id": "61806",
+    "priority": 10,
+    "jpnName": "野村 奈央",
+    "jpnTeam": "AKB48 チームK ドラフト研究生",
+    "engTeam": "AKB48 Team K Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUI_KOJINA",
+    "engName": "Kojina Yui",
+    "showroom_id": "61770",
+    "priority": 10,
+    "jpnName": "神志那 結衣",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SAKURA_MIYAWAKI",
+    "engName": "Miyawaki Sakura",
+    "showroom_id": "61794",
+    "priority": 10,
+    "jpnName": "宮脇 咲良",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIO_TOMONAGA",
+    "engName": "Tomonaga Mio",
+    "showroom_id": "61791",
+    "priority": 10,
+    "jpnName": "朝長 美桜",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_FUUKO_YAGURA",
+    "engName": "Yagura Fuuko",
+    "showroom_id": "61742",
+    "priority": 10,
+    "jpnName": "矢倉 楓子",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AKARI_YOSHIDA",
+    "engName": "Yoshida Akari",
+    "showroom_id": "61867",
+    "priority": 10,
+    "jpnName": "吉田 朱里",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Mako_Kojima",
+    "engName": "Kojima Mako",
+    "showroom_id": "61601",
+    "priority": 12,
+    "jpnName": "小嶋 真子",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Juri_Takahashi",
+    "engName": "Takahashi Juri",
+    "showroom_id": "61604",
+    "priority": 12,
+    "jpnName": "高橋 朱里",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Anna_Iriyama",
+    "engName": "Iriyama Anna",
+    "showroom_id": "61528",
+    "priority": 12,
+    "jpnName": "入山 杏奈",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nana_Owada",
+    "engName": "Owada Nana",
+    "showroom_id": "61531",
+    "priority": 12,
+    "jpnName": "大和田 南那",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Natsuki_Kojima",
+    "engName": "Kojima Natsuki",
+    "showroom_id": "61533",
+    "priority": 12,
+    "jpnName": "小嶋 菜月",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yui_Hiwatashi",
+    "engName": "Hiwatashi Yui",
+    "showroom_id": "61544",
+    "priority": 12,
+    "jpnName": "樋渡 結依",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Kayoko_Takita",
+    "engName": "Takita Kayoko",
+    "showroom_id": "61537",
+    "priority": 12,
+    "jpnName": "田北 香世子",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Rena_Kato",
+    "engName": "Kato Rena",
+    "showroom_id": "61567",
+    "priority": 12,
+    "jpnName": "加藤 玲奈",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yuria_Kizaki",
+    "engName": "Kizaki Yuria",
+    "showroom_id": "61568",
+    "priority": 12,
+    "jpnName": "木﨑 ゆりあ",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AOI_MOTOMURA",
+    "engName": "Motomura Aoi",
+    "showroom_id": "61796",
+    "priority": 12,
+    "jpnName": "本村 碧唯",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
   },
   {
     "web_url": "https://www.showroom-live.com/48_RION_AZUMA",
     "engName": "Azuma Rion",
     "showroom_id": "61813",
+    "priority": 12,
     "jpnName": "東 李苑",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_AMI_MIYAMAE",
-    "engName": "Miyamae Ami",
-    "showroom_id": "61826",
-    "jpnName": "宮前 杏実",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "web_url": "https://www.showroom-live.com/48_Kiara_Sato",
+    "engName": "Sato Kiara",
+    "showroom_id": "61603",
+    "priority": 15,
+    "jpnName": "佐藤 妃星",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_ASANA_INUZUKA",
-    "engName": "Inuzuka Asana",
-    "showroom_id": "61814",
-    "jpnName": "犬塚 あさな",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "web_url": "https://www.showroom-live.com/48_Saki_Kitazawa",
+    "engName": "Kitazawa Saki",
+    "showroom_id": "61596",
+    "priority": 15,
+    "jpnName": "北澤 早紀",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_KANO_NOJIMA",
-    "engName": "Nojima Kano",
-    "showroom_id": "61821",
-    "jpnName": "野島 樺乃",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "web_url": "https://www.showroom-live.com/48_Rio_Okawa",
+    "engName": "Okawa Rio",
+    "showroom_id": "61587",
+    "priority": 15,
+    "jpnName": "大川 莉央",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_RISAKO_GOTO",
-    "engName": "Goto Risako",
-    "showroom_id": "61817",
-    "jpnName": "後藤 理沙子",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "web_url": "https://www.showroom-live.com/48_Ayaka_Okada",
+    "engName": "Okada Ayaka",
+    "showroom_id": "61589",
+    "priority": 15,
+    "jpnName": "岡田 彩花",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
   },
   {
-    "web_url": "https://www.showroom-live.com/48_JUNA_YAMADA",
-    "engName": "Yamada Juna",
-    "showroom_id": "61832",
-    "jpnName": "山田 樹奈",
+    "web_url": "https://www.showroom-live.com/48_Saya_Kawamoto",
+    "engName": "Kawamoto Saya",
+    "showroom_id": "61594",
+    "priority": 15,
+    "jpnName": "川本 紗矢",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Miki_Nishino",
+    "engName": "Nishino Miki",
+    "showroom_id": "61605",
+    "priority": 15,
+    "jpnName": "西野 未姫",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Erii_Chiba",
+    "engName": "Chiba Erii",
+    "showroom_id": "61811",
+    "priority": 15,
+    "jpnName": "千葉 恵里",
+    "jpnTeam": "AKB48 チーム４ ドラフト研究生",
+    "engTeam": "AKB48 Team 4 Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Mariko_Nakamura",
+    "engName": "Nakamura Mariko",
+    "showroom_id": "61541",
+    "priority": 15,
+    "jpnName": "中村 麻里子",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Chiyori_Nakanishi",
+    "engName": "Nakanishi Chiyori",
+    "showroom_id": "61539",
+    "priority": 15,
+    "jpnName": "中西 智代梨",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Shizuka_Oya",
+    "engName": "Oya Shizuka",
+    "showroom_id": "61529",
+    "priority": 15,
+    "jpnName": "大家 志津香",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Miho_Miyazaki",
+    "engName": "Miyazaki Miho",
+    "showroom_id": "61546",
+    "priority": 15,
+    "jpnName": "宮崎 美穂",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yuki_Kashiwagi",
+    "engName": "Kashiwagi Yuki",
+    "showroom_id": "61565",
+    "priority": 15,
+    "jpnName": "柏木 由紀",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Aeri_Yokoshima",
+    "engName": "Yokoshima Aeri",
+    "showroom_id": "61580",
+    "priority": 15,
+    "jpnName": "横島 亜衿",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ayu_Yamabe",
+    "engName": "Yamabe Ayu",
+    "showroom_id": "61810",
+    "priority": 15,
+    "jpnName": "山邊 歩夢",
+    "jpnTeam": "AKB48 チームB ドラフト研究生",
+    "engTeam": "AKB48 Team B Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Rei_Nishikawa",
+    "engName": "Nishikawa Rei",
+    "showroom_id": "61809",
+    "priority": 15,
+    "jpnName": "西川 怜",
+    "jpnTeam": "AKB48 チームB ドラフト研究生",
+    "engTeam": "AKB48 Team B Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Kira_Takahashi",
+    "engName": "Takahashi Kira",
+    "showroom_id": "61808",
+    "priority": 15,
+    "jpnName": "高橋 希良",
+    "jpnTeam": "AKB48 チームB ドラフト研究生",
+    "engTeam": "AKB48 Team B Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ayana_Shinozaki",
+    "engName": "Shinozaki Ayana",
+    "showroom_id": "61551",
+    "priority": 15,
+    "jpnName": "篠崎 彩奈",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nyannyan_Kamen",
+    "engName": "Nyan Nyan Kamen",
+    "showroom_id": "61812",
+    "priority": 15,
+    "jpnName": "にゃんにゃん仮面",
+    "jpnTeam": "AKB48？",
+    "engTeam": "AKB48"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Haruka_Komiyama",
+    "engName": "Komiyama Haruka",
+    "showroom_id": "61602",
+    "priority": 15,
+    "jpnName": "込山 榛香",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAGISA_SHIBUYA",
+    "engName": "Shibuya Nagisa",
+    "showroom_id": "61753",
+    "priority": 17,
+    "jpnName": "渋谷 凪咲",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SHU_YABUSHITA",
+    "engName": "Yabushita Shu",
+    "showroom_id": "61757",
+    "priority": 17,
+    "jpnName": "薮下 柊",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Minami_Minegishi",
+    "engName": "Minegishi Minami",
+    "showroom_id": "61557",
     "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
+    "jpnName": "峯岸 みなみ",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AKARI_ISHIZUKA",
+    "engName": "Ishizuka Akari",
+    "showroom_id": "61869",
+    "priority": 20,
+    "jpnName": "石塚 朱莉",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YURIYA_INOUE",
+    "engName": "Inoue Yuriya",
+    "showroom_id": "61766",
+    "priority": 28,
+    "jpnName": "井上 由莉耶",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HARUKA_KODAMA",
+    "engName": "Kodama Haruka",
+    "showroom_id": "61771",
+    "priority": 28,
+    "jpnName": "兒玉 遥",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RIKO_SAKAGUCHI",
+    "engName": "Sakaguchi Riko",
+    "showroom_id": "61773",
+    "priority": 28,
+    "jpnName": "坂口 理子",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RINO_SASHIHARA",
+    "engName": "Sashihara Rino",
+    "showroom_id": "61774",
+    "priority": 28,
+    "jpnName": "指原 莉乃",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NATSUMI_TANAKA",
+    "engName": "Tanaka Natsumi",
+    "showroom_id": "61776",
+    "priority": 28,
+    "jpnName": "田中 菜津美",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAKO_YABUKI",
+    "engName": "Yabuki Nako",
+    "showroom_id": "61780",
+    "priority": 28,
+    "jpnName": "矢吹 奈子",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ANNA_MURASHIGE",
+    "engName": "Murashige Anna",
+    "showroom_id": "61795",
+    "priority": 28,
+    "jpnName": "村重 杏奈",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MADOKA_MORIYASU",
+    "engName": "Moriyasu Madoka",
+    "showroom_id": "61798",
+    "priority": 28,
+    "jpnName": "森保 まどか",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAI_FUCHIGAMI",
+    "engName": "Fuchigami Mai",
+    "showroom_id": "61793",
+    "priority": 28,
+    "jpnName": "渕上 舞",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKA_TANAKA",
+    "engName": "Tanaka Yuka",
+    "showroom_id": "61789",
+    "priority": 28,
+    "jpnName": "田中 優香",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_EMIKA_KAMIEDA",
+    "engName": "Kamieda Emika",
+    "showroom_id": "61749",
+    "priority": 28,
+    "jpnName": "上枝 恵美加",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ANNA_IJIRI",
+    "engName": "Ijiri Anna",
+    "showroom_id": "61743",
+    "priority": 28,
+    "jpnName": "井尻 晏菜",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KOKORO_NAIKI",
+    "engName": "Naiki Kokoro",
+    "showroom_id": "61754",
+    "priority": 28,
+    "jpnName": "内木 志",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAI_ODAN",
+    "engName": "Odan Mai",
+    "showroom_id": "61747",
+    "priority": 28,
+    "jpnName": "大段 舞依",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_CHIHIRO_KAWAKAMI",
+    "engName": "Kawakami Chihiro",
+    "showroom_id": "61750",
+    "priority": 28,
+    "jpnName": "川上 千尋",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KONOMI_KUSAKA",
+    "engName": "Kusaka Konomi",
+    "showroom_id": "61751",
+    "priority": 28,
+    "jpnName": "日下 このみ",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_CHIHO_MATSUOKA",
+    "engName": "Matsuoka Chiho",
+    "showroom_id": "61756",
+    "priority": 28,
+    "jpnName": "松岡 知穂",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MOMOKA_HAYASHI",
+    "engName": "Hayashi Momoka",
+    "showroom_id": "61755",
+    "priority": 28,
+    "jpnName": "林 萌々香",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIREI_UEDA",
+    "engName": "Ueda Mirei",
+    "showroom_id": "61746",
+    "priority": 28,
+    "jpnName": "植田 碧麗",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KANAE_ISO",
+    "engName": "Iso Kanae",
+    "showroom_id": "61744",
+    "priority": 28,
+    "jpnName": "磯 佳奈江",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HAZUKI_KUROKAWA",
+    "engName": "Kurokawa Hazuki",
+    "showroom_id": "61752",
+    "priority": 28,
+    "jpnName": "黒川 葉月",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MOMONE_YASUDA",
+    "engName": "Yasuda Momone",
+    "showroom_id": "61764",
+    "priority": 28,
+    "jpnName": "安田 桃寧",
+    "jpnTeam": "NMB48 チームBⅡドラフト研究生",
+    "engTeam": "NMB48 Team BII Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ERINA_ANDO",
+    "engName": "Ando Erina",
+    "showroom_id": "61762",
+    "priority": 28,
+    "jpnName": "安藤 愛璃菜",
+    "jpnTeam": "NMB48 チームBⅡ ドラフト研究生",
+    "engTeam": "NMB48 Team BII Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKI_MURANAKA",
+    "engName": "Muranaka Yuki",
+    "showroom_id": "61763",
+    "priority": 28,
+    "jpnName": "村中 有基",
+    "jpnTeam": "NMB48 チームBⅡドラフト研究生",
+    "engTeam": "NMB48 Team BII Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAO_MITA",
+    "engName": "Mita Mao",
+    "showroom_id": "61739",
+    "priority": 28,
+    "jpnName": "三田 麻央",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RINA_KUSHIRO",
+    "engName": "Kushiro Rina",
+    "showroom_id": "61875",
+    "priority": 28,
+    "jpnName": "久代 梨奈",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RENA_KAWAKAMI",
+    "engName": "Kawakami Rena",
+    "showroom_id": "61874",
+    "priority": 28,
+    "jpnName": "川上 礼奈",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SAE_MURASE",
+    "engName": "Murase Sae",
+    "showroom_id": "61740",
+    "priority": 28,
+    "jpnName": "村瀬 紗英",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKI_AZUMA",
+    "engName": "Azuma Yuki",
+    "showroom_id": "61868",
+    "priority": 28,
+    "jpnName": "東 由樹",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MEGUMI_MATSUMURA",
+    "engName": "Matsumura Megumi",
+    "showroom_id": "61880",
+    "priority": 28,
+    "jpnName": "松村 芽久未",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AYAKA_MORITA",
+    "engName": "Morita Ayaka",
+    "showroom_id": "61741",
+    "priority": 28,
+    "jpnName": "森田 彩花",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AZUSA_UEMURA",
+    "engName": "Uemura Azusa",
+    "showroom_id": "61871",
+    "priority": 28,
+    "jpnName": "植村 梓",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SARA_TAKEI",
+    "engName": "Takei Sara",
+    "showroom_id": "61877",
+    "priority": 28,
+    "jpnName": "武井 紗良",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AYAKA_OKITA",
+    "engName": "Okita Ayaka",
+    "showroom_id": "61873",
+    "priority": 28,
+    "jpnName": "沖田 彩華",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIZUKI_UNO",
+    "engName": "Uno Mizuki",
+    "showroom_id": "61872",
+    "priority": 28,
+    "jpnName": "鵜野 みずき",
+    "jpnTeam": "NMB48 チームM",
+    "engTeam": "NMB48 Team M"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SHION_HORI",
+    "engName": "Hori Shion",
+    "showroom_id": "61761",
+    "priority": 28,
+    "jpnName": "堀 詩音",
+    "jpnTeam": "NMB48 チームM ドラフト研究生",
+    "engTeam": "NMB48 Team M Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUUKA_KATO",
+    "engName": "Kato Yuuka",
+    "showroom_id": "61859",
+    "priority": 28,
+    "jpnName": "加藤 夕夏",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ERIKO_JO",
+    "engName": "Jo Eriko",
+    "showroom_id": "61862",
+    "priority": 28,
+    "jpnName": "城 恵理子",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RINA_YAMAO",
+    "engName": "Yamao Rina",
+    "showroom_id": "61865",
+    "priority": 28,
+    "jpnName": "山尾 梨奈",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RIKA_KISHINO",
+    "engName": "Kishino Rika",
+    "showroom_id": "61860",
+    "priority": 28,
+    "jpnName": "岸野 里香",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NATSUKO_AKASHI",
+    "engName": "Akashi Natsuko",
+    "showroom_id": "61856",
+    "priority": 28,
+    "jpnName": "明石 奈津子",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUUMI_ISHIDA",
+    "engName": "Ishida Yuumi",
+    "showroom_id": "61857",
+    "priority": 28,
+    "jpnName": "石田 優美",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RURINA_NISHIZAWA",
+    "engName": "Nishizawa Rurina",
+    "showroom_id": "61864",
+    "priority": 28,
+    "jpnName": "西澤 瑠莉奈",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RIRIKA_SUTO",
+    "engName": "Suto Ririka",
+    "showroom_id": "61863",
+    "priority": 28,
+    "jpnName": "須藤 凜々花",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SUMIRE_SATO",
+    "engName": "Sato Sumire",
+    "showroom_id": "61836",
+    "priority": 28,
+    "jpnName": "佐藤 すみれ",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HARUKA_KUMAZAKI",
+    "engName": "Kumazaki Haruka",
+    "showroom_id": "61684",
+    "priority": 28,
+    "jpnName": "熊崎 晴香",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAYA_SUGAWARA",
+    "engName": "Sugawara Maya",
+    "showroom_id": "61837",
+    "priority": 28,
+    "jpnName": "菅原 茉椰",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MARIKA_TANI",
+    "engName": "Tani Marika",
+    "showroom_id": "61840",
+    "priority": 28,
+    "jpnName": "谷 真理佳",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MINA_OBA",
+    "engName": "Oba Mina",
+    "showroom_id": "61573",
+    "priority": 28,
+    "jpnName": "大場 美奈",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
   },
   {
     "web_url": "https://www.showroom-live.com/48_JURINA_MATSUI",
     "engName": "Matsui Jurina",
     "showroom_id": "61823",
+    "priority": 28,
     "jpnName": "松井 珠理奈",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_CHIKAKO_MATSUMOTO",
-    "engName": "Matsumoto Chikako",
-    "showroom_id": "61824",
-    "jpnName": "松本 慈子",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_SUZURAN_YAMAUCHI",
-    "engName": "Yamauchi Suzuran",
-    "showroom_id": "61830",
-    "jpnName": "山内 鈴蘭",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HARUKA_FUTAMURA",
-    "engName": "Futamura Haruka",
-    "showroom_id": "61822",
-    "jpnName": "二村 春香",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_MAI_TAKEUCHI",
-    "engName": "Takeuchi Mai",
-    "showroom_id": "61819",
-    "jpnName": "竹内 舞",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUME_NOGUCHI",
-    "engName": "Noguchi Yume",
-    "showroom_id": "61820",
-    "jpnName": "野口 由芽",
-    "priority": 20,
-    "engTeam": "SKE48 Team S",
-    "jpnTeam": "SKE48 チームS"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_RENA_ISSHIKI",
-    "engName": "Isshiki Rena",
-    "showroom_id": "61853",
-    "jpnName": "一色 嶺奈",
-    "priority": 20,
-    "engTeam": "SKE48 Team S Draft KKS",
-    "jpnTeam": "SKE48 チームS ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AYUKA_KAMIMURA",
-    "engName": "Kamimura Ayuka",
-    "showroom_id": "61854",
-    "jpnName": "上村 亜柚香",
-    "priority": 20,
-    "engTeam": "SKE48 Team S Draft KKS",
-    "jpnTeam": "SKE48 チームS ドラフト研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_HONOKA_AIKAWA",
-    "engName": "Aikawa Honoka",
-    "showroom_id": "61842",
-    "jpnName": "相川 暖花",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NARUMI_KATAOKA",
-    "engName": "Kataoka Narumi",
-    "showroom_id": "61845",
-    "jpnName": "片岡 成美",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_OKA_SUENAGA",
-    "engName": "Suenaga Oka",
-    "showroom_id": "61847",
-    "jpnName": "末永 桜花",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AYAKA_OTA",
-    "engName": "Ota Ayaka",
-    "showroom_id": "61844",
-    "jpnName": "太田 彩夏",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_JUNNA_MURAI",
-    "engName": "Murai Junna",
-    "showroom_id": "61851",
-    "jpnName": "村井 純奈",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_AINA_WADA",
-    "engName": "Wada Aina",
-    "showroom_id": "61852",
-    "jpnName": "和田 愛菜",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_NARUMI_KAWASAKI",
-    "engName": "Kawasaki Narumi",
-    "showroom_id": "61846",
-    "jpnName": "川崎 成美",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKI_TAKAHATA",
-    "engName": "Takahata Yuki",
-    "showroom_id": "61848",
-    "jpnName": "髙畑 結希",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_YUKA_ASAI",
-    "engName": "Asai Yuka",
-    "showroom_id": "61843",
-    "jpnName": "浅井 裕華",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
-  },
-  {
-    "web_url": "https://www.showroom-live.com/48_OTOHA_MACHI",
-    "engName": "Machi Otoha",
-    "showroom_id": "61849",
-    "jpnName": "町 音葉",
-    "priority": 20,
-    "engTeam": "SKE48 KKS",
-    "jpnTeam": "SKE48 研究生"
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Mariya_Suzuki",
     "engName": "Suzuki Mariya",
     "showroom_id": "61737",
+    "priority": 28,
     "jpnName": "鈴木 まりや",
-    "priority": 20,
-    "engTeam": "SNH48 Team SII",
-    "jpnTeam": "SNH48 チームSⅡ"
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_NARUMI_KOGA",
+    "engName": "Koga Narumi",
+    "showroom_id": "61861",
+    "priority": 28,
+    "jpnName": "古賀 成美",
+    "jpnTeam": "NMB48 チームN",
+    "engTeam": "NMB48 Team N"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUZUHA_HONGO",
+    "engName": "Hongou Yuzuha",
+    "showroom_id": "61760",
+    "priority": 28,
+    "jpnName": "本郷 柚巴",
+    "jpnTeam": "NMB48 チームN ドラフト研究生",
+    "engTeam": "NMB48 Team N Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NANAMI_NISHINAKA",
+    "engName": "Nishinaka Nanami",
+    "showroom_id": "61759",
+    "priority": 28,
+    "jpnName": "西仲 七海",
+    "jpnTeam": "NMB48 チームN ドラフト研究生",
+    "engTeam": "NMB48 Team N Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KITAHARA_RIE",
+    "engName": "Kitahara Rie",
+    "showroom_id": "61711",
+    "priority": 29,
+    "jpnName": "北原 里英",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIORI_ICHIKAWA",
+    "engName": "Ichikawa Miori",
+    "showroom_id": "61745",
+    "priority": 29,
+    "jpnName": "市川 美織",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_REONA_IDA",
+    "engName": "Ida Reona",
+    "showroom_id": "61679",
+    "priority": 30,
+    "jpnName": "井田 玲音名",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NARUMI_ICHINO",
+    "engName": "Ichino Narumi",
+    "showroom_id": "61680",
+    "priority": 30,
+    "jpnName": "市野 成美",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAKIKO_SAITO",
+    "engName": "Saito Makiko",
+    "showroom_id": "61834",
+    "priority": 30,
+    "jpnName": "斉藤 真木子",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAO_FUKUSHI",
+    "engName": "Fukushi Nao",
+    "showroom_id": "61841",
+    "priority": 30,
+    "jpnName": "福士 奈央",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AKARI_SUDA",
+    "engName": "Suda Akari",
+    "showroom_id": "61838",
+    "priority": 30,
+    "jpnName": "須田 亜香里",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUNA_OBATA",
+    "engName": "Obata Yuna",
+    "showroom_id": "61577",
+    "priority": 30,
+    "jpnName": "小畑 優奈",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SARINA_SODA",
+    "engName": "Souda Sarina",
+    "showroom_id": "61593",
+    "priority": 30,
+    "jpnName": "惣田 紗莉渚",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKI_ARAI",
+    "engName": "Arai Yuki",
+    "showroom_id": "61566",
+    "priority": 30,
+    "jpnName": "荒井 優希",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HARUKA_FUTAMURA",
+    "engName": "Futamura Haruka",
+    "showroom_id": "61822",
+    "priority": 30,
+    "jpnName": "二村 春香",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AMI_MIYAMAE",
+    "engName": "Miyamae Ami",
+    "showroom_id": "61826",
+    "priority": 30,
+    "jpnName": "宮前 杏実",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SUZURAN_YAMAUCHI",
+    "engName": "Yamauchi Suzuran",
+    "showroom_id": "61830",
+    "priority": 30,
+    "jpnName": "山内 鈴蘭",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_JUNA_YAMADA",
+    "engName": "Yamada Juna",
+    "showroom_id": "61832",
+    "priority": 30,
+    "jpnName": "山田 樹奈",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_CHIKAKO_MATSUMOTO",
+    "engName": "Matsumoto Chikako",
+    "showroom_id": "61824",
+    "priority": 30,
+    "jpnName": "松本 慈子",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAI_TAKEUCHI",
+    "engName": "Takeuchi Mai",
+    "showroom_id": "61819",
+    "priority": 30,
+    "jpnName": "竹内 舞",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Chia-Ling_Ma",
+    "engName": "Ma Chia-Ling",
+    "showroom_id": "61578",
+    "priority": 30,
+    "jpnName": "馬 嘉伶",
+    "jpnTeam": "AKB48 チームB 台湾留学生",
+    "engTeam": "AKB48 Team B "
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YAMADA_NOE",
+    "engName": "Yamada Noe",
+    "showroom_id": "61726",
+    "priority": 30,
+    "jpnName": "山田 野絵",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HOMMA_HINATA",
+    "engName": "Honma Hinata",
+    "showroom_id": "61723",
+    "priority": 30,
+    "jpnName": "本間 日陽",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_OGINO_YUKA",
+    "engName": "Ogino Yuka",
+    "showroom_id": "61707",
+    "priority": 30,
+    "jpnName": "荻野 由佳",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_TAKAKURA_MOEKA",
+    "engName": "Takakura Moeka",
+    "showroom_id": "61885",
+    "priority": 30,
+    "jpnName": "高倉 萌香",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Haruka_Shimada",
+    "engName": "Shimada Haruka",
+    "showroom_id": "61552",
+    "priority": 35,
+    "jpnName": "島田 晴香",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yui_Yokoyama_8",
+    "engName": "Yokoyama Yui 8",
+    "showroom_id": "61610",
+    "priority": 36,
+    "jpnName": "横山 結衣",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HARUKA_UENO",
+    "engName": "Ueno Haruka",
+    "showroom_id": "61768",
+    "priority": 36,
+    "jpnName": "上野 遥",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MASHIRO_UI",
+    "engName": "Ui Mashiro",
+    "showroom_id": "61767",
+    "priority": 36,
+    "jpnName": "宇井 真白",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAO_YAMAMOTO",
+    "engName": "Yamamoto Mao",
+    "showroom_id": "61782",
+    "priority": 36,
+    "jpnName": "山本 茉央",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MARINA_YAMADA",
+    "engName": "Yamada Marina",
+    "showroom_id": "61781",
+    "priority": 36,
+    "jpnName": "山田 麻莉奈",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAOKO_OKAMOTO",
+    "engName": "Okamoto Naoko",
+    "showroom_id": "61769",
+    "priority": 36,
+    "jpnName": "岡本 尚子",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIKU_TANAKA",
+    "engName": "Tanaka Miku",
+    "showroom_id": "61777",
+    "priority": 36,
+    "jpnName": "田中 美久",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MERU_TASHIMA",
+    "engName": "Tashima Meru",
+    "showroom_id": "61775",
+    "priority": 36,
+    "jpnName": "田島 芽瑠",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKA_AKIYOSHI",
+    "engName": "Akiyoshi Yuka",
+    "showroom_id": "61765",
+    "priority": 36,
+    "jpnName": "秋吉 優花",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HARUKA_WAKATABE",
+    "engName": "Wakatabe Haruka",
+    "showroom_id": "61783",
+    "priority": 36,
+    "jpnName": "若田部 遥",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HIROKA_KOMADA",
+    "engName": "Komada Hiroka",
+    "showroom_id": "61772",
+    "priority": 36,
+    "jpnName": "駒田 京伽",
+    "jpnTeam": "HKT48 チームH",
+    "engTeam": "HKT48 Team H"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Rina_Izuta",
+    "engName": "Izuta Rina",
+    "showroom_id": "61584",
+    "priority": 40,
+    "jpnName": "伊豆田 莉奈",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KATO_MINAMI",
+    "engName": "Kato Minami",
+    "showroom_id": "61710",
+    "priority": 40,
+    "jpnName": "加藤 美南",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_TANO_AYAKA",
+    "engName": "Tano Ayaka",
+    "showroom_id": "61719",
+    "priority": 40,
+    "jpnName": "太野 彩香",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAKAI_RIKA",
+    "engName": "Nakai Rika",
+    "showroom_id": "61720",
+    "priority": 40,
+    "jpnName": "中井 りか",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Miyu_Yoshino",
+    "engName": "Yoshino Miyu",
+    "showroom_id": "61643",
+    "priority": 42,
+    "jpnName": "吉野 未優",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nagisa_Sakaguchi",
+    "engName": "Sakaguchi Nagisa",
+    "showroom_id": "61609",
+    "priority": 42,
+    "jpnName": "坂口 渚沙",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yui_Oguri",
+    "engName": "Oguri Yui",
+    "showroom_id": "61540",
+    "priority": 42,
+    "jpnName": "小栗 有以",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Erina_Oda",
+    "engName": "Oda Erina",
+    "showroom_id": "61543",
+    "priority": 42,
+    "jpnName": "小田 えりな",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nanami_Yamada",
+    "engName": "Yamada Nanami",
+    "showroom_id": "61622",
+    "priority": 42,
+    "jpnName": "山田 菜々美",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yuna_Hattori",
+    "engName": "Hattori Yuna",
+    "showroom_id": "61563",
+    "priority": 42,
+    "jpnName": "服部 有菜",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yuri_Yokomichi",
+    "engName": "Yokomichi Yuri",
+    "showroom_id": "61555",
+    "priority": 42,
+    "jpnName": "横道 侑里",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Moeri_Kondo",
+    "engName": "Kondo Moeri",
+    "showroom_id": "61616",
+    "priority": 42,
+    "jpnName": "近藤 萌恵里",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Kurena_Cho",
+    "engName": "Chou Kurena",
+    "showroom_id": "61592",
+    "priority": 42,
+    "jpnName": "長 久玲奈",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MARIA_IMAMURA",
+    "engName": "Imamura Maria",
+    "showroom_id": "61800",
+    "priority": 42,
+    "jpnName": "今村 麻莉愛",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HANA_MATSUOKA",
+    "engName": "Matsuoka Hana",
+    "showroom_id": "61703",
+    "priority": 42,
+    "jpnName": "松岡 はな",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Karin_Shimoaoki",
+    "engName": "Shimoaoki Karin",
+    "showroom_id": "61804",
+    "priority": 46,
+    "jpnName": "下青木 香鈴",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Kotone_Hitomi",
+    "engName": "Hitomi Kotone",
+    "showroom_id": "61631",
+    "priority": 46,
+    "jpnName": "人見 古都音",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nanami_Sato",
+    "engName": "Sato Nanami",
+    "showroom_id": "61612",
+    "priority": 46,
+    "jpnName": "佐藤 七海",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Akari_Sato",
+    "engName": "Sato Akari",
+    "showroom_id": "61614",
+    "priority": 46,
+    "jpnName": "佐藤 朱",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Shiori_Sato",
+    "engName": "Sato Shiori",
+    "showroom_id": "61545",
+    "priority": 46,
+    "jpnName": "佐藤 栞",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Narumi_Kuranoo",
+    "engName": "Kuranoo Narumi",
+    "showroom_id": "61641",
+    "priority": 46,
+    "jpnName": "倉野尾 成美",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Reina_Kita",
+    "engName": "Kita Reina",
+    "showroom_id": "61586",
+    "priority": 46,
+    "jpnName": "北 玲名",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nanase_Yoshikawa",
+    "engName": "Yoshikawa Nanase",
+    "showroom_id": "61535",
+    "priority": 46,
+    "jpnName": "吉川 七瀬",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Karen_Yoshida",
+    "engName": "Yoshida Karen",
+    "showroom_id": "61639",
+    "priority": 46,
+    "jpnName": "吉田 華恋",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Momoka_Onishi",
+    "engName": "Onishi Momoka",
+    "showroom_id": "61627",
+    "priority": 46,
+    "jpnName": "大西 桃香",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Nao_Ota",
+    "engName": "Ota Nao",
+    "showroom_id": "61621",
+    "priority": 46,
+    "jpnName": "太田 奈緒",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Rira_Miyazato",
+    "engName": "Miyazato Rira",
+    "showroom_id": "61805",
+    "priority": 46,
+    "jpnName": "宮里 莉羅",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ruka_Yamamoto",
+    "engName": "Yamamoto Ruka",
+    "showroom_id": "61626",
+    "priority": 46,
+    "jpnName": "山本 瑠香",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKI_SHIMONO",
+    "engName": "Shimono Yuki",
+    "showroom_id": "61788",
+    "priority": 52,
+    "jpnName": "下野 由貴",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MINA_IMADA",
+    "engName": "Imada Mina",
+    "showroom_id": "61784",
+    "priority": 52,
+    "jpnName": "今田 美奈",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ASUKA_TOMIYOSHI",
+    "engName": "Tomiyoshi Asuka",
+    "showroom_id": "61790",
+    "priority": 52,
+    "jpnName": "冨吉 明日香",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SHINO_IWAHANA",
+    "engName": "Iwahana Shino",
+    "showroom_id": "61785",
+    "priority": 52,
+    "jpnName": "岩花 詩乃",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAO_UEKI",
+    "engName": "Ueki Nao",
+    "showroom_id": "61786",
+    "priority": 52,
+    "jpnName": "植木 南央",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MAIKO_FUKAGAWA",
+    "engName": "Fukagawa Maiko",
+    "showroom_id": "61792",
+    "priority": 52,
+    "jpnName": "深川 舞子",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SERINA_KUMAZAWA",
+    "engName": "Kumazawa Serina",
+    "showroom_id": "61787",
+    "priority": 52,
+    "jpnName": "熊沢 世莉奈",
+    "jpnTeam": "HKT48 チームKⅣ",
+    "engTeam": "HKT48 Team KIV"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ERENA_SAKAMOTO",
+    "engName": "Sakamoto Erena",
+    "showroom_id": "61802",
+    "priority": 52,
+    "jpnName": "坂本 愛玲菜",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HAZUKI_HOKAZONO",
+    "engName": "Hokazono Hazuki",
+    "showroom_id": "61702",
+    "priority": 52,
+    "jpnName": "外薗 葉月",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_EMIRI_YAMASHITA",
+    "engName": "Yamashita Emiri",
+    "showroom_id": "61706",
+    "priority": 52,
+    "jpnName": "山下 エミリー",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUNA_YAMAUCHI",
+    "engName": "Yamauchi Yuna",
+    "showroom_id": "61705",
+    "priority": 52,
+    "jpnName": "山内 祐奈",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_BIBIAN_MURAKAWA",
+    "engName": "Murakawa Vivian",
+    "showroom_id": "61704",
+    "priority": 52,
+    "jpnName": "村川 緋杏",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SAE_KURIHARA",
+    "engName": "Kurihara Sae",
+    "showroom_id": "61801",
+    "priority": 52,
+    "jpnName": "栗原 紗英",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RIKO_TSUTSUI",
+    "engName": "Tsutsui Riko",
+    "showroom_id": "61701",
+    "priority": 52,
+    "jpnName": "筒井 莉子",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MISAKI_ARAMAKI",
+    "engName": "Aramaki Misaki",
+    "showroom_id": "61799",
+    "priority": 52,
+    "jpnName": "荒巻 美咲",
+    "jpnTeam": "HKT48 チームTⅡ",
+    "engTeam": "HKT48 Team TII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AINA_WADA",
+    "engName": "Wada Aina",
+    "showroom_id": "61852",
+    "priority": 55,
+    "jpnName": "和田 愛菜",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AYAKA_OTA",
+    "engName": "Ota Ayaka",
+    "showroom_id": "61844",
+    "priority": 55,
+    "jpnName": "太田 彩夏",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NARUMI_KAWASAKI",
+    "engName": "Kawasaki Narumi",
+    "showroom_id": "61846",
+    "priority": 55,
+    "jpnName": "川崎 成美",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_OKA_SUENAGA",
+    "engName": "Suenaga Oka",
+    "showroom_id": "61847",
+    "priority": 55,
+    "jpnName": "末永 桜花",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_JUNNA_MURAI",
+    "engName": "Murai Junna",
+    "showroom_id": "61851",
+    "priority": 55,
+    "jpnName": "村井 純奈",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKA_ASAI",
+    "engName": "Asai Yuka",
+    "showroom_id": "61843",
+    "priority": 55,
+    "jpnName": "浅井 裕華",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NARUMI_KATAOKA",
+    "engName": "Kataoka Narumi",
+    "showroom_id": "61845",
+    "priority": 55,
+    "jpnName": "片岡 成美",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_OTOHA_MACHI",
+    "engName": "Machi Otoha",
+    "showroom_id": "61849",
+    "priority": 55,
+    "jpnName": "町 音葉",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HONOKA_AIKAWA",
+    "engName": "Aikawa Honoka",
+    "showroom_id": "61842",
+    "priority": 55,
+    "jpnName": "相川 暖花",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUKI_TAKAHATA",
+    "engName": "Takahata Yuki",
+    "showroom_id": "61848",
+    "priority": 55,
+    "jpnName": "髙畑 結希",
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KANON_KIMOTO",
+    "engName": "Kimoto Kanon",
+    "showroom_id": "61683",
+    "priority": 55,
+    "jpnName": "木本 花音",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MEI_SAKAI",
+    "engName": "Sakai Mei",
+    "showroom_id": "61835",
+    "priority": 55,
+    "jpnName": "酒井 萌衣",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NATSUKI_KAMATA",
+    "engName": "Kamata Natsuki",
+    "showroom_id": "61682",
+    "priority": 55,
+    "jpnName": "鎌田 菜月",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SANA_TAKATERA",
+    "engName": "Takatera Sana",
+    "showroom_id": "61883",
+    "priority": 55,
+    "jpnName": "髙寺 沙菜",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIKOTO_UCHIYAMA",
+    "engName": "Uchiyama Mikoto",
+    "showroom_id": "61569",
+    "priority": 55,
+    "jpnName": "内山 命",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RUKA_KITANO",
+    "engName": "Kitano Ruka",
+    "showroom_id": "61581",
+    "priority": 55,
+    "jpnName": "北野 瑠華",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUZUKI_HIDAKA",
+    "engName": "Hidaka Yuzuki",
+    "showroom_id": "61677",
+    "priority": 55,
+    "jpnName": "日高 優月",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUNA_EGO",
+    "engName": "Ego Yuna",
+    "showroom_id": "61571",
+    "priority": 55,
+    "jpnName": "江籠 裕奈",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KOTONO_SHIRAI",
+    "engName": "Shirai Kotono",
+    "showroom_id": "61591",
+    "priority": 55,
+    "jpnName": "白井 琴望",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SAKI_TAKEUCHI",
+    "engName": "Takeuchi Saki",
+    "showroom_id": "61676",
+    "priority": 55,
+    "jpnName": "竹内 彩姫",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SHIORI_AOKI",
+    "engName": "Aoki Shiori",
+    "showroom_id": "61833",
+    "priority": 55,
+    "jpnName": "青木 詩織",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NATSUKI_TAKATSUKA",
+    "engName": "Takatsuka Natsuki",
+    "showroom_id": "61595",
+    "priority": 55,
+    "jpnName": "髙塚 夏生",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AIRI_MIZUNO",
+    "engName": "Mizuno Airi",
+    "showroom_id": "61855",
+    "priority": 55,
+    "jpnName": "水野 愛理",
+    "jpnTeam": "SKE48 チームKⅡ ドラフト研究生",
+    "engTeam": "SKE48 Team KII Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RISAKO_GOTO",
+    "engName": "Goto Risako",
+    "showroom_id": "61817",
+    "priority": 55,
+    "jpnName": "後藤 理沙子",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AIKA_SUGIYAMA",
+    "engName": "Sugiyama Aika",
+    "showroom_id": "61818",
+    "priority": 55,
+    "jpnName": "杉山 愛佳",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_ASANA_INUZUKA",
+    "engName": "Inuzuka Asana",
+    "showroom_id": "61814",
+    "priority": 55,
+    "jpnName": "犬塚 あさな",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_YUME_NOGUCHI",
+    "engName": "Noguchi Yume",
+    "showroom_id": "61820",
+    "priority": 55,
+    "jpnName": "野口 由芽",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KANO_NOJIMA",
+    "engName": "Nojima Kano",
+    "showroom_id": "61821",
+    "priority": 55,
+    "jpnName": "野島 樺乃",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_RENA_ISSHIKI",
+    "engName": "Isshiki Rena",
+    "showroom_id": "61853",
+    "priority": 55,
+    "jpnName": "一色 嶺奈",
+    "jpnTeam": "SKE48 チームS ドラフト研究生",
+    "engTeam": "SKE48 Team S Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_AYUKA_KAMIMURA",
+    "engName": "Kamimura Ayuka",
+    "showroom_id": "61854",
+    "priority": 55,
+    "jpnName": "上村 亜柚香",
+    "jpnTeam": "SKE48 チームS ドラフト研究生",
+    "engTeam": "SKE48 Team S Draft KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Rin_Okabe",
+    "engName": "Okabe Rin",
+    "showroom_id": "61617",
+    "priority": 60,
+    "jpnName": "岡部 麟",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ayaka_Hidaritomo",
+    "engName": "Hidaritomo Ayaka",
+    "showroom_id": "61550",
+    "priority": 60,
+    "jpnName": "左伴 彩佳",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Natsuki_Hirose",
+    "engName": "Hirose Natsuki",
+    "showroom_id": "61638",
+    "priority": 60,
+    "jpnName": "廣瀬 なつき",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Hitomi_Honda",
+    "engName": "Honda Hitomi",
+    "showroom_id": "61618",
+    "priority": 60,
+    "jpnName": "本田 仁美",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Haruna_Hashimoto",
+    "engName": "Hashimoto Haruna",
+    "showroom_id": "61570",
+    "priority": 60,
+    "jpnName": "橋本 陽菜",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Serika_Nagano",
+    "engName": "Nagano Serika",
+    "showroom_id": "61619",
+    "priority": 60,
+    "jpnName": "永野 芹佳",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Maria_Shimizu",
+    "engName": "Shimizu Maria",
+    "showroom_id": "61530",
+    "priority": 60,
+    "jpnName": "清水 麻璃亜",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Riona_Hamamatsu",
+    "engName": "Hamamatsu Riona",
+    "showroom_id": "61634",
+    "priority": 60,
+    "jpnName": "濵松 里緒菜",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Rena_Fukuchi",
+    "engName": "Fukuchi Rena",
+    "showroom_id": "61640",
+    "priority": 60,
+    "jpnName": "福地 礼奈",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Kasumi_Mougi",
+    "engName": "Mogi Kasumi",
+    "showroom_id": "61615",
+    "priority": 60,
+    "jpnName": "舞木 香純",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yurina_Gyoten",
+    "engName": "Gyouten Yurina",
+    "showroom_id": "61636",
+    "priority": 60,
+    "jpnName": "行天 優莉奈",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Yuri_Tani",
+    "engName": "Tani Yuri",
+    "showroom_id": "61632",
+    "priority": 60,
+    "jpnName": "谷 優里",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Moka_Yaguchi",
+    "engName": "Yaguchi Moka",
+    "showroom_id": "61645",
+    "priority": 50,
+    "jpnName": "谷口 もか",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Hijiri_Tanikawa",
+    "engName": "Tanikawa Hijiri",
+    "showroom_id": "61611",
+    "priority": 60,
+    "jpnName": "谷川 聖",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Mei_Abe",
+    "engName": "Abe Mei",
+    "showroom_id": "61630",
+    "priority": 60,
+    "jpnName": "阿部 芽唯",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Kaoru_Takaoka",
+    "engName": "Takaoka Kaoru",
+    "showroom_id": "61637",
+    "priority": 60,
+    "jpnName": "高岡 薫",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_Ayane_Takahashi",
+    "engName": "Takahashi Ayane",
+    "showroom_id": "61532",
+    "priority": 60,
+    "jpnName": "髙橋 彩音",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NAKAMURA_AYUKA",
+    "engName": "Nakamura Ayuka",
+    "showroom_id": "61732",
+    "priority": 55,
+    "jpnName": "中村 歩加",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_OTAKI_YURIA",
+    "engName": "Otaki Yuria",
+    "showroom_id": "61727",
+    "priority": 55,
+    "jpnName": "大滝 友梨亜",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NARA_MIHARU",
+    "engName": "Nara Miharu",
+    "showroom_id": "61733",
+    "priority": 55,
+    "jpnName": "奈良 未遥",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIYAJIMA_AYA",
+    "engName": "Miyajima Aya",
+    "showroom_id": "61736",
+    "priority": 55,
+    "jpnName": "宮島 亜弥",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KUSAKABE_AINA",
+    "engName": "Kusakabe Aina",
+    "showroom_id": "61729",
+    "priority": 55,
+    "jpnName": "日下部 愛菜 ",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MIZUSAWA_AYAKA",
+    "engName": "Mizusawa Ayaka",
+    "showroom_id": "61735",
+    "priority": 55,
+    "jpnName": "水澤 彩佳",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SEIJI_REINA",
+    "engName": "Seiji Reina",
+    "showroom_id": "61730",
+    "priority": 55,
+    "jpnName": "清司 麗菜",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NISHIMURA_NANAKO",
+    "engName": "Nishimura Nanako",
+    "showroom_id": "61734",
+    "priority": 55,
+    "jpnName": "西村 菜那子",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_KADO_YURIA",
+    "engName": "Kado Yuria",
+    "showroom_id": "61728",
+    "priority": 55,
+    "jpnName": "角 ゆりあ",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_TAKAHASHI_MAU",
+    "engName": "Takahashi Mau",
+    "showroom_id": "61731",
+    "priority": 55,
+    "jpnName": "髙橋 真生",
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SATO_ANJU",
+    "engName": "Sato Anju",
+    "showroom_id": "61712",
+    "priority": 55,
+    "jpnName": "佐藤 杏樹",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_OGUMA_TSUGUMI",
+    "engName": "Oguma Tsugumi",
+    "showroom_id": "61884",
+    "priority": 55,
+    "jpnName": "小熊 倫実",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_MURAKUMO_FUKA",
+    "engName": "Murakumo Fuka",
+    "showroom_id": "61724",
+    "priority": 55,
+    "jpnName": "村雲 颯香",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_SUGAHARA_RIKO",
+    "engName": "Sugahara Riko",
+    "showroom_id": "61713",
+    "priority": 55,
+    "jpnName": "菅原 りこ",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_NISHIGATA_MARINA",
+    "engName": "Nishigata Marina",
+    "showroom_id": "61721",
+    "priority": 55,
+    "jpnName": "西潟 茉莉奈",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/48_HASEGAWA_RENA",
+    "engName": "Hasegawa Rena",
+    "showroom_id": "61722",
+    "priority": 55,
+    "jpnName": "長谷川 玲奈",
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII"
+  },
+  {
+    "jpnTeam": "",
     "engName": "MyaoRoom",
     "showroom_id": "58834",
-    "web_url": "https://www.showroom-live.com/myaoroom",
-    "engTeam": "Other",
     "priority": 20,
     "jpnName": "みゃおの部屋",
-    "jpnTeam": ""
+    "web_url": "https://www.showroom-live.com/myaoroom",
+    "engTeam": "Other"
   },
   {
+    "jpnTeam": "",
     "engName": "USJ48 YariSugi Summer",
     "showroom_id": "67666",
-    "web_url": "https://www.showroom-live.com/usj48_yarisugisummer",
-    "engTeam": "Other",
     "priority": 20,
     "jpnName": "やり過ぎ！サマーSPECIAL",
-    "jpnTeam": ""
+    "web_url": "https://www.showroom-live.com/usj48_yarisugisummer",
+    "engTeam": "Other"
   },
   {
+    "jpnTeam": "",
     "engName": "Yagami Kumi",
     "showroom_id": "56069",
-    "web_url": "https://www.showroom-live.com/yagami-kumi",
-    "engTeam": "SKE48",
     "priority": 20,
     "jpnName": "矢神久美のや～かみカミするよ",
-    "jpnTeam": ""
+    "web_url": "https://www.showroom-live.com/yagami-kumi",
+    "engTeam": "SKE48"
   },
   {
+    "jpnTeam": "",
     "engName": "Majisuka Gakuen Musical",
     "showroom_id": "67940",
-    "web_url": "https://www.showroom-live.com/maji2016",
-    "engTeam": "Other",
     "priority": 20,
     "jpnName": "～立ち上がるマジ女たち～",
-    "jpnTeam": ""
+    "web_url": "https://www.showroom-live.com/maji2016",
+    "engTeam": "Other"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_AYAKA_YAMAMOTO",
     "engName": "Yamamoto Ayaka",
     "showroom_id": "69443",
-    "web_url": "https://www.showroom-live.com/48_AYAKA_YAMAMOTO",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "山本 彩加",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_MION_NAKAGAWA",
     "engName": "Nakagawa Mion",
     "showroom_id": "69439",
-    "web_url": "https://www.showroom-live.com/48_MION_NAKAGAWA",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "中川 美音",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_COCONA_UMEYAMA",
     "engName": "Umeyama Kokona",
     "showroom_id": "69435",
-    "web_url": "https://www.showroom-live.com/48_COCONA_UMEYAMA",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "梅山 恋和",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_KARIN_KOJIMA",
     "engName": "Kojima Karin",
     "showroom_id": "69436",
-    "web_url": "https://www.showroom-live.com/48_KARIN_KOJIMA",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "小嶋 花梨",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_RIKA_SHIMIZU",
     "engName": "Shimizu Rika",
     "showroom_id": "69437",
-    "web_url": "https://www.showroom-live.com/48_RIKA_SHIMIZU",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "清水 里香",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_REI_JONISHI",
     "engName": "Jonishi Rei",
     "showroom_id": "69438",
-    "web_url": "https://www.showroom-live.com/48_REI_JONISHI",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "上西 怜",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_SHIORI_MIZUTA",
     "engName": "Mizuta Shiori",
     "showroom_id": "69440",
-    "web_url": "https://www.showroom-live.com/48_SHIORI_MIZUTA",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "水田 詩織",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_MIRAI_MIZOKAWA",
     "engName": "Mizokawa Mirai",
     "showroom_id": "69441",
-    "web_url": "https://www.showroom-live.com/48_MIRAI_MIZOKAWA",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "溝川 実来",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
+    "web_url": "https://www.showroom-live.com/48_SUZU_YAMADA",
     "engName": "Yamada Suzu",
     "showroom_id": "69442",
-    "web_url": "https://www.showroom-live.com/48_SUZU_YAMADA",
-    "engTeam": "NMB48 KKS",
     "priority": 20,
     "jpnName": "山田 寿々",
-    "jpnTeam": "NMB48 研究生"
+    "jpnTeam": "NMB48 研究生",
+    "engTeam": "NMB48 KKS"
   },
   {
     "web_url": "https://www.showroom-live.com/48_HARUNA_KINOSHITA",
     "engName": "Kinoshita Haruna",
     "showroom_id": "67802",
-    "jpnName": "木下 春奈",
     "priority": 20,
-    "engTeam": "NMB48 Team BII",
-    "jpnTeam": "NMB48 チームBⅡ"
+    "jpnName": "木下 春奈",
+    "jpnTeam": "NMB48 チームBⅡ",
+    "engTeam": "NMB48 Team BII"
   },
   {
     "web_url": "https://www.showroom-live.com/crows_blood",
     "engName": "CROW’S BLOOD Reactions",
     "showroom_id": "68872",
-    "jpnName": "CROW’S BLOOD鑑賞",
     "priority": 20,
-    "engTeam": "Other",
-    "jpnTeam": ""
+    "jpnName": "CROW’S BLOOD鑑賞",
+    "jpnTeam": "",
+    "engTeam": "Other"
   },
   {
     "web_url": "https://www.showroom-live.com/nmb48_official",
     "engName": "NMB48 Official Showroom",
     "showroom_id": "69404",
-    "jpnName": "Official Showroom",
     "priority": 20,
-    "engTeam": "Other",
-    "jpnTeam": ""
+    "jpnName": "Official Showroom",
+    "jpnTeam": "",
+    "engTeam": "Other"
   },
   {
     "web_url": "https://www.showroom-live.com/akb48_official",
     "engName": "AKB48 Official Showroom",
     "showroom_id": "70088",
-    "jpnName": "Official Showroom",
     "priority": 20,
-    "engTeam": "Other",
-    "jpnTeam": ""
+    "jpnName": "Official Showroom",
+    "jpnTeam": "",
+    "engTeam": "Other"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Hinano_Noda",
     "engName": "Noda Hinano",
     "showroom_id": "67788",
-    "jpnName": "野田 陽菜乃",
     "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
+    "jpnName": "野田 陽菜乃",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
   },
   {
     "web_url": "https://www.showroom-live.com/48_YUMANA_TAKAGI",
     "engName": "Takagi Yumana",
     "showroom_id": "67795",
-    "jpnName": "高木 由麻奈",
     "priority": 20,
-    "engTeam": "SKE48 Team KII",
-    "jpnTeam": "SKE48 チームKⅡ"
+    "jpnName": "高木 由麻奈",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Misaki_Terada",
     "engName": "Terada Misaki",
     "showroom_id": "67789",
-    "jpnName": "寺田 美咲",
     "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
+    "jpnName": "寺田 美咲",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Ami_Maeda",
     "engName": "Maeda Ami",
     "showroom_id": "67779",
-    "jpnName": "前田 亜美",
     "priority": 10,
-    "engTeam": "AKB48 Team A",
-    "jpnTeam": "AKB48 チームA"
+    "jpnName": "前田 亜美",
+    "jpnTeam": "AKB48 チームA",
+    "engTeam": "AKB48 Team A"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Moe_Aigasa",
     "engName": "Aigasa Moe",
     "showroom_id": "67780",
-    "jpnName": "相笠 萌",
     "priority": 20,
-    "engTeam": "AKB48 Team K",
-    "jpnTeam": "AKB48 チームK"
+    "jpnName": "相笠 萌",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Hatsuka_Utada",
     "engName": "Utada Hatsuka",
     "showroom_id": "67787",
-    "jpnName": "歌田 初夏",
     "priority": 20,
-    "engTeam": "AKB48 Team 8",
-    "jpnTeam": "AKB48 チーム８"
+    "jpnName": "歌田 初夏",
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8"
   },
   {
     "web_url": "https://www.showroom-live.com/48_Miku_Tanabe",
     "engName": "Tanabe Miku",
     "showroom_id": "67784",
-    "jpnName": "田名部 生来",
     "priority": 20,
-    "engTeam": "AKB48 Team B",
-    "jpnTeam": "AKB48 チームB"
+    "jpnName": "田名部 生来",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/on8",
+    "engName": "Bayfm ON8",
+    "showroom_id": "64547",
+    "priority": 20,
+    "jpnName": "bayfm おんぱち",
+    "jpnTeam": "ラジオ",
+    "engTeam": "Radio"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/exdkondomn",
+    "engName": "Feeling Couple",
+    "showroom_id": "58139",
+    "priority": 20,
+    "jpnName": "【EXD44】近藤正紀",
+    "jpnTeam": "Other",
+    "engTeam": "Other"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/kimi_dare",
+    "engName": "Kimi Dare",
+    "showroom_id": "75207",
+    "priority": 10,
+    "jpnName": "AKB48の君、誰？",
+    "jpnTeam": "Other",
+    "engTeam": "Other"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/allnightnippon",
+    "engName": "AKB48 no All Night Nippon",
+    "showroom_id": "69351",
+    "priority": 10,
+    "jpnName": "AKB48のオールナイトニッポン",
+    "jpnTeam": "ラジオ",
+    "engTeam": "Radio"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/pre_allnightnippon",
+    "engName": "AKB48 no All Night Nippon Pre-Show",
+    "showroom_id": "71459",
+    "priority": 10,
+    "jpnName": "AKB48のオールナイトニッポン超直前スペシャル",
+    "jpnTeam": "ラジオ",
+    "engTeam": "Radio"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_45",
+    "engName": "Entry Number 45",
+    "showroom_id": "76048",
+    "jpnName": "第16期受験生 エントリーナンバー45番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_36",
+    "engName": "Entry Number 36",
+    "showroom_id": "75906",
+    "jpnName": "第16期受験生 エントリーナンバー36番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_46",
+    "engName": "Entry Number 46",
+    "showroom_id": "76049",
+    "jpnName": "第16期受験生 エントリーナンバー46番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_37",
+    "engName": "Entry Number 37",
+    "showroom_id": "75908",
+    "jpnName": "第16期受験生 エントリーナンバー37番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_12",
+    "engName": "Entry Number 12",
+    "showroom_id": "75877",
+    "jpnName": "第16期受験生 エントリーナンバー12番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_38",
+    "engName": "Entry Number 38",
+    "showroom_id": "75909",
+    "jpnName": "第16期受験生 エントリーナンバー38番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_62",
+    "engName": "Entry Number 62",
+    "showroom_id": "76072",
+    "jpnName": "第16期受験生 エントリーナンバー62番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_44",
+    "engName": "Entry Number 44",
+    "showroom_id": "76047",
+    "jpnName": "第16期受験生 エントリーナンバー44番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_43",
+    "engName": "Entry Number 43",
+    "showroom_id": "76046",
+    "jpnName": "第16期受験生 エントリーナンバー43番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_61",
+    "engName": "Entry Number 61",
+    "showroom_id": "76070",
+    "jpnName": "第16期受験生 エントリーナンバー61番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_18",
+    "engName": "Entry Number 18",
+    "showroom_id": "75884",
+    "jpnName": "第16期受験生 エントリーナンバー18番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_57",
+    "engName": "Entry Number 57",
+    "showroom_id": "76066",
+    "jpnName": "第16期受験生 エントリーナンバー57番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_65",
+    "engName": "Entry Number 65",
+    "showroom_id": "76076",
+    "jpnName": "第16期受験生 エントリーナンバー65番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_13",
+    "engName": "Entry Number 13",
+    "showroom_id": "75878",
+    "jpnName": "第16期受験生 エントリーナンバー13番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_52",
+    "engName": "Entry Number 52",
+    "showroom_id": "76061",
+    "jpnName": "第16期受験生 エントリーナンバー52番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_58",
+    "engName": "Entry Number 58",
+    "showroom_id": "76067",
+    "jpnName": "第16期受験生 エントリーナンバー58番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_8",
+    "engName": "Entry Number 08",
+    "showroom_id": "75873",
+    "jpnName": "第16期受験生 エントリーナンバー8番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_31",
+    "engName": "Entry Number 31",
+    "showroom_id": "75901",
+    "jpnName": "第16期受験生 エントリーナンバー31番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_17",
+    "engName": "Entry Number 17",
+    "showroom_id": "75883",
+    "jpnName": "第16期受験生 エントリーナンバー17番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_25",
+    "engName": "Entry Number 25",
+    "showroom_id": "75891",
+    "jpnName": "第16期受験生 エントリーナンバー25番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_10",
+    "engName": "Entry Number 10",
+    "showroom_id": "75875",
+    "jpnName": "第16期受験生 エントリーナンバー10番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_56",
+    "engName": "Entry Number 56",
+    "showroom_id": "76065",
+    "jpnName": "第16期受験生 エントリーナンバー56番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_39",
+    "engName": "Entry Number 39",
+    "showroom_id": "75910",
+    "jpnName": "第16期受験生 エントリーナンバー39番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_51",
+    "engName": "Entry Number 51",
+    "showroom_id": "76060",
+    "jpnName": "第16期受験生 エントリーナンバー51番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_27",
+    "engName": "Entry Number 27",
+    "showroom_id": "75893",
+    "jpnName": "第16期受験生 エントリーナンバー27番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_22",
+    "engName": "Entry Number 22",
+    "showroom_id": "75888",
+    "jpnName": "第16期受験生 エントリーナンバー22番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_35",
+    "engName": "Entry Number 35",
+    "showroom_id": "75905",
+    "jpnName": "第16期受験生 エントリーナンバー35番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_28",
+    "engName": "Entry Number 28",
+    "showroom_id": "75894",
+    "jpnName": "第16期受験生 エントリーナンバー28番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_29",
+    "engName": "Entry Number 29",
+    "showroom_id": "75895",
+    "jpnName": "第16期受験生 エントリーナンバー29番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_67",
+    "engName": "Entry Number 67",
+    "showroom_id": "76078",
+    "jpnName": "第16期受験生 エントリーナンバー67番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_16",
+    "engName": "Entry Number 16",
+    "showroom_id": "75882",
+    "jpnName": "第16期受験生 エントリーナンバー16番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_69",
+    "engName": "Entry Number 69",
+    "showroom_id": "76080",
+    "jpnName": "第16期受験生 エントリーナンバー69番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_47",
+    "engName": "Entry Number 47",
+    "showroom_id": "76050",
+    "jpnName": "第16期受験生 エントリーナンバー47番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_53",
+    "engName": "Entry Number 53",
+    "showroom_id": "76062",
+    "jpnName": "第16期受験生 エントリーナンバー53番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_54",
+    "engName": "Entry Number 54",
+    "showroom_id": "76063",
+    "jpnName": "第16期受験生 エントリーナンバー54番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_15",
+    "engName": "Entry Number 15",
+    "showroom_id": "75881",
+    "jpnName": "第16期受験生 エントリーナンバー15番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_50",
+    "engName": "Entry Number 50",
+    "showroom_id": "76059",
+    "jpnName": "第16期受験生 エントリーナンバー50番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_7",
+    "engName": "Entry Number 07",
+    "showroom_id": "75872",
+    "jpnName": "第16期受験生 エントリーナンバー7番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_24",
+    "engName": "Entry Number 24",
+    "showroom_id": "75890",
+    "jpnName": "第16期受験生 エントリーナンバー24番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_66",
+    "engName": "Entry Number 66",
+    "showroom_id": "76077",
+    "jpnName": "第16期受験生 エントリーナンバー66番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_20",
+    "engName": "Entry Number 20",
+    "showroom_id": "75886",
+    "jpnName": "第16期受験生 エントリーナンバー20番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_2",
+    "engName": "Entry Number 02",
+    "showroom_id": "75864",
+    "jpnName": "第16期受験生 エントリーナンバー2番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_68",
+    "engName": "Entry Number 68",
+    "showroom_id": "76079",
+    "jpnName": "第16期受験生 エントリーナンバー68番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_48",
+    "engName": "Entry Number 48",
+    "showroom_id": "76051",
+    "jpnName": "第16期受験生 エントリーナンバー48番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_14",
+    "engName": "Entry Number 14",
+    "showroom_id": "75880",
+    "jpnName": "第16期受験生 エントリーナンバー14番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_34",
+    "engName": "Entry Number 34",
+    "showroom_id": "75904",
+    "jpnName": "第16期受験生 エントリーナンバー34番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_59",
+    "engName": "Entry Number 59",
+    "showroom_id": "76068",
+    "jpnName": "第16期受験生 エントリーナンバー59番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_55",
+    "engName": "Entry Number 55",
+    "showroom_id": "76064",
+    "jpnName": "第16期受験生 エントリーナンバー55番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_9",
+    "engName": "Entry Number 09",
+    "showroom_id": "75874",
+    "jpnName": "第16期受験生 エントリーナンバー9番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_64",
+    "engName": "Entry Number 64",
+    "showroom_id": "76074",
+    "jpnName": "第16期受験生 エントリーナンバー64番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_1",
+    "engName": "Entry Number 01",
+    "showroom_id": "75767",
+    "jpnName": "第16期受験生 エントリーナンバー1番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_32",
+    "engName": "Entry Number 32",
+    "showroom_id": "75902",
+    "jpnName": "第16期受験生 エントリーナンバー32番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_23",
+    "engName": "Entry Number 23",
+    "showroom_id": "75889",
+    "jpnName": "第16期受験生 エントリーナンバー23番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_42",
+    "engName": "Entry Number 42",
+    "showroom_id": "76045",
+    "jpnName": "第16期受験生 エントリーナンバー42番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_49",
+    "engName": "Entry Number 49",
+    "showroom_id": "76058",
+    "jpnName": "第16期受験生 エントリーナンバー49番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_41",
+    "engName": "Entry Number 41",
+    "showroom_id": "76044",
+    "jpnName": "第16期受験生 エントリーナンバー41番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_5",
+    "engName": "Entry Number 05",
+    "showroom_id": "75868",
+    "jpnName": "第16期受験生 エントリーナンバー5番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_11",
+    "engName": "Entry Number 11",
+    "showroom_id": "75876",
+    "jpnName": "第16期受験生 エントリーナンバー11番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_3",
+    "engName": "Entry Number 03",
+    "showroom_id": "75865",
+    "jpnName": "第16期受験生 エントリーナンバー3番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_33",
+    "engName": "Entry Number 33",
+    "showroom_id": "75903",
+    "jpnName": "第16期受験生 エントリーナンバー33番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_30",
+    "engName": "Entry Number 30",
+    "showroom_id": "75896",
+    "jpnName": "第16期受験生 エントリーナンバー30番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_21",
+    "engName": "Entry Number 21",
+    "showroom_id": "75887",
+    "jpnName": "第16期受験生 エントリーナンバー21番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_40",
+    "engName": "Entry Number 40",
+    "showroom_id": "75911",
+    "jpnName": "第16期受験生 エントリーナンバー40番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_26",
+    "engName": "Entry Number 26",
+    "showroom_id": "75892",
+    "jpnName": "第16期受験生 エントリーナンバー26番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_60",
+    "engName": "Entry Number 60",
+    "showroom_id": "76069",
+    "jpnName": "第16期受験生 エントリーナンバー60番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_63",
+    "engName": "Entry Number 63",
+    "showroom_id": "76073",
+    "jpnName": "第16期受験生 エントリーナンバー63番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_6",
+    "engName": "Entry Number 06",
+    "showroom_id": "75871",
+    "jpnName": "第16期受験生 エントリーナンバー6番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_4",
+    "engName": "Entry Number 04",
+    "showroom_id": "75866",
+    "jpnName": "第16期受験生 エントリーナンバー4番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
+  },
+  {
+    "web_url": "https://www.showroom-live.com/akb48_16th_19",
+    "engName": "Entry Number 19",
+    "showroom_id": "75885",
+    "jpnName": "第16期受験生 エントリーナンバー19番",
+    "priority": 20,
+    "jpnTeam": "１６期オーディション",
+    "engTeam": "16th Gen"
   }
 ]
