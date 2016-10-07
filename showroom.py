@@ -55,11 +55,13 @@ from requests import Session
 from requests.exceptions import ConnectionError, ChunkedEncodingError
 
 
-MAX_DOWNLOADS = 40
+MAX_DOWNLOADS = 60
 MAX_WATCHES = 30
 MAX_PRIORITY = 40
 LIVE_RATE = 11.0
 SCHEDULE_TICKS = 20
+END_HOUR=0
+RESUME_HOUR=5
 DEFAULT_INDEX = 'index/default_members.json'
 
 OUTDIR = 'output'
@@ -770,7 +772,7 @@ class Scheduler(object):
 class Controller(object):
     def __init__(self, index, outdir=OUTDIR,
                  max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES,
-                 live_rate=LIVE_RATE, schedule_ticks=SCHEDULE_TICKS, logging=False):
+                 live_rate=LIVE_RATE, schedule_ticks=SCHEDULE_TICKS, end_hour=END_HOUR, resume_hour=RESUME_HOUR, logging=False):
         self.session = WatchSession()
         self.index   = index
         self.settings = {'outdir':         outdir,
@@ -781,8 +783,8 @@ class Controller(object):
                          'schedule_ticks':  schedule_ticks,
                          'logging':        logging}
         
-        self.end_time = datetime.time(hour=0, minute=15, tzinfo=TOKYO_TZ)
-        self.resume_time = datetime.time(hour=4, minute=45, tzinfo=TOKYO_TZ)
+        self.end_time = datetime.time(hour=end_hour, minute=10, tzinfo=TOKYO_TZ)
+        self.resume_time = datetime.time(hour=resume_hour-1, minute=50, tzinfo=TOKYO_TZ)
 
         self.live_rate = self.settings['live_rate']
 
@@ -887,6 +889,12 @@ if __name__ == "__main__":
                         help='Seconds between each poll of ONLIVES. Defaults to %(default)s')
     parser.add_argument('--schedule-ticks', '-S', default=SCHEDULE_TICKS, type=float,
                         help='Live ticks between each check of the schedule. Defaults to %(default)s')
+    # TODO: Allow the user to provide a schedule with different start and end hours per day.
+    # Or else instead of stopping entirely, slow down polling during off hours.
+    parser.add_argument('--end_hour',             default=END_HOUR, type=int,
+                        help='Hour to stop recording (will actually stop 10 minutes later). Defaults to %(default)s')
+    parser.add_argument('--resume_hour',          default=RESUME_HOUR, type=int,
+                        help='Hour to resume recording (will actually start 10 minutes earlier). Defaults to %(default)s')
     parser.add_argument('--logging', action='store_true', help="Turns on ffmpeg logging.")
     args = parser.parse_args()
     
@@ -903,6 +911,8 @@ if __name__ == "__main__":
                        max_watches=args.max_watches,
                        live_rate=args.live_rate,
                        schedule_ticks=args.schedule_ticks,
+                       end_hour=args.end_hour,
+                       resume_hour=args.resume_hour,
                        logging=args.logging)
         c.run()
     elif len(args.names) > 0:
