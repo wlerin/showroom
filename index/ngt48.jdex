@@ -1,0 +1,227 @@
+[
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_YAMAGUCHI_MAHO",
+    "showroom_id": "61725",
+    "jpnName": "山口 真帆",
+    "engName": "Yamaguchi Maho",
+    "priority": 7
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_KITAHARA_RIE",
+    "showroom_id": "61711",
+    "jpnName": "北原 里英",
+    "engName": "Kitahara Rie",
+    "priority": 29
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_YAMADA_NOE",
+    "showroom_id": "61726",
+    "jpnName": "山田 野絵",
+    "engName": "Yamada Noe",
+    "priority": 30
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_HOMMA_HINATA",
+    "showroom_id": "61723",
+    "jpnName": "本間 日陽",
+    "engName": "Honma Hinata",
+    "priority": 30
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_OGINO_YUKA",
+    "showroom_id": "61707",
+    "jpnName": "荻野 由佳",
+    "engName": "Ogino Yuka",
+    "priority": 30
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_TAKAKURA_MOEKA",
+    "showroom_id": "61885",
+    "jpnName": "高倉 萌香",
+    "engName": "Takakura Moeka",
+    "priority": 30
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_KATO_MINAMI",
+    "showroom_id": "61710",
+    "jpnName": "加藤 美南",
+    "engName": "Kato Minami",
+    "priority": 40
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_TANO_AYAKA",
+    "showroom_id": "61719",
+    "jpnName": "太野 彩香",
+    "engName": "Tano Ayaka",
+    "priority": 40
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_NAKAI_RIKA",
+    "showroom_id": "61720",
+    "jpnName": "中井 りか",
+    "engName": "Nakai Rika",
+    "priority": 40
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_NAKAMURA_AYUKA",
+    "showroom_id": "61732",
+    "jpnName": "中村 歩加",
+    "engName": "Nakamura Ayuka",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_OTAKI_YURIA",
+    "showroom_id": "61727",
+    "jpnName": "大滝 友梨亜",
+    "engName": "Otaki Yuria",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_NARA_MIHARU",
+    "showroom_id": "61733",
+    "jpnName": "奈良 未遥",
+    "engName": "Nara Miharu",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_MIYAJIMA_AYA",
+    "showroom_id": "61736",
+    "jpnName": "宮島 亜弥",
+    "engName": "Miyajima Aya",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_KUSAKABE_AINA",
+    "showroom_id": "61729",
+    "jpnName": "日下部 愛菜 ",
+    "engName": "Kusakabe Aina",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_MIZUSAWA_AYAKA",
+    "showroom_id": "61735",
+    "jpnName": "水澤 彩佳",
+    "engName": "Mizusawa Ayaka",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_SEIJI_REINA",
+    "showroom_id": "61730",
+    "jpnName": "清司 麗菜",
+    "engName": "Seiji Reina",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_NISHIMURA_NANAKO",
+    "showroom_id": "61734",
+    "jpnName": "西村 菜那子",
+    "engName": "Nishimura Nanako",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_KADO_YURIA",
+    "showroom_id": "61728",
+    "jpnName": "角 ゆりあ",
+    "engName": "Kado Yuria",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 研究生",
+    "engTeam": "NGT48 KKS",
+    "web_url": "https://www.showroom-live.com/48_TAKAHASHI_MAU",
+    "showroom_id": "61731",
+    "jpnName": "髙橋 真生",
+    "engName": "Takahashi Mau",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_SATO_ANJU",
+    "showroom_id": "61712",
+    "jpnName": "佐藤 杏樹",
+    "engName": "Sato Anju",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_OGUMA_TSUGUMI",
+    "showroom_id": "61884",
+    "jpnName": "小熊 倫実",
+    "engName": "Oguma Tsugumi",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_MURAKUMO_FUKA",
+    "showroom_id": "61724",
+    "jpnName": "村雲 颯香",
+    "engName": "Murakumo Fuka",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_SUGAHARA_RIKO",
+    "showroom_id": "61713",
+    "jpnName": "菅原 りこ",
+    "engName": "Sugahara Riko",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_NISHIGATA_MARINA",
+    "showroom_id": "61721",
+    "jpnName": "西潟 茉莉奈",
+    "engName": "Nishigata Marina",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "NGT48 チームNⅢ",
+    "engTeam": "NGT48 Team NIII",
+    "web_url": "https://www.showroom-live.com/48_HASEGAWA_RENA",
+    "showroom_id": "61722",
+    "jpnName": "長谷川 玲奈",
+    "engName": "Hasegawa Rena",
+    "priority": 55
+  }
+]

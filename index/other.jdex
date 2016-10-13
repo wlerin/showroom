@@ -1,0 +1,101 @@
+[
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/myaoroom",
+    "showroom_id": "58834",
+    "jpnName": "みゃおの部屋",
+    "engName": "MyaoRoom",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/usj48_yarisugisummer",
+    "showroom_id": "67666",
+    "jpnName": "やり過ぎ！サマーSPECIAL",
+    "engName": "USJ48 YariSugi Summer",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/maji2016",
+    "showroom_id": "67940",
+    "jpnName": "～立ち上がるマジ女たち～",
+    "engName": "Majisuka Gakuen Musical",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/crows_blood",
+    "showroom_id": "68872",
+    "jpnName": "CROW’S BLOOD鑑賞",
+    "engName": "CROW’S BLOOD Reactions",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/nmb48_official",
+    "showroom_id": "69404",
+    "jpnName": "Official Showroom",
+    "engName": "NMB48 Official Showroom",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/akb48_official",
+    "showroom_id": "70088",
+    "jpnName": "Official Showroom",
+    "engName": "AKB48 Official Showroom",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "ラジオ",
+    "engTeam": "Radio",
+    "web_url": "https://www.showroom-live.com/on8",
+    "showroom_id": "64547",
+    "jpnName": "bayfm おんぱち",
+    "engName": "Bayfm ON8",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "Other",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/exdkondomn",
+    "showroom_id": "58139",
+    "jpnName": "【EXD44】近藤正紀",
+    "engName": "Feeling Couple",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "Other",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/kimi_dare",
+    "showroom_id": "75207",
+    "jpnName": "AKB48の君、誰？",
+    "engName": "Kimi Dare",
+    "priority": 10
+  },
+  {
+    "jpnTeam": "ラジオ",
+    "engTeam": "Radio",
+    "web_url": "https://www.showroom-live.com/allnightnippon",
+    "showroom_id": "69351",
+    "jpnName": "AKB48のオールナイトニッポン",
+    "engName": "AKB48 no All Night Nippon",
+    "priority": 10
+  },
+  {
+    "jpnTeam": "ラジオ",
+    "engTeam": "Radio",
+    "web_url": "https://www.showroom-live.com/pre_allnightnippon",
+    "showroom_id": "71459",
+    "jpnName": "AKB48のオールナイトニッポン超直前スペシャル",
+    "engName": "AKB48 no All Night Nippon Pre-Show",
+    "priority": 10
+  }
+]
