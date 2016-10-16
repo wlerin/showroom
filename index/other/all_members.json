@@ -2446,5 +2446,14 @@
     "engTeam": "SNH48 Team SII",
     "engName": "Suzuki Mariya",
     "priority": 20
+  },
+  {
+    "jpnName": "木下 百花",
+    "jpnTeam": "NMB48 チームM",
+    "showroom_id": "67800",
+    "web_url": "https://www.showroom-live.com/48_MOMOKA_KINOSHITA",
+    "engTeam": "NMB48 Team M",
+    "engName": "Kinoshita Momoka",
+    "priority": 20
   }
 ]
