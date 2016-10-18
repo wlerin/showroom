@@ -1,0 +1,20 @@
+[
+  {
+    "jpnTeam": "乃木坂46",
+    "engTeam": "Nogizaka46",
+    "web_url": "https://www.showroom-live.com/misa_eto",
+    "showroom_id": "77735",
+    "jpnName": "乃木坂４６・衛藤美彩『なぜカノ』スペシャル！",
+    "engName": "Eto Misa",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "乃木坂46",
+    "engTeam": "Nogizaka46",
+    "web_url": "https://www.showroom-live.com/nogizaka46",
+    "showroom_id": "53098",
+    "jpnName": "乃木坂４６時間ＴＶ",
+    "engName": "46 Hours TV",
+    "priority": 20
+  }
+]

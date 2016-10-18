@@ -97,14 +97,5 @@
     "jpnName": "AKB48のオールナイトニッポン超直前スペシャル",
     "engName": "AKB48 no All Night Nippon Pre-Show",
     "priority": 10
-  },
-  {
-    "jpnTeam": "乃木坂46",
-    "engTeam": "Nogizaka46",
-    "web_url": "https://www.showroom-live.com/misa_eto",
-    "showroom_id": "77735",
-    "jpnName": "乃木坂４６・衛藤美彩『なぜカノ』スペシャル！",
-    "engName": "Eto Misa",
-    "priority": 20
   }
 ]
