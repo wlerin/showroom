@@ -236,7 +236,7 @@ class IndexerNew(Indexer):
         else:
             return
 
-        changed_files = [e for e in sorted(self.known_files, key=attrgetter('mod_time')) if e in changed_files]
+        changed_files = [e for e in sorted(self.known_files, key=lambda x: self.known_files[x]['mod_time']) if e in changed_files]
 
         for jdex in changed_files:
             # is it faster to assume new priorities or to check if they have changed?
@@ -560,7 +560,7 @@ def format_name(rootdir, time_str, member):
     count_str   = '_{:02d}'
 
     # TODO: Evaluate this in light of all the new rooms
-    if '48' in member['engTeam']:
+    if '48' in member['engTeam'] and 'Gen' not in member['engTeam']:
         team = member['engTeam'][:5]
     else:
         team = member['engTeam']  # just Nogizaka46 right now
