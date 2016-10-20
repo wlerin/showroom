@@ -54,12 +54,12 @@ except ImportError:
 
 import pytz
 from requests import Session
-from requests.exceptions import ConnectionError, ChunkedEncodingError
+from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout
 
 
 MAX_DOWNLOADS = 60
-MAX_WATCHES = 50
-MAX_PRIORITY = 80
+MAX_WATCHES = 30
+MAX_PRIORITY = 40
 LIVE_RATE = 11.0
 SCHEDULE_TICKS = 20
 END_HOUR = 0
@@ -273,8 +273,8 @@ class WatchSession(Session):
     def get(self, url, params=None, **kwargs):
         while True:
             try:
-                r = super().get(url, params=params, **kwargs)
-            except (ConnectionError, ChunkedEncodingError):
+                r = super().get(url, params=params, timeout=(3.0, 15.0), **kwargs)
+            except (Timeout, ConnectionError, ChunkedEncodingError):
                 # TODO: Back off gradually if errors keep happening
                 time.sleep(1.0)
             else:
@@ -888,6 +888,7 @@ class Scheduler(object):
     def update_live(self):
         self.live.clear()
         onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
+        
 
         # find the idol genre
         for e in onlives:
