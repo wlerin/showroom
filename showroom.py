@@ -58,8 +58,8 @@ from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout
 
 
 MAX_DOWNLOADS = 60
-MAX_WATCHES = 30
-MAX_PRIORITY = 40
+MAX_WATCHES = 50
+MAX_PRIORITY = 80
 LIVE_RATE = 11.0
 SCHEDULE_TICKS = 20
 END_HOUR = 0
