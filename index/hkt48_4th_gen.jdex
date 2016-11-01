@@ -1,0 +1,92 @@
+[
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "運上 弘菜",
+    "showroom_id": "79288",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_HIRONA_UNJO",
+    "engName": "Unjo Hirona"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "小田 彩加",
+    "showroom_id": "79289",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_AYAKA_ODA",
+    "engName": "Oda Ayaka"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "堺 萌香",
+    "showroom_id": "79296",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_MOEKA_SAKAI",
+    "engName": "Sakai Moeka"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "清水 梨央",
+    "showroom_id": "79297",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_RIO_SHIMIZU",
+    "engName": "Shimizu Rio"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "武田 智加",
+    "showroom_id": "79298",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_TOMOKA_TAKEDA",
+    "engName": "Takeda Tomoka"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "地頭江 音々",
+    "showroom_id": "79299",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_NENE_JITOE",
+    "engName": "Jitoe Nene"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "月足 天音",
+    "showroom_id": "79300",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_AMANE_TSUKIASHI",
+    "engName": "Tsukiashi Amane"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "豊永 阿紀",
+    "showroom_id": "79301",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_AKI_TOYONAGA",
+    "engName": "Toyonaga Aki"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "松本 日向",
+    "showroom_id": "79302",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_HINATA_MATSUMOTO",
+    "engName": "Matsumoto Hinata"
+  },
+  {
+    "jpnTeam": "HKT48 研究生",
+    "priority": 20,
+    "jpnName": "宮崎 想乃",
+    "showroom_id": "79303",
+    "engTeam": "HKT48 KKS",
+    "web_url": "48_SONO_MIYAZAKI",
+    "engName": "Miyazaki Sono"
+  }
+]
