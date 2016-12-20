@@ -2,28 +2,27 @@
 Requires Requests, Pytz, and a working installation of ffmpeg
 
 
-Syntax:
+### Install Required Packages
+
+    pip3 install pytz requests
+    
+    
+### Syntax
+
+
+To watch all pages and download up to MAX_DOWNLOADS (default: 60) at once:
+
+    python3 showroom.py
+
 
 To watch and download from one member's page:
 
     python3 showroom.py "Member Name"
 
 
-To watch all pages and download up to MAX_DOWNLOADS (default: 20) at once:
-
-    python3 showroom.py --all [<output directory>]
-
-
 For additional options:
 
     python3 showroom.py --help 
-
-
-
-### Install Required Packages
-
-    pip3 install pytz requests
-    
 
 
 ### INDEX PRIORITIES
