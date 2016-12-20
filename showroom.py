@@ -62,9 +62,9 @@ MAX_WATCHES = 50
 MAX_PRIORITY = 80
 LIVE_RATE = 11.0
 SCHEDULE_TICKS = 20
-END_HOUR = 0
+END_HOUR = 3
 RESUME_HOUR = 5
-DEFAULT_INDEX = 'index/default_members.json'
+# DEFAULT_INDEX = 'index/default_members.json'
 NEW_INDEX_LOC = 'index'
 
 OUTDIR = 'output'
@@ -130,6 +130,8 @@ class Indexer(object):
     def __init__(self):
         self.room_dict = {}
         self.room_url_lookup = {}
+        self._filter_list = []
+        self._filter_ids   = []
 
     def update(self):
         # checks if index files (*.jdex) have been updated
@@ -162,9 +164,25 @@ class Indexer(object):
                 print("Failed to find Room URL {}".format(room_url))
                 return None
 
+    def filter(self, filter_list):
+        self._filter_list = filter_list
+        self.update_filter()
+
+    def update_filter(self):
+        if self._filter_list:
+            # TODO: allow for matching more than just the full English name
+            self._filter_ids = [e for e in self.room_dict if self.room_dict[e]['engName'] in self._filter_list]
+
     def __contains__(self, room_id):
-        if room_id in self.room_dict:
+        if self._filter_list:
+            if room_id in self._filter_ids:
+                return True
+            else:
+                return False
+        elif room_id in self.room_dict:
             return True
+        else:
+            return False
 
 
 class IndexerOld(Indexer):
@@ -236,7 +254,8 @@ class IndexerNew(Indexer):
         else:
             return
 
-        changed_files = [e for e in sorted(self.known_files, key=lambda x: self.known_files[x]['mod_time']) if e in changed_files]
+        changed_files = [e for e in sorted(self.known_files, key=lambda x: self.known_files[x]['mod_time'])
+                         if e in changed_files]
 
         for jdex in changed_files:
             # is it faster to assume new priorities or to check if they have changed?
@@ -260,6 +279,8 @@ class IndexerNew(Indexer):
                     new_room = Showroom(room, mod_time)
                     self.room_dict[new_room.room_id] = new_room
                     self.room_url_lookup[new_room.short_url] = new_room
+
+        self.update_filter()
 
     def rebuild(self):
         pass
@@ -575,7 +596,7 @@ def format_name(rootdir, time_str, member):
     outfile = name_format.format(date=short_date, team=member['engTeam'], name=member['engName'], 
                                  time=_time, count='')
     while os.path.exists('{}/{}'.format(destdir, outfile)):
-        count +=1
+        count += 1
         outfile = name_format.format(date=short_date, team=member['engTeam'], name=member['engName'], 
                                      time=_time, count=count_str.format(count))
     return tempdir, destdir, outfile
@@ -624,6 +645,20 @@ class Watcher(object):
 
 
 class Schedule(object):
+    @staticmethod
+    def find_room_by_url(web_url, index):
+        try:
+            return index.find_room(web_url=web_url.split('/')[-1])
+        except KeyError:
+            return None
+
+    @staticmethod
+    def find_room_by_id(room_id, index):
+        try:
+            return index.find_room(room_id=room_id)
+        except KeyError:
+            return None
+
     def __init__(self, start_time, index, web_url=None, room_id=None, is_live=False, dt=None):
         self.start_time = start_time
 
@@ -661,18 +696,6 @@ class Schedule(object):
         return datetime.datetime.strptime(time_str, pattern).replace(tzinfo=TOKYO_TZ)
     '''
 
-    def find_room_by_url(self, web_url, index):
-        try:
-            return index.find_room(web_url=web_url.split('/')[-1])
-        except KeyError:
-            return None
-
-    def find_room_by_id(self, room_id, index):
-        try:
-            return index.find_room(room_id=room_id)
-        except KeyError:
-            return None
-
     def check(self, curr_time):
         if (self.start_time - curr_time).total_seconds() < watch_seconds(self.priority):
             return True
@@ -684,7 +707,6 @@ class Schedule(object):
 
     def go_live(self):
         self._live = True
-
 
     @property
     def priority(self):
@@ -711,10 +733,8 @@ class DownloadManager(object):
         self._time      = datetime.datetime.now(tz=TOKYO_TZ)
         self._scheduled = scheduled
 
-
     def __len__(self):
         return len(self._downloads)
-    
 
     def tick(self, new_time):
         # tick rate per 10 sec
@@ -724,7 +744,7 @@ class DownloadManager(object):
             # print('Running DownloadManager')
             self._time = new_time
         
-            #check if download has stopped
+            # check if download has stopped
             for download in self.downloads:
                 if download.check():
                     # print('{}\'s download stopped'.format(download.name))
@@ -862,14 +882,14 @@ class Scheduler(object):
             self._time = new_time
             self.firstrun = False
 
+            if self._tick_count % 81 == 0:
+                print('Current Time is {}'.format(self._time.strftime('%H:%M')))
+                self._index.update()
+
             if self._tick_count % self.settings['schedule_ticks'] == 0 or self.firstrun:
                 # print('Checking schedules')
                 self.update_schedule()
 
-            if self._tick_count % 81 == 0:
-                print('Current Time is {}'.format(self._time.strftime('%H:%M')))
-                self._index.update()
-                
             self._tick_count += 1
 
             self.update_live()
@@ -885,10 +905,14 @@ class Scheduler(object):
                 self.watchmanager.add(Watcher(schedule.member))
                 self.scheduled.update({schedule.room_id: schedule})
 
+    def reset_ticks(self):
+        # I don't think python has a problem with integer overflow but I'd still rather not be taking the modulus
+        # of very high integers
+        self._tick_count = 0
+
     def update_live(self):
         self.live.clear()
         onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
-        
 
         # find the idol genre
         for e in onlives:
@@ -977,6 +1001,9 @@ class Controller(object):
         self.downloaders = None
         self.time = None
 
+    def filter(self, names_filter):
+        self.index.filter(names_filter)
+
     def run(self):
         # why are these defined here?
         self.scheduler = Scheduler(index=self.index, settings=self.settings)
@@ -991,6 +1018,7 @@ class Controller(object):
             if self.resume_time > self.time.time() > self.end_time:
                 sleep_seconds = (datetime.datetime.combine(self.time, self.resume_time) - self.time).total_seconds() + 1.0
                 print('Time is {}, sleeping for {} seconds, until {}'.format(self.time.strftime('%H:%M'), sleep_seconds, self.resume_time.strftime('%H:%M')))
+                self.scheduler.reset_ticks()
                 time.sleep(sleep_seconds)
                 
             else:
@@ -1005,7 +1033,8 @@ class Controller(object):
             
             # TODO: allow soft exit i.e. on user input, rather than ctrl+c
 
-
+# obsolete
+"""
 def watch(member, outdir):
     s = WatchSession()
 
@@ -1038,6 +1067,7 @@ def watch(member, outdir):
             break
 
 
+
 def find_member(target, index):
     for e in index:
         if target.lower() == e['engName'].lower():
@@ -1046,7 +1076,7 @@ def find_member(target, index):
     return None
 
 # def merge_fragments(fragment_list, ):
-
+# see concat.py
 
 # TODO: implement this, probably using WatchQueue + concurrent.futures
 def simple_watcher(members, max_downloads):
@@ -1055,6 +1085,7 @@ def simple_watcher(members, max_downloads):
     #    result = executor.map(function, iterable)
     while True:
         pass
+"""
 
 if __name__ == "__main__":
     """
@@ -1068,19 +1099,17 @@ if __name__ == "__main__":
                                      fully tested yet. A new indexing system is currently in use, but \
                                      no command-line arguments to control it yet exist.")
     parser.add_argument('names', nargs='*',
-                        help='A single quoted Member Name to watch. Technically accepts a list of names \
-                        but only the first matched name will be used. For now. \n\nCompletely ignored if \
-                        --all is given.')
+                        help='A quoted Member Name to watch. Accepts a list of names, separated by spaces. Currently, '
+                        'the Member Name must match the English Name (engName) key exactly.')
     parser.add_argument('--all',            '-a', action='store_true',
                         help='Watch the main showroom page for live shows and record all of them. \
-                        Noisy and probably still buggy.')
+                        This is now the default operation, and the --all flag is ignored.')
     parser.add_argument('--output-dir',     '-o', default=OUTDIR,
                         help='Directory in which to store active and completed downloads. \
                         Defaults to "%(default)s"')
-    parser.add_argument('--index',          '-i', default=DEFAULT_INDEX,
-                        help='Path to an index file, e.g. members.json or ske48_only.json. \
-                        All members must be included, this is just used to give them different priorities. \
-                        Defaults to %(default)s')
+    parser.add_argument('--index',          '-i', default=NEW_INDEX_LOC,
+                        help='Path to an index directory, containing room information in json files \
+                        with a jdex extension. Defaults to %(default)s')
     parser.add_argument('--max-downloads',  '-D', default=MAX_DOWNLOADS, type=int,
                         help='Maximum number of concurrent downloads. \
                         Defaults to %(default)s')
@@ -1110,20 +1139,24 @@ if __name__ == "__main__":
     # will raise an exception if not found but that's probably best
     # with open(args.index, encoding='utf8') as infp:
     #     member_index = json.load(infp)
-    
-    if args.all is True:
-        os.makedirs(args.output_dir + '/active', exist_ok=True)
-        c = Controller(# index=member_index,
-                       outdir=args.output_dir,
-                       max_downloads=args.max_downloads,
-                       max_priority=args.max_priority,
-                       max_watches=args.max_watches,
-                       live_rate=args.live_rate,
-                       schedule_ticks=args.schedule_ticks,
-                       end_hour=args.end_hour,
-                       resume_hour=args.resume_hour,
-                       logging=args.logging)
-        c.run()
+
+    os.makedirs(args.output_dir + '/active', exist_ok=True)
+    c = Controller(  # index=member_index,
+                   outdir=args.output_dir,
+                   max_downloads=args.max_downloads,
+                   max_priority=args.max_priority,
+                   max_watches=args.max_watches,
+                   live_rate=args.live_rate,
+                   schedule_ticks=args.schedule_ticks,
+                   end_hour=args.end_hour,
+                   resume_hour=args.resume_hour,
+                   logging=args.logging,
+                   index_loc=args.index)
+    # TODO: allow the filter list to come from a file
+    c.filter(args.names)
+    c.run()
+
+    '''
     elif len(args.names) > 0:
         # silently discards all but the first matched member
         names = args.names[:args.max_downloads]
@@ -1144,3 +1177,4 @@ if __name__ == "__main__":
         """
     else:
         print('Please supply either a quoted name or --all')
+    '''
