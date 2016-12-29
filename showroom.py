@@ -49,6 +49,7 @@ except ImportError:
             the separator specified when creating the class will be used (default newline)
             """
             print(*msg, sep=self.sep, file=self.outfp)
+            # self.outfp.flush()
     
     Announcer = DefaultAnnouncer
 
