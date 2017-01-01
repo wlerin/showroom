@@ -132,7 +132,7 @@ def probe_file(filename, streams):
     else:
         return results
 
-def resize_videos(target_dir, target_ext, copytb=1):
+def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
 
     oldcwd = os.getcwd()
     os.chdir(target_dir)
@@ -165,14 +165,12 @@ def resize_videos(target_dir, target_ext, copytb=1):
              '-copytb', str(copytb),
              '-i', low_res_file,
              '-c:v', video_codec,
+             '-c:b', str(target_bitrate),
              '-crf', '18',
              '-vf', 'scale=-1:360',
              '-c:a', 'copy', file])
 
     os.chdir(oldcwd)
-
-
-
 
 
 def generate_concat_files(target_dir, target_ext, max_gap):
@@ -344,13 +342,17 @@ if __name__ == '__main__':
     parser.add_argument("--output-dir", "-o", dest='output_dir', type=str, default='.',
                         help='Optional, defaults to target directory. Note that relative paths will be relative to \
                         the target directory, not the current working directory', metavar='OUTPUT_DIR')
+    parser.add_argument("--bitrate", "-b", type=str, default='300k',
+                        help='Target bitrate for resizing. Defaults to 300k')
     args = parser.parse_args()
 
-
     if args.resize or args.aggressive:
-        resize_videos(args.target_dir, args.ext, args.copytb)
+        resize_videos(target_dir=args.target_dir, target_ext=args.ext,
+                      copytb=args.copytb, target_bitrate=args.bitrate)
     if args.generate or args.both or args.aggressive:
-        generate_concat_files(args.target_dir, args.ext, args.max_gap)
+        generate_concat_files(target_dir=args.target_dir, target_ext=args.ext,
+                              max_gap=args.max_gap)
     if args.merge or args.both or args.aggressive:
-        merge_videos(args.target_dir, args.output_dir, args.copytb)
+        merge_videos(target_dir=args.target_dir, output_dir=args.output_dir,
+                     copytb=args.copytb)
 
