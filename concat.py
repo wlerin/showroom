@@ -115,6 +115,65 @@ for member in members:
 
 """
 
+def probe_file(filename, streams):
+    try:
+        results = check_output([
+            "ffprobe",
+            '-loglevel', '16',
+            '-show_entries', 'stream={}'.format(','.join(streams)),
+            '-select_streams', 'v',
+            '-i', filename,
+            '-of', 'json'
+        ],
+            universal_newlines=True
+        )
+    except CalledProcessError:
+        return None
+    else:
+        return results
+
+def resize_videos(target_dir, target_ext, copytb=1):
+
+    oldcwd = os.getcwd()
+    os.chdir(target_dir)
+    files = sorted(glob.glob('*.{}'.format(target_ext)))
+
+
+    to_resize=[]
+    for file in files:
+        results = probe_file(file, streams=('duration', 'height'))
+        if results:
+            try:
+                stream = json.loads(results)['streams'][0]
+            except IndexError:
+                continue
+            if float(stream['duration']) >= 0.001 and int(stream['height']) == 198:
+                to_resize.append(file)
+
+    if len(to_resize) > 0:
+        os.makedirs('resized', exist_ok=True)
+    else:
+        return
+    codecs = {'mp4': 'libx264', 'webm': 'libvpx'}
+
+    video_codec = codecs[target_ext]
+
+    for file in to_resize:
+        low_res_file = 'resized/' + file.replace('.' + target_ext, '_198p.' + target_ext)
+        os.replace(file, low_res_file)
+        run(['ffmpeg',
+             '-copytb', str(copytb),
+             '-i', low_res_file,
+             '-c:v', video_codec,
+             '-crf', '18',
+             '-vf', 'scale=-1:360',
+             '-c:a', 'copy', file])
+
+    os.chdir(oldcwd)
+
+
+
+
 
 def generate_concat_files(target_dir, target_ext, max_gap):
     oldcwd = os.getcwd()
@@ -137,20 +196,10 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     
     member_dict = {}
     for file in files:
-        try:
-            results = check_output([
-                    "ffprobe",
-                    '-loglevel', '16',
-                    '-show_entries', 'stream=duration,height',
-                    '-select_streams', 'v',
-                    '-i', file,
-                    '-of', 'json'
-                ],
-                universal_newlines=True
-                )
-        except CalledProcessError:
+        results = probe_file(file, streams=('duration', 'height'))
+        if not results:
             continue
-        
+
         member_name = file.rsplit(' ', 1)[0]
         if member_name not in member_dict:
             member_dict[member_name] = []
@@ -277,10 +326,13 @@ if __name__ == '__main__':
         incompatible resolutions, ignores very broken videos.",
         epilog="When merging, watch the output for \"Non-monotonous DTS in output stream\" -- A few of these are \
         harmless but a wall of them means that video is probably corrupted.")
+    parser.add_argument("--resize", action='store_true', help='resizes 198p videos in TARGET_DIR to 360p, '
+                        'saves the old videos in a new "resized" subdirectory. Only supports h264 (MP4) and vpx (WEBM)')
     parser.add_argument("--generate", action='store_true', help='generates concat files in TARGET_DIR, runs by default')
     parser.add_argument("--merge", action='store_true',
                         help='merges videos in TARGET_DIR according to existing concat files')
     parser.add_argument("--both", action='store_true', help='both generates concat files and merges videos')
+    parser.add_argument("--aggressive", action='store_true', help='resizes, generates, and merges')
     parser.add_argument("target_dir", nargs='?', default='.',
                         help='Optional. defaults to the current working directory.', metavar='TARGET_DIR')
     parser.add_argument("--max-gap", type=float, default=300.0,
@@ -294,8 +346,11 @@ if __name__ == '__main__':
                         the target directory, not the current working directory', metavar='OUTPUT_DIR')
     args = parser.parse_args()
 
-    if not args.merge:
+
+    if args.resize or args.aggressive:
+        resize_videos(args.target_dir, args.ext, args.copytb)
+    if args.generate or args.both or args.aggressive:
         generate_concat_files(args.target_dir, args.ext, args.max_gap)
-    if args.merge or args.both:
+    if args.merge or args.both or args.aggressive:
         merge_videos(args.target_dir, args.output_dir, args.copytb)
 
