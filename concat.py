@@ -42,6 +42,8 @@ from math import floor
 # 1280x720 (a single kimi dare episode)
 GOOD_HEIGHTS = (198, 360, 396, 720)
 
+DEF_BITRATE = '300k'
+
 # old version
 """
 def create_concat_files(target_dir, target_ext):
@@ -165,8 +167,10 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
              '-copytb', str(copytb),
              '-i', low_res_file,
              '-c:v', video_codec,
-             '-c:b', str(target_bitrate),
-             '-crf', '18',
+             # '-maxrate', str(target_bitrate),
+             # '-bufsize', BUFSIZE,
+             # '-crf', '18',
+             '-b:v', target_bitrate,
              '-vf', 'scale=-1:360',
              '-c:a', 'copy', file])
 
@@ -338,12 +342,13 @@ if __name__ == '__main__':
                         broadcast. default = 300.0')
     parser.add_argument("-e", dest='ext', default='mp4', help='extension to merge, defaults to mp4')
     parser.add_argument("--copytb", type=int, choices=[-1, 0, 1], default=1,
-                        help='it may be useful to try setting this to 0 or -1 if a video has timing issues')
+                        help='it may be useful to try setting this to 0 or -1 if a video has timing issues.'
+                        'Defaults to %(default)s')
     parser.add_argument("--output-dir", "-o", dest='output_dir', type=str, default='.',
                         help='Optional, defaults to target directory. Note that relative paths will be relative to \
                         the target directory, not the current working directory', metavar='OUTPUT_DIR')
-    parser.add_argument("--bitrate", "-b", type=str, default='300k',
-                        help='Target bitrate for resizing. Defaults to 300k')
+    parser.add_argument("--bitrate", "-b", type=str, default=DEF_BITRATE,
+                        help='Bitrate for resizing. Defaults to %(default)s')
     args = parser.parse_args()
 
     if args.resize or args.aggressive:
