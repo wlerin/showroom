@@ -83,6 +83,8 @@ NEW_INDEX_LOC = 'index'
 
 OUTDIR = 'output'
 
+CommandInput = stdin
+
 # The times and dates reported on the website are screwy, but when fetched through BeautifulSoup
 # they *seem* to come in JST
 # If you're getting incorrect times you probably need to mess with Schedule.convert_time()
@@ -1041,14 +1043,32 @@ class Scheduler(object):
     #     return self._index
 
 
+class InputQueue(Queue):
+    def __init__(self):
+        super().__init__()
+        self.input_thread = threading.Thread(target=self.read_command)
+
+        self.input_thread.daemon = True
+        self.input_thread.start()
+
+    def read_command(self):
+        while True:
+            character = CommandInput.read(1)
+            if character:
+                self.put(character)
+            else:
+                time.sleep(0.2)
+
+    def clear(self):
+        with self.mutex:
+            self.queue.clear()
+            self.all_tasks_done.notify_all()
+            self.unfinished_tasks = 0
+
+
 class Controller(object):
     # slavish adaptation of
     # http://stackoverflow.com/a/19655992/3380530
-    @staticmethod
-    def add_input(input_queue):
-        while True:
-            input_queue.put(stdin.read(1))
-
     def __init__(self, index=None, outdir=OUTDIR,
                  max_downloads=MAX_DOWNLOADS, max_priority=MAX_PRIORITY, max_watches=MAX_WATCHES,
                  live_rate=LIVE_RATE, schedule_ticks=SCHEDULE_TICKS, end_hour=END_HOUR, resume_hour=RESUME_HOUR,
@@ -1074,17 +1094,12 @@ class Controller(object):
 
         self.live_rate = self.settings['live_rate']
 
-        # defined in run()
+        self.input_queue = InputQueue()
+
         self.scheduler = None
         self.watchers = None
         self.downloaders = None
         self.time = None
-
-        self.input_queue = Queue()
-        self.input_thread = threading.Thread(target=self.add_input, args=(self.input_queue,))
-
-        self.input_thread.daemon = True
-        self.input_thread.start()
 
         if exit_behaviour == 'soft':
             self.soft_exit = True
@@ -1130,11 +1145,11 @@ class Controller(object):
 
                 while not self.input_queue.empty():
                     try:
-                        key_press = self.input_queue.get(block=False)
+                        command = self.input_queue.get(block=False)
                     except QueueEmpty:
                         break
                     else:
-                        self.heed_command(key_press)
+                        self.heed_command(command)
 
     def quit(self):
         self.downloaders.quit(self.soft_exit)
@@ -1153,7 +1168,7 @@ class Controller(object):
             self.quitting = False
 
         if key.lower() == 'q':
-            self._clear_input_queue()
+            self.input_queue.clear()
             print('Are you sure you want to quit? (y/N)')
             if self.soft_exit:
                 print('(Active downloads will continue until finished) ')
@@ -1162,20 +1177,14 @@ class Controller(object):
             self.quitting = True
         # TODO: encapsulate these more sanely so that other types of Announcer will work
         elif key.lower() == 's':
-            self._clear_input_queue()
+            self.input_queue.clear()
             self._announcer.send_message(('Current Schedule:',) + tuple(self.scheduler.list))
         elif key.lower() == 'd':
-            self._clear_input_queue()
+            self.input_queue.clear()
             self._announcer.send_message(('Current Downloads:',) + tuple(self.downloaders.list))
         elif key.lower() == 'l':
-            self._clear_input_queue()
+            self.input_queue.clear()
             self._announcer.send_message(('Current Downloads with Links:',) + tuple(self.downloaders.list_with_links))
-
-    def _clear_input_queue(self):
-        with self.input_queue.mutex:
-            self.input_queue.queue.clear()
-            self.input_queue.all_tasks_done.notify_all()
-            self.input_queue.unfinished_tasks = 0
 
 
 if __name__ == "__main__":
