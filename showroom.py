@@ -333,6 +333,9 @@ class WatchQueue(object):
         self.index = 0
         return self
 
+    def __bool__(self):
+        return bool(self.entry_map)
+
     def __next__(self):
         if self.index >= len(self):
             raise StopIteration
@@ -460,10 +463,15 @@ class DownloadQueue(WatchQueue):
         return sum([(e.description, e.web_url, e.url) for e in entries], ())
 
     def quit(self):
-        while self.queue:
-            # note that if the process is hung this won't kill it
-            # this function shouldn't need to worry about indexing into the returned entry
-            self.queue.pop()[2].kill()
+        self.rebuild()
+        while self:
+            done = []
+            for d in self.queue:
+                if d.quit():
+                    done.append(d)
+            for d in done:
+                self.queue.remove(d[2])
+            self.rebuild()
 
 
 class Downloader(object):
@@ -546,6 +554,13 @@ class Downloader(object):
                 self.start()
                 return False
             return True  # how to respond to failed exits?
+
+    def quit(self):
+        self.process.terminate()
+        while self.process.poll():
+            yield False
+        self.move_to_dest()
+        return True
 
     def kill(self, hard=False):
         if not self.sent_quit:
@@ -831,11 +846,7 @@ class DownloadManager(object):
     def list_with_links(self):
         return self.downloads.get_links()
 
-    def quit(self, soft_exit):
-        if soft_exit:
-            a = Announcer()
-            a.send_message(('The following downloads will continue:',) + self.list)
-        else:
+    def quit(self):
             self.downloads.quit()
 
 
@@ -1138,23 +1149,26 @@ class Controller(object):
                 self.watchers.tick(self.time)  # WatchManager object
                 self.downloaders.tick(self.time)  # DownloadManager object
 
-                if len(self.watchers) == 0 and len(self.downloaders) == 0:
-                    time.sleep(self.live_rate)
-                else:
-                    time.sleep(0.5)
-
                 while not self.input_queue.empty():
                     try:
                         command = self.input_queue.get(block=False)
                     except QueueEmpty:
                         break
                     else:
-                        self.heed_command(command)
+                        try:
+                            self.heed_command(command)
+                        except ShowroomExitRequest:
+                            return
+
+                time.sleep(0.5)
+
+
 
     def quit(self):
-        self.downloaders.quit(self.soft_exit)
+        # TODO: Put the downloaders on a ThreadPool
         print("Exiting...")
-        exit()
+        self.downloaders.quit()
+        raise(ShowroomExitRequest)
 
     def heed_command(self, key):
         """Responds to (single) key presses:
@@ -1186,6 +1200,16 @@ class Controller(object):
             self.input_queue.clear()
             self._announcer.send_message(('Current Downloads with Links:',) + tuple(self.downloaders.list_with_links))
 
+
+class ShowroomException(Exception):
+    def __init__(self, description=""):
+        self.description = description
+
+    def __str__(self):
+        return repr(self.description)
+
+class ShowroomExitRequest(ShowroomException):
+    pass
 
 if __name__ == "__main__":
     """
