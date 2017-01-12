@@ -1,0 +1,20 @@
+[
+  {
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS",
+    "web_url": "https://www.showroom-live.com/48_NARUMI_KAWASAKI",
+    "showroom_id": "61846",
+    "jpnName": "川崎 成美",
+    "engName": "Kawasaki Narumi",
+    "priority": 55
+  },
+  {
+    "jpnTeam": "SKE48 研究生",
+    "engTeam": "SKE48 KKS",
+    "web_url": "https://www.showroom-live.com/48_JUNNA_MURAI",
+    "showroom_id": "61851",
+    "jpnName": "村井 純奈",
+    "engName": "Murai Junna",
+    "priority": 55
+  }
+]

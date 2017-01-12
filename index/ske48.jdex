@@ -234,8 +234,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
+    "jpnTeam": "SKE48 チームKⅡ",
+    "engTeam": "SKE48 Team KII",
     "web_url": "https://www.showroom-live.com/48_AYAKA_OTA",
     "showroom_id": "61844",
     "jpnName": "太田 彩夏",
@@ -243,17 +243,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
-    "web_url": "https://www.showroom-live.com/48_NARUMI_KAWASAKI",
-    "showroom_id": "61846",
-    "jpnName": "川崎 成美",
-    "engName": "Kawasaki Narumi",
-    "priority": 55
-  },
-  {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E",
     "web_url": "https://www.showroom-live.com/48_OKA_SUENAGA",
     "showroom_id": "61847",
     "jpnName": "末永 桜花",
@@ -261,17 +252,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
-    "web_url": "https://www.showroom-live.com/48_JUNNA_MURAI",
-    "showroom_id": "61851",
-    "jpnName": "村井 純奈",
-    "engName": "Murai Junna",
-    "priority": 55
-  },
-  {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E",
     "web_url": "https://www.showroom-live.com/48_YUKA_ASAI",
     "showroom_id": "61843",
     "jpnName": "浅井 裕華",
@@ -288,8 +270,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S",
     "web_url": "https://www.showroom-live.com/48_OTOHA_MACHI",
     "showroom_id": "61849",
     "jpnName": "町 音葉",
@@ -306,8 +288,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 研究生",
-    "engTeam": "SKE48 KKS",
+    "jpnTeam": "SKE48 チームE",
+    "engTeam": "SKE48 Team E",
     "web_url": "https://www.showroom-live.com/48_YUKI_TAKAHATA",
     "showroom_id": "61848",
     "jpnName": "髙畑 結希",
@@ -424,7 +406,7 @@
   },
   {
     "jpnTeam": "SKE48 チームKⅡ ドラフト研究生",
-    "engTeam": "SKE48 Team KII Draft KKS",
+    "engTeam": "SKE48 Team KII",
     "web_url": "https://www.showroom-live.com/48_AIRI_MIZUNO",
     "showroom_id": "61855",
     "jpnName": "水野 愛理",
@@ -477,8 +459,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 チームS ドラフト研究生",
-    "engTeam": "SKE48 Team S Draft KKS",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S",
     "web_url": "https://www.showroom-live.com/48_RENA_ISSHIKI",
     "showroom_id": "61853",
     "jpnName": "一色 嶺奈",
@@ -486,8 +468,8 @@
     "priority": 55
   },
   {
-    "jpnTeam": "SKE48 チームS ドラフト研究生",
-    "engTeam": "SKE48 Team S Draft KKS",
+    "jpnTeam": "SKE48 チームS",
+    "engTeam": "SKE48 Team S",
     "web_url": "https://www.showroom-live.com/48_AYUKA_KAMIMURA",
     "showroom_id": "61854",
     "jpnName": "上村 亜柚香",
@@ -496,7 +478,7 @@
   },
   {
     "jpnTeam": "",
-    "engTeam": "SKE48",
+    "engTeam": "SKE48 Graduate",
     "web_url": "https://www.showroom-live.com/yagami-kumi",
     "showroom_id": "56069",
     "jpnName": "矢神久美のや～かみカミするよ",
