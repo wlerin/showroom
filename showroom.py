@@ -257,12 +257,12 @@ class IndexerNew(Indexer):
             if e in self.known_files:
                 # known file w/ changes
                 if (statinfo.st_mtime > self.known_files[e]['mod_time'] or
-                        statinfo.st_size != self.known_files[e]['file_size']):
-                    changed_files = e
+                            statinfo.st_size != self.known_files[e]['file_size']):
+                    changed_files.append(e)
                     self.known_files[e] = {'mod_time': statinfo.st_mtime, 'file_size': statinfo.st_size}
             else:
                 # new file
-                changed_files = e
+                changed_files.append(e)
                 self.known_files[e] = {'mod_time': statinfo.st_mtime, 'file_size': statinfo.st_size}
 
         if len(changed_files) > 0:
