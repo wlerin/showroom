@@ -97,5 +97,23 @@
     "jpnName": "AKB48のオールナイトニッポン超直前スペシャル",
     "engName": "AKB48 no All Night Nippon Pre-Show",
     "priority": 10
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/ske48_official",
+    "showroom_id": "74391",
+    "jpnName": "Official Showroom",
+    "engName": "SKE48 Official Showroom",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/akb48_calendar",
+    "showroom_id": "85561",
+    "jpnName": "AKB48グループオフィシャルカレンダー",
+    "engName": "AKB48 Group Official Calendar",
+    "priority": 20
   }
 ]
