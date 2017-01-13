@@ -160,6 +160,7 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
 
     video_codec = codecs[target_ext]
 
+    # the concat demuxer is not sufficient to merge files resized this way
     for file in to_resize:
         low_res_file = 'resized/' + file.replace('.' + target_ext, '_198p.' + target_ext)
         os.replace(file, low_res_file)
@@ -170,8 +171,11 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
              # '-maxrate', str(target_bitrate),
              # '-bufsize', BUFSIZE,
              # '-crf', '18',
+             '-vsync', '0',  # leave timestamps unchanged
+             '-refs', '1',  # single reference frame, like the original
+             '-copyts',
              '-b:v', target_bitrate,
-             '-vf', 'scale=-1:360',
+             '-vf', 'scale=-1:360,mpdecimate',
              '-c:a', 'copy', file])
 
     os.chdir(oldcwd)
@@ -292,34 +296,60 @@ done
 """
 
 
-def merge_videos(target_dir, output_dir, copytb=1):
+def merge_videos(target_dir, output_dir, copytb=1, concat_protocol=False):
     oldcwd = os.getcwd()
     os.chdir(target_dir)
 
     os.makedirs(output_dir, exist_ok=True)
-
+    bTempFiles = False
     for concat_file in glob.glob('*.concat'):
         outfile = '{}/{}'.format(output_dir, os.path.splitext(concat_file)[0])
         
         instructions = ['-copytb', str(copytb)]
         
-        # wish i didn't have to read it twice...
         with open(concat_file, encoding='utf8') as infp:
             data = infp.read()
+        if data.count('file \'') == 0:
+            print("Empty concat file")
+            raise FileNotFoundError            
         if data.count('file \'') == 1:
             src = data[5:].strip('\'\n./')
             instructions.extend(['-i', src])
-        elif data.count('file \'') > 1:
-            instructions.extend(['-f', 'concat', '-safe', '0', '-i', concat_file])
+        elif concat_protocol:
+            os.makedirs('temp', exist_ok=True)
+            src_videos = []
+
+            for line in data.split('\n'):
+                if line.strip():
+                    src_videos.append(line.strip()[6:-1]) # skip blank lines
+
+            bTempFiles = True
+            temp_videos = []
+            for video in src_videos:
+                tempfile = 'temp/' + video.replace('.mp4', '.ts')
+                run(['ffmpeg',
+                    '-copytb', str(copytb),
+                    '-i', video,
+                    '-c', 'copy',
+                    '-bsf:v', 'h264_mp4toannexb',
+                    '-f', 'mpegts',
+                    tempfile])
+                temp_videos.append(tempfile)
+            videostring = 'concat:' + '|'.join(temp_videos)
+
+            instructions.extend(['-i', videostring, '-bsf:a', 'aac_adtstoasc'])
         else:
-            print("Empty concat file")
-            raise FileNotFoundError
+            instructions.extend(['-auto_convert', '1', '-f', 'concat', '-safe', '0', '-i', concat_file])
         
         run(['ffmpeg',
             *instructions,
             '-movflags', '+faststart',
             '-c', 'copy', outfile])
     
+    if concat_protocol and bTempFiles:
+        for tempfile in glob.glob('temp/*.ts'):
+            os.remove(tempfile)
+
     os.chdir(oldcwd)
 
 if __name__ == '__main__':
@@ -328,18 +358,18 @@ if __name__ == '__main__':
         incompatible resolutions, ignores very broken videos.",
         epilog="When merging, watch the output for \"Non-monotonous DTS in output stream\" -- A few of these are \
         harmless but a wall of them means that video is probably corrupted.")
-    parser.add_argument("--resize", action='store_true', help='resizes 198p videos in TARGET_DIR to 360p, '
+    parser.add_argument("--resize", action='store_true', help='!!EXPERIMENTAL!! resizes 198p videos in TARGET_DIR to 360p, '
                         'saves the old videos in a new "resized" subdirectory. Only supports h264 (MP4) and vpx (WEBM)')
     parser.add_argument("--generate", action='store_true', help='generates concat files in TARGET_DIR, runs by default')
     parser.add_argument("--merge", action='store_true',
                         help='merges videos in TARGET_DIR according to existing concat files')
     parser.add_argument("--both", action='store_true', help='both generates concat files and merges videos')
-    parser.add_argument("--aggressive", action='store_true', help='resizes, generates, and merges')
+    parser.add_argument("--aggressive", action='store_true', help='!!EXPERIMENTAL!! resizes, generates, and merges')
     parser.add_argument("target_dir", nargs='?', default='.',
                         help='Optional. defaults to the current working directory.', metavar='TARGET_DIR')
-    parser.add_argument("--max-gap", type=float, default=300.0,
+    parser.add_argument("--max-gap", type=float, default=600.0,
                         help='maximum gap between merged videos, in seconds. anything larger is treated as a separate \
-                        broadcast. default = 300.0')
+                        broadcast. default = 600.0')
     parser.add_argument("-e", dest='ext', default='mp4', help='extension to merge, defaults to mp4')
     parser.add_argument("--copytb", type=int, choices=[-1, 0, 1], default=1,
                         help='it may be useful to try setting this to 0 or -1 if a video has timing issues.'
@@ -349,6 +379,9 @@ if __name__ == '__main__':
                         the target directory, not the current working directory', metavar='OUTPUT_DIR')
     parser.add_argument("--bitrate", "-b", type=str, default=DEF_BITRATE,
                         help='Bitrate for resizing. Defaults to %(default)s')
+    parser.add_argument("--use-concat-protocol", action="store_true", help="!!EXPERIMENTAL!! Uses ffmpeg's concat protocol"
+                        " instead of the concat demuxer to allow merging videos with differing timebases (as result from"
+                        " --resize). Creates temporary intermediate .ts files. Used automatically with --aggressive")
     args = parser.parse_args()
 
     if args.resize or args.aggressive:
@@ -357,7 +390,10 @@ if __name__ == '__main__':
     if args.generate or args.both or args.aggressive:
         generate_concat_files(target_dir=args.target_dir, target_ext=args.ext,
                               max_gap=args.max_gap)
-    if args.merge or args.both or args.aggressive:
+    if (args.merge or args.both) and not args.use_concat_protocol:
         merge_videos(target_dir=args.target_dir, output_dir=args.output_dir,
                      copytb=args.copytb)
+    if args.aggressive or ((args.merge or args.both) and args.use_concat_protocol):
+        merge_videos(target_dir=args.target_dir, output_dir=args.output_dir,
+                     copytb=args.copytb, concat_protocol=True)
 
