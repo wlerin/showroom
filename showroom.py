@@ -467,10 +467,10 @@ class DownloadQueue(WatchQueue):
         while self:
             done = []
             for d in self.queue:
-                if d.quit():
+                if d[2].quit():
                     done.append(d)
             for d in done:
-                self.queue.remove(d[2])
+                super().remove(d[2])
             self.rebuild()
 
 
