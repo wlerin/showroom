@@ -101,27 +101,72 @@ def watch_seconds(priority):
         return WATCHSECONDS[priority-1]
 
 
-class Showroom(object):
-    def __init__(self, room_info=None, mod_time=0):
+def format_name(rootdir, time_str, room):
+    """
+    Produces a temporary directory, a destination directory, and a filename for a live stream.
+
+        :param rootdir: The top of the output directory
+        :param time_str: The date and time in YYYY-MM-DD HHmmss format
+        :param room: A Room object containing information about the room
+        :type rootdir: str
+        :type time_str: str
+        :type room: Room
+
+        :return: (temp ("active") directory, destination directory, filename)
+        :rtype: tuple
+
+        .. todo:: Eliminate double spaces more cleanly
+    """
+    dir_format = '{root}/{date}/{group}'
+    tempdir = '{root}/active'.format(root=rootdir)
+    name_format = '{date} Showroom - {group} {team} {name} {time}{count}.mp4'
+    # count = 0
+    # count_str = '_{:02d}'
+
+    destdir = dir_format.format(root=rootdir, date=time_str[:10], group=room.group)
+
+    os.makedirs('{}/logs'.format(destdir), exist_ok=True)
+
+    _date, _time = time_str.split(' ')
+    short_date = _date[2:].replace('-', '')
+
+    outfile = name_format.format(date=short_date, group=room.group, team=room.team, name=room.name,
+                                 time=_time, count='')
+    # TODO: More efficient way of doing this?
+    # It gets used every time a room has a blank team
+    while '  ' in outfile:
+        outfile = outfile.replace('  ', ' ')
+
+    # What is this????
+    # I mean I know what it's for, but this should never actually happen, right?
+    '''
+    while os.path.exists('{}/{}'.format(destdir, outfile)):
+        count += 1
+        outfile = name_format.format(date=short_date, group=member.group, team=member.team, name=member.name,
+                                     time=_time, count=count_str.format(count))
+    '''
+    return tempdir, destdir, outfile
+
+
+class Room(object):
+    def __init__(self, room_info=None, mod_time=0, language='eng'):
         """
         :param room_info: Dictionary describing the room, from an index file
         :param mod_time: Time the source file was last modified
         """
         self._mod_time = mod_time
         self._room_info = room_info
+        self.set_language(language)
 
     def __getitem__(self, key):
         return self._room_info[key]
 
-    # def __setitem(self, key, value) # only the indexer should make changes here, and only to priority
+    def __bool__(self):
+        return bool(self._room_info)
 
-    # I don't want to accidentally set this, so an explicit set is used instead of a setter
     def set_priority(self, new_priority, mod_time):
         self._mod_time = mod_time
         self._room_info['priority'] = new_priority
-
-    def __bool__(self):
-        return bool(self._room_info)
 
     @property
     def mod_time(self):
@@ -132,6 +177,13 @@ class Showroom(object):
         return self._room_info['web_url'].split('/')[-1]
 
     @property
+    def long_url(self):
+        if self._room_info['web_url'].startswith('https://'):
+            return self._room_info['web_url']
+        else:
+            return 'https://showroom-live.com/' + self._room_info['web_url'].strip('/')
+
+    @property
     def room_id(self):
         return self._room_info['showroom_id']
 
@@ -139,10 +191,59 @@ class Showroom(object):
     def priority(self):
         return self._room_info['priority']
 
+    @property
+    def name(self):
+        return self._room_info[self._language + 'Name']
+
+    @property
+    def group(self):
+        return self._room_info[self._language + 'Group']
+
+    @property
+    def team(self):
+        return self._room_info[self._language + 'Team']
+
+    def set_language(self, new_language):
+        if new_language.lower() in ('eng', 'jpn'):
+            self._language = new_language.lower()
+        elif new_language.lower() in ('english', 'en'):
+            self._language = 'eng'
+        elif new_language.lower() in ('japanese', 'jp'):
+            self._language = 'jpn'
+        else:
+            print('Unknown language')
+
+    def get_language(self):
+        if self._language == 'eng':
+            return 'English'
+        elif self._language == 'jpn':
+            return 'Japanese'
+
+
+class RoomOld(Room):
+    def __init__(self, room_info=None, mod_time=0, language='eng'):
+        super(RoomOld, self).__init__(room_info=room_info, mod_time=mod_time, language=language)
+
+    @property
+    def group(self):
+        # emulates old guessing method
+        team = self._room_info[self._language + 'Team']
+        if '48' in team and len(team) > 5 and 'Gen' not in team:
+            return team[:5]
+        else:
+            return team
+
+    @property
+    def team(self):
+        # emulates old guessing method
+        team = self._room_info[self._language + 'Team']
+        if '48' in team and len(team) > 5 and 'Gen' not in team:
+            return team[5:].strip()
+        else:
+            return ''
+
 
 class Indexer(object):
-    # TODO: dictionary with room_id as key, dictionary with room_url as key...
-    # how to make sure they stay in sync?
     def __init__(self):
         self.room_dict = {}
         self.room_url_lookup = {}
@@ -211,8 +312,8 @@ class IndexerNew(Indexer):
         super(IndexerNew, self).__init__()
         # read index_directory
         # make note of modification times and file sizes for all *.jdex files
-        # load data from all jdex files, creating Showroom objects for each unique room
-        # updating rooms as necessary (include mod date w/ Showroom object? include source jdex?)
+        # load data from all jdex files, creating Room objects for each unique room
+        # updating rooms as necessary (include mod date w/ Room object? include source jdex?)
         # Including the source_jdex is superfluous since a room can be in multiple files,
         # and should only be removed if it's removed from all files (and I don't want that to be a regular event)
         # mod_date is semi-useful when building the initial index
@@ -242,7 +343,11 @@ class IndexerNew(Indexer):
             # perhaps in this phase it is not necessary to update existing rooms but simply overwrite
             # but later we will need to update
             for room in temp_data:
-                new_room = Showroom(room, mod_time)
+                if 'engGroup' in room:
+                    new_room = Room(room_info=room, mod_time=mod_time)
+                else:
+                    # TODO: phase this out over time
+                    new_room = RoomOld(room_info=room, mod_time=mod_time)
                 self.room_dict[new_room.room_id] = new_room
                 self.room_url_lookup[new_room.short_url] = new_room
 
@@ -292,7 +397,11 @@ class IndexerNew(Indexer):
                     if room['priority'] != self.room_dict[room_id]['priority']:
                         self.room_dict[room_id].set_priority(room['priority'], mod_time)
                 else:
-                    new_room = Showroom(room, mod_time)
+                    if 'engGroup' in room:
+                        new_room = Room(room_info=room, mod_time=mod_time)
+                    else:
+                        # TODO: phase this out over time
+                        new_room = RoomOld(room_info=room, mod_time=mod_time)
                     self.room_dict[new_room.room_id] = new_room
                     self.room_url_lookup[new_room.short_url] = new_room
 
@@ -467,11 +576,14 @@ class DownloadQueue(WatchQueue):
         while self:
             done = []
             for d in self.queue:
-                if d[2].quit():
+                try:
+                    next(d[2].quit())
+                except StopIteration:
                     done.append(d)
             for d in done:
                 super().remove(d[2])
             self.rebuild()
+            done = []
 
 
 class Downloader(object):
@@ -493,7 +605,7 @@ class Downloader(object):
 
     @property
     def name(self):
-        return self._member['engName']
+        return self._member.name
 
     @property
     def room_id(self):
@@ -513,7 +625,7 @@ class Downloader(object):
     
     @property
     def web_url(self):
-        return self._member['web_url']
+        return self._member.long_url
 
     @property
     def description(self):
@@ -556,15 +668,16 @@ class Downloader(object):
             return True  # how to respond to failed exits?
 
     def quit(self):
-        self.process.terminate()
-        while self.process.poll():
+        if not self.sent_quit:
+            self.process.terminate()
+            self.sent_quit = True
+        while self.process.poll() == None:
             yield False
         self.move_to_dest()
-        return True
+        raise(StopIteration)
 
     def kill(self, hard=False):
         if not self.sent_quit:
-            print('Quitting {}'.format(self.name))
             self.process.terminate()
             self.sent_quit = True
         elif hard:
@@ -632,35 +745,6 @@ class Downloader(object):
     @property
     def url(self):
         return self._url
-    
-
-def format_name(rootdir, time_str, member):
-    dir_format  = '{root}/{date}/{team}'
-    tempdir     = '{root}/active'.format(root=rootdir)
-    name_format = '{date} Showroom - {team} {name} {time}{count}.mp4'
-    count       = 0 
-    count_str   = '_{:02d}'
-
-    # TODO: Evaluate this in light of all the new rooms
-    if '48' in member['engTeam'] and 'Gen' not in member['engTeam']:
-        team = member['engTeam'][:5]
-    else:
-        team = member['engTeam']  # just Nogizaka46 right now
-    
-    destdir  = dir_format.format(root=rootdir, date=time_str[:10], team=team)
-    
-    os.makedirs('{}/logs'.format(destdir), exist_ok=True)
-    
-    _date, _time = time_str.split(' ')
-    short_date = _date[2:].replace('-', '')
-    
-    outfile = name_format.format(date=short_date, team=member['engTeam'], name=member['engName'], 
-                                 time=_time, count='')
-    while os.path.exists('{}/{}'.format(destdir, outfile)):
-        count += 1
-        outfile = name_format.format(date=short_date, team=member['engTeam'], name=member['engName'], 
-                                     time=_time, count=count_str.format(count))
-    return tempdir, destdir, outfile
 
 
 class Watcher(object):
@@ -1162,8 +1246,6 @@ class Controller(object):
 
                 time.sleep(0.5)
 
-
-
     def quit(self):
         # TODO: Put the downloaders on a ThreadPool
         print("Exiting...")
@@ -1208,13 +1290,15 @@ class ShowroomException(Exception):
     def __str__(self):
         return repr(self.description)
 
+
 class ShowroomExitRequest(ShowroomException):
     pass
+
 
 if __name__ == "__main__":
     """
     Syntax:
-    python3 showroom.py "Member Name"|--all
+    python3 showroom.py ["Member Name"]
     """
     # TODO: add verbosity levels
     parser = argparse.ArgumentParser(description="Watches Showroom for live videos and downloads them \
@@ -1289,26 +1373,3 @@ if __name__ == "__main__":
     c.filter(args.names)
     print('Show (S)chedule, Show (D)ownloads, Show (L)inks, (Q)uit')
     c.run()
-
-    '''
-    elif len(args.names) > 0:
-        # silently discards all but the first matched member
-        names = args.names[:args.max_downloads]
-        members = [find_member(name, member_index) for name in names]
-        if members[0]:
-            os.makedirs(args.output_dir, exist_ok=True)
-            watch(members[0], args.output_dir)
-        else:
-            print("Member not found")
-        
-        """
-        for name in names:
-            member = find_member(name)
-            if member:
-                members.append(member)
-            
-        simple_watcher(members, args.max_downloads)
-        """
-    else:
-        print('Please supply either a quoted name or --all')
-    '''
