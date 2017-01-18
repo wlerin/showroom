@@ -115,5 +115,14 @@
     "jpnName": "AKB48グループオフィシャルカレンダー",
     "engName": "AKB48 Group Official Calendar",
     "priority": 20
+  },
+  {
+    "jpnTeam": "",
+    "engTeam": "Other",
+    "web_url": "https://www.showroom-live.com/akb48_asuyoro",
+    "showroom_id": "92289",
+    "jpnName": "AKB48の明日よろしく！",
+    "engName": "AKB48 no Ashita Yoroshiku!",
+    "priority": 20
   }
 ]
