@@ -1,0 +1,211 @@
+[
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92039",
+    "web_url": "https://showroom-live.com/48_Nanami_Asai",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "浅井 七海",
+    "priority": 20,
+    "engName": "Asai Nanami"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92040",
+    "web_url": "https://showroom-live.com/48_Kaori_Inagaki",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "稲垣 香織",
+    "priority": 20,
+    "engName": "Inagaki Kaori"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92041",
+    "web_url": "https://showroom-live.com/48_Izumi_Umemoto",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "梅本 和泉",
+    "priority": 20,
+    "engName": "Umemoto Izumi"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92042",
+    "web_url": "https://showroom-live.com/48_Haruka_Kurosu",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "黒須 遥香",
+    "priority": 20,
+    "engName": "Kurosu Haruka"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92043",
+    "web_url": "https://showroom-live.com/48_Minami_Sato",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "佐藤 美波",
+    "priority": 20,
+    "engName": "Sato Minami"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92044",
+    "web_url": "https://showroom-live.com/48_Nagisa_Shoji",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "庄司 なぎさ",
+    "priority": 20,
+    "engName": "Shoji Nagisa"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92045",
+    "web_url": "https://showroom-live.com/48_Kurumi_Suzuki",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "鈴木 くるみ",
+    "priority": 20,
+    "engName": "Suzuki Kurumi"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92046",
+    "web_url": "https://showroom-live.com/48_Manaka_Taguchi",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "田口 愛佳",
+    "priority": 20,
+    "engName": "Taguchi Manaka"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92048",
+    "web_url": "https://showroom-live.com/48_Misaki_Taya",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "田屋 美咲",
+    "priority": 20,
+    "engName": "Taya Misaki"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92050",
+    "web_url": "https://showroom-live.com/48_Ayami_Nagatomo",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "長友 彩海",
+    "priority": 20,
+    "engName": "Nagatomo Ayami"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92051",
+    "web_url": "https://showroom-live.com/48_Nanami_Noguchi",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "野口 菜々美",
+    "priority": 20,
+    "engName": "Noguchi Nanami"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92052",
+    "web_url": "https://showroom-live.com/48_Nanami_Harima",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "播磨 七海",
+    "priority": 20,
+    "engName": "Harima Nanami"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92053",
+    "web_url": "https://showroom-live.com/48_Mai_Homma",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "本間 麻衣",
+    "priority": 20,
+    "engName": "Homma Mai"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92054",
+    "web_url": "https://showroom-live.com/48_Ayaka_Maeda",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "前田 彩佳",
+    "priority": 20,
+    "engName": "Maeda Ayaka"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92055",
+    "web_url": "https://showroom-live.com/48_Saki_Michieda",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "道枝 咲",
+    "priority": 20,
+    "engName": "Michieda Saki"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92056",
+    "web_url": "https://showroom-live.com/48_Orin_Mutou",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "武藤 小麟",
+    "priority": 20,
+    "engName": "Mutou Orin"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92057",
+    "web_url": "https://showroom-live.com/48_Kana_Yasuda",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "安田 叶",
+    "priority": 20,
+    "engName": "Yasuda Kana"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92058",
+    "web_url": "https://showroom-live.com/48_Mizuki_Yamauchi",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "山内 瑞葵",
+    "priority": 20,
+    "engName": "Yamauchi Mizuki"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "showroom_id": "92059",
+    "web_url": "https://showroom-live.com/48_Suzuha_Yamane",
+    "engTeam": "KKS",
+    "engGroup": "AKB48",
+    "jpnTeam": "研究生",
+    "jpnName": "山根 涼羽",
+    "priority": 20,
+    "engName": "Yamane Suzuha"
+  }
+]
