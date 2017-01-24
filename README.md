@@ -1,4 +1,4 @@
-# showroom
+# Showroom Live Watcher
 Requires Requests, Pytz, and a working installation of ffmpeg
 
 
