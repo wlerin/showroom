@@ -1,7 +1,9 @@
 [
   {
-    "jpnTeam": "乃木坂46",
-    "engTeam": "Nogizaka46",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "jpnTeam": "",
+    "engTeam": "",
     "web_url": "https://www.showroom-live.com/misa_eto",
     "showroom_id": "77735",
     "jpnName": "乃木坂４６・衛藤美彩『なぜカノ』スペシャル！",
@@ -9,12 +11,25 @@
     "priority": 20
   },
   {
-    "jpnTeam": "乃木坂46",
-    "engTeam": "Nogizaka46",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "jpnTeam": "",
+    "engTeam": "",
     "web_url": "https://www.showroom-live.com/nogizaka46",
     "showroom_id": "53098",
     "jpnName": "乃木坂４６時間ＴＶ",
     "engName": "46 Hours TV",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/asuka_saito",
+    "showroom_id": "53098",
+    "jpnName": "齋藤飛鳥",
+    "engName": "Saito Asuka",
     "priority": 20
   }
 ]
