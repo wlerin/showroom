@@ -61,7 +61,6 @@ except ImportError:
     
     Announcer = DefaultAnnouncer
 
-
 class DummyAnnouncer(object):
     def send_message(self, *args, **kwargs):
         pass
@@ -705,8 +704,15 @@ class Downloader(object):
             self.destdir, self.tempdir, self.outfile = ("", "", "")
         
     def start(self):
-        data = self.session.get('https://www.showroom-live.com/room/get_live_data',
-                                params={'room_id': self.room_id}).json()
+        while True:
+            try:
+                data = self.session.get('https://www.showroom-live.com/room/get_live_data',
+                                        params={'room_id': self.room_id}).json()
+            except JSONDecodeError:
+                continue
+            else:
+                break
+
         stream_name = data['streaming_name_rtmp']
         stream_url = data["streaming_url_rtmp"]
         tokyo_time = datetime.datetime.now(tz=TOKYO_TZ)
@@ -1219,6 +1225,7 @@ class Controller(object):
         while True:
             self.time = datetime.datetime.now(tz=TOKYO_TZ)
             
+            '''
             if self.resume_time > self.time.time() > self.end_time:
                 sleep_seconds = (datetime.datetime.combine(self.time, self.resume_time)
                                  - self.time).total_seconds() + 1.0
@@ -1227,24 +1234,25 @@ class Controller(object):
                                                                              self.resume_time.strftime('%H:%M')))
                 self.scheduler.reset_ticks()
                 time.sleep(sleep_seconds)
+            
                 
-            else:
-                self.scheduler.tick(self.time)  # Scheduler object
-                self.watchers.tick(self.time)  # WatchManager object
-                self.downloaders.tick(self.time)  # DownloadManager object
+            else:'''
+            self.scheduler.tick(self.time)  # Scheduler object
+            self.watchers.tick(self.time)  # WatchManager object
+            self.downloaders.tick(self.time)  # DownloadManager object
 
-                while not self.input_queue.empty():
+            while not self.input_queue.empty():
+                try:
+                    command = self.input_queue.get(block=False)
+                except QueueEmpty:
+                    break
+                else:
                     try:
-                        command = self.input_queue.get(block=False)
-                    except QueueEmpty:
-                        break
-                    else:
-                        try:
-                            self.heed_command(command)
-                        except ShowroomExitRequest:
-                            return
+                        self.heed_command(command)
+                    except ShowroomExitRequest:
+                        return
 
-                time.sleep(0.5)
+            time.sleep(0.5)
 
     def quit(self):
         # TODO: Put the downloaders on a ThreadPool
