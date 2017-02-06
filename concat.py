@@ -135,12 +135,11 @@ def probe_file(filename, streams):
         return results
 
 def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
-
     oldcwd = os.getcwd()
     os.chdir(target_dir)
     files = sorted(glob.glob('*.{}'.format(target_ext)))
 
-
+    members = set()
     to_resize=[]
     for file in files:
         results = probe_file(file, streams=('duration', 'height'))
@@ -155,7 +154,9 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
     if len(to_resize) > 0:
         os.makedirs('resized', exist_ok=True)
     else:
+        os.chdir(oldcwd)
         return
+
     codecs = {'mp4': 'libx264', 'webm': 'libvpx'}
 
     video_codec = codecs[target_ext]
@@ -164,8 +165,10 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
     for file in to_resize:
         low_res_file = 'resized/' + file.replace('.' + target_ext, '_198p.' + target_ext)
         os.replace(file, low_res_file)
+        members.add(file.rsplit(' ', 1)[0])
         run(['ffmpeg',
              '-copytb', str(copytb),
+             '-hide_banner', '-nostats',
              '-i', low_res_file,
              '-c:v', video_codec,
              # '-maxrate', str(target_bitrate),
@@ -178,6 +181,9 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
              '-vf', 'scale=-1:360,mpdecimate',
              '-c:a', 'copy', file])
 
+    with open('resized.json', 'w', encoding='utf8') as outfp:
+        json.dump(sorted(members), outfp, indent=2, ensure_ascii=False)
+
     os.chdir(oldcwd)
 
 
@@ -187,6 +193,12 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     
     max_gap = float(max_gap)
     
+    try:
+        with open('resized.json', encoding='utf8') as infp:
+            resized_members = tuple(json.load(infp))
+    except FileNotFoundError:
+        resized_members = ()
+
     # TODO: deal with leftovers (from after 24:00)
     files = sorted(glob.glob('*.{}'.format(target_ext)))
     
@@ -209,7 +221,9 @@ def generate_concat_files(target_dir, target_ext, max_gap):
         member_name = file.rsplit(' ', 1)[0]
         if member_name not in member_dict:
             member_dict[member_name] = []
+
         new_video = {"start_time": get_start_seconds(file)}
+
         try:
             stream = json.loads(results)['streams'][0]
         except IndexError:
@@ -229,7 +243,12 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     concat_files = {}
     
     def new_concat_file(member, first_video):
-        filename = '{} {}.{}.concat'.format(member, get_start_hhmm(first_video['start_time']), target_ext)
+        # decide between .proto and .concat based on presence of member_name in resized.json
+        if member in resized_members:
+            info_ext = 'proto'
+        else:
+            info_ext = 'concat'
+        filename = '{} {}.{}.{}'.format(member, get_start_hhmm(first_video['start_time']), target_ext, info_ext)
         info = {'files': []}
         info['height'] = first_video['height']
         info['last_time'] = first_video['start_time'] + first_video['duration']
@@ -296,60 +315,64 @@ done
 """
 
 
-def merge_videos(target_dir, output_dir, copytb=1, concat_protocol=False):
+def merge_videos(target_dir, output_dir, copytb=1):
     oldcwd = os.getcwd()
     os.chdir(target_dir)
 
     os.makedirs(output_dir, exist_ok=True)
     bTempFiles = False
-    for concat_file in glob.glob('*.concat'):
-        outfile = '{}/{}'.format(output_dir, os.path.splitext(concat_file)[0])
-        
-        instructions = ['-copytb', str(copytb)]
-        
-        with open(concat_file, encoding='utf8') as infp:
-            data = infp.read()
-        if data.count('file \'') == 0:
-            print("Empty concat file")
-            raise FileNotFoundError            
-        if data.count('file \'') == 1:
-            src = data[5:].strip('\'\n./')
-            instructions.extend(['-i', src])
-        elif concat_protocol:
-            os.makedirs('temp', exist_ok=True)
-            src_videos = []
 
-            for line in data.split('\n'):
-                if line.strip():
-                    src_videos.append(line.strip()[6:-1]) # skip blank lines
+    for ext in ('concat', 'proto'):
+        for concat_file in glob.glob('*.' + ext):
+            outfile = '{}/{}'.format(output_dir, os.path.splitext(concat_file)[0])
+            instructions = ['-hide_banner', '-nostats',
+                            # '-report', 
+                            # 'file=logs/concat-{}.log:level=40'.format(os.path.splitext(concat_file)[0]),
+                            '-copytb', str(copytb),]
 
-            bTempFiles = True
-            temp_videos = []
-            for video in src_videos:
-                tempfile = 'temp/' + video.replace('.mp4', '.ts')
-                run(['ffmpeg',
-                    '-copytb', str(copytb),
-                    '-i', video,
-                    '-c', 'copy',
-                    '-bsf:v', 'h264_mp4toannexb',
-                    '-f', 'mpegts',
-                    tempfile])
-                temp_videos.append(tempfile)
-            videostring = 'concat:' + '|'.join(temp_videos)
+            with open(concat_file, encoding='utf8') as infp:
+                data = infp.read()
+            if data.count('file \'') == 0:
+                print("Empty concat file: {}".format(protocol_file))
+                continue
+            if data.count('file \'') == 1:
+                src = data[5:].strip('\'\n./')
+                instructions.extend(['-i', src])
+            elif ext == 'concat':
+                instructions.extend(['-auto_convert', '1', '-f', 'concat', '-safe', '0', '-i', concat_file])
+            else:       
+                os.makedirs('temp', exist_ok=True)
+                src_videos = []
 
-            instructions.extend(['-i', videostring, '-bsf:a', 'aac_adtstoasc'])
-        else:
-            instructions.extend(['-auto_convert', '1', '-f', 'concat', '-safe', '0', '-i', concat_file])
-        
-        run(['ffmpeg',
-            *instructions,
-            '-movflags', '+faststart',
-            '-c', 'copy', outfile])
+                for line in data.split('\n'):
+                    if line.strip():
+                        src_videos.append(line.strip()[6:-1]) # skip blank lines
+
+                bTempFiles = True
+                temp_videos = []
+                for video in src_videos:
+                    tempfile = 'temp/' + video.replace('.mp4', '.ts')
+                    run(['ffmpeg',
+                        '-i', video,
+                        '-c', 'copy',
+                        '-bsf:v', 'h264_mp4toannexb',
+                        '-f', 'mpegts',
+                        tempfile])
+                    temp_videos.append(tempfile)
+                videostring = 'concat:' + '|'.join(temp_videos)
+                
+                instructions.extend(['-i', videostring, '-bsf:a', 'aac_adtstoasc'])
+
+            run(['ffmpeg',
+                *instructions,
+                '-movflags', '+faststart',
+                '-c', 'copy', outfile])
+
+            if bTempFiles:
+                for tempfile in glob.glob('temp/*.ts'):
+                    os.remove(tempfile)
+                bTempFiles = False
     
-    if concat_protocol and bTempFiles:
-        for tempfile in glob.glob('temp/*.ts'):
-            os.remove(tempfile)
-
     os.chdir(oldcwd)
 
 if __name__ == '__main__':
@@ -395,5 +418,13 @@ if __name__ == '__main__':
                      copytb=args.copytb)
     if args.aggressive or ((args.merge or args.both) and args.use_concat_protocol):
         merge_videos(target_dir=args.target_dir, output_dir=args.output_dir,
-                     copytb=args.copytb, concat_protocol=True)
+                     copytb=args.copytb)
 
+
+# 2017-02-02
+# Making Aggressive Concat saner
+
+# resize creates a json
+# this lists all the names that have been resized. it kind of matters which videos if there was more than one broadcast in a given day,
+# but i'm not going to worry about that right now
+# 
