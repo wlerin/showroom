@@ -1080,7 +1080,13 @@ class Scheduler(object):
 
     def update_live(self):
         self.live.clear()
-        onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
+        while True:
+            try:
+                onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
+            except JSONDecodeError:
+                continue
+            else:
+                break
 
         # find the idol genre
         for e in onlives:
@@ -1104,7 +1110,14 @@ class Scheduler(object):
                 self.live.update({new.room_id: new})
 
     def update_schedule(self):
-        upcoming = self.session.get('https://www.showroom-live.com/api/live/upcoming?genre_id=102').json()['upcomings']
+        while True:
+            try:
+                upcoming = self.session.get('https://www.showroom-live.com/api/live/upcoming?genre_id=102').json()['upcomings']
+            except JSONDecodeError:
+                continue
+            else:
+                break
+
         for item in [e for e in upcoming if str(e['room_id']) in self.index]:
             start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), tz=TOKYO_TZ)
             new = Schedule(start_time, self.index, room_id=str(item['room_id']))
