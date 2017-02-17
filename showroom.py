@@ -67,7 +67,7 @@ class DummyAnnouncer(object):
 
 import pytz
 from requests import Session
-from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout
+from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, ReadTimeout, HTTPError
 
 
 MAX_DOWNLOADS = 60
@@ -415,12 +415,16 @@ class WatchSession(Session):
         super(WatchSession, self).__init__(*args, **kwargs)
     
     def get(self, url, params=None, **kwargs):
+        error_count = 0
         while True:
             try:
                 r = super().get(url, params=params, timeout=(3.0, 15.0), **kwargs)
-            except (Timeout, ConnectionError, ChunkedEncodingError):
-                # TODO: Back off gradually if errors keep happening
-                time.sleep(1.0)
+                r.raise_for_status()
+            except (Timeout, ConnectionError, ChunkedEncodingError, HTTPError, ReadTimeout) as e:
+                seconds_to_retry = 0.5 + 0.5 * error_count * (1 + error_count // 8)
+                error_count += 1
+                print('Getting {} failed: {}\nRetrying in {} seconds...'.format(url, e, seconds_to_retry))
+                time.sleep(seconds_to_retry)
             else:
                 return r
 
@@ -638,17 +642,12 @@ class Downloader(object):
         self._announcer.send_message(msg)
         
     def is_live(self):
-        while True:
-            try:
-                status = self.session.get('https://www.showroom-live.com/room/is_live',
-                                          params={"room_id": self.room_id}).json()['ok']
-            except JSONDecodeError:
-                continue
-
-            if status == 0:
-                return False
-            elif status == 1:
-                return True
+        status = self.session.get('https://www.showroom-live.com/room/is_live',
+                                  params={"room_id": self.room_id}).json()['ok']
+        if status == 0:
+            return False
+        elif status == 1:
+            return True
     
     def check(self):
         self.process.poll()
@@ -704,14 +703,8 @@ class Downloader(object):
             self.destdir, self.tempdir, self.outfile = ("", "", "")
         
     def start(self):
-        while True:
-            try:
-                data = self.session.get('https://www.showroom-live.com/room/get_live_data',
-                                        params={'room_id': self.room_id}).json()
-            except JSONDecodeError:
-                continue
-            else:
-                break
+        data = self.session.get('https://www.showroom-live.com/room/get_live_data',
+                                params={'room_id': self.room_id}).json()
 
         stream_name = data['streaming_name_rtmp']
         stream_url = data["streaming_url_rtmp"]
@@ -760,20 +753,17 @@ class Watcher(object):
         self.start_time = start_time
 
     def check(self):
-        while True:
-            if self.start_time and (datetime.datetime.now(tz=TOKYO_TZ) > 
-                                    self.start_time + datetime.timedelta(seconds=watch_seconds(self.priority)*2.0)):
-                raise TimeoutError
-            try:
-                status = self.session.get('https://www.showroom-live.com/room/is_live',
-                                          params={"room_id": self.room_id}).json()['ok']
-            except JSONDecodeError:
-                continue
+        if self.start_time and (datetime.datetime.now(tz=TOKYO_TZ) > 
+                self.start_time + datetime.timedelta(seconds=watch_seconds(self.priority)*2.0)):
+            raise TimeoutError
+            
+        status = self.session.get('https://www.showroom-live.com/room/is_live',
+                                  params={"room_id": self.room_id}).json()['ok']
 
-            if status == 0:
-                return False
-            elif status == 1:
-                return True
+        if status == 0:
+            return False
+        elif status == 1:
+            return True
 
     def download(self, outdir, logging, noisy):
         return Downloader(self._member, self.session, outdir, logging, noisy)
@@ -1080,13 +1070,7 @@ class Scheduler(object):
 
     def update_live(self):
         self.live.clear()
-        while True:
-            try:
-                onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
-            except JSONDecodeError:
-                continue
-            else:
-                break
+        onlives = self.session.get('https://www.showroom-live.com/api/live/onlives').json()['onlives']
 
         # find the idol genre
         for e in onlives:
@@ -1110,13 +1094,7 @@ class Scheduler(object):
                 self.live.update({new.room_id: new})
 
     def update_schedule(self):
-        while True:
-            try:
-                upcoming = self.session.get('https://www.showroom-live.com/api/live/upcoming?genre_id=102').json()['upcomings']
-            except JSONDecodeError:
-                continue
-            else:
-                break
+        upcoming = self.session.get('https://www.showroom-live.com/api/live/upcoming?genre_id=102').json()['upcomings']
 
         for item in [e for e in upcoming if str(e['room_id']) in self.index]:
             start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), tz=TOKYO_TZ)
