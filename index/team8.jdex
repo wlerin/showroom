@@ -421,5 +421,23 @@
     "jpnName": "歌田 初夏",
     "engName": "Utada Hatsuka",
     "priority": 20
+  },
+  {
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8",
+    "web_url": "https://www.showroom-live.com/48_Hikaru_Hirano",
+    "showroom_id": "96769",
+    "jpnName": "平野 ひかる",
+    "engName": "Hirano Hikaru",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "AKB48 チーム８",
+    "engTeam": "AKB48 Team 8",
+    "web_url": "https://www.showroom-live.com/48_Sayaka_Takahashi",
+    "showroom_id": "96770",
+    "jpnName": "髙橋 彩香",
+    "engName": "Takahashi Sayaka",
+    "priority": 20
   }
 ]
