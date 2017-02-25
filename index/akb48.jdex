@@ -505,7 +505,7 @@
   },
   {
     "jpnTeam": "AKB48 チームB 台湾留学生",
-    "engTeam": "AKB48 Team B",
+    "engTeam": "AKB48 Team B ",
     "web_url": "https://www.showroom-live.com/48_Chia-Ling_Ma",
     "showroom_id": "61578",
     "jpnName": "馬 嘉伶",
@@ -608,7 +608,7 @@
     "web_url": "https://www.showroom-live.com/akb48_draft_2nd",
     "priority": 10,
     "jpnName": "AKB48ドラフト2期生のSHOWROOM",
-    "engName": "AKB48 Draft 2nd Gen",
+    "engName": "Draft 2nd Gen",
     "showroom_id": "89465"
   }
 ]

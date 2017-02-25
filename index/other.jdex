@@ -1,7 +1,7 @@
 [
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/myaoroom",
     "showroom_id": "58834",
     "jpnName": "みゃおの部屋",
@@ -9,8 +9,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/usj48_yarisugisummer",
     "showroom_id": "67666",
     "jpnName": "やり過ぎ！サマーSPECIAL",
@@ -18,8 +18,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/maji2016",
     "showroom_id": "67940",
     "jpnName": "～立ち上がるマジ女たち～",
@@ -27,8 +27,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/crows_blood",
     "showroom_id": "68872",
     "jpnName": "CROW’S BLOOD鑑賞",
@@ -36,8 +36,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/nmb48_official",
     "showroom_id": "69404",
     "jpnName": "Official Showroom",
@@ -45,8 +45,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/akb48_official",
     "showroom_id": "70088",
     "jpnName": "Official Showroom",
@@ -63,8 +63,8 @@
     "priority": 10
   },
   {
-    "jpnTeam": "Other",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/exdkondomn",
     "showroom_id": "58139",
     "jpnName": "【EXD44】近藤正紀",
@@ -72,8 +72,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "Other",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/kimi_dare",
     "showroom_id": "75207",
     "jpnName": "AKB48の君、誰？",
@@ -99,8 +99,8 @@
     "priority": 10
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/ske48_official",
     "showroom_id": "74391",
     "jpnName": "Official Showroom",
@@ -108,8 +108,8 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/akb48_calendar",
     "showroom_id": "85561",
     "jpnName": "AKB48グループオフィシャルカレンダー",
@@ -117,12 +117,48 @@
     "priority": 20
   },
   {
-    "jpnTeam": "",
-    "engTeam": "Other",
+    "jpnTeam": "SP",
+    "engTeam": "SP",
     "web_url": "https://www.showroom-live.com/akb48_asuyoro",
     "showroom_id": "92289",
     "jpnName": "AKB48の明日よろしく！",
-    "engName": "AKB48 no Ashita Yoroshiku!",
+    "engName": "AKB48 no Myonichi Yoroshiku!",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/tsubuyaki_tv",
+    "showroom_id": "93455",
+    "jpnName": "つぶやきCMグランプリTV",
+    "engName": "HKT48 vs Keyakizaka46 Tsubuyaki CM Grand Pri",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/iwasamisaki0130",
+    "showroom_id": "80244",
+    "jpnName": "わさみんの何かやるでshow",
+    "engName": "Wasamin Show",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/akb48_16th",
+    "showroom_id": "91045",
+    "jpnName": "AKB48 16期生 特別配信ルーム",
+    "engName": "AKB48 16th Gen Room",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/akb48_3rd",
+    "showroom_id": "100190",
+    "jpnName": "AKB48のSHOWROOM",
+    "engName": "AKB48 no SHOWROOM",
     "priority": 20
   }
 ]

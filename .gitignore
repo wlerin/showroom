@@ -91,6 +91,6 @@ ENV/
 
 # Showroom Specific
 output/
-.mp4
-.txt~
+*.mp4
+*~
 trash/
