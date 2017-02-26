@@ -31,13 +31,16 @@ class BasicCLI(object):
                                              fully tested yet. A new indexing system is currently in use, but \
                                              no command-line arguments to control it yet exist.")
         parser.add_argument('names', nargs='*',
-                            help='A quoted Member Name to watch. Accepts a list of names, separated by spaces.'
+                            help='A quoted Member Name to watch. Accepts a list of names, separated by spaces. '
                                  'Currently, the Member Name must match the English Name (engName) key exactly.')
         parser.add_argument('--all', '-a', action='store_true', dest='record_all',
                             help='Watch the main showroom page for live shows and record all of them.')
         parser.add_argument('--output-dir', '-o',
                             help='Directory in which to store active and completed downloads. \
                                 Defaults to "{directory[output]}"'.format(**DEFAULTS))
+        parser.add_argument('--config', help="Path to config file")
+        parser.add_argument('--data-dir', '-d',
+                            help='Data directory. Defaults to "{directory[data]}"'.format(**DEFAULTS))
         parser.add_argument('--index', '-i', dest="index_dir",
                             help='Path to an index directory, containing room information in json files \
                                 with a jdex extension. Defaults to "{directory[index]}"'.format(**DEFAULTS))

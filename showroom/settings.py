@@ -2,7 +2,7 @@ import os
 import json
 from .utils.appdirs import AppDirs
 try:
-    from yaml import safe_load as yaml_load, safe_dump as yaml_dump, YAMLError
+    from yaml import load as yaml_load, dump as yaml_dump, YAMLError
 except ImportError:
     useYAML = False
 else:
@@ -17,6 +17,7 @@ ARGS_TO_SETTINGS = {"record_all": "filter.all",
                     "output_dir": "directory.output",
                     "data_dir": "directory.data",
                     "index_dir": "directory.index",
+                    "config": "file.config",
                     "max_priority": "throttle.max.priority",
                     "max_watches": "throttle.max.watches",
                     "max_downloads": "throttle.max.downloads",
@@ -25,6 +26,35 @@ ARGS_TO_SETTINGS = {"record_all": "filter.all",
                     "names": "filter.wanted",
                     "logging": "ffmpeg.logging",
                     "noisy": "feedback.console"}
+
+_dirs = AppDirs('Showroom', appauthor=False)
+
+DEFAULTS = {"directory": {"data": os.path.expanduser('~/Downloads/Showroom'),
+                          "output": '{data}',
+                          "index": 'index',
+                          "log": _dirs.user_log_dir,
+                          "config": _dirs.user_config_dir,
+                          # This setting is NOT respected by Downloader (it uses {output}/active always)
+                          "temp": '{data}/active'},
+            "file": {"config": '{directory.config}/showroom.conf',
+                     "schedule": '{directory.data}/schedule.json',
+                     "completed": '{directory.data}/completed.json'},
+            "throttle": {"max": {"downloads": 80,
+                                 "watches": 50,
+                                 "priority": 80},
+                         "rate": {"upcoming": 180.0,
+                                  "onlives": 7.0,
+                                  "watch": 2.0,
+                                  "live": 60.0},
+                         "timeout": {"download": 23.0}},
+            "ffmpeg": {"logging": False},
+            "filter": {"all": False,
+                       "wanted": [],
+                       "unwanted": []},
+            "feedback": {"console": False,  # this actually should be a loglevel
+                         "write_schedules_to_file": True},
+            "system": {"make_symlinks": True,
+                       "symlink_dirs": ('log', 'index', 'config')}}
 
 
 def load_config(path):
@@ -72,37 +102,6 @@ def _convert_old_config(config_data):
         else:
             new_data[key] = config_data[key]
     return new_data
-
-
-_dirs = AppDirs('Showroom', appauthor=False)
-
-
-DEFAULTS = {"directory": {"data": os.path.expanduser('~/Downloads/Showroom'),
-                          "output": '{data}',
-                          "index": 'index',
-                          "log": _dirs.user_log_dir,
-                          "config": _dirs.user_config_dir,
-                          # This setting is NOT respected by Downloader (it uses {output}/active always)
-                          "temp": '{data}/active'},
-            "file":      {"config": '{directory.config}/showroom.conf',
-                          "schedule": '{directory.data}/schedule.json',
-                          "completed": '{directory.data}/completed.json'},
-            "throttle":  {"max":     {"downloads":  80,
-                                      "watches":    50,
-                                      "priority":   80},
-                          "rate":    {"upcoming":  180.0,
-                                      "onlives":     7.0,
-                                      "watch":       2.0,
-                                      "live":       60.0},
-                          "timeout": {"download":   23.0}},
-            "ffmpeg":    {"logging": False},
-            "filter":    {"all": False,
-                          "wanted": [],
-                          "unwanted": []},
-            "feedback":  {"console": False,  # this actually should be a loglevel
-                          "write_schedules_to_file": True},
-            "system":    {"make_symlinks": True,
-                          "symlink_dirs": ('log', 'index', 'config')}}
 
 
 # inherit from mapping or dict?
@@ -233,7 +232,6 @@ class ShowroomSettings(SettingsDict):
         self._formatting = False
         super().__init__(settings_dict, top=self)
         self._formatting = True
-        print('completed initialisation')
         # TODO: add some properties like e.g. curr_time, curr_date that can be including in formatting specifiers
 
     # TODO: check that this all works
@@ -242,10 +240,7 @@ class ShowroomSettings(SettingsDict):
         new = cls(DEFAULTS)
 
         if not path:
-            try:
-                path = new.file.config
-            except KeyError:
-                print(new)
+            path = new.file.config
 
         config_data = load_config(path)
         new.update(config_data)
@@ -267,8 +262,6 @@ class ShowroomSettings(SettingsDict):
                 args_data[new_key] = args[key]
 
         new.update(args_data)
-        print("Args Data: {}".format(args_data))
-        print("Settings: {}".format(repr(new)))
 
         new.makedirs(new)
 
