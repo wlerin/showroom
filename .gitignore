@@ -50,7 +50,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
+# *.log
 local_settings.py
 
 # Flask stuff:
@@ -88,9 +88,12 @@ ENV/
 # Rope project settings
 .ropeproject
 
-
 # Showroom Specific
 output/
 *.mp4
 *~
+*.log*
 trash/
+design/
+
+*.idea
