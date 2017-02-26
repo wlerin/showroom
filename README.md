@@ -213,7 +213,7 @@ containing the following fields:
    "live": true | false,
    "status": "scheduled" | "watching" | "live" | "downloading",
    "start_time": "YYYY-MM-DD HH:mm:ss",
-   "streaming_urls: { "hls_url": "http(s)://...",
+   "streaming_urls": { "hls_url": "http(s)://...",
                       "rtmp_url": "rtmp://..."},
    "room": {...} # same as the room data stored in index files
 }
