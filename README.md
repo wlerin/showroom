@@ -1,6 +1,9 @@
 
 # Showroom Live Watcher
 
+![Python 3.5+](https://img.shields.io/badge/Python-3.5%2B-green.svg)
+![License: MIT](https://img.shields.io/badge/license-MIT_License-blue.svg)
+
 ## Usage
 
 Basic usage remains the same as previous versions, except that `--all`
