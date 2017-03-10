@@ -39,8 +39,9 @@ from math import floor
 # 352x198
 # 640x360
 # 704x396
+# 960x540 (march kimi dare episodes)
 # 1280x720 (a single kimi dare episode)
-GOOD_HEIGHTS = (198, 360, 396, 720)
+GOOD_HEIGHTS = (198, 360, 396, 540, 720)
 
 DEF_BITRATE = '300k'
 
