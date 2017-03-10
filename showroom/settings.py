@@ -12,20 +12,21 @@ else:
     except ImportError:
         from yaml import Loader as YAMLLoader, Dumper as YAMLDumper
 
-
-ARGS_TO_SETTINGS = {"record_all": "filter.all",
-                    "output_dir": "directory.output",
-                    "data_dir": "directory.data",
-                    "index_dir": "directory.index",
-                    "config": "file.config",
-                    "max_priority": "throttle.max.priority",
-                    "max_watches": "throttle.max.watches",
-                    "max_downloads": "throttle.max.downloads",
-                    "live_rate": "throttle.rate.live",
-                    "schedule_rate": "throttle.rate.schedule",
-                    "names": "filter.wanted",
-                    "logging": "ffmpeg.logging",
-                    "noisy": "feedback.console"}
+ARGS_TO_SETTINGS = {
+    "record_all": "filter.all",
+    "output_dir": "directory.output",
+    "data_dir": "directory.data",
+    "index_dir": "directory.index",
+    "config": "file.config",
+    "max_priority": "throttle.max.priority",
+    "max_watches": "throttle.max.watches",
+    "max_downloads": "throttle.max.downloads",
+    "live_rate": "throttle.rate.live",
+    "schedule_rate": "throttle.rate.schedule",
+    "names": "filter.wanted",
+    "logging": "ffmpeg.logging",
+    "noisy": "feedback.console"
+}
 
 _dirs = AppDirs('Showroom', appauthor=False)
 
@@ -59,35 +60,35 @@ DEFAULTS = {"directory": {"data": os.path.expanduser('~/Downloads/Showroom'),
 
 def load_config(path):
     # TODO: support old-style setting names? i.e. pass them through ARGS_TO_SETTINGS ?
-        data = {}
-        yaml_err = ""
-        if useYAML:
-            try:
-                # this assumes only one document
-                with open(path, encoding='utf8') as infp:
-                    data = yaml_load(infp, Loader=YAMLLoader)
-            except FileNotFoundError:
-                return {}
-            except YAMLError as e:
-                yaml_err = 'YAML parsing error in file {}'.format(path)
-                if hasattr(e, 'problem_mark'):
-                    mark = e.problem_mark
-                    yaml_err + '\nError on Line:{} Column:{}'.format(mark.line+1, mark.column+1)
-            else:
-                return _convert_old_config(data)
+    data = {}
+    yaml_err = ""
+    if useYAML:
         try:
+            # this assumes only one document
             with open(path, encoding='utf8') as infp:
-                data = json.load(infp)
+                data = yaml_load(infp, Loader=YAMLLoader)
         except FileNotFoundError:
             return {}
-        except json.JSONDecodeError as e:
-            if useYAML and yaml_err:
-                print(yaml_err)
-            else:
-                print('JSON parsing error in file {}'.format(path),
-                      'Error on Line: {} Column: {}'.format(e.lineno, e.colno), sep='\n')
+        except YAMLError as e:
+            yaml_err = 'YAML parsing error in file {}'.format(path)
+            if hasattr(e, 'problem_mark'):
+                mark = e.problem_mark
+                yaml_err + '\nError on Line:{} Column:{}'.format(mark.line + 1, mark.column + 1)
+        else:
+            return _convert_old_config(data)
+    try:
+        with open(path, encoding='utf8') as infp:
+            data = json.load(infp)
+    except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError as e:
+        if useYAML and yaml_err:
+            print(yaml_err)
+        else:
+            print('JSON parsing error in file {}'.format(path),
+                  'Error on Line: {} Column: {}'.format(e.lineno, e.colno), sep='\n')
 
-        return _convert_old_config(data)
+    return _convert_old_config(data)
 
 
 def _convert_old_config(config_data):
@@ -208,7 +209,8 @@ class SettingsDict(dict):
         return self._dict.keys()
 
     def items(self):
-        return self._dict.items()
+        for key in self._dict.keys():
+            yield key, self[key]
 
     def update(self, other=None, **kwargs):
         if other is not None:
