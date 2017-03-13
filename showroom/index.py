@@ -289,7 +289,7 @@ class ShowroomIndex(object):
         self.room_url_lookup.update(new_room_url_lookup)
 
     def rebuild(self):
-        self.known_files = []
+        self.known_files = {}
         self._build()
 
     def update(self):
@@ -381,6 +381,7 @@ class ShowroomIndex(object):
     def start(self):
         self._quitting = False
         self._thread = Thread(target=self.run, name='ShowroomIndex')
+        self._thread.start()
 
     def stop(self):
         self._quitting = True
@@ -390,7 +391,7 @@ class ShowroomIndex(object):
         update_interval = 120.0
         while not self._quitting:
             curr_time = datetime.datetime.now(tz=TOKYO_TZ)
-            if (curr_time - last_update) > update_interval:
+            if (curr_time - last_update).total_seconds() > update_interval:
                 self.update()
             time.sleep(0.9)
 
