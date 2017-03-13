@@ -455,9 +455,8 @@ class Downloader(object):
         """
         # trying this instead of SIGTERM
         # http://stackoverflow.com/a/6659191/3380530
-        self._process.send_signal(SIGINT)
-
-    def terminate(self):
+        # self._process.send_signal(SIGINT)
+        # Or not. SIGINT doesn't exist on Windows
         self._process.terminate()
 
     def kill(self):
@@ -541,8 +540,12 @@ class Downloader(object):
         # TODO: Fix implemented, now just need to check it.
         # passing env variables results in using custom ffmpeg instead of system ffmpeg
         # which doesn't print handlectrl, ping
-        # env = os.environ.copy()
-        env = {}
+        # TODO: determine windows/etc properly elsewhere
+        if os.name == 'nt':
+            env = os.environ.copy()
+        else:
+            env = {}
+
         if self._logging is True:
             log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
             env.update({'FFREPORT': 'file={}:level=40'.format(log_file)})
