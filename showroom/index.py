@@ -293,7 +293,7 @@ class ShowroomIndex(object):
         self._build()
 
     def update(self):
-        index_logger.debug("Checking local index")
+        # index_logger.debug("Checking local index")
         found_files = glob.glob("{}/{}".format(self.directory, "*.jdex"))
 
         changed_files = []
