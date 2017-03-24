@@ -160,5 +160,14 @@
     "jpnName": "AKB48のSHOWROOM",
     "engName": "AKB48 no SHOWROOM",
     "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/ngt48_official",
+    "showroom_id": "92733",
+    "jpnName": "Official Showroom",
+    "engName": "NGT48 Official Showroom",
+    "priority": 20
   }
 ]

@@ -26,6 +26,17 @@
     "engGroup": "Nogizaka46",
     "jpnTeam": "",
     "engTeam": "",
+    "web_url": "https://www.showroom-live.com/nogizaka46_official",
+    "showroom_id": "103574",
+    "jpnName": "乃木坂４６時間ＴＶ",
+    "engName": "Official Room",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "jpnTeam": "",
+    "engTeam": "",
     "web_url": "https://www.showroom-live.com/asuka_saito",
     "showroom_id": "93401",
     "jpnName": "齋藤飛鳥",
