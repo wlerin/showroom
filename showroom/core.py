@@ -73,14 +73,10 @@ import datetime
 from heapq import heapify, heappush, heappop
 from collections import OrderedDict
 import itertools
-from signal import SIGINT  # SIGTERM, SIGKILL
 
 import threading
 from queue import Queue  # Empty as QueueEmpty
 
-
-from requests import Session
-from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, ReadTimeout, HTTPError
 
 from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT, WATCHSECONDS, MODE_TO_STATUS
 from .settings import ShowroomSettings
@@ -211,35 +207,6 @@ def format_name(root_dir, time_str, room):
                                      time=_time, count=count_str.format(count))
     '''
     return tempdir, destdir, outfile
-
-
-class WatchSession(Session):
-    """
-    Wrapper for requests.Session.
-
-    Mainly used to catch temporary errors and set a Timeout
-
-    Overrides requests.Session.get() but otherwise identical to Session
-
-    Raises:
-        May raise TimeoutError, ConnectionError, or ChunkedEncodingError
-        if retries are exceeded.
-    """
-    def get(self, url, params=None, **kwargs):
-        error_count = 0
-        max_retries = 20
-        while True:
-            try:
-                r = super().get(url, params=params, timeout=(2.0, 10.0), **kwargs)
-                r.raise_for_status()
-            except (Timeout, ReadTimeout, ConnectionError, ChunkedEncodingError, HTTPError) as e:
-                logging.debug('Get of {} failed with {}'.format(url, e))
-                error_count += 1
-                if error_count > max_retries:
-                    raise
-                time.sleep(0.5 + 0 if error_count < 4 else error_count - 3)
-            else:
-                return r
 
 
 class Downloader(object):
@@ -390,11 +357,14 @@ class Downloader(object):
             I need to check for both pinging and a timeout
             Because the ping message comes from librtmp, and that might not be part
             of ffmpeg
+            Check periodically that the stream is still live:
+                I've had a couple zombie streams even with the new system
+                (no ffmpeg logs, so no idea what happened)
         """
         num_pings = 0
         # Some streams seem to start fine with up to 4 pings before beginning download?
         # More investigation is needed
-        max_pings = 2 + self._pingouts
+        max_pings = 1 + self._pingouts
         try:
             for line in self._process.stderr:
                 if "Output #0, mp4" in line:
