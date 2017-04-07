@@ -1,19 +1,19 @@
-from argparse import ArgumentParser
-import threading
-from queue import Queue, Empty as QueueEmpty
-import time
-import sys
+import datetime
+import logging
 import os
+import sys
+import threading
+import time
+from argparse import ArgumentParser
 from io import UnsupportedOperation
+from queue import Queue, Empty as QueueEmpty
 
 # This seems like a waste of an import
-from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT
+from .constants import TOKYO_TZ, HHMM_FMT
 from .control import ShowroomLiveControllerThread as ShowroomController
 from .exceptions import ShowroomStopRequest
-from .settings import ShowroomSettings, DEFAULTS
 from .index import ShowroomIndex
-import logging
-import datetime
+from .settings import ShowroomSettings, DEFAULTS
 
 # build settings and index objects from arguments
 # build controller
@@ -59,6 +59,7 @@ class BasicCLI(object):
         parser.add_argument('--schedule-rate', '-S', dest="upcoming_rate", type=float,
                             help='Seconds between each check of the schedule. \
                                 Defaults to {throttle[rate][upcoming]}'.format(**DEFAULTS))
+        parser.add_argument('--comments', dest='comments', action='store_true')
         '''
         # TODO: Allow the user to provide a schedule with different start and end hours per day.
         # Or else instead of stopping entirely, slow down polling during off hours.

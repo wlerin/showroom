@@ -1,6 +1,8 @@
-import os
 import json
+import os
+
 from .utils.appdirs import AppDirs
+
 try:
     from yaml import load as yaml_load, dump as yaml_dump, YAMLError
 except ImportError:
@@ -11,6 +13,8 @@ else:
         from yaml import CLoader as YAMLLoader, CDumper as YAMLDumper
     except ImportError:
         from yaml import Loader as YAMLLoader, Dumper as YAMLDumper
+
+__all__ = ['ShowroomSettings', 'settings']
 
 ARGS_TO_SETTINGS = {
     "record_all": "filter.all",
@@ -25,11 +29,13 @@ ARGS_TO_SETTINGS = {
     "schedule_rate": "throttle.rate.schedule",
     "names": "filter.wanted",
     "logging": "ffmpeg.logging",
-    "noisy": "feedback.console"
+    "noisy": "feedback.console",
+    "comments": "comments.record"
 }
 
 _dirs = AppDirs('Showroom', appauthor=False)
 
+# TODO: refactor this into data.path, index.path, config.path, etc. ?
 DEFAULTS = {"directory": {"data": os.path.expanduser('~/Downloads/Showroom'),
                           "output": '{data}',
                           "index": 'index',
@@ -55,7 +61,12 @@ DEFAULTS = {"directory": {"data": os.path.expanduser('~/Downloads/Showroom'),
             "feedback": {"console": False,  # this actually should be a loglevel
                          "write_schedules_to_file": True},
             "system": {"make_symlinks": True,
-                       "symlink_dirs": ('log', 'index', 'config')}}
+                       "symlink_dirs": ('log', 'index', 'config')},
+            "comments": {"record": False,
+                         "default_update_interval": 7.0,
+                         "max_update_interval": 30.0,
+                         "min_update_interval": 2.0,
+                         "max_priority": 100}}
 
 
 def load_config(path):
@@ -288,6 +299,8 @@ class ShowroomSettings(SettingsDict):
                 else:
                     os.symlink(os.path.abspath(item[1]), dest_path, target_is_directory=True)
 
+
+settings = ShowroomSettings()
 
 # old defaults, for reference
 """

@@ -62,31 +62,31 @@ FFmpeg compile requirements:
     libx264 (?)
 """
 # from sys import stdout, stdin, exit
+import datetime
+import itertools
+import json
+import logging
 import os
+import subprocess
+import threading
 # import glob
 import time
-import subprocess
-from json.decoder import JSONDecodeError
-import json
-import datetime
+from collections import OrderedDict
 # import argparse
 from heapq import heapify, heappush, heappop
-from collections import OrderedDict
-import itertools
-
-import threading
+from json.decoder import JSONDecodeError
 from queue import Queue  # Empty as QueueEmpty
 
-
-from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT, WATCHSECONDS, MODE_TO_STATUS
-from .settings import ShowroomSettings
-from .index import ShowroomIndex, Room
 # from .message import ShowroomMessage
-
 # from .exceptions import ShowroomDownloadError
-import logging
+from .comments import CommentLogger
+from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT, WATCHSECONDS, MODE_TO_STATUS
+from .index import ShowroomIndex, Room
+from .session import WatchSession
+from .settings import ShowroomSettings
+from .utils import format_name, strftime
 
-# The times and dates reported on the website are screwy, but when fetched 
+# The times and dates reported on the website are screwy, but when fetched
 # through BeautifulSoup they *seem* to come in JST
 # If you're getting incorrect times you probably need to mess with 
 # Schedule.convert_time()
@@ -120,93 +120,6 @@ def watch_seconds(priority: int):
         return 120
     else:
         return WATCHSECONDS[priority-1]
-
-
-def strftime(dt: datetime.datetime, format_str: str):
-    """
-    Custom strftime.
-
-    Checks for most frequently used format strings and handles those manually,
-    hands any others off to dt.strftime()
-
-    Args:
-        dt: A datetime object.
-        format_str: A valid strftime format string.
-            '%H:%M' and '%Y-%m-%d %H%M%S' are handled specially.
-
-    Returns:
-        A string representation of dt as described by format_str
-
-    TODO:
-        Test if this is any faster than calling dt.strftime.
-        Since dt.strftime is a C function, it's PROBABLY NOT.
-        Also check that dt is a valid datetime object?
-    """
-    if format_str == HHMM_FMT:
-        return "{:02d}:{:02d}".format(dt.hour, dt.minute)
-    elif format_str == FULL_DATE_FMT:
-        return "{year:04d}-{mon:02d}-{day:02d} " \
-               "{hour:02d}:{min:02d}:{sec:02d}".format(
-                    year=dt.year, mon=dt.month, day=dt.day, 
-                    hour=dt.hour, min=dt.minute, sec=dt.second)
-    else:
-        return dt.strftime(format_str)
-
-
-def format_name(root_dir, time_str, room):
-    """
-    Get file and folder names for a live stream.
-
-    Takes a root directory, a time string, and a room and returns a temp directory,
-    a destination directory, and a file name for the associated stream.
-
-    Args:
-        rootdir: path the top of the output directory, generally taken from settings.
-            Must be a string, Path objects are not handled.
-        time_str: date and time in YYYY-MM-DD HHmmss format
-        room: A Room object containing information about the room
-
-    Returns:
-        A tuple of three strings, representing the temp directory, the destination
-        directory, and the filename, as follows:
-
-            (temp ("active") directory, destination directory, filename)
-
-    TODO:
-        Eliminate double spaces more cleanly.
-        Is there ever a situation where outfile could already exist?
-    """
-    rootdir = root_dir
-    dir_format = '{root}/{date}/{group}'
-    tempdir = '{root}/active'.format(root=rootdir)
-    name_format = '{date} Showroom - {group} {team} {name} {time}{count}.mp4'
-
-    # count = 0
-    # count_str = '_{:02d}'
-
-    destdir = dir_format.format(root=rootdir, date=time_str[:10], group=room.group)
-
-    os.makedirs('{}/logs'.format(destdir), exist_ok=True)
-
-    _date, _time = time_str.split(' ')
-    short_date = _date[2:].replace('-', '')
-
-    outfile = name_format.format(date=short_date, group=room.group, 
-                                 team=room.team, name=room.name,
-                                 time=_time.replace(':', ''), count='')
-
-    while '  ' in outfile:
-        outfile = outfile.replace('  ', ' ')
-
-    # this should never actually happen, right?
-    '''
-    while os.path.exists('{}/{}'.format(destdir, outfile)):
-        count += 1
-        outfile = name_format.format(date=short_date, group=member.group,
-                                     team=member.team, name=member.name,
-                                     time=_time, count=count_str.format(count))
-    '''
-    return tempdir, destdir, outfile
 
 
 class Downloader(object):
@@ -561,7 +474,10 @@ class Watcher(object):
                  update_flag: threading.Event=None, start_time: datetime.datetime=None,
                  watch_duration: int=None):
         self._lock = threading.RLock()
-        self._update_flag = update_flag
+        if update_flag:
+            self._update_flag = update_flag
+        else:
+            self._update_flag = threading.Event()
 
         self._room = room
         self._session = session
@@ -569,6 +485,10 @@ class Watcher(object):
 
         self._download = Downloader(room, session, settings.directory.output, settings.ffmpeg.logging)
 
+        if self._settings.comments.record and self.priority < self._settings.comments.max_priority:
+            self.comment_logger = CommentLogger(self.room, self._session, self._settings, self)
+        else:
+            self.comment_logger = None
         # originally start_time was the time the stream began recording
         # now however i'm using the start_time according to Showroom
         # so Watcher is always created with a start_time
@@ -809,6 +729,8 @@ class Watcher(object):
 
         if self.mode in ("live", "download"):
             self._update_flag.set()
+            if self.comment_logger:
+                self.comment_logger.start()
 
         core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
         while self._mode in ("live", "download"):

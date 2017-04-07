@@ -169,5 +169,14 @@
     "jpnName": "Official Showroom",
     "engName": "NGT48 Official Showroom",
     "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/akb48_sousenkyo",
+    "showroom_id": "105395",
+    "jpnName": "選抜総選挙",
+    "engName": "AKB48 Sousenkyo Showroom",
+    "priority": 20
   }
 ]

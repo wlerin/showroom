@@ -3,6 +3,7 @@ from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, 
 from requests.adapters import HTTPAdapter
 import logging
 import time
+import json
 
 
 class WatchSession(Session):
@@ -39,3 +40,11 @@ class WatchSession(Session):
                 time.sleep(0.5 + 0 if error_count < 4 else error_count - 3)
             else:
                 return r
+
+    def json(self, url, default=None, params=None, **kwargs):
+        try:
+            r = self.get(url, params=params, **kwargs).json()
+        except json.JSONDecodeError:
+            return default
+        else:
+            return r
