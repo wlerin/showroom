@@ -4,7 +4,7 @@ import json  # TODO: use social48.json
 from math import floor
 from collections import OrderedDict
 
-from .tools import probe_video
+from .probe import probe_video
 from .constants import GOOD_HEIGHTS, ENGLISH_INDEX
 from .models import VideoGroup
 

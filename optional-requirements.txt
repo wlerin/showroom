@@ -1,0 +1,7 @@
+# showroom.archive.trim.py:
+numpy
+PySceneDetect
+# On Linux and MacOS X, opencv must be compiled from source to get ffmpeg support
+# opencv-python
+
+

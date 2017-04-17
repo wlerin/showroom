@@ -26,6 +26,19 @@ few of these are harmless but a wall of them means that video is probably
 corrupted.
 
 
+
+scene detection with ffprobe
+https://lists.ffmpeg.org/pipermail/ffmpeg-user/2012-November/011101.html
+
+ffprobe -show_frames -of compact=p=0 -f lavfi \
+"movie=$F,select=gt(scene\,.8)" | gsed -r \
+'s/.*pkt_pts_time=([0-9.]{8,})\|.*/\1/' >> scenes-0.8
+
+that doesn't work though.
+
+
+https://pypi.python.org/pypi/PySceneDetect/
+https://pyscenedetect.readthedocs.io/en/latest/features/
 """
 
 import os
