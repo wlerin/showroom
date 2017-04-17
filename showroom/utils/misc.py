@@ -2,6 +2,8 @@ import os
 import datetime
 from showroom.constants import HHMM_FMT, FULL_DATE_FMT
 
+CENTURY_OFFSET = 2000
+
 
 # TODO: take a datetime object instead of a time_str
 def format_name(root_dir, time_str, room):
@@ -46,6 +48,11 @@ def format_name(root_dir, time_str, room):
                                  time=_time.replace(':', ''), count='')
 
     return tempdir, destdir, outfile
+
+
+def iso_date_to_six_char(date):
+    y, m, d = date.split('-')
+    return '{:02d}{}{}'.format(int(y)-CENTURY_OFFSET, m, d)
 
 
 def strftime(dt: datetime.datetime, format_str: str):

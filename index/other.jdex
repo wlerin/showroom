@@ -178,5 +178,27 @@
     "jpnName": "選抜総選挙",
     "engName": "AKB48 Sousenkyo Showroom",
     "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "チーム8 特別配信ルーム",
+    "engName": "AKB48 Team 8 Special Room",
+    "showroom_id": "109252",
+    "web_url": "https://www.showroom-live.com/akb48_team8",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "STU48 選抜メンバー発表生配信！",
+    "engName": "STU48 Official",
+    "showroom_id": "109060",
+    "web_url": "https://www.showroom-live.com/stu48_official",
+    "priority": 20
   }
 ]
