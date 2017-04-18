@@ -94,6 +94,8 @@ output/
 *~
 *.log*
 trash/
-design/
-
 *.idea
+/checks/
+/experiments/
+/design/
+

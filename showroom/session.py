@@ -1,9 +1,13 @@
 from requests import Session
 from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, ReadTimeout, HTTPError
 from requests.adapters import HTTPAdapter
+from fake_useragent import UserAgent
 import logging
 import time
 import json
+
+ua = UserAgent(fallback='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+                        '(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36', )
 
 
 class WatchSession(Session):
@@ -24,6 +28,7 @@ class WatchSession(Session):
         super().__init__()
         https_adapter = HTTPAdapter(pool_maxsize=pool_maxsize)
         self.mount('https://www.showroom-live.com', https_adapter)
+        self.headers = {"UserAgent": ua.chrome}
 
     def get(self, url, params=None, **kwargs):
         error_count = 0
