@@ -42,6 +42,21 @@ import threading
 # why am I using both Queue and heapq?
 from queue import Queue, Empty as QueueEmpty
 
+import pytz
+from requests import Session
+from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, ReadTimeout, HTTPError
+from requests.adapters import HTTPAdapter
+
+try:
+    from fake_useragent import UserAgent
+except ImportError:
+    ua = None
+    ua_str = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' \
+             '(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+else:
+    ua = UserAgent(fallback='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+                   '(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36')
+    ua_str = ua.chrome
 
 try:
     from announce import Announcer
@@ -64,10 +79,6 @@ except ImportError:
 class DummyAnnouncer(object):
     def send_message(self, *args, **kwargs):
         pass
-
-import pytz
-from requests import Session
-from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, ReadTimeout, HTTPError
 
 
 MAX_DOWNLOADS = 60
@@ -411,8 +422,11 @@ class IndexerNew(Indexer):
 
 
 class WatchSession(Session):
-    def __init__(self, *args, **kwargs):
-        super(WatchSession, self).__init__(*args, **kwargs)
+    def __init__(self, pool_maxsize=100):
+        super().__init__()
+        https_adapter = HTTPAdapter(pool_maxsize=pool_maxsize)
+        self.mount('https://www.showroom-live.com', https_adapter)
+        self.headers = {"UserAgent": ua_str}
     
     def get(self, url, params=None, **kwargs):
         error_count = 0
