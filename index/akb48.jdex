@@ -11,7 +11,7 @@
   {
     "jpnTeam": "AKB48 チーム４",
     "engTeam": "AKB48 Team 4",
-    "web_url": "48_Yuiri_Murayama",
+    "web_url": "https://www.showroom-live.com/48_Yuiri_Murayama",
     "priority": 2,
     "jpnName": "村山 彩希",
     "engName": "Murayama Yuiri",
@@ -560,7 +560,7 @@
   {
     "jpnTeam": "AKB48 チームB",
     "engTeam": "AKB48 Team B",
-    "web_url": "48_Ayano_Umeta",
+    "web_url": "https://www.showroom-live.com/48_Ayano_Umeta",
     "priority": 20,
     "jpnName": "梅田 綾乃",
     "engName": "Umeta Ayano",
@@ -569,7 +569,7 @@
   {
     "jpnTeam": "AKB48 チームK",
     "engTeam": "AKB48 Team K",
-    "web_url": "48_Chisato_Nakata",
+    "web_url": "https://www.showroom-live.com/48_Chisato_Nakata",
     "priority": 20,
     "jpnName": "中田 ちさと",
     "engName": "Nakata Chisato",
@@ -578,7 +578,7 @@
   {
     "jpnTeam": "AKB48 チーム４",
     "engTeam": "AKB48 Team 4",
-    "web_url": "48_Rena_Nozawa",
+    "web_url": "https://www.showroom-live.com/48_Rena_Nozawa",
     "priority": 20,
     "jpnName": "野澤 玲奈",
     "engName": "Nozawa Rena",
@@ -587,7 +587,7 @@
   {
     "jpnTeam": "AKB48 チームA",
     "engTeam": "AKB48 Team A",
-    "web_url": "48_Mayu_Ogasawara",
+    "web_url": "https://www.showroom-live.com/48_Mayu_Ogasawara",
     "priority": 20,
     "jpnName": "小笠原 茉由",
     "engName": "Ogasawara Mayu",
@@ -596,7 +596,7 @@
   {
     "jpnTeam": "AKB48 チームB",
     "engTeam": "AKB48 Team B",
-    "web_url": "48_Miyu_Takeuchi",
+    "web_url": "https://www.showroom-live.com/48_Miyu_Takeuchi",
     "priority": 20,
     "jpnName": "竹内 美宥",
     "engName": "Takeuchi Miyu",

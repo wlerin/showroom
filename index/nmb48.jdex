@@ -483,7 +483,7 @@
     "jpnTeam": "NMB48 チームBⅡ",
     "engTeam": "NMB48 Team BII",
     "showroom_id": "67799",
-    "web_url": "48_YUUKI_YAMAGUCHI"
+    "web_url": "https://www.showroom-live.com/48_YUUKI_YAMAGUCHI"
   },
   {
     "engName": "Kinoshita Momoka",
@@ -492,7 +492,7 @@
     "jpnTeam": "NMB48 チームM",
     "engTeam": "NMB48 Team M",
     "showroom_id": "67800",
-    "web_url": "48_MOMOKA_KINOSHITA"
+    "web_url": "https://www.showroom-live.com/48_MOMOKA_KINOSHITA"
   },
   {
     "engName": "Tanigawa Airi",
@@ -501,7 +501,7 @@
     "jpnTeam": "NMB48 チームN",
     "engTeam": "NMB48 Team N",
     "showroom_id": "67801",
-    "web_url": "48_AIRI_TANIGAWA"
+    "web_url": "https://www.showroom-live.com/48_AIRI_TANIGAWA"
   },
   {
     "engName": "Iwata Momoka",
@@ -510,7 +510,7 @@
     "jpnTeam": "NMB48 研究生",
     "engTeam": "NMB48 KKS",
     "showroom_id": "69434",
-    "web_url": "48_MOMOKA_IWATA"
+    "web_url": "https://www.showroom-live.com/48_MOMOKA_IWATA"
   },
   {
     "engName": "Jonishi Kei",
@@ -519,6 +519,6 @@
     "jpnTeam": "NMB48 チームN",
     "engTeam": "NMB48 Team N",
     "showroom_id": "67798",
-    "web_url": "48_KEI_JONISHI"
+    "web_url": "https://www.showroom-live.com/48_KEI_JONISHI"
   }
 ]

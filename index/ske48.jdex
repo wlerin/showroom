@@ -497,7 +497,7 @@
   {
     "jpnTeam": "SKE48 チームS",
     "engTeam": "SKE48 Team S",
-    "web_url": "48_RIKA_TSUZUKI",
+    "web_url": "https://www.showroom-live.com/48_RIKA_TSUZUKI",
     "priority": 20,
     "jpnName": "都築 里佳",
     "engName": "Tsuzuki Rika",
@@ -506,7 +506,7 @@
   {
     "jpnTeam": "SKE48 チームS",
     "engTeam": "SKE48 Team S",
-    "web_url": "48_MIKI_YAKATA",
+    "web_url": "https://www.showroom-live.com/48_MIKI_YAKATA",
     "priority": 20,
     "jpnName": "矢方 美紀",
     "engName": "Yakata Miki",
@@ -515,7 +515,7 @@
   {
     "jpnTeam": "SKE48 チームS",
     "engTeam": "SKE48 Team S",
-    "web_url": "48_MASANA_OYA",
+    "web_url": "https://www.showroom-live.com/48_MASANA_OYA",
     "priority": 20,
     "jpnName": "大矢 真那",
     "engName": "Oya Masana",
@@ -524,7 +524,7 @@
   {
     "jpnTeam": "SKE48 チームKⅡ",
     "engTeam": "SKE48 Team KII",
-    "web_url": "48_KAORI_MATSUMURA",
+    "web_url": "https://www.showroom-live.com/48_KAORI_MATSUMURA",
     "priority": 20,
     "jpnName": "松村 香織",
     "engName": "Matsumura Kaori",
@@ -533,7 +533,7 @@
   {
     "jpnTeam": "SKE48 チームKⅡ",
     "engTeam": "SKE48 Team KII",
-    "web_url": "48_ANNA_ISHIDA",
+    "web_url": "https://www.showroom-live.com/48_ANNA_ISHIDA",
     "priority": 20,
     "jpnName": "石田 安奈",
     "engName": "Ishida Anna",
