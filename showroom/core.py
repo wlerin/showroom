@@ -18,6 +18,8 @@ https://www.showroom-live.com/api/live/onlives
 All upcoming lives in the Idol genre
 https://www.showroom-live.com/api/live/upcoming?genre_id=102
 
+https://www.showroom-live.com/api/time_table/time_tables?order=asc&ended_at=1493621999&_=1492566692848
+
 Find the next live for a room
 https://www.showroom-live.com/api/room/next_live?room_id=61576
 
@@ -376,8 +378,11 @@ class Downloader(object):
 
     def update_streaming_url(self):
         """Updates streaming urls from the showroom website."""
-        data = self._session.get('https://www.showroom-live.com/room/get_live_data',
-                                 params={'room_id': self._room.room_id}).json()
+        data = self._session.json('https://www.showroom-live.com/room/get_live_data',
+                                  params={'room_id': self._room.room_id},
+                                  headers={'Referer', self._room.long_url})
+        if not data:
+            pass  # how to resolve this? can it even happen without throwing an exception earlier?
 
         # TODO: Check that strings aren't empty
         stream_name = data['streaming_name_rtmp']
@@ -655,8 +660,10 @@ class Watcher(object):
         """Checks if the stream is live or not.
 
         This actually checks the website"""
-        status = self._session.get('https://www.showroom-live.com/room/is_live',
-                                   params={"room_id": self.room_id}).json()['ok']
+        status = self._session.json('https://www.showroom-live.com/room/is_live',
+                                    params={"room_id": self.room_id},
+                                    headers={'Referer', self.room.long_url},
+                                    default={'ok': 0})['ok']
 
         if status == 0:
             self._live = False
@@ -1142,7 +1149,9 @@ class WatchManager(object):
     def update_lives(self):
         """Looks for unexpected live rooms."""
         onlives_url = 'https://www.showroom-live.com/api/live/onlives'
-        onlives = self.session.get(onlives_url).json()['onlives']
+        onlives = self.session.json(onlives_url,
+                                    headers={'Referer': 'https://www.showroom-live.com/onlive'},
+                                    default={'onlives': []})['onlives']
 
         # find the idol genre
         for e in onlives:
@@ -1187,8 +1196,11 @@ class WatchManager(object):
 
     def update_schedule(self):
         """Checks the schedule and adds watchers for any new rooms found."""
+        # TODO: get multiple genres
         upcoming_url = 'https://www.showroom-live.com/api/live/upcoming?genre_id=102'
-        upcoming = self.session.get(upcoming_url).json()['upcomings']
+        upcoming = self.session.json(upcoming_url,
+                                     headers={'Referer': 'https://www.showroom-live.com/onlive'},
+                                     default={'upcomings': []})['upcomings']
 
         for item in [e for e in upcoming if str(e['room_id']) in self.index]:
             start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), 

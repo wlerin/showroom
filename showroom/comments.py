@@ -88,7 +88,10 @@ class CommentLogger(object):
             count = 0
             seen = 0
             # update comments
-            data = self.session.json(self.api_url.format(room_id=self.room.room_id), {"comment_log": []})
+            data = self.session.json(self.api_url.format(room_id=self.room.room_id),
+                                     default={"comment_log": []},
+                                     headers={'Referer', self.room.long_url})
+
             for comment in data['comment_log']:
                 cid = self.comment_id_pattern.format(**comment)
                 if cid not in self.comment_ids:
@@ -218,7 +221,9 @@ class RoomScraper:
             count = 0
             seen = 0
             # update comments
-            data = self.session.json(self.api_url.format(room_id=self.room.room_id), {"comment_log": []})
+            data = self.session.json(self.api_url.format(room_id=self.room.room_id),
+                                     default={"comment_log": []},
+                                     headers={'Referer', self.room.long_url})
             for comment in data['comment_log']:
                 cid = self.comment_id_pattern.format(**comment)
                 if cid not in self.comment_ids:
