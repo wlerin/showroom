@@ -380,7 +380,7 @@ class Downloader(object):
         """Updates streaming urls from the showroom website."""
         data = self._session.json('https://www.showroom-live.com/room/get_live_data',
                                   params={'room_id': self._room.room_id},
-                                  headers={'Referer', self._room.long_url})
+                                  headers={'Referer': self._room.long_url})
         if not data:
             pass  # how to resolve this? can it even happen without throwing an exception earlier?
 
@@ -662,7 +662,7 @@ class Watcher(object):
         This actually checks the website"""
         status = self._session.json('https://www.showroom-live.com/room/is_live',
                                     params={"room_id": self.room_id},
-                                    headers={'Referer', self.room.long_url},
+                                    headers={'Referer': self.room.long_url},
                                     default={'ok': 0})['ok']
 
         if status == 0:
