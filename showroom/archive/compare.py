@@ -55,12 +55,16 @@ def unify_streams(room1, room2):
 def compare_rooms(main_room, alt_room):
     result = {}
 
+    SIZE_IEC_MB = 2 ** 20
+
+    # TODO: drastically reduce the tolerances for top priority (< 8 or so) rooms
     def calc_max_time_diff(duration, priority):
         factor = 1
         while factor < 5:
             if factor > priority / factor:
                 break
-
+            else:
+                factor += 1
         return factor + int(duration * factor / (60 * 8))
 
     def calc_max_size_diff(duration, priority):
@@ -68,68 +72,98 @@ def compare_rooms(main_room, alt_room):
         while factor < 5:
             if factor > priority / factor:
                 break
+            else:
+                factor += 1
 
-        return 2 ** 20 + int(2 ** 20 * duration * factor / 60 ** 10)
+        return SIZE_IEC_MB + int(SIZE_IEC_MB * duration * factor / (10 * 60**2))
+
+    main_size = sum((s['total_size'] for s in main_room['streams']))
+    alt_size = sum((s['total_size'] for s in alt_room['streams']))
+    result = {
+        "time_diff": alt_room['total_duration'] - main_room['total_duration'],
+        "size_diff": alt_size - main_size,
+        "main_room": main_room,
+        "alt_room": alt_room,
+    }
 
     # simplest check: compare total duration
     if main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority']) \
             >= alt_room['total_duration']:
         return None
+    else:
+        # print("{}'s room failed the duration test: {:.2f} - {:.2f} = {:.2f} seconds".format(
+        #     main_room['name'],
+        #     main_room['total_duration'],
+        #     alt_room['total_duration'],
+        #     main_room['total_duration'] - alt_room['total_duration']
+        # ))
+        pass
 
-    main_size = sum((s['total_size'] for s in main_room['streams']))
-    alt_size = sum((s['total_size'] for s in main_room['streams']))
     if (main_size + calc_max_size_diff(main_room['total_duration'], main_room['priority'])
             >=
             alt_size
         ):
         return None
-
-    old_stream = None
-    alt_stream_list = sorted(alt_room['streams'], key=lambda x: x['start_time'])
-    for stream in main_room['streams']:
-        if old_stream:
-            stream = merge_streams((old_stream, stream))
-            old_stream = None
-
-        alt_streams = [s for s in alt_stream_list if s['start_time'] < stream['end_time'] + MAX_GAP]
-        if not alt_streams:
-            # no matching streams, ignore? warn?
-            continue
-        elif alt_streams[-1]['end_time'] <= stream['end_time'] + MAX_GAP:
-            # all streams entirely within bounds of main stream
-            # except we never checked start_time
-            for s in alt_streams:
-                alt_stream_list.remove(s)
-            alt_stream = merge_streams(alt_streams)
-            pass
-        else:
-            # alt_stream extends beyond, *most likely* we need to merge the main_stream with the next one and retry
-            old_stream = stream
-            continue
-    if old_stream:
-        # handle dangling stream
+    else:
+        # print("{}'s room failed the size test: {:.2f} - {:.2f} = {:.2f} MiB".format(
+        #     main_room['name'],
+        #     main_size / SIZE_IEC_MB,
+        #     alt_size / SIZE_IEC_MB,
+        #     (main_size - alt_size) / SIZE_IEC_MB
+        # ))
         pass
+
+    return result
+
+    # TODO: more in-depth analysis
+
+    # old_stream = None
+    # alt_stream_list = sorted(alt_room['streams'], key=lambda x: x['start_time'])
+    # for stream in main_room['streams']:
+    #     if old_stream:
+    #         stream = merge_streams((old_stream, stream))
+    #         old_stream = None
+    #
+    #     alt_streams = [s for s in alt_stream_list if s['start_time'] < stream['end_time'] + MAX_GAP]
+    #     if not alt_streams:
+    #         # no matching streams, ignore? warn?
+    #         continue
+    #     elif alt_streams[-1]['end_time'] <= stream['end_time'] + MAX_GAP:
+    #         # all streams entirely within bounds of main stream
+    #         # except we never checked start_time
+    #         for s in alt_streams:
+    #             alt_stream_list.remove(s)
+    #         alt_stream = merge_streams(alt_streams)
+    #         pass
+    #     else:
+    #         # alt_stream extends beyond, *most likely* we need to merge the main_stream with the next one and retry
+    #         old_stream = stream
+    #         continue
+    # if old_stream:
+    #     # handle dangling stream
+    #     pass
 
     #
     #
     #
     # TODO: check individual streams
-    return result
+
+    # return result
 
 
-def compare_archives(main_file, add_files, with_web=False):
+def compare_archives(main_file, alt_files, with_web=False):
     # The idea is to compare the main file to any additional files,
     # and/or against sr48.net, and print a human readable summary of
     # files in need of replacing/repair in the main archive
     # for now, mimics the process I use when checking by hand
     replacements = []
-    date = main_file.rsplit('/', 1)[1].split('_', 1)[1]
+    date = main_file.rsplit('/', 1)[1].split('_')[1]
 
     # Formatting results is only necessary before printing them out to file
     with open(main_file, encoding='utf8') as infp:
         main_data = json.load(infp)
 
-    if main_data.get('partial') is False:
+    if main_data.get('partial') is True:
         print('Warning: Main archive is marked as incomplete')
 
     # temp = []
@@ -137,26 +171,26 @@ def compare_archives(main_file, add_files, with_web=False):
     #     temp.append(VideoGroup(group, main_data[group]))
     # main_data = format_results(temp)
 
-    add_data = {}
-    for add_file in add_files:
-        prefix = add_file.rsplit('/', 1)[1].split('_', 1)[0]
-        with open(add_file, encoding='utf8') as infp:
-            add_data[prefix] = json.load(infp)
+    alt_data = {}
+    for alt_file in alt_files:
+        prefix = alt_file.rsplit('/', 1)[1].split('_', 1)[0]
+        with open(alt_file, encoding='utf8') as infp:
+            alt_data[prefix] = json.load(infp)
 
-    if 'main' in add_data:
+    if 'main' in alt_data:
         print('Using non-main check results as base')
 
     compare_results = {"replacements": [], "notes": [], }
     # TODO: flatten the groups, there's no need to loop through each one individually
     for group_name, main_group in main_data['groups'].items():
-        for prefix, add_archive in add_data.items():
-            if add_archive['partial']:
-                add_partial = True
+        for prefix, alt_archive in alt_data.items():
+            if alt_archive['partial']:
+                alt_partial = True
             else:
-                add_partial = False
+                alt_partial = False
 
             try:
-                add_group = add_archive[group_name]
+                alt_group = alt_archive['groups'][group_name]
             except KeyError:
                 print('{} was not found in {}'.format(group_name, prefix))
                 continue
@@ -165,51 +199,72 @@ def compare_archives(main_file, add_files, with_web=False):
             # actually it's mostly pointless anyway
             main_room_list = sorted((room for room_id, room in
                                      main_group.items()), key=lambda x: x['handle'])
-            add_room_list = sorted((room for room_id, room in
-                                    add_group.items()), key=lambda x: x['handle'])
+            alt_room_list = sorted((room for room_id, room in
+                                    alt_group.items()), key=lambda x: x['handle'])
             main_rooms = {room['room_id']: room for room in main_room_list}
-            add_rooms = {room['room_id']: room for room in add_room_list}
+            alt_rooms = {room['room_id']: room for room in alt_room_list}
 
-            while main_room_list and add_room_list:
+            while main_room_list or alt_room_list:
                 if main_room_list:
                     room = main_room_list.pop(0)
-                    if room['room_id'] in add_rooms:
-                        add_room = add_rooms[room['room_id']]
-                        add_room_list.remove(room)
+                    alt_room = alt_rooms.get(room['room_id'])
+                    if alt_room:
+                        alt_room_list.remove(alt_room)
                     else:
-                        compare_results['notes'].append("Couldn't find {} in {}".format(room.handle, prefix))
+                        if not alt_partial:
+                            compare_results['notes'].append("Couldn't find {} in {}".format(room.handle, prefix))
                         continue
                     # compare the rooms
-                    result = compare_rooms(room, add_room)
+                    result = compare_rooms(room, alt_room)
                     # TODO: fill in extra data before appending, e.g. prefix and group
                     if result:
+                        result.update({'prefix': prefix, 'group': group_name})
                         compare_results['replacements'].append(result)
+                else:
+                    alt_room = alt_room_list.pop(0)
+                    result = {
+                        "time_diff": 0,
+                        "size_diff": 0,
+                        "main_room": alt_room,
+                        "alt_room": alt_room,
+                        "prefix": prefix,
+                        "group": group_name
+                    }
+                    compare_results['replacements'].append(result)
 
-            # if len_main != len_add:
-            #     print('Streams in base: {}   Streams in {}: {}'.format(len_main, prefix, len_add))
 
-            main_index = add_index = 0
-            while True:
-                main_member, main_time = main_streams[main_index].rsplit(' ', 1)
-                add_member, add_time = add_streams[add_index].rsplit(' ', 1)
+    with open('compare_{}.json'.format(date), 'w', encoding='utf8') as outfp:
+        json.dump(compare_results, outfp, ensure_ascii=False, indent=2)
 
-                # this logic will only work when there are but two sources to compare between
-                preferred = 'main'
-                # This assumes both sources use the same index
-                # If not there will be problems, hence the need for room_ids
-                if main_member == add_member:
-                    # within 1 minute of each other
-                    # there really shouldn't be more than a minute difference unless one or the other failed
-                    if -1 <= int(main_time) - int(add_time) <= 1:
-                        if int(add_time) > int(main_time):
-                            preferred = prefix
-                    # within 5 minutes of each other
-                    elif -5 <= int(main_time) - int(add_time) <= 5:
-                        if int(add_time) > int(main_time):
-                            preferred = prefix
-                    # in the same hour
-                    elif -100 <= int(main_time) - int(add_time) <= 100:
-                        pass
-                    # fully separate streams, or failed recording on one end
-                    else:
-                        pass
+
+
+    # TODO: print just the files to replace/copy
+    # if len_main != len_add:
+    #     print('Streams in base: {}   Streams in {}: {}'.format(len_main, prefix, len_add))
+    '''
+    main_index = add_index = 0
+    while True:
+        main_member, main_time = main_streams[main_index].rsplit(' ', 1)
+        add_member, add_time = add_streams[add_index].rsplit(' ', 1)
+
+        # this logic will only work when there are but two sources to compare between
+        preferred = 'main'
+        # This assumes both sources use the same index
+        # If not there will be problems, hence the need for room_ids
+        if main_member == add_member:
+            # within 1 minute of each other
+            # there really shouldn't be more than a minute difference unless one or the other failed
+            if -1 <= int(main_time) - int(add_time) <= 1:
+                if int(add_time) > int(main_time):
+                    preferred = prefix
+            # within 5 minutes of each other
+            elif -5 <= int(main_time) - int(add_time) <= 5:
+                if int(add_time) > int(main_time):
+                    preferred = prefix
+            # in the same hour
+            elif -100 <= int(main_time) - int(add_time) <= 100:
+                pass
+            # fully separate streams, or failed recording on one end
+            else:
+                pass
+    '''

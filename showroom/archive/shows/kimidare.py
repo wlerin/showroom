@@ -122,3 +122,20 @@ def trim_episodes(work_dir, dest_dir, data):
         # TODO: detect end of audio
         print('Trimming {}'.format(srcfile))
         trim.trim_video(normsrcpath, normdestpath, start_time)
+
+
+def kimi_dare_dispatch(**kwargs):
+    data = load_episode_list()
+    if kwargs.get('update'):
+        update_episode_list(data)
+
+    trim_dir = kwargs.get('trim_dir')
+    if trim_dir:
+        if os.path.isdir(trim_dir):
+            dest_dir = kwargs.get('output_dir') or trim_dir
+            trim_episodes(trim_dir, dest_dir, data)
+        else:
+            print('{} is not a directory'.format(trim_dir))
+            return
+
+
