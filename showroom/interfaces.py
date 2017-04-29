@@ -165,6 +165,8 @@ class BasicCLI(object):
         else:
             self.settings = ShowroomSettings()
 
+        os.environ.update(self.settings.environment)
+
         # does this work? what is it relative to?
         self.index = ShowroomIndex(self.settings.directory.index, record_all=self.settings.filter.all)
         # DEBUG

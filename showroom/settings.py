@@ -36,37 +36,79 @@ ARGS_TO_SETTINGS = {
 _dirs = AppDirs('Showroom', appauthor=False)
 
 # TODO: refactor this into data.path, index.path, config.path, etc. ?
-DEFAULTS = {"directory": {"data": os.path.expanduser('~/Downloads/Showroom'),
-                          "output": '{data}',
-                          "index": 'index',
-                          "log": _dirs.user_log_dir,
-                          "config": _dirs.user_config_dir,
-                          # This setting is NOT respected by Downloader (it uses {output}/active always)
-                          "temp": '{data}/active'},
-            "file": {"config": '{directory.config}/showroom.conf',
-                     "schedule": '{directory.data}/schedule.json',
-                     "completed": '{directory.data}/completed.json'},
-            "throttle": {"max": {"downloads": 80,
-                                 "watches": 50,
-                                 "priority": 80},
-                         "rate": {"upcoming": 180.0,
-                                  "onlives": 7.0,
-                                  "watch": 2.0,
-                                  "live": 60.0},
-                         "timeout": {"download": 23.0}},
-            "ffmpeg": {"logging": False},
-            "filter": {"all": False,
-                       "wanted": [],
-                       "unwanted": []},
-            "feedback": {"console": False,  # this actually should be a loglevel
-                         "write_schedules_to_file": True},
-            "system": {"make_symlinks": True,
-                       "symlink_dirs": ('log', 'index', 'config')},
-            "comments": {"record": False,
-                         "default_update_interval": 7.0,
-                         "max_update_interval": 30.0,
-                         "min_update_interval": 2.0,
-                         "max_priority": 100}}
+# TODO: paths should automatically call expanduser, but they need to be marked as such
+DEFAULTS = {
+    "directory": {
+        "data": os.path.expanduser('~/Downloads/Showroom'),
+        "output": '{data}',
+        "index": 'index',
+        "log": _dirs.user_log_dir,
+        "config": _dirs.user_config_dir,
+        # This setting is NOT respected by Downloader (it uses {output}/active always)
+        "temp": '{data}/active'
+    },
+    "file": {
+        "config": '{directory.config}/showroom.conf',
+        "schedule": '{directory.data}/schedule.json',
+        "completed": '{directory.data}/completed.json'
+    },
+    "throttle": {
+        "max": {
+            "downloads": 80,
+            "watches": 50,
+            "priority": 80
+        },
+        "rate": {
+            "upcoming": 180.0,
+            "onlives": 7.0,
+            "watch": 2.0,
+            "live": 60.0
+        },
+        "timeout": {
+            "download": 23.0
+        }
+    },
+    "ffmpeg": {
+        "logging": False,
+        "path": "ffmpeg",
+    },
+    "filter": {
+        "all": False,
+        "wanted": [],
+        "unwanted": []
+    },
+    "feedback": {
+        "console": False,  # this actually should be a loglevel
+        "write_schedules_to_file": True
+    },
+    "system": {
+        "make_symlinks": True,
+        "symlink_dirs": ('log', 'index', 'config')
+    },
+    "comments": {
+        "record": False,
+        "default_update_interval": 7.0,
+        "max_update_interval": 30.0,
+        "min_update_interval": 2.0,
+        "max_priority": 100
+    },
+    "environment": {}
+}
+_default_args = {
+    "record_all": False,
+    "comments": False,
+    "noisy": False,
+    "logging": False,
+    "names": []
+}
+
+
+def _clean_args(args):
+    new_args = {}
+    for k, v in vars(args).items():
+        if _default_args.get(k) != v:
+            new_args[k] = v
+    return new_args
 
 
 def load_config(path):
@@ -99,11 +141,17 @@ def load_config(path):
             print('JSON parsing error in file {}'.format(path),
                   'Error on Line: {} Column: {}'.format(e.lineno, e.colno), sep='\n')
 
-    return _convert_old_config(data)
+    data = _convert_old_config(data)
+
+    # if 'directory' in data:
+    #     for k, v in data['directory'].items():
+    #         data['directory'][k] = os.path.expanduser(v)
+
+    return data
 
 
 def _convert_old_config(config_data):
-    new_data = config_data
+    new_data = config_data.copy()
     for key in config_data.keys():
         if key in ARGS_TO_SETTINGS:
             # what will SettingsDict do with stuff like:
@@ -179,12 +227,17 @@ class SettingsDict(dict):
             key, subkeys = key.split('.', 1)
             val = self._dict[key][subkeys]
         else:
-            val = self._dict[key]
+            val = self._dict.get(key)
+            if val and key == 'path':
+                # atm this only works for ffmpeg.path, where it isn't usually needed
+                # in the future I will fix this so directory.data -> data.path etc.
+                # and home-relative paths can finally be used
+                val = os.path.expanduser(val)
         if self._top._formatting and isinstance(val, str) and '{' in val:
-                try:
-                    return val.format(**self._dict)
-                except KeyError:
-                    return val.format(**self._top._dict)
+            try:
+                return val.format(**self._dict)
+            except KeyError:
+                return val.format(**self._top._dict)
 
         return val
 
@@ -226,8 +279,8 @@ class SettingsDict(dict):
     def update(self, other=None, **kwargs):
         if other is not None:
             for key, o_val in other.items():
-                s_val = self.get(key)
-                if isinstance(o_val, SettingsDict) and isinstance(s_val, SettingsDict):
+                s_val = self[key] if key in self else None
+                if isinstance(o_val, dict) and isinstance(s_val, SettingsDict):
                     s_val.update(o_val)
                 elif o_val is not None:
                     self[key] = o_val
@@ -264,7 +317,8 @@ class ShowroomSettings(SettingsDict):
 
     @classmethod
     def from_args(cls, args):
-        args = vars(args)
+        args = _clean_args(args)
+
         new = cls.from_file(path=args.get('config', None))
 
         # TODO: translate args to settings keys
@@ -274,9 +328,14 @@ class ShowroomSettings(SettingsDict):
                 new_key = ARGS_TO_SETTINGS[key]
                 args_data[new_key] = args[key]
 
+        # for k, v in args_data.items():
+        #     if k.startswith('directory'):
+        #         args_data[k] = os.path.expanduser(v)
+
         new.update(args_data)
 
         new.makedirs(new)
+
 
         return new
 

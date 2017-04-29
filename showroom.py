@@ -20,7 +20,7 @@ def tokyotime(obj, seconds=None):
         return datetime.now(tz=TOKYO_TZ).timetuple()
     else:
         # Does this do what I want it to?
-        return datetime.fromtimestamp(tz=TOKYO_TZ).timetuple()
+        return datetime.fromtimestamp(seconds, tz=TOKYO_TZ).timetuple()
 
 
 def setup_logging(log_file):

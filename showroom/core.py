@@ -183,10 +183,14 @@ class Downloader(object):
         hls recording fails awfully. find out why
         For the failure detection to work properly, must ffmpeg be compiled with librtmp?
     """
-    def __init__(self, room, session, outdir, ffmpeg_logging=True, default_protocol='rtmp'):
+    def __init__(self, room, session, settings, default_protocol='rtmp'):
         self._room = room
         self._session = session
-        self._rootdir = outdir
+
+        self._rootdir = settings.directory.output
+        self._logging = settings.ffmpeg.logging
+        self._ffmpeg_path = settings.ffmpeg.path
+
         self.destdir, self.tempdir, self.outfile = "", "", ""
 
         self._protocol = default_protocol
@@ -197,7 +201,6 @@ class Downloader(object):
         # self._timeouts = 0
         # self._timed_out = False
         self._pingouts = 0
-        self._logging = ffmpeg_logging
 
         self._lock = threading.Lock()
 
@@ -424,15 +427,8 @@ class Downloader(object):
         with self._lock:
             self.tempdir, self.destdir, self.outfile = temp, dest, out
 
-        # TODO: fix this so it works on windows
-        # TODO: Fix implemented, now just need to check it.
-        # passing env variables results in using custom ffmpeg instead of system ffmpeg
-        # which doesn't print handlectrl, ping
-        # TODO: determine windows/etc properly elsewhere
-        if os.name == 'nt':
-            env = os.environ.copy()
-        else:
-            env = {}
+        # TODO: Does this work on Windows now?
+        env = os.environ.copy()
 
         if self._logging is True:
             log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
@@ -447,7 +443,7 @@ class Downloader(object):
             extra_args = []
 
         self._process = subprocess.Popen([
-            'ffmpeg',
+            self._ffmpeg_path,
             # '-nostdin',
             # '-nostats',  # will this omit any useful information?
             '-loglevel', '40',  # 40+ required for wait() to check output
@@ -488,7 +484,7 @@ class Watcher(object):
         self._session = session
         self._settings = settings
 
-        self._download = Downloader(room, session, settings.directory.output, settings.ffmpeg.logging)
+        self._download = Downloader(room, session, settings)
 
         if self._settings.comments.record and self.priority < self._settings.comments.max_priority:
             self.comment_logger = CommentLogger(self.room, self._session, self._settings, self)
