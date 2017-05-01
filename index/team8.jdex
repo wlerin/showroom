@@ -439,5 +439,16 @@
     "jpnName": "髙橋 彩香",
     "engName": "Takahashi Sayaka",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48"
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Yamada_Kyouka",
+    "showroom_id": "109423",
+    "jpnName": "山田 杏華",
+    "engName": "Yamada Kyoka",
+    "priority": 20
   }
 ]
