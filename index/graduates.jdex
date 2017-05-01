@@ -1,0 +1,24 @@
+[
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "",
+    "engGroup": "AKB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/ayaka_morikawa",
+    "showroom_id": "72215",
+    "jpnName": "森川 彩香",
+    "engName": "Morikawa Ayaka",
+    "priority": 10
+  },
+  {
+    "jpnGroup": "SKE48",
+    "jpnTeam": "",
+    "engGroup": "SKE48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/yagami-kumi",
+    "showroom_id": "56069",
+    "jpnName": "矢神久美",
+    "engName": "Yagami Kumi",
+    "priority": 20
+  }
+]
