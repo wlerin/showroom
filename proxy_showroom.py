@@ -9,7 +9,7 @@ BaseDownloader = showroom.core.Downloader
 class PatchedDownloader(BaseDownloader):
     @property
     def stream_url(self):
-        return super().stream_url().replace('rtmp://', 'rtmpt://')
+        return super().stream_url.replace('rtmp://', 'rtmpt://')
 
 
 showroom.core.Downloader = PatchedDownloader
