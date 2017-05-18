@@ -1,5 +1,5 @@
 from requests import Session
-from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, ReadTimeout, HTTPError
+from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, HTTPError
 from requests.adapters import HTTPAdapter
 import logging
 import time
@@ -16,6 +16,11 @@ else:
                             '(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36')
     ua_str = ua.chrome
 
+session_logger = logging.getLogger('showroom.session')
+
+
+# PageNotFoundError ?
+
 
 class WatchSession(Session):
     """
@@ -26,7 +31,7 @@ class WatchSession(Session):
     Overrides requests.Session.get() and increases max pool size
 
     Raises:
-        May raise TimeoutError, ConnectionError, or ChunkedEncodingError
+        May raise TimeoutError, ConnectionError, HTTPError, or ChunkedEncodingError
         if retries are exceeded.
     """
 
@@ -37,21 +42,79 @@ class WatchSession(Session):
         self.mount('https://www.showroom-live.com', https_adapter)
         self.headers = {"UserAgent": ua_str}
 
-    def get(self, url, params=None, **kwargs):
+    def get(self, url, params=None, max_delay=30.0, max_retries=20, **kwargs):
         error_count = 0
-        max_retries = 20
+        wait = 0
+        timeouts = 0
         while True:
             try:
-                r = super().get(url, params=params, timeout=(2.0, 10.0), **kwargs)
+                r = super().get(url, params=params, timeout=(3.0, 15.0), **kwargs)
                 r.raise_for_status()
-            except (Timeout, ReadTimeout, ConnectionError, ChunkedEncodingError, HTTPError) as e:
-                logging.debug('Get of {} failed with {}'.format(url, e))
-                error_count += 1
-                if error_count > max_retries:
+            except Timeout as e:
+                session_logger.debug('Timeout while fetching {}: {}'.format(url, e))
+                timeouts += 1
+                wait = min(2 * 1.5 ** timeouts, max_delay)
+
+                if timeouts > max_retries:
+                    session_logger.error('Max timeouts exceeded while fetching {}: {}'.format(url, e))
                     raise
-                time.sleep(0.5 + 0 if error_count < 4 else error_count - 3)
+                elif timeouts > max_retries / 2:
+                    session_logger.warning('{} timeouts while fetching {}: {}'.format(timeouts, url, e))
+
+            except ChunkedEncodingError as e:
+                session_logger.debug('Chunked encoding error while fetching {}: {}'.format(url, e))
+                error_count += 1
+                wait = min(wait + error_count, max_delay)
+
+                if error_count > max_retries:
+                    session_logger.warning('Max retries exceeded while fetching {}: {}'.format(url, e))
+                    raise
+
+            except HTTPError as e:
+                status_code = e.response.status_code if e.response else -1
+                session_logger.debug('{} while fetching {}: {}'.format(status_code, url, e))
+
+                error_count += 1
+                wait = min(wait + 2 + error_count, max_delay)
+
+                # Some of these aren't recoverable
+                if status_code == 404:
+                    session_logger.error('Getting {} failed permanently: 404 page not found'.format(url))
+                    raise  # PageNotFoundError(e)  # ?
+                elif status_code == 403:
+                    session_logger.error('Getting {} failed permanently: 403 permission denied'.format(url))
+                    raise  # specific error?
+                elif status_code == 402:
+                    session_logger.error('Getting {} failed permanently: '
+                                         '401 auth required (not implemented)'.format(url))
+                    raise
+                elif status_code == 429:
+                    session_logger.error('Too many requests while getting {}: {}'.format(url, e))
+                    wait += 5 * 60.0
+                elif 400 <= status_code < 500:
+                    session_logger.error('Getting {} failed permanently: {}'.format(url, e))
+                    raise
+
+                if error_count > max_retries:
+                    session_logger.warning('Max retries exceeded while fetching {}: {}'.format(url, e))
+                    raise
+
+            except ConnectionError as e:
+                session_logger.debug('ConnectionError while accessing {}: {}'.format(url, e))
+
+                error_count += 1
+                wait = min(wait + 2 * error_count, max_delay)
+
+                # ConnectionErrors are assumed to be always recoverable
+                # if error_count > max_retries:
+                #     session_logger.warning('Max retries exceeded while fetching {}: {}'.format(url, e))
+                #     raise
+
             else:
                 return r
+
+            session_logger.debug('Retrying in {} seconds...'.format(wait))
+            time.sleep(wait)
 
     def json(self, url, default=None, params=None, **kwargs):
         try:
