@@ -200,5 +200,27 @@
     "showroom_id": "109060",
     "web_url": "https://www.showroom-live.com/stu48_official",
     "priority": 20
+  },  
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "AKB48ステージファイター２ バトルフェスティバル",
+    "engName": "AKB48 Stage Fighter 2 Battle Festival",
+    "showroom_id": "114223",
+    "web_url": "https://www.showroom-live.com/akb48battlefes",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "ネ申テレビ『おまいら決めちゃいなよ！』",
+    "engName": "Nemousu TV Omaira Kimechainayo",
+    "showroom_id": "75120",
+    "web_url": "https://www.showroom-live.com/nemousu_kimechainayo",
+    "priority": 20
   }
 ]
