@@ -4,4 +4,7 @@ PySceneDetect
 # On Linux and MacOS X, opencv must be compiled from source to get ffmpeg support
 # opencv-python
 
+# myonichi yoroshiku, 48pedia 
+mwclient  # wikipedia/mediawiki api
+romkan    # romaji to kana to romaji
 

@@ -3,6 +3,7 @@ from .check import check_dirs
 from .compare import compare_archives
 from .shows.kimidare import kimi_dare_dispatch
 from .prune import prune_archive, replace_archive
+from .profile import scrape_profile_pics
 
 
 def build_parser():
@@ -46,6 +47,11 @@ def build_parser():
     parser_replace.add_argument('compare_results', help='JSON describing comparison results')
     parser_replace.set_defaults(func=replace_archive)
 
+    parser_profile = subparsers.add_parser('profile', help='Download profile pics to a directory')
+    parser_profile.add_argument('profile_dir', help='Directory in which to save profile pics')
+    parser_profile.add_argument('-n', dest='photo_num', help='Which iteration of profile pics this is')
+    parser_profile.set_defaults(func=scrape_profile_pics)
+
     return parser
 
 
@@ -54,7 +60,7 @@ def main():
 
     parser = build_parser()
     args = parser.parse_args()
-    kwargs = {k: v for k, v in vars(args).items() if k not in main_args}
+    kwargs = {k: v for k, v in vars(args).items() if k not in main_args and v is not None}
     args.func(**kwargs)
 
 

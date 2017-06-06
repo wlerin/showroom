@@ -82,7 +82,9 @@ def check_group(target_dir, prefix, target_ext='mp4'):
                     with open(logfile, 'a', encoding='utf8') as outfp:
                         print('{} is invalid'.format(file), file=outfp)
                     new_video['valid'] = False
-            member_dict[member_name]['files'].append(new_video)
+        else:
+            new_video['valid'] = False
+        member_dict[member_name]['files'].append(new_video)
 
     # TODO: URGENT check validity
     # TODO: compare durations of audio and video streams
@@ -207,7 +209,7 @@ def check_dirs(*, dirs=(), output_dir='.', prefix='main', partial=False):
         results = format_results(check(target_dir, prefix), partial=partial)
         os.makedirs(output_dir, exist_ok=True)
 
-        date = target_dir.rsplit('/', 1)[1]
+        date = target_dir.rsplit('/', 1)[-1]
         outfile = os.path.join(output_dir, "{}_{}_check.json".format(prefix, date))
 
         with open(outfile, 'w', encoding='utf8') as outfp:

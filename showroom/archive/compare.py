@@ -65,7 +65,7 @@ def compare_rooms(main_room, alt_room):
                 break
             else:
                 factor += 1
-        return factor + int(duration * factor / (60 * 8))
+        return factor + int(duration * factor / (60 * 12))
 
     def calc_max_size_diff(duration, priority):
         factor = 1
@@ -75,7 +75,7 @@ def compare_rooms(main_room, alt_room):
             else:
                 factor += 1
 
-        return SIZE_IEC_MB + int(SIZE_IEC_MB * duration * factor / (10 * 60**2))
+        return SIZE_IEC_MB + int(SIZE_IEC_MB * duration * factor / (12 * 60 ** 2))
 
     main_size = sum((s['total_size'] for s in main_room['streams']))
     alt_size = sum((s['total_size'] for s in alt_room['streams']))
@@ -157,7 +157,7 @@ def compare_archives(main_file, alt_files, with_web=False):
     # files in need of replacing/repair in the main archive
     # for now, mimics the process I use when checking by hand
     replacements = []
-    date = main_file.rsplit('/', 1)[1].split('_')[1]
+    date = main_file.rsplit('/', 1)[-1].split('_')[1]
 
     # Formatting results is only necessary before printing them out to file
     with open(main_file, encoding='utf8') as infp:
@@ -173,7 +173,7 @@ def compare_archives(main_file, alt_files, with_web=False):
 
     alt_data = {}
     for alt_file in alt_files:
-        prefix = alt_file.rsplit('/', 1)[1].split('_', 1)[0]
+        prefix = alt_file.rsplit('/', 1)[-1].split('_', 1)[0]
         with open(alt_file, encoding='utf8') as infp:
             alt_data[prefix] = json.load(infp)
 
@@ -212,7 +212,7 @@ def compare_archives(main_file, alt_files, with_web=False):
                         alt_room_list.remove(alt_room)
                     else:
                         if not alt_partial:
-                            compare_results['notes'].append("Couldn't find {} in {}".format(room.handle, prefix))
+                            compare_results['notes'].append("Couldn't find {} in {}".format(room['handle'], prefix))
                         continue
                     # compare the rooms
                     result = compare_rooms(room, alt_room)

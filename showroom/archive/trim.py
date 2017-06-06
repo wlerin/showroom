@@ -30,18 +30,16 @@ class DumbNamespace(SimpleNamespace):
         except AttributeError:
             return None
 
-path = "/data/library/media/akb48/web/showroom/Kimi Dare/170404 Showroom - SP Kimi Dare 1854.mp4"  # get from commandline or from scanning a directory
 
-
-def detect_first_scene(path, max_minutes=10, threshold=20.0):
+def detect_first_scene(path, start_minutes=0, end_minutes=12, threshold=20.0):
     # detect_scenes_file is unfortunately not really designed to be used like this
     # it's tightly coupled to the command line arguments passed by scenedetect.cli
     scene_detectors = scenedetect.detectors.get_available()
-    args = DumbNamespace(threshold=20.0,
+    args = DumbNamespace(threshold=threshold,
                          detection_method='content',
                          downscale_factor=2,
-                         # start_time=[0,3,0],
-                         duration=[0,10,0],
+                         start_time=[0, start_minutes, 0],
+                         duration=[0, end_minutes, 0],
                          quiet_mode=True,
                          # end custom arguments, begin defaults
                          min_scene_len=15,
@@ -66,6 +64,7 @@ def detect_start_iframe(path, max_pts_time):
 def detect_end_of_video(path, min_pts_time):
     # find the
     pass
+
 
 def detect_threshold(path):
     # find the ideal threshold to use for content detection
