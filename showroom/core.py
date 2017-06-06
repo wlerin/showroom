@@ -1233,13 +1233,14 @@ class WatchManager(object):
             except KeyError:
                 # TODO: handle this error
                 pass
-            else:
+                # else:
                 # is this check necessary?
                 # is it too fast?
-                if thread.is_alive():
+                # if thread.is_alive():
                     # TODO: log undead threads
                     # TODO: handle undead threads elsewhere
-                    self._undead_threads.put(thread)
+                # self._undead_threads.put(thread)
+
         self.watchers.rebuild()
 
     def write_schedules(self):
