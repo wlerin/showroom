@@ -54,7 +54,7 @@ from math import floor
 # 704x396
 # 960x540 (march kimi dare episodes)
 # 1280x720 (a single kimi dare episode)
-GOOD_HEIGHTS = (198, 360, 396, 540, 720)
+GOOD_HEIGHTS = (198, 360, 396, 720)
 
 DEF_BITRATE = '300k'
 
@@ -246,8 +246,11 @@ def generate_concat_files(target_dir, target_ext, max_gap):
             new_video['file']     = file
             new_video['duration'] = float(stream['duration'])
             new_video['height']   = int(stream['height'])
-            if new_video['duration'] >= 0.001 and (new_video['height'] in GOOD_HEIGHTS):
-                new_video['valid']  = True
+            if new_video['duration'] >= 0.001:
+                if new_video['height'] in GOOD_HEIGHTS or (new_video['height'] == 540 and "Kimi Dare" in member_name):
+                    new_video['valid']  = True
+                else:
+                    new_video['valid'] = False
             else:
                 new_video['valid']  = False
         
