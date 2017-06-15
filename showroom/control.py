@@ -48,6 +48,8 @@ class BaseShowroomLiveController(object):
         self.send = self.send_command
         self.get = self.get_messages
 
+        # TODO: make maintenance more intelligent
+
     # instance (thread or process) wrapping methods
     def start(self):
         # TODO: are there any other conditions required to restart the loop?

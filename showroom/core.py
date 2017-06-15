@@ -1086,6 +1086,9 @@ class WatchManager(object):
         self.__lives_time = self.__schedule_time
 
         self.update_flag = threading.Event()
+        
+        self._next_maintenance = None
+        self.schedule_next_maintenance()
 
         # TODO: design better organised configuration/settings
         if self.settings.feedback.write_schedules_to_file:
@@ -1283,7 +1286,10 @@ class WatchManager(object):
     def write_completed(self):
         """Called by the manager?"""
         # TODO: add today's date to the completed file, change it during nightly maintenance
-        outfile = self.settings.file.completed
+
+        # dirty hack: no timezone, so we get the "correct" date even after midnight JST
+        datestr = datetime.datetime.now().strftime(FULL_DATE_FMT)[:10]
+        outfile = self.settings.file.completed.replace('.json', '_{}.json'.format(datestr))
         try:
             with open(outfile, 'r', encoding='utf8') as infp:
                 completed = json.load(infp)
@@ -1303,6 +1309,16 @@ class WatchManager(object):
 
         with open(outfile, 'w', encoding='utf8') as outfp:
             json.dump(completed, outfp, indent=2, ensure_ascii=False)
+
+    def schedule_next_maintenance(self, minutes=None):
+        if minutes:
+            maint_time = self._next_maintenance + datetime.timedelta(minutes=minutes)
+
+        if not minutes or maint_time.hour > 5:
+            curr_time = datetime.datetime.now(tz=TOKYO_TZ)
+            maint_time = curr_time.replace(day=curr_time.day+1, hour=0, minute=5, second=0, microsecond=0)
+
+        self._next_maintenance = maint_time
 
     def add(self, watcher):
         if watcher.room_id not in self.watchers:
@@ -1348,6 +1364,19 @@ class WatchManager(object):
             # core_logger.debug('Skipping live check')
             return False
 
+    def _maintenance_ready(self):
+        curr_time = datetime.datetime.now(tz=TOKYO_TZ)
+        if self._next_maintenance < curr_time:
+            if len(list(self.watchers.get_by_mode("live"))) < 1:
+                return True
+            else:
+                core_logger.info('Live watcher prevents maintenance, rescheduling')
+                self.schedule_next_maintenance(30)
+        return False
+
+    def do_maintenance(self):
+        self.write_completed()
+
     def tick(self):
         """Periodic live and schedule check"""
 
@@ -1364,6 +1393,9 @@ class WatchManager(object):
             core_logger.debug('Checking schedule')
             self.update_schedule()
             core_logger.debug('{} active watchers'.format(len(self.watchers)))
+
+        if self._maintenance_ready():
+            self.do_maintenance()
 
     def stop(self):
         for watch in self.watchers:
