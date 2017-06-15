@@ -1,9 +1,13 @@
 import argparse
 from .check import check_dirs
 from .compare import compare_archives
-from .shows.kimidare import kimi_dare_dispatch
 from .prune import prune_archive, replace_archive
 from .profile import scrape_profile_pics
+
+
+def kimi_dare_dispatch(**kwargs):
+    from .shows.kimidare import kimi_dare_dispatch as _dispatch
+    _dispatch(**kwargs)
 
 
 def build_parser():
