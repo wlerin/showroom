@@ -160,5 +160,67 @@
     "jpnName": "AKB48のSHOWROOM",
     "engName": "AKB48 no SHOWROOM",
     "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/ngt48_official",
+    "showroom_id": "92733",
+    "jpnName": "Official Showroom",
+    "engName": "NGT48 Official Showroom",
+    "priority": 20
+  },
+  {
+    "jpnTeam": "SP",
+    "engTeam": "SP",
+    "web_url": "https://www.showroom-live.com/akb48_sousenkyo",
+    "showroom_id": "105395",
+    "jpnName": "選抜総選挙",
+    "engName": "AKB48 Sousenkyo Showroom",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "チーム8 特別配信ルーム",
+    "engName": "AKB48 Team 8 Special Room",
+    "showroom_id": "109252",
+    "web_url": "https://www.showroom-live.com/akb48_team8",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "STU48 選抜メンバー発表生配信！",
+    "engName": "STU48 Official",
+    "showroom_id": "109060",
+    "web_url": "https://www.showroom-live.com/stu48_official",
+    "priority": 20
+  },  
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "AKB48ステージファイター２ バトルフェスティバル",
+    "engName": "AKB48 Stage Fighter 2 Battle Festival",
+    "showroom_id": "114223",
+    "web_url": "https://www.showroom-live.com/akb48battlefes",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "ネ申テレビ『おまいら決めちゃいなよ！』",
+    "engName": "Nemousu TV Omaira Kimechainayo",
+    "showroom_id": "75120",
+    "web_url": "https://www.showroom-live.com/nemousu_kimechainayo",
+    "priority": 20
   }
 ]
