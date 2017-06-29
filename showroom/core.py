@@ -1316,7 +1316,17 @@ class WatchManager(object):
 
         if not minutes or maint_time.hour > 5:
             curr_time = datetime.datetime.now(tz=TOKYO_TZ)
-            maint_time = curr_time.replace(day=curr_time.day+1, hour=0, minute=5, second=0, microsecond=0)
+            try:
+                maint_time = curr_time.replace(day=curr_time.day + 1, hour=0, minute=5, second=0, microsecond=0)
+            except ValueError:
+                try:
+                    maint_time = curr_time.replace(month=curr_time.month + 1,
+                                                   day=1, hour=0, minute=5, second=0, microsecond=0)
+                except ValueError:
+                    maint_time = curr_time.replace(year=curr_time.year + 1,
+                                                   month=1,
+                                                   day=1, hour=0, minute=5, second=0, microsecond=0)
+
 
         self._next_maintenance = maint_time
 
@@ -1370,7 +1380,8 @@ class WatchManager(object):
             if len(list(self.watchers.get_by_mode("live"))) < 1:
                 return True
             else:
-                core_logger.info('Live watcher prevents maintenance, rescheduling')
+                core_logger.debug('Live watcher prevents maintenance, rescheduling')
+                # TODO: print live watchers that are preventing maintenance
                 self.schedule_next_maintenance(30)
         return False
 
