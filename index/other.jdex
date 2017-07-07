@@ -222,5 +222,16 @@
     "showroom_id": "75120",
     "web_url": "https://www.showroom-live.com/nemousu_kimechainayo",
     "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "豪華芸能人の24時間プライベート生配信",
+    "engName": "Goka Geinojin 24 Hour Live Stream",
+    "showroom_id": "88417",
+    "web_url": "https://www.showroom-live.com/showroom24h",
+    "priority": 20
   }
 ]
