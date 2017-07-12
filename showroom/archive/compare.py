@@ -152,6 +152,7 @@ def compare_rooms(main_room, alt_room):
 
 
 def compare_archives(main_file, alt_files, with_web=False):
+    # TODO: allow an output directory for the compare file
     # The idea is to compare the main file to any additional files,
     # and/or against sr48.net, and print a human readable summary of
     # files in need of replacing/repair in the main archive

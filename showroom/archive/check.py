@@ -148,7 +148,9 @@ def check_group(target_dir, prefix, target_ext='mp4'):
 def check(target, prefix):
     results = []
     for group_dir in glob.glob('{}/*'.format(target)):
-        results.append(VideoGroup(*check_group(group_dir, prefix)))
+        group_name, streams = check_group(group_dir, prefix)
+        if streams:
+            results.append(VideoGroup(group_name, streams))
     return results
 
 
@@ -214,3 +216,10 @@ def check_dirs(*, dirs=(), output_dir='.', prefix='main', partial=False):
 
         with open(outfile, 'w', encoding='utf8') as outfp:
             json.dump(results, outfp, ensure_ascii=False, indent=2)
+
+        # there should be no empty directories
+        if not results['partial']:
+            for group, rooms in results['groups'].items():
+                if not rooms:
+                    return False
+        return True
