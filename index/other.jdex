@@ -233,5 +233,16 @@
     "showroom_id": "88417",
     "web_url": "https://www.showroom-live.com/showroom24h",
     "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "井上ヨシマサルーム",
+    "engName": "Inoue Yoshimasa Room",
+    "showroom_id": "71933",
+    "web_url": "https://www.showroom-live.com/yosusu",
+    "priority": 20
   }
 ]
