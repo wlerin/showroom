@@ -192,7 +192,7 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
              '-refs', '1',  # single reference frame, like the original
              '-copyts',
              '-b:v', target_bitrate,
-             '-vf', 'scale=-1:360,mpdecimate',
+             '-vf', 'scale=-1:360',  # 'scale=-1:360,mpdecimate',
              '-c:a', 'copy', file])
 
     with open('resized.json', 'w', encoding='utf8') as outfp:
@@ -345,12 +345,12 @@ def merge_videos(target_dir, output_dir, copytb=1):
             instructions = ['-hide_banner', '-nostats',
                             # '-report', 
                             # 'file=logs/concat-{}.log:level=40'.format(os.path.splitext(concat_file)[0]),
-                            '-copytb', str(copytb),]
-
+                            '-copytb', str(copytb)]
+            
             with open(concat_file, encoding='utf8') as infp:
                 data = infp.read()
             if data.count('file \'') == 0:
-                print("Empty concat file: {}".format(protocol_file))
+                print("Empty concat file: {}".format(concat_file))
                 continue
             if data.count('file \'') == 1:
                 src = data[5:].strip('\'\n./')
@@ -368,7 +368,7 @@ def merge_videos(target_dir, output_dir, copytb=1):
                 bTempFiles = True
                 temp_videos = []
                 for video in src_videos:
-                    tempfile = 'temp/' + video.replace('.mp4', '.ts')
+                    tempfile = 'temp/' + video + '.ts'
                     run(['ffmpeg',
                         '-i', video,
                         '-c', 'copy',
