@@ -5,7 +5,6 @@ import re
 import glob
 import os
 from showroom.utils import iso_date_to_six_char
-
 # data_dir = settings.directory.data
 # default_work_dir = '/'.join([data_dir, 'Kimi Dare/working'])
 
@@ -96,7 +95,7 @@ def load_episode_list():
 
 
 def get_trim_pts(srcpath):
-    max_pts_time = trim.detect_first_scene(srcpath)
+    max_pts_time = trim.detect_first_scene(srcpath, threshold=10.0)
     return trim.detect_start_iframe(srcpath, max_pts_time).get("pkt_pts_time", 0.0)
 
 

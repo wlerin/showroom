@@ -12,7 +12,15 @@ from .constants import TOKYO_TZ
 __all__ = ['ShowroomIndex']
 
 index_logger = logging.getLogger('showroom.index')
-_filename_re = re.compile(r'\d{6} Showroom - ([\w \-!\?’】！？、]+)(?: \d{4,6})(?:.mp4)?')
+_filename_re = re.compile(
+    r'''
+        (?:\d{6}\ Showroom\ -\ )?
+        ([\w\ \-!\?’】！？、]+?)
+        (?:\ \d{4,6})?
+        (?:.mp4)?$
+    ''',
+    re.VERBOSE
+)
 
 
 class Room(object):
@@ -238,12 +246,10 @@ class ShowroomIndex(object):
             match = _filename_re.match(file_name)
             if match:
                 handle = match.groups()[0]
-            else:
-                handle = file_name
-            try:
-                return self.room_handle_lookup[handle]
-            except KeyError:
-                index_logger.debug("Failed to find Room Handle {}".format(handle))
+                try:
+                    return self.room_handle_lookup[handle]
+                except KeyError:
+                    index_logger.debug("Failed to find Room Handle {}".format(handle))
 
         return None
 
