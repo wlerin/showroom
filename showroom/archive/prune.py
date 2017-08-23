@@ -13,9 +13,13 @@ def prune_folder(folder, needed_list):
     os.makedirs('unneeded'.format(folder), exist_ok=True)
     files = glob.glob('*.mp4'.format(folder))
     for file in files:
+        # print(repr(file))
         if file not in needed_list:
             # print('{} -> {}'.format(file, 'unneeded/{}'.format(file)))
             os.replace(file, 'unneeded/{}'.format(file))
+        else:
+            # print('Needed:', repr(file))
+            pass
 
     os.chdir(oldcwd)
 
@@ -27,6 +31,7 @@ def get_needed_files_list(results):
             for file in stream['files']:
                 if file['valid']:
                     needed_list.append(file['file']['name'])
+    # print(repr(needed_list))
     return needed_list
 
 

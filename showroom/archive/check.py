@@ -26,7 +26,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
         hours, minutes = int(time_str[:2]), int(time_str[2:4])
         try:
             seconds = int(time_str[4:6])
-        except IndexError:
+        except ValueError:
             seconds = 0
         return float(hours * 60 * 60 + minutes * 60 + seconds)
 
@@ -76,7 +76,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
                 new_video['audio'] = {'duration': float(a_info.get('duration', 0)),
                                       'bit_rate': int(a_info.get('bit_rate', 0))}
                 if (new_video['video']['duration'] >= 0.001
-                    and (new_video['video']['height'] in GOOD_HEIGHTS)):
+                    and (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name)):
                     new_video['valid'] = True
                 else:
                     with open(logfile, 'a', encoding='utf8') as outfp:
@@ -143,6 +143,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     os.chdir(oldcwd)
 
     return group_name, stream_catalogue
+
 
 
 def check(target, prefix):
@@ -223,3 +224,30 @@ def check_dirs(*, dirs=(), output_dir='.', prefix='main', partial=False):
                 if not rooms:
                     return False
         return True
+
+
+def post_merge_check(check_file):
+    with open(check_file, encoding='utf8') as infp:
+        data = json.load(infp)
+
+    results = []
+    for group in data['groups']:
+        for room in data['groups'][group].values():
+            for stream in room['streams']:
+                total_video_duration = sum(file['video']['duration'] for file in stream['files'])
+                total_audio_duration = sum(file['audio']['duration'] for file in stream['files'])
+                if not (-1.0 < total_video_duration - total_audio_duration < 1.0):
+                    results.append((
+                        stream['stream_name'], 
+                        "audio: {}".format(total_audio_duration), 
+                        "video: {}".format(total_video_duration),
+                        "difference: {}".format(total_audio_duration - total_video_duration)
+                        ))
+
+    with open(check_file.replace('_check.json', '_desync.log'), 'w', encoding='utf8') as outfp:
+        for result in results:
+            print(*result, sep='\n', end='\n\n', file=outfp)
+
+
+    
+     

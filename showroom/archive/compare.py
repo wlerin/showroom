@@ -59,49 +59,90 @@ def compare_rooms(main_room, alt_room):
 
     # TODO: drastically reduce the tolerances for top priority (< 8 or so) rooms
     def calc_max_time_diff(duration, priority):
-        factor = 1
-        while factor < 5:
-            if factor > priority / factor:
-                break
+        # this should never allow more than a minute of difference
+        # 0-30 minutes: 15 seconds
+        base_case = 41 - min(priority, 11)
+        max_seconds = 15
+
+        for mult in (1, 3, 6, 12):
+            if duration > base_case*60*mult and max_seconds < 60:
+                max_seconds += 15
             else:
-                factor += 1
-        return factor + int(duration * factor / (60 * 12))
+                break
+
+        return max_seconds
+
+        # while factor < 5:
+        #     if factor > priority / factor:
+        #         break
+        #     else:
+        #         factor += 1
+        # return min(factor + int(duration * factor / (60 * 12)), 30)
 
     def calc_max_size_diff(duration, priority):
-        factor = 1
-        while factor < 5:
-            if factor > priority / factor:
-                break
+        # TODO: this should allow between 1 and 5 MiB difference depending on the length of the stream
+        # it should never allow anything larger than that.
+        # 0-30 minutes: 1 MiB    30*1    3**0
+        # 30-90 minutes: 2 MiB   30*3    3**1
+        # 90-180 minutes: 3 MiB  30*6    3*2
+        # 180-360 minutes: 4 MiB 30*12   3*4
+        # 360+ minutes: 5 MiB
+        base_case = 41 - min(priority, 11)
+        max_mib = 1
+
+        for mult in (1, 3, 6, 12):
+            if duration > base_case*60*mult and max_mib < 5:
+                max_mib+=1
             else:
-                factor += 1
+                break
 
-        return SIZE_IEC_MB + int(SIZE_IEC_MB * duration * factor / (12 * 60 ** 2))
+        return SIZE_IEC_MB*max_mib
 
+        # factor = 1
+        # while factor < 5:
+        #     if factor > priority / factor:
+        #         break
+        #     else:
+        #         factor += 1
+
+        # return min(SIZE_IEC_MB + int(SIZE_IEC_MB * duration * factor / (12 * 60 ** 2)), SIZE_IEC_MB*3)
+
+    def calc_max_frame_diff(duration, priority):
+        return calc_max_time_diff(duration, priority) * 25
+
+    
+    # TODO: Compare streams instead of rooms
     main_size = sum((s['total_size'] for s in main_room['streams']))
     alt_size = sum((s['total_size'] for s in alt_room['streams']))
+    main_frames = sum((s['total_frames'] for s in main_room['streams']))
+    alt_frames = sum((s['total_frames'] for s in alt_room['streams']))
     result = {
         "time_diff": alt_room['total_duration'] - main_room['total_duration'],
         "size_diff": alt_size - main_size,
+        "frame_diff": alt_frames - main_frames,
         "main_room": main_room,
         "alt_room": alt_room,
     }
 
-    # simplest check: compare total duration
-    if main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority']) \
-            >= alt_room['total_duration']:
-        return None
+    if main_room['total_duration'] == 0:
+        if alt_room['total_duration'] == 0:
+            # TODO: log this
+            # print('Found 0 duration:', main_room['handle'])
+            return None
+        else:
+            return result
     else:
-        # print("{}'s room failed the duration test: {:.2f} - {:.2f} = {:.2f} seconds".format(
-        #     main_room['name'],
-        #     main_room['total_duration'],
-        #     alt_room['total_duration'],
-        #     main_room['total_duration'] - alt_room['total_duration']
-        # ))
-        pass
+        if alt_room['total_duration'] == 0:
+            return None
 
     if (main_size + calc_max_size_diff(main_room['total_duration'], main_room['priority'])
-            >=
-            alt_size
+                >= alt_size 
+            and
+            main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority'])
+                >= alt_room['total_duration']
+            and 
+            main_frames - calc_max_frame_diff(main_room['total_duration'], main_room['priority']) 
+                >= alt_frames
         ):
         return None
     else:
@@ -111,9 +152,23 @@ def compare_rooms(main_room, alt_room):
         #     alt_size / SIZE_IEC_MB,
         #     (main_size - alt_size) / SIZE_IEC_MB
         # ))
-        pass
+        return result
 
-    return result
+
+    # simplest check: compare total duration
+    # if main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority']) \
+    #         >= alt_room['total_duration']:
+    #     return None
+    # else:
+    #     # print("{}'s room failed the duration test: {:.2f} - {:.2f} = {:.2f} seconds".format(
+    #     #     main_room['name'],
+    #     #     main_room['total_duration'],
+    #     #     alt_room['total_duration'],
+    #     #     main_room['total_duration'] - alt_room['total_duration']
+    #     # ))
+    #     pass
+
+    # return result
 
     # TODO: more in-depth analysis
 
@@ -173,6 +228,9 @@ def compare_archives(main_file, alt_files, with_web=False):
     # main_data = format_results(temp)
 
     alt_data = {}
+    if isinstance(alt_files, str):
+        alt_files = [alt_files]
+        
     for alt_file in alt_files:
         prefix = alt_file.rsplit('/', 1)[-1].split('_', 1)[0]
         with open(alt_file, encoding='utf8') as infp:
@@ -233,6 +291,12 @@ def compare_archives(main_file, alt_files, with_web=False):
                     }
                     compare_results['replacements'].append(result)
 
+    # print('\n\n', date)
+    # for result in compare_results['replacements']:
+    #     print(result['main_room']['handle'])
+    #     print("time diff: ", result['time_diff'])
+    #     print("size_diff: ", result['size_diff'])
+    #     print("frame_diff:", result['frame_diff'])
 
     with open('compare_{}.json'.format(date), 'w', encoding='utf8') as outfp:
         json.dump(compare_results, outfp, ensure_ascii=False, indent=2)
