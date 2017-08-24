@@ -140,9 +140,9 @@ def compare_rooms(main_room, alt_room):
             and
             main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority'])
                 >= alt_room['total_duration']
-            and 
-            main_frames - calc_max_frame_diff(main_room['total_duration'], main_room['priority']) 
-                >= alt_frames
+            # and 
+            # main_frames - calc_max_frame_diff(main_room['total_duration'], main_room['priority']) 
+            #     >= alt_frames
         ):
         return None
     else:

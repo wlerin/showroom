@@ -14,7 +14,7 @@ text = ""  # text from here: https://www.showroom-live.com/room/profile?room_id=
 
 
 
-def update(data):
+def update(data, outpath):
     myou = data
 
     s = Session()
@@ -32,7 +32,11 @@ def update(data):
         m = m.groupdict()
         date = '2017-{:02d}-{:02d}'.format(int(m['month']),
                            int(m['day']))
-        group, team = m['team'].split(' ', 1)
+        try:
+            group, team = m['team'].split(' ', 1)
+        except ValueError:
+            # not enough values to unpack?
+            group, team = m['team'], ""
         myou[date] = dict(
             date=date,
             jpnName=m['name'],
@@ -57,9 +61,9 @@ def update(data):
         else:
             val['engName'] = "Unknown"
 
-    outfile = 'myounichi_episodes.json'
-    outdir = '/home/wlerin/Annex/Showroom'  # TODO: read from settings
-    outpath = '/'.join([outdir, outfile])
+    # outfile = 'myounichi_episodes.json'
+    # outdir = '/home/wlerin/Annex/Showroom'  # TODO: read from settings
+    # outpath = '/'.join([outdir, outfile])
 
     dates = sorted(myou.keys())
 

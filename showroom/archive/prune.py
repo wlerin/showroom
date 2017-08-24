@@ -31,7 +31,7 @@ def get_needed_files_list(results):
             for file in stream['files']:
                 if file['valid']:
                     needed_list.append(file['file']['name'])
-    # print(repr(needed_list))
+    print(repr(needed_list))
     return needed_list
 
 
