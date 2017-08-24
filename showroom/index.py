@@ -16,8 +16,8 @@ _filename_re = re.compile(
     r'''
         (?:\d{6}\ Showroom\ -\ )?
         ([\w\ \-!\?’】！？、]+?)
-        (?:\ \d{4,6})?
-        (?:.mp4)?$
+        (?:\ \d{4,6})
+        (?:\.mp4)?$
     ''',
     re.VERBOSE
 )

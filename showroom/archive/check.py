@@ -175,7 +175,7 @@ def format_results(results, partial=False):
                         f.append((key, {}))
                 f.append(('valid', file['valid']))
                 files.append(OrderedDict(f))
-            room = ENGLISH_INDEX.find_room(file_name=stream_name)
+            room = ENGLISH_INDEX.find_room(file_name=stream_name+'.mp4')
             if room:
                 if room.room_id not in rooms:
                     rooms[room.room_id] = OrderedDict((('name', room.name),
