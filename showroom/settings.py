@@ -359,7 +359,7 @@ class ShowroomSettings(SettingsDict):
                     os.symlink(os.path.abspath(item[1]), dest_path, target_is_directory=True)
 
 
-settings = ShowroomSettings()
+settings = ShowroomSettings.from_file()
 
 # old defaults, for reference
 """

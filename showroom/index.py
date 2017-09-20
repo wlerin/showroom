@@ -173,6 +173,7 @@ class ShowroomIndex(object):
         # (and I don't want that to be a regular event)
         # mod_date is semi-useful when building the initial index
         self.directory = index_directory
+        
         self.known_files = {}
         self.wanted_default = record_all
 

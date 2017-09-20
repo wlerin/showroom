@@ -450,5 +450,16 @@
     "jpnName": "山田 杏華",
     "engName": "Yamada Kyoka",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Hinano_Okumoto",
+    "showroom_id": "143072",
+    "jpnName": "奥本 陽菜",
+    "engName": "Okumoto Hinano",
+    "priority": 20
   }
 ]
