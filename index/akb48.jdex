@@ -153,8 +153,8 @@
     "priority": 9
   },
   {
-    "jpnTeam": "AKB48 チームK ドラフト研究生",
-    "engTeam": "AKB48 Team K Draft KKS",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K",
     "web_url": "https://www.showroom-live.com/48_Satone_Kubo",
     "showroom_id": "61807",
     "jpnName": "久保 怜音",
@@ -225,8 +225,8 @@
     "priority": 10
   },
   {
-    "jpnTeam": "AKB48 チームK ドラフト研究生",
-    "engTeam": "AKB48 Team K Draft KKS",
+    "jpnTeam": "AKB48 チームK",
+    "engTeam": "AKB48 Team K",
     "web_url": "https://www.showroom-live.com/48_Nao_Nomura",
     "showroom_id": "61806",
     "jpnName": "野村 奈央",
@@ -369,8 +369,8 @@
     "priority": 15
   },
   {
-    "jpnTeam": "AKB48 チーム４ ドラフト研究生",
-    "engTeam": "AKB48 Team 4 Draft KKS",
+    "jpnTeam": "AKB48 チーム４",
+    "engTeam": "AKB48 Team 4",
     "web_url": "https://www.showroom-live.com/48_Erii_Chiba",
     "showroom_id": "61811",
     "jpnName": "千葉 恵里",
@@ -432,8 +432,8 @@
     "priority": 15
   },
   {
-    "jpnTeam": "AKB48 チームB ドラフト研究生",
-    "engTeam": "AKB48 Team B Draft KKS",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B",
     "web_url": "https://www.showroom-live.com/48_Ayu_Yamabe",
     "showroom_id": "61810",
     "jpnName": "山邊 歩夢",
@@ -441,8 +441,8 @@
     "priority": 15
   },
   {
-    "jpnTeam": "AKB48 チームB ドラフト研究生",
-    "engTeam": "AKB48 Team B Draft KKS",
+    "jpnTeam": "AKB48 チームB",
+    "engTeam": "AKB48 Team B",
     "web_url": "https://www.showroom-live.com/48_Rei_Nishikawa",
     "showroom_id": "61809",
     "jpnName": "西川 怜",
