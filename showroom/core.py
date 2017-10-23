@@ -6,7 +6,8 @@ https://www.showroom-live.com/room/is_live?room_id=61879
 {"ok": 0} == not live
 {"ok": 1} == live (may be other keys)
 
-https://www.showroom-live.com/room/get_live_data?room_id=61747
+!!!! As of 2017-10-23, this url no longer works.
+~~~ https://www.showroom-live.com/room/get_live_data?room_id=61747
 
 https://www.showroom-live.com/event/akb48_sousenkyo_45th poll for time schedule
 
@@ -22,6 +23,42 @@ https://www.showroom-live.com/api/time_table/time_tables?order=asc&ended_at=1493
 
 Find the next live for a room
 https://www.showroom-live.com/api/room/next_live?room_id=61576
+
+Some basic info about a live broadcast
+https://www.showroom-live.com/api/live/live_info?room_id=44010
+{
+  "age_verification_status": 0,
+  "video_type": 0,
+  "enquete_gift_num": 0,
+  "is_enquete": false,
+  "bcsvr_port": 8080,
+  "live_type": 0,
+  "is_free_gift_only": false,
+  "bcsvr_host": "online.showroom-live.com",
+  "live_id": 2741506,
+  "is_enquete_result": false,
+  "live_status": 2,
+  "room_id": 44010,
+  "bcsvr_key": "29d502:AJ4IiAqb",
+  "background_image_url": null
+}
+https://www.showroom-live.com/api/live/live_info?room_id=75207
+{
+  "age_verification_status": 0,
+  "video_type": 0,
+  "enquete_gift_num": 0,
+  "is_enquete": false,
+  "bcsvr_port": 8080,
+  "live_type": 0,
+  "is_free_gift_only": false,
+  "bcsvr_host": "online.showroom-live.com",
+  "live_id": 0,
+  "is_enquete_result": false,
+  "live_status": 1,
+  "room_id": 75207,
+  "bcsvr_key": "",
+  "background_image_url": null
+}
 
 Video Banner (the strip of text across the top of the video)
 https://www.showroom-live.com/api/live/telop?room_id=61627
@@ -78,6 +115,7 @@ from collections import OrderedDict
 from heapq import heapify, heappush, heappop
 from json.decoder import JSONDecodeError
 from queue import Queue  # Empty as QueueEmpty
+import re
 
 # from .message import ShowroomMessage
 # from .exceptions import ShowroomDownloadError
@@ -98,6 +136,8 @@ from .utils import format_name, strftime
 # TODO: create a separate loggers.py or something, set the levels there
 # and other important details, e.g. define custom levels for finer verbosity control
 core_logger = logging.getLogger('showroom.core')
+
+hls_url_re1 = re.compile(r'(https://edge-(\d*)-(\d*)-(\d*)-(\d*).showroom-live.com:443/liveedge/(\w*))/playlist.m3u8')
 
 
 def watch_seconds(priority: int):
@@ -196,6 +236,7 @@ class Downloader(object):
         self._protocol = default_protocol
         self._rtmp_url = ""
         self._hls_url = ""
+        self._rtmps_url = ""
 
         self._process = None
         # self._timeouts = 0
@@ -231,7 +272,8 @@ class Downloader(object):
         with self._lock:
             return {"streaming_urls": {
                         "hls_url": self._hls_url,
-                        "rtmp_url": self._rtmp_url},
+                        "rtmp_url": self._rtmp_url,
+                        "rtmps_url": self._rtmps_url},
                     "protocol": self._protocol,
                     "filename": self.outfile,
                     "dest_dir": self.destdir,
@@ -380,6 +422,23 @@ class Downloader(object):
                 return destpath
 
     def update_streaming_url(self):
+        """Updates streaming urls from the showroom website.
+        
+        Temporary fix for loss of get_live_data"""
+        r = self._session.get(self._room.long_url)
+
+        if r.ok:
+            match = hls_url_re1.search(r.text)
+            # TODO: check if there was a match
+            hls_url = match.group(0)
+            rtmps_url = match.group(1).replace('https', 'rtmps')
+            rtmp_url = "rtmp://{}.{}.{}.{}:1935/liveedge/{}".format(*match.groups()[1:])
+            with self._lock:
+                self._rtmp_url = rtmp_url
+                self._hls_url = hls_url
+                self._rtmps_url = rtmps_url
+
+    def update_streaming_url_old(self):
         """Updates streaming urls from the showroom website."""
         data = self._session.json('https://www.showroom-live.com/room/get_live_data',
                                   params={'room_id': self._room.room_id},

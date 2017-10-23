@@ -22,6 +22,21 @@ _filename_re = re.compile(
     re.VERBOSE
 )
 
+# maps numerical genre_ids to human readable names
+# when fetching from the API via a script it seems to return English names
+# genre_id: (english name, japanese api name, english api name)
+full_genre_map = {
+    0: ("Popular", "人気", "Popularity"),
+    101: ("Music", "ミュージック", "Music"),
+    102: ("Idol", "アイドル", "Idol"),
+    103: ("Talent/Model", "タレント・モデル", "Talent Model"),
+    104: ("Voice Actor/Anime", "声優・アニメ", "Voice Actors & Anime"),
+    105: ("Comedy/Talk Show", "お笑い・トーク", "Comedians/Talk Show"),
+    106: ("Sports", "スポーツ", "Sports"),
+    200: ("Amateur", "アマチュア", "Non-Professionals"),
+}
+genre_map = {key: val[0] for key, val in full_genre_map.items()}
+
 
 class Room(object):
     def __init__(self, room_info=None, mod_time=0, language='eng', wanted=True):
