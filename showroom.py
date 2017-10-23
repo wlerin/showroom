@@ -34,6 +34,7 @@ import argparse
 from heapq import heapify, heappush, heappop, heappushpop
 import itertools
 # from operator import attrgetter
+import re
 
 # take basic input
 # adapted from http://stackoverflow.com/a/19655992/3380530
@@ -102,6 +103,7 @@ CommandInput = stdin
 TOKYO_TZ = pytz.timezone('Asia/Tokyo')
 
 WATCHSECONDS = [600, 420, 360, 360, 300, 300, 240, 240, 180, 150]
+hls_url_re1 = re.compile(r'(https://edge-(\d*)-(\d*)-(\d*)-(\d*).showroom-live.com:443/liveedge/(\w*))/playlist.m3u8')
 
 
 def watch_seconds(priority):
@@ -715,15 +717,24 @@ class Downloader(object):
             else:
                 print('Completed {}/{}'.format(self.destdir, self.outfile))
             self.destdir, self.tempdir, self.outfile = ("", "", "")
-        
-    def start(self):
-        data = self.session.get('https://www.showroom-live.com/room/get_live_data',
-                                params={'room_id': self.room_id}).json()
 
-        stream_name = data['streaming_name_rtmp']
-        stream_url = data["streaming_url_rtmp"]
+    def get_streaming_url(self):
+        """Updates streaming urls from the showroom website.
+
+        Temporary fix for loss of get_live_data"""
+        r = self.session.get(self.web_url)
+
+        if r.ok:
+            match = hls_url_re1.search(r.text)
+            # TODO: check if there was a match
+            # hls_url = match.group(0)
+            # rtmps_url = match.group(1).replace('https', 'rtmps')
+            rtmp_url = "rtmp://{}.{}.{}.{}:1935/liveedge/{}".format(*match.groups()[1:])
+            return rtmp_url
+
+    def start(self):
         tokyo_time = datetime.datetime.now(tz=TOKYO_TZ)
-        new_url = '{}/{}'.format(stream_url, stream_name)
+        new_url = self.get_streaming_url()
         self.tempdir, self.destdir, self.outfile = format_name(self.rootdir,
                                                                tokyo_time.strftime('%Y-%m-%d %H%M%S'), self.member)
 
