@@ -10,6 +10,7 @@ _name_pattern = '{group} {team} {name}_{count:02d}.{ext}'
 
 def get_profile_pic_url(room):
     room_id = room.room_id
+    # TODO: Find the new url for this
     r = _session.json('https://www.showroom-live.com/room/get_live_data', params={"room_id": room_id})
     url = r.get('room').get('image_l')
     if url:

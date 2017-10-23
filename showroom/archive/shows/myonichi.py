@@ -6,7 +6,7 @@ from showroom.session import WatchSession as Session
 from bs4 import BeautifulSoup as Soup
 from collections import OrderedDict as od 
 
-myonichi_re = re.compile(r'(?P<month>\d{1,2})月(?P<day>\d{1,2})日\((?P<weekday>\w)\) (?P<name>[\w ]+)（(?P<team>[\wー ]+)[）\)]')
+myonichi_re = re.compile(r'(?P<month>\d{1,2})月(?P<day>\d{1,2})日\((?P<weekday>\w)\) (?P<name>[\w ]+)[（\(](?P<team>[\wー ]+)[）\)]')
 file_re = re.compile(r'(?P<date>\d{6}) Showroom - SP AKB48 no Myonichi Yoroshiku! (?P<time>\d{4,6}).mp4$')
 text = ""  # text from here: https://www.showroom-live.com/room/profile?room_id=92289
 
@@ -14,11 +14,12 @@ text = ""  # text from here: https://www.showroom-live.com/room/profile?room_id=
 
 
 
-def update(data, outpath):
+def update(data, datapath):
     myou = data
 
     s = Session()
     r = s.get('https://www.showroom-live.com/room/profile?room_id=92289')
+
     soup = Soup(r.text, 'lxml')
 
     text = soup.select_one('div#js-room-profile-detail > ul.room-profile-info').select('> li')[1].p.text
@@ -29,13 +30,16 @@ def update(data, outpath):
         if not m:
             # print(line)
             continue
+
         m = m.groupdict()
         date = '2017-{:02d}-{:02d}'.format(int(m['month']),
                            int(m['day']))
-        try:
+        if ' ' in m['team']:
             group, team = m['team'].split(' ', 1)
-        except ValueError:
-            # not enough values to unpack?
+        elif len(m['team']) > 5 and '48' in m['team']:
+            ri = m['team'].index('48') + len('48')
+            group, team = m['team'][:ri].strip(), m['team'][ri:].strip()
+        else:
             group, team = m['team'], ""
         myou[date] = dict(
             date=date,
@@ -71,7 +75,7 @@ def update(data, outpath):
     for date in dates:
         data[date] = myou[date]
 
-    with open(outpath, 'w', encoding='utf8') as outfp:
+    with open(datapath, 'w', encoding='utf8') as outfp:
         json.dump(data, outfp, indent=2, ensure_ascii=False)
 
     return data
