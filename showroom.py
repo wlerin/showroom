@@ -727,6 +727,8 @@ class Downloader(object):
         if r.ok:
             match = hls_url_re1.search(r.text)
             # TODO: check if there was a match
+            if not match:
+                return None
             # hls_url = match.group(0)
             # rtmps_url = match.group(1).replace('https', 'rtmps')
             rtmp_url = "rtmp://{}.{}.{}.{}:1935/liveedge/{}".format(*match.groups()[1:])
@@ -743,7 +745,7 @@ class Downloader(object):
         if not self.start_time:
             self.start_time = tokyo_time
 
-        if new_url != self.url:
+        if new_url and new_url != self.url:
             self._url = new_url
             print('Downloading {}\'s Showroom'.format(self.name, self.url))
             self.announce((self.web_url, self.url))
