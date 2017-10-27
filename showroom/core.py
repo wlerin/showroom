@@ -430,13 +430,13 @@ class Downloader(object):
         if r.ok:
             match = hls_url_re1.search(r.text)
             # TODO: check if there was a match
-            hls_url = match.group(0)
             if not match:
                 # no url found in the page
                 # probably the stream has ended but is_live returned true
                 # just don't update the urls
                 # except what happens if they are still "" ?
                 return
+            hls_url = match.group(0)
             rtmps_url = match.group(1).replace('https', 'rtmps')
             rtmp_url = "rtmp://{}.{}.{}.{}:1935/liveedge/{}".format(*match.groups()[1:])
             with self._lock:
