@@ -15,7 +15,7 @@ index_logger = logging.getLogger('showroom.index')
 _filename_re = re.compile(
     r'''
         (?:\d{6}\ Showroom\ -\ )?
-        ([\w\ \-!\?’】！？、]+?)
+        ([\w\ \-!\?’】！？、.]+?)
         (?:\ \d{4,6})
         (?:\.mp4)?$
     ''',
