@@ -1527,5 +1527,16 @@
     "priority": 20,
     "showroom_id": "148880",
     "web_url": "https://www.showroom-live.com/akbdraft3rd_139"
+  },
+  {
+    "jpnName": "公式ルーム",
+    "engName": "Official Room",
+    "jpnTeam": "ドラフト３期",
+    "engTeam": "Draft 3rd Gen",
+    "jpnGroup": "AKB48グループ",
+    "engGroup": "AKB48 Group",
+    "priority": 20,
+    "showroom_id": "153309",
+    "web_url": "https://www.showroom-live.com/akbdraft3rd"
   }
 ]
