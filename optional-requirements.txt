@@ -8,3 +8,7 @@ PySceneDetect
 mwclient  # wikipedia/mediawiki api
 romkan    # romaji to kana to romaji
 
+# yaml config file support
+# install the requirements anyway so it can support both YAML and JSON
+pyyaml
+
