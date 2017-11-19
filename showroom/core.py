@@ -120,7 +120,7 @@ import re
 # from .message import ShowroomMessage
 # from .exceptions import ShowroomDownloadError
 from .comments import CommentLogger
-from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT, WATCHSECONDS, MODE_TO_STATUS
+from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT, MODE_TO_STATUS
 from .index import ShowroomIndex, Room
 from .session import WatchSession
 from .settings import ShowroomSettings
@@ -138,6 +138,8 @@ from .utils import format_name, strftime
 core_logger = logging.getLogger('showroom.core')
 
 hls_url_re1 = re.compile(r'(https://edge-(\d*)-(\d*)-(\d*)-(\d*).showroom-live.com:443/liveedge/(\w*))/playlist.m3u8')
+
+WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 
 
 def watch_seconds(priority: int):
@@ -160,6 +162,8 @@ def watch_seconds(priority: int):
     """
     if priority > len(WATCHSECONDS):
         return 120
+    elif priority < 0:
+        return 600
     else:
         return WATCHSECONDS[priority-1]
 
@@ -204,7 +208,6 @@ class Downloader(object):
         switch_protocol -- don't change protocol, change downloaders
 
     TODO:
-        Use streamlink instead of Popen([ffmpeg...]) ???
         Logging (e.g. "download has started" or let Watcher handle this)
         Fix ffmpeg logging on Windows without pulling in PATH
 
@@ -422,9 +425,42 @@ class Downloader(object):
                 return destpath
 
     def update_streaming_url(self):
+        data = self._session.json('https://www.showroom-live.com/api/live/streaming_url',
+                                  params={'room_id': self._room.room_id},
+                                  headers={'Referer': self._room.long_url})
+        if not data:
+            return
+
+        rtmp_streams = []
+        hls_streams = []
+        for stream in data['streaming_url_list']:
+            if stream['type'] == 'rtmp':
+                rtmp_streams.append((stream['quality'], '/'.join((stream['url'], stream['stream_name']))))
+            elif stream['type'] == 'hls':
+                hls_streams.append((stream['quality'], stream['url']))
+
+        new_rtmp_url = sorted(rtmp_streams)[-1][1]
+        new_hls_url = sorted(hls_streams)[-1][1]
+
+        with self._lock:
+            if new_rtmp_url != self.rtmp_url:
+                # TODO: log url change
+                # TODO: Trigger this message when the stream first goes live, from elsewhere
+                # print('Downloading {}\'s Showroom'.format(self.room.name))
+                # self.announce((self.web_url, self.stream_url))
+                pass
+
+            if new_hls_url != self.hls_url:
+                # TODO: log url change
+                pass
+
+            self._rtmp_url = new_rtmp_url
+            self._hls_url = new_hls_url
+
+    def update_streaming_url_web(self):
         """Updates streaming urls from the showroom website.
         
-        Temporary fix for loss of get_live_data"""
+        Fallback if api changes again"""
         r = self._session.get(self._room.long_url)
 
         if r.ok:
