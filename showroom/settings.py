@@ -41,7 +41,7 @@ DEFAULTS = {
     "directory": {
         "data": os.path.expanduser('~/Downloads/Showroom'),
         "output": '{data}',
-        "index": '{data}/index',
+        "index": 'index',
         "log": _dirs.user_log_dir,
         "config": _dirs.user_config_dir,
         # This setting is NOT respected by Downloader (it uses {output}/active always)
@@ -83,7 +83,7 @@ DEFAULTS = {
     },
     "system": {
         "make_symlinks": True,
-        "symlink_dirs": ('log', 'index', 'config')
+        "symlink_dirs": ('log', 'config')
     },
     "comments": {
         "record": False,
@@ -102,6 +102,76 @@ _default_args = {
     "names": []
 }
 
+DEFAULTS_NEW = {
+    "data": {
+        "path": os.path.expanduser('~/Downloads/Showroom'),
+    },
+    "output": {
+        # TODO: remove this?
+        "path": '{data.path}',
+    },
+    "index": {
+        "path": '{data.path}/index',
+    },
+    "log": {
+        "path": _dirs.user_log_dir,
+    },
+    "config": {
+        # Is there a point to including this?
+        "path": _dirs.user_config_dir + '/showroom.conf',
+    },
+    "temp": {
+        # TODO: Fix downloader so it respects this
+        "path": '{data}/active'
+    },
+    "file": {
+        "config": '{config.path}/showroom.conf',
+        "schedule": '{data.path}/schedule.json',
+        "completed": '{data.path}/completed.json'
+    },
+    "throttle": {
+        "max": {
+            "downloads": 80,
+            "watches": 50,
+            "priority": 80
+        },
+        "rate": {
+            "upcoming": 180.0,
+            "onlives": 7.0,
+            "watch": 2.0,
+            "live": 60.0
+        },
+        "timeout": {
+            "download": 23.0
+        }
+    },
+    "ffmpeg": {
+        "logging": False,
+        "path": "ffmpeg",
+    },
+    "filter": {
+        "all": False,
+        "wanted": [],
+        "unwanted": []
+    },
+    "feedback": {
+        "console": False,  # this actually should be a loglevel
+        "write_schedules_to_file": True
+    },
+    "system": {
+        # TODO: Fix this to work with the new paths
+        "make_symlinks": True,
+        "symlink_dirs": ('log', 'config')
+    },
+    "comments": {
+        "record": False,
+        "default_update_interval": 7.0,
+        "max_update_interval": 30.0,
+        "min_update_interval": 2.0,
+        "max_priority": 100
+    },
+    "environment": {}
+}
 
 def _clean_args(args):
     new_args = {}
