@@ -14,7 +14,6 @@ print to the console *at all*)
 3. Most of the instructions below are also outdated. (Usage and Installation 
 still work but they are missing a lot of information.)
 4. pyyaml is not in requirements.txt (needed for config files)
-5. config files are not documented
 6. config file format is not fixed
 
 ## Usage
