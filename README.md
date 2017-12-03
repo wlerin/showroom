@@ -6,15 +6,12 @@
 
 ## Known Issues
 
-1. The index directory is not correctly linked. To work around this, use the
-`-i` option to point the script at your index folder. See the help text for
-an example.
-2. Most of the help text is outdated (e.g. `--noisy` is required for it to
+1. Most of the help text is outdated (e.g. `--noisy` is required for it to
 print to the console *at all*)
-3. Most of the instructions below are also outdated. (Usage and Installation 
+2. Most of the instructions below are also outdated. (Usage and Installation 
 still work but they are missing a lot of information.)
-4. pyyaml is not in requirements.txt (needed for config files)
-6. config file format is not fixed
+3. pyyaml is not in requirements.txt (needed for config files)
+4. config file format is not fixed
 
 ## Usage
 
