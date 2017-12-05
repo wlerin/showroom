@@ -20,5 +20,16 @@
     "jpnName": "矢神久美",
     "engName": "Yagami Kumi",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "",
+    "engGroup": "AKB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/takahashi_kira",
+    "showroom_id": "156013",
+    "jpnName": "高橋希来",
+    "engName": "Takahashi Kira",
+    "priority": 10
   }
 ]
