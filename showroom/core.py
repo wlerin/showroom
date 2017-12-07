@@ -141,6 +141,12 @@ hls_url_re1 = re.compile(r'(https://edge-(\d*)-(\d*)-(\d*)-(\d*).showroom-live.c
 
 WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 
+# TODO: handle genre/category by individual rooms
+# currently this checks the onlive list for each of Music, Idol, and Talent/Model
+# schedules are still Idol only
+GENRE_IDS = set((101, 102, 103))
+
+
 
 def watch_seconds(priority: int):
     """
@@ -1253,15 +1259,11 @@ class WatchManager(object):
                                     headers={'Referer': 'https://www.showroom-live.com/onlive'},
                                     default={'onlives': []})['onlives']
 
-        # find the idol genre
+        # temporary fix for getting multiple genres
+        lives = []
         for e in onlives:
-            # can't find "genre_name":"アイドル" in input, possible de/encoding problem?
-            if e['genre_id'] == 102:
-                lives = e['lives']
-                break
-        else:
-            core_logger.debug('Couldn\'t find idol live category')
-            return
+            if e['genre_id'] in GENRE_IDS:
+                lives.extend(e['lives'])
 
         # lives is a list of json objects (dicts)
         # representing items to include in the page
