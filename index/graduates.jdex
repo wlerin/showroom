@@ -31,5 +31,17 @@
     "jpnName": "高橋希来",
     "engName": "Takahashi Kira",
     "priority": 10
+  },
+  {
+    "jpnGroup": "HKT48",
+    "jpnTeam": "",
+    "engGroup": "HKT48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/asia_naoko",
+    "showroom_id": "152125",
+    "jpnName": "岡本尚子",
+    "engName": "Okamoto Naoko",
+    "priority": 20
   }
+  
 ]
