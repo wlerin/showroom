@@ -16,7 +16,12 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     max_overlap = 5.0
 
     oldcwd = os.getcwd()
-    os.chdir(target_dir)
+
+    try:
+        os.chdir(target_dir)
+    except NotADirectoryError:
+        return {}
+
     files = sorted(glob.glob('*.{}'.format(target_ext)))
 
     logfile = os.path.join(oldcwd, '{}_{}_check.log'.format(prefix, target_dir.split('/')[-2]))
@@ -145,13 +150,13 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     return group_name, stream_catalogue
 
 
-
 def check(target, prefix):
     results = []
     for group_dir in glob.glob('{}/*'.format(target)):
-        group_name, streams = check_group(group_dir, prefix)
-        if streams:
-            results.append(VideoGroup(group_name, streams))
+        if os.path.isdir(group_dir):
+            group_name, streams = check_group(group_dir, prefix)
+            if streams:
+                results.append(VideoGroup(group_name, streams))
     return results
 
 

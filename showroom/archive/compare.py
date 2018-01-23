@@ -241,18 +241,26 @@ def compare_archives(main_file, alt_files, with_web=False):
 
     compare_results = {"replacements": [], "notes": [], }
     # TODO: flatten the groups, there's no need to loop through each one individually
-    for group_name, main_group in main_data['groups'].items():
-        for prefix, alt_archive in alt_data.items():
-            if alt_archive['partial']:
-                alt_partial = True
-            else:
-                alt_partial = False
 
+    groups = sorted(set.union(set(main_data['groups']), *(set(d['groups']) for d in alt_data.values())))
+    for prefix, alt_archive in alt_data.items():
+        if alt_archive['partial']:
+            alt_partial = True
+        else:
+            alt_partial = False
+
+        for group_name in groups:
             try:
                 alt_group = alt_archive['groups'][group_name]
             except KeyError:
                 print('{} was not found in {}'.format(group_name, prefix))
                 continue
+
+            try:
+                main_group = main_data['groups'][group_name]
+            except KeyError:
+                print('{} was not found in {}'.format(group_name, 'main'))
+                main_group = {}
 
             # assumes 3.6.x ordered builtin dict, otherwise this is pointless
             # actually it's mostly pointless anyway
