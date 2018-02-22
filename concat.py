@@ -242,12 +242,14 @@ def generate_concat_files(target_dir, target_ext, max_gap):
             stream = json.loads(results)['streams'][0]
         except IndexError:
             new_video['valid']  = False
+            print('failed to load ffprobe results')
+            print(results)
         else:
             new_video['file']     = file
             new_video['duration'] = float(stream['duration'])
             new_video['height']   = int(stream['height'])
             if new_video['duration'] >= 0.001:
-                if new_video['height'] in GOOD_HEIGHTS or (new_video['height'] == 540 and "Kimi Dare" in member_name):
+                if new_video['height'] in GOOD_HEIGHTS or (new_video['height'] == 540 and ("Kimi Dare" in member_name or "Official" in member_name)):
                     new_video['valid']  = True
                 else:
                     new_video['valid'] = False
@@ -287,6 +289,7 @@ def generate_concat_files(target_dir, target_ext, max_gap):
         except IndexError:
             # no valid videos
             print('Failed to read videos for {}'.format(member))
+            print(member_dict)
             continue
         for item in member_dict[member][1:]:
             if (item['start_time'] >= working['last_time'] + max_gap
