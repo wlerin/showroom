@@ -444,9 +444,12 @@ class Downloader(object):
                 rtmp_streams.append((stream['quality'], '/'.join((stream['url'], stream['stream_name']))))
             elif stream['type'] == 'hls':
                 hls_streams.append((stream['quality'], stream['url']))
-
-        new_rtmp_url = sorted(rtmp_streams)[-1][1]
-        new_hls_url = sorted(hls_streams)[-1][1]
+        try:
+            new_rtmp_url = sorted(rtmp_streams)[-1][1]
+            new_hls_url = sorted(hls_streams)[-1][1]
+        except IndexError as e:
+            core_logger.warn("Caught IndexError while fetching streams:", e, data, sep='\n')
+            return
 
         with self._lock:
             if new_rtmp_url != self.rtmp_url:
