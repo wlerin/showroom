@@ -84,6 +84,7 @@ def update(data, datapath):
                 val['engGroup'], val['engTeam'] = val['engTeam'].split(' ', 1)
             val['roomId'] = room.room_id
         else:
+            print('Couldn\'t find {} in index'.format(val['jpnName']))
             val['engName'] = "Unknown"
 
     # outfile = 'myounichi_episodes.json'

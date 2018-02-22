@@ -477,6 +477,8 @@ class ShowroomIndex(object):
         self._room_name_lookup = {}
         for room_id, room in self.room_dict.items():
             self._room_name_lookup[room.name] = room
+            # without spaces
+            self._room_name_lookup[re.sub(r'\s', '', room.name)] = room
 
     def _build_handle_lookup(self):
         self._room_handle_lookup = {}
