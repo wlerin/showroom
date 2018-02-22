@@ -13,7 +13,6 @@ text = ""  # text from here: https://www.showroom-live.com/room/profile?room_id=
 
 # settings = ShowroomSettings()
 
-
 # this is such an awful design
 def update(data, datapath):
     myou = data
@@ -25,6 +24,7 @@ def update(data, datapath):
     soup = Soup(r.text, 'lxml')
 
     text = soup.select_one('div#js-room-profile-detail > ul.room-profile-info').select('> li')[1].p.text
+    text = re.sub(r'\(\(', '(', text)
     lines = [e for e in text.split('\n') if e.strip()]
 
     curr_month = None
@@ -110,7 +110,7 @@ def rename(srcpath, destpath, data):
     name_pattern = '{date} Showroom - AKB48 no Myonichi Yoroshiku! #{ep} ({name}).mp4'
     long_date_pattern = '20{}-{}-{}'
 
-    for file in glob.glob('{}/*.mp4'.format(srcpath)):
+    for file in sorted(glob.glob('{}/*.mp4'.format(srcpath))):
         match = file_re.match(os.path.basename(file))
         date = match.groupdict()['date']
         long_date = long_date_pattern.format(*[date[i:i+2] for i in range(0, 6, 2)])
