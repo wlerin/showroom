@@ -1,0 +1,36 @@
+[
+  {
+    "jpnGroup": "原宿物語",
+    "engGroup": "Harajuku Monogatari",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/usa_monoga",
+    "showroom_id": "139526",
+    "jpnName": "柊宇咲",
+    "engName": "Hiiragi Usa",
+    "priority": 5
+  },
+  {
+    "jpnGroup": "原宿物語",
+    "engGroup": "Harajuku Monogatari",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/Harajuku_Monoga",
+    "showroom_id": "139409",
+    "jpnName": "",
+    "engName": "Official Room",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "LADYBABY",
+    "engGroup": "Ladybaby",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/kuromiyarei",
+    "showroom_id": "87158",
+    "jpnName": "黒宮れい",
+    "engName": "Kuromiya Rei",
+    "priority": 20
+  }
+
+]
