@@ -448,7 +448,7 @@ class Downloader(object):
             new_rtmp_url = sorted(rtmp_streams)[-1][1]
             new_hls_url = sorted(hls_streams)[-1][1]
         except IndexError as e:
-            core_logger.warn("Caught IndexError while fetching streams:", e, data)
+            core_logger.warn("Caught IndexError while fetching streams: {}\n{}".format(e, data))
             return
 
         with self._lock:
