@@ -22,8 +22,8 @@
     "priority": 20
   },
   {
-    "jpnGroup": "LADYBABY",
-    "engGroup": "Ladybaby",
+    "jpnGroup": "アイドル",
+    "engGroup": "Idol",
     "jpnTeam": "",
     "engTeam": "",
     "web_url": "https://www.showroom-live.com/kuromiyarei",
@@ -31,6 +31,18 @@
     "jpnName": "黒宮れい",
     "engName": "Kuromiya Rei",
     "priority": 20
+  },
+  {
+    "jpnGroup": "アイドル",
+    "engGroup": "Idol",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/horiemonidol_2nd",
+    "showroom_id": "170773",
+    "jpnName": "第二回ホリエモンアイドルオーディション",
+    "engName": "Horiemon Idol Audition",
+    "priority": 20
   }
+  
 
 ]
