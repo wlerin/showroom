@@ -148,10 +148,22 @@ def probe_file(filename, streams):
     else:
         return results
 
+
+def get_source_videos(target_ext):
+    # TODO: properly support ts -> mp4 conversions
+    # going from ts -> mp4 requires more logic than this (in particular, need to check video and audio codecs)
+    # also, completed files should be excluded from this, no?
+    files = sorted(glob.glob('*.{}'.format(target_ext)))
+    if target_ext == 'mp4' and len(files) == 0:
+        # kludge to support ts source files
+        files = sorted(glob.glob('*.{}'.format('ts')))
+    return files
+
+
 def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
     oldcwd = os.getcwd()
     os.chdir(target_dir)
-    files = sorted(glob.glob('*.{}'.format(target_ext)))
+    files = get_source_videos(target_ext)
 
     members = set()
     to_resize=[]
@@ -214,7 +226,7 @@ def generate_concat_files(target_dir, target_ext, max_gap):
         resized_members = ()
 
     # TODO: deal with leftovers (from after 24:00)
-    files = sorted(glob.glob('*.{}'.format(target_ext)))
+    files = get_source_videos(target_ext)
     
     def get_start_seconds(file):
         time_str = file.rsplit(' ', 1)[1].split('.')[0]
@@ -360,6 +372,14 @@ def merge_videos(target_dir, output_dir, copytb=1):
                 instructions.extend(['-i', src])
             elif ext == 'concat':
                 instructions.extend(['-auto_convert', '1', '-f', 'concat', '-safe', '0', '-i', concat_file])
+                # ts source kludge
+                with open(concat_file, encoding='utf8') as infp:
+                    for line in concat_file:
+                        if line.strip().endswith('.ts\''):
+                            instructions.extend(['-bsf:a', 'aac_adtstoasc'])
+                            break
+                        else:
+                            break
             else:       
                 os.makedirs('temp', exist_ok=True)
                 src_videos = []
