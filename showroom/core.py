@@ -239,6 +239,7 @@ class Downloader(object):
         self._rootdir = settings.directory.output
         self._logging = settings.ffmpeg.logging
         self._ffmpeg_path = settings.ffmpeg.path
+        self._ffmpeg_container = settings.ffmpeg.container
 
         self.destdir, self.tempdir, self.outfile = "", "", ""
 
@@ -532,7 +533,7 @@ class Downloader(object):
         tokyo_time = datetime.datetime.now(tz=TOKYO_TZ)
         temp, dest, out = format_name(self._rootdir,
                                       strftime(tokyo_time, FULL_DATE_FMT),
-                                      self._room)
+                                      self._room, ext=self._ffmpeg_container)
 
         with self._lock:
             self.tempdir, self.destdir, self.outfile = temp, dest, out
@@ -547,10 +548,14 @@ class Downloader(object):
             # maybe too much
         normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
 
-        if self.protocol == 'hls':
-            extra_args = ['-bsf:a', 'aac_adtstoasc']
-        else:
-            extra_args = []
+        extra_args = []
+        if self._ffmpeg_container == 'ts':
+            extra_args.extend(['-bsf:v', 'h264_mp4toannexb'])
+        elif self.protocol == 'hls':
+            extra_args.extend(['-bsf:a', 'aac_adtstoasc'])
+        elif self._ffmpeg_container != 'mp4':
+            # TODO: support additional container formats
+            self._ffmpeg_container = 'mp4'
 
         self._process = subprocess.Popen([
             self._ffmpeg_path,

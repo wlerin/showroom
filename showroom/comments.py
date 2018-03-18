@@ -71,9 +71,9 @@ class CommentLogger(object):
 
         _, destdir, filename = format_name(self.settings.directory.data,
                                            self.watcher.start_time.strftime(FULL_DATE_FMT),
-                                           self.room)
+                                           self.room, ext=self.settings.ffmpeg.container)
         # TODO: modify format_name so it doesn't require so much hackery for this
-        filename = filename.replace('.mp4', ' comments.json')
+        filename = filename.replace(self.settings.ffmpeg.container, ' comments.json')
         destdir += '/comments'
         # TODO: only call this once per group per day
         os.makedirs(destdir, exist_ok=True)
@@ -204,9 +204,9 @@ class RoomScraper:
 
         _, destdir, filename = format_name(self.settings.directory.data,
                                            self.watcher.start_time.strftime(FULL_DATE_FMT),
-                                           self.room)
+                                           self.room, self.settings.ffmpeg.container)
         # TODO: modify format_name so it doesn't require so much hackery for this
-        filename = filename.replace('.mp4', ' comments.json')
+        filename = filename.replace(self.settings.ffmpeg.container, ' comments.json')
         destdir += '/comments'
         # TODO: only call this once per group per day
         os.makedirs(destdir, exist_ok=True)

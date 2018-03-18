@@ -6,7 +6,7 @@ CENTURY_OFFSET = 2000
 
 
 # TODO: take a datetime object instead of a time_str
-def format_name(root_dir, time_str, room):
+def format_name(root_dir, time_str, room, ext):
     """
     Get file and folder names for a live stream.
 
@@ -32,7 +32,7 @@ def format_name(root_dir, time_str, room):
     rootdir = root_dir
     dir_format = '{root}/{date}/{group}'
     tempdir = '{root}/active'.format(root=rootdir)
-    name_format = '{date} Showroom - {handle} {time}{count}.mp4'
+    name_format = '{date} Showroom - {handle} {time}{count}.{ext}'
 
     # count = 0
     # count_str = '_{:02d}'
@@ -45,7 +45,7 @@ def format_name(root_dir, time_str, room):
     short_date = _date[2:].replace('-', '')
 
     outfile = name_format.format(date=short_date, handle=room.handle,
-                                 time=_time.replace(':', ''), count='')
+                                 time=_time.replace(':', ''), count='', ext=ext)
 
     return tempdir, destdir, outfile
 

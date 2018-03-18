@@ -71,6 +71,7 @@ DEFAULTS = {
     "ffmpeg": {
         "logging": False,
         "path": "ffmpeg",
+        "container": "mp4"  # mp4 or ts/TS
     },
     "filter": {
         "all": False,
@@ -148,6 +149,7 @@ DEFAULTS_NEW = {
     "ffmpeg": {
         "logging": False,
         "path": "ffmpeg",
+        "container": "mp4"
     },
     "filter": {
         "all": False,
