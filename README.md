@@ -49,9 +49,7 @@ distro's package manager, or compile it from source. If you do choose to
 [compile it yourself](https://trac.ffmpeg.org/wiki/CompilationGuide)
  (unnecessary for this script)
 you *must* use the `--enable-librtmp` build flag. It is also highly
-recommended to use one or both of
-`--enable-openssl` and
-`--enable-gnutls`
+recommended to use `--enable-openssl`
 in addition to the codecs suggested in the FFmpeg compilation guide.
 Each requires the relevant system libraries (librtmp, openssl, etc.)
 to be installed before building.
@@ -100,7 +98,7 @@ environment active.
 
 Clone the repository using git:
 
-    git clone https://github.com/wlerin/showroom.git -b development --single-branch showroom-dev
+    git clone https://github.com/wlerin/showroom.git
 
 Or use the Download as ZIP button above.
 

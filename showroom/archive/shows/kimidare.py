@@ -55,9 +55,11 @@ def update_episode_list(data):
             else:
                 print('False Week Detected on line {}'.format(line_no))
             continue
-        elif line == '19:00':
-            continue
-        elif line.startswith('MC'):
+        # elif line == '19:00':
+        #     continue
+        # elif line.startswith('MC'):
+        #     continue
+        elif ':' in line:
             continue
         elif not line:
             if episode:
