@@ -337,7 +337,9 @@ class Downloader(object):
         max_pings = 1 + self._pingouts
         try:
             for line in self._process.stderr:
-                if "Output #0, mp4" in line:
+                # TODO: add mpegts or other variants depending on the container settings? or no?
+                # if "Output #0, mp4" in line:
+                if "Output #0" in line:
                     self._process.communicate()
                     self.move_to_dest()
                     self._pingouts = 0
@@ -421,6 +423,7 @@ class Downloader(object):
     def _move_to_dest(outfile, tempdir, destdir):
         srcpath = '{}/{}'.format(tempdir, outfile)
         destpath = '{}/{}'.format(destdir, outfile)
+        core_logger.debug('File transfer: {} -> {}'.format(srcpath, destpath))
         if os.path.exists(destpath):
             raise FileExistsError
         else:
