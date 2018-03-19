@@ -244,5 +244,16 @@
     "showroom_id": "71933",
     "web_url": "https://www.showroom-live.com/yosusu",
     "priority": 20
+  },
+  {
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "HKT48 特別配信ルーム",
+    "engName": "HKT48 Official Room",
+    "showroom_id": "75384",
+    "web_url": "https://www.showroom-live.com/hkt48_official",
+    "priority": 20
   }
 ]
