@@ -427,6 +427,7 @@ class Downloader(object):
             try:
                 os.replace(srcpath, destpath)
             except FileNotFoundError:
+                core_logger.debug('File not found: {} -> {}'.format(srcpath, destpath))
                 return
             else:
                 return destpath
