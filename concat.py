@@ -47,6 +47,7 @@ import argparse
 from subprocess import check_output, run, CalledProcessError
 import json
 from math import floor
+from showroom.settings import settings as config
 
 # known resolutions:
 # 352x198
@@ -131,17 +132,33 @@ for member in members:
 
 """
 
+# TODO: set this in some other module, perhaps constants
+if os.name == 'nt':
+    _iswin32 = True
+else:
+    _iswin32 = False
+
+_ffmpeg = config.ffmpeg.path
+_ffprobe = os.path.join(os.path.split(_ffmpeg)[0], 'ffprobe')
+
 def probe_file(filename, streams):
+    if _iswin32:
+        extra_args = dict(shell=True)
+    else:
+        extra_args = dict()
+
     try:
-        results = check_output([
-            "ffprobe",
+        results = check_output(
+            [
+            _ffprobe,
             '-loglevel', '16',
             '-show_entries', 'stream={}'.format(','.join(streams)),
             '-select_streams', 'v',
             '-i', filename,
             '-of', 'json'
-        ],
-            universal_newlines=True
+            ],
+            universal_newlines=True, 
+            **extra_args
         )
     except CalledProcessError:
         return None
@@ -192,7 +209,7 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
         low_res_file = 'resized/' + file.replace('.' + target_ext, '_198p.' + target_ext)
         os.replace(file, low_res_file)
         members.add(file.rsplit(' ', 1)[0])
-        run(['ffmpeg',
+        run([_ffmpeg,
              '-copytb', str(copytb),
              '-hide_banner', '-nostats',
              '-i', low_res_file,
@@ -392,7 +409,7 @@ def merge_videos(target_dir, output_dir, copytb=1):
                 temp_videos = []
                 for video in src_videos:
                     tempfile = 'temp/' + video + '.ts'
-                    run(['ffmpeg',
+                    run([_ffmpeg,
                         '-i', video,
                         '-c', 'copy',
                         '-bsf:v', 'h264_mp4toannexb',
@@ -403,7 +420,7 @@ def merge_videos(target_dir, output_dir, copytb=1):
                 
                 instructions.extend(['-i', videostring, '-bsf:a', 'aac_adtstoasc'])
 
-            run(['ffmpeg',
+            run([_ffmpeg,
                 *instructions,
                 '-movflags', '+faststart',
                 '-c', 'copy', outfile])
