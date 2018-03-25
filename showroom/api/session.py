@@ -1,9 +1,8 @@
-from requests import Session
+from requests import Session as _Session
 from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, HTTPError
 from requests.adapters import HTTPAdapter
 import logging
 import time
-import json
 
 try:
     from fake_useragent import UserAgent
@@ -22,7 +21,7 @@ session_logger = logging.getLogger('showroom.session')
 # PageNotFoundError ?
 
 
-class WatchSession(Session):
+class ClientSession(_Session):
     """
     Wrapper for requests.Session.
 
@@ -42,6 +41,7 @@ class WatchSession(Session):
         self.mount('https://www.showroom-live.com', https_adapter)
         self.headers = {"UserAgent": ua_str}
 
+    # TODO: post
     def get(self, url, params=None, max_delay=30.0, max_retries=20, **kwargs):
         error_count = 0
         wait = 0
@@ -58,7 +58,7 @@ class WatchSession(Session):
                 if timeouts > max_retries:
                     session_logger.error('Max timeouts exceeded while fetching {}: {}'.format(url, e))
                     raise
-                elif timeouts > max_retries / 2:
+                elif timeouts > max_retries // 2:
                     session_logger.warning('{} timeouts while fetching {}: {}'.format(timeouts, url, e))
 
             except ChunkedEncodingError as e:
@@ -115,11 +115,3 @@ class WatchSession(Session):
 
             session_logger.debug('Retrying in {} seconds...'.format(wait))
             time.sleep(wait)
-
-    def json(self, url, default=None, params=None, **kwargs):
-        try:
-            r = self.get(url, params=params, **kwargs).json()
-        except json.JSONDecodeError:
-            return default
-        else:
-            return r

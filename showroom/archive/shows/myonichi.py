@@ -1,11 +1,13 @@
-import re
 import json
+import re
+from collections import OrderedDict as od
+from datetime import datetime
+
+from bs4 import BeautifulSoup as Soup
+
+from showroom.api.session import ClientSession as Session
 # from showroom.settings import ShowroomSettings
 from showroom.archive.constants import JAPANESE_INDEX as JI
-from showroom.session import WatchSession as Session
-from bs4 import BeautifulSoup as Soup
-from collections import OrderedDict as od 
-from datetime import datetime
 
 myonichi_re = re.compile(r'(?P<month>\d{1,2})月(?P<day>\d{1,2})日\((?P<weekday>\w)\)\s?(?P<name>[\w ]+)\s?[（\(](?P<team>[\wー ]+)[）\)]')
 file_re = re.compile(r'(?P<date>\d{6}) Showroom - SP AKB48 no Myonichi Yoroshiku! (?P<time>\d{4,6}).mp4$')

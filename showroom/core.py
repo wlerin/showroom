@@ -106,6 +106,7 @@ import itertools
 import json
 import logging
 import os
+import re
 import subprocess
 import threading
 # import glob
@@ -115,14 +116,14 @@ from collections import OrderedDict
 from heapq import heapify, heappush, heappop
 from json.decoder import JSONDecodeError
 from queue import Queue  # Empty as QueueEmpty
-import re
+
+from showroom.api import Client
 
 # from .message import ShowroomMessage
 # from .exceptions import ShowroomDownloadError
 from .comments import CommentLogger
 from .constants import TOKYO_TZ, HHMM_FMT, FULL_DATE_FMT, MODE_TO_STATUS
 from .index import ShowroomIndex, Room
-from .session import WatchSession
 from .settings import ShowroomSettings
 from .utils import format_name, strftime
 
@@ -144,7 +145,7 @@ WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 # TODO: handle genre/category by individual rooms
 # currently this checks the onlive list for each of Music, Idol, and Talent/Model
 # schedules are still Idol only
-GENRE_IDS = set((101, 102, 103))
+GENRE_IDS = {101, 102, 103}
 
 
 
@@ -178,7 +179,7 @@ class Downloader(object):
     """
     Handles downloads for a parent Watcher.
 
-    Created with a room, a session, and an output directory. Started with start(),
+    Created with a room, a client, and an output directory. Started with start(),
     then call wait() to wait on the underlying Popen process. Wait will return when the
     download process ends, either because the stream has completed, because it timed out,
     or because it was terminated from outside the thread. On POSIX systems, a negative
@@ -232,9 +233,9 @@ class Downloader(object):
         hls recording fails awfully. find out why
         For the failure detection to work properly, must ffmpeg be compiled with librtmp?
     """
-    def __init__(self, room, session, settings, default_protocol='rtmp'):
+    def __init__(self, room, client: Client, settings, default_protocol='rtmp'):
         self._room = room
-        self._session = session
+        self._client = client
 
         self._rootdir = settings.directory.output
         self._logging = settings.ffmpeg.logging
@@ -436,15 +437,15 @@ class Downloader(object):
                 return destpath
 
     def update_streaming_url(self):
-        data = self._session.json('https://www.showroom-live.com/api/live/streaming_url',
-                                  params={'room_id': self._room.room_id},
-                                  headers={'Referer': self._room.long_url})
+        data = self._client.streaming_url(self._room.room_id)
+
+        # TODO: it shouldn't still attempt to start up without a fresh url
         if not data:
             return
 
         rtmp_streams = []
         hls_streams = []
-        for stream in data['streaming_url_list']:
+        for stream in data:
             if stream['type'] == 'rtmp':
                 rtmp_streams.append((stream['quality'], '/'.join((stream['url'], stream['stream_name']))))
             elif stream['type'] == 'hls':
@@ -475,7 +476,8 @@ class Downloader(object):
         """Updates streaming urls from the showroom website.
         
         Fallback if api changes again"""
-        r = self._session.get(self._room.long_url)
+        # TODO: add an endpoint for fetching the browser page
+        r = self._client._session.get(self._room.long_url)
 
         if r.ok:
             match = hls_url_re1.search(r.text)
@@ -494,34 +496,34 @@ class Downloader(object):
                 self._hls_url = hls_url
                 self._rtmps_url = rtmps_url
 
-    def update_streaming_url_old(self):
-        """Updates streaming urls from the showroom website."""
-        data = self._session.json('https://www.showroom-live.com/room/get_live_data',
-                                  params={'room_id': self._room.room_id},
-                                  headers={'Referer': self._room.long_url})
-        if not data:
-            pass  # how to resolve this? can it even happen without throwing an exception earlier?
-
-        # TODO: Check that strings aren't empty
-        stream_name = data['streaming_name_rtmp']
-        stream_url = data["streaming_url_rtmp"]
-        new_rtmp_url = '{}/{}'.format(stream_url, stream_name)
-        new_hls_url = data["streaming_url_hls"]
-
-        with self._lock:
-            if new_rtmp_url != self.rtmp_url:
-                # TODO: log url change
-                # TODO: Trigger this message when the stream first goes live, from elsewhere
-                # print('Downloading {}\'s Showroom'.format(self.room.name))
-                # self.announce((self.web_url, self.stream_url))
-                pass
-
-            if new_hls_url != self.hls_url:
-                # TODO: log url change
-                pass
-
-            self._rtmp_url = new_rtmp_url
-            self._hls_url = new_hls_url
+    # def update_streaming_url_old(self):
+    #     """Updates streaming urls from the showroom website."""
+    #     data = self.client.json('https://www.showroom-live.com/room/get_live_data',
+    #                             params={'room_id': self._room.room_id},
+    #                             headers={'Referer': self._room.long_url})
+    #     if not data:
+    #         pass  # how to resolve this? can it even happen without throwing an exception earlier?
+    #
+    #     # TODO: Check that strings aren't empty
+    #     stream_name = data['streaming_name_rtmp']
+    #     stream_url = data["streaming_url_rtmp"]
+    #     new_rtmp_url = '{}/{}'.format(stream_url, stream_name)
+    #     new_hls_url = data["streaming_url_hls"]
+    #
+    #     with self._lock:
+    #         if new_rtmp_url != self.rtmp_url:
+    #             # TODO: log url change
+    #             # TODO: Trigger this message when the stream first goes live, from elsewhere
+    #             # print('Downloading {}\'s Showroom'.format(self.room.name))
+    #             # self.announce((self.web_url, self.stream_url))
+    #             pass
+    #
+    #         if new_hls_url != self.hls_url:
+    #             # TODO: log url change
+    #             pass
+    #
+    #         self._rtmp_url = new_rtmp_url
+    #         self._hls_url = new_hls_url
 
     def start(self):
         """
@@ -590,7 +592,7 @@ class Watcher(object):
         option to download all streams but only keep wanted
             instead of default of only downloading wanted
     """
-    def __init__(self, room: Room, session: WatchSession, settings: ShowroomSettings,
+    def __init__(self, room: Room, client: Client, settings: ShowroomSettings,
                  update_flag: threading.Event=None, start_time: datetime.datetime=None,
                  watch_duration: int=None):
         self._lock = threading.RLock()
@@ -600,13 +602,13 @@ class Watcher(object):
             self._update_flag = threading.Event()
 
         self._room = room
-        self._session = session
+        self._client = client
         self._settings = settings
 
-        self._download = Downloader(room, session, settings)
+        self._download = Downloader(room, client, settings)
 
         if self._settings.comments.record and self.priority < self._settings.comments.max_priority:
-            self.comment_logger = CommentLogger(self.room, self._session, self._settings, self)
+            self.comment_logger = CommentLogger(self.room, self._client, self._settings, self)
         else:
             self.comment_logger = None
         # originally start_time was the time the stream began recording
@@ -775,15 +777,7 @@ class Watcher(object):
         """Checks if the stream is live or not.
 
         This actually checks the website"""
-        status = self._session.json('https://www.showroom-live.com/room/is_live',
-                                    params={"room_id": self.room_id},
-                                    headers={'Referer': self.room.long_url},
-                                    default={'ok': 0})['ok']
-
-        if status == 0:
-            self._live = False
-        elif status == 1:
-            self._live = True
+        self._live = self._client.is_live(self.room_id)
         return self._live
 
     def stop(self):
@@ -1087,23 +1081,6 @@ class WatchQueue(object):
             entry[2] = self.REMOVED
             self._dirty = True
 
-    # DownloadQueue ver.
-    '''
-    def remove(self, item, kill=False):
-        if kill or self.entry_map[item.room_id][2].check():
-            entry = self.entry_map.pop(item.room_id)
-            if kill:
-                print('Ending download for {}'.format(entry[-1].name))
-                entry[-1].kill()
-                if not entry[-1].check():
-                    entry[-1].kill()
-            entry[-1] = self.REMOVED
-            self.dirty = True
-            return True
-        else:
-            return False
-    '''
-
     def dirty_pop(self, item):
         """Pops a specific item from anywhere in the queue.
 
@@ -1151,34 +1128,6 @@ class WatchQueue(object):
                 else:
                     return False
 
-    # DownloadQueue ver.
-    '''
-    def prune(self, priority):
-        if self.queue[-1][2].priority >= priority * 2:
-            print('Killing {} to make room'.format(self.queue[-1][2].name))
-            self.remove(self.queue[-1][2], kill=True)
-            return True
-        else:
-            return False
-    '''
-
-    # DownloadQueue quit method
-    '''
-    def quit(self):
-        self.rebuild()
-        while self:
-            done = []
-            for d in self.queue:
-                try:
-                    next(d[2].quit())
-                except StopIteration:
-                    done.append(d)
-            for d in done:
-                super().remove(d[2])
-            self.rebuild()
-            done = []
-    '''
-
 
 class WatchManager(object):
     def __init__(self, index: ShowroomIndex, settings: ShowroomSettings):
@@ -1189,7 +1138,7 @@ class WatchManager(object):
         # does it still need a priority queue?
         # various permutations of the base list
         self.index = index
-        self.session = WatchSession()
+        self.client = Client()
         self.settings = settings
         self.watchers = WatchQueue()
         self.completed = []
@@ -1266,10 +1215,7 @@ class WatchManager(object):
 
     def update_lives(self):
         """Looks for unexpected live rooms."""
-        onlives_url = 'https://www.showroom-live.com/api/live/onlives'
-        onlives = self.session.json(onlives_url,
-                                    headers={'Referer': 'https://www.showroom-live.com/onlive'},
-                                    default={'onlives': []})['onlives']
+        onlives = self.client.onlives() or []
 
         # temporary fix for getting multiple genres
         lives = []
@@ -1301,7 +1247,7 @@ class WatchManager(object):
                     core_logger.debug('Early live for {} at {}'.format(self.watchers[room_id].name,
                                                                        self.watchers[room_id].formatted_start_time))
             else:
-                new = Watcher(self.index[room_id], self.session, self.settings,
+                new = Watcher(self.index[room_id], self.client, self.settings,
                               update_flag=self.update_flag, start_time=start_time)
                 new.set_watch_time(datetime.datetime.now(tz=TOKYO_TZ))
                 info = new.get_info()
@@ -1311,10 +1257,7 @@ class WatchManager(object):
     def update_schedule(self):
         """Checks the schedule and adds watchers for any new rooms found."""
         # TODO: get multiple genres
-        upcoming_url = 'https://www.showroom-live.com/api/live/upcoming?genre_id=102'
-        upcoming = self.session.json(upcoming_url,
-                                     headers={'Referer': 'https://www.showroom-live.com/onlive'},
-                                     default={'upcomings': []})['upcomings']
+        upcoming = self.client.upcoming(genre_id=102) or []
 
         for item in [e for e in upcoming if str(e['room_id']) in self.index]:
             start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), 
@@ -1336,7 +1279,7 @@ class WatchManager(object):
                     core_logger.debug('{} rescheduled for {}'.format(self.watchers[room_id].name,
                                                                      self.watchers[room_id].formatted_start_time))
             else:
-                new = Watcher(self.index[room_id], self.session, self.settings,
+                new = Watcher(self.index[room_id], self.client, self.settings,
                               update_flag=self.update_flag, start_time=start_time)
                 core_logger.info('{} scheduled for {}'.format(new.name, new.formatted_start_time))
                 self.add(new)

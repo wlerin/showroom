@@ -1,16 +1,15 @@
 # profile pic downloader
-from showroom.session import WatchSession
+from showroom.api.session import ClientSession
+from showroom.utils.media import save_from_url
 from .constants import ENGLISH_INDEX
-from showroom.utils.media import save_from_url, MediaFileExistsError, MediaURLNotFound
-import os
 
-_session = WatchSession()
+_session = ClientSession()
 _name_pattern = '{group} {team} {name}_{count:02d}.{ext}'
 
 
 def get_profile_pic_url(room):
     room_id = room.room_id
-    # TODO: Find the new url for this
+    # TODO: use Client.profile()['image'] instead, and replace the final _m (or _s?) with _l
     r = _session.json('https://www.showroom-live.com/room/get_live_data', params={"room_id": room_id})
     url = r.get('room').get('image_l')
     if url:

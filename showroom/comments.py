@@ -42,12 +42,11 @@ StatsLogger records just stats and telop
 
 
 class CommentLogger(object):
-    api_url = "https://www.showroom-live.com/api/live/comment_log?room_id={room_id}"
     comment_id_pattern = "{created_at}_{user_id}"
 
-    def __init__(self, room, session, settings, watcher):
+    def __init__(self, room, client, settings, watcher):
         self.room = room
-        self.session = session
+        self.client = client
         self.settings = settings
         self.watcher = watcher
 
@@ -88,11 +87,9 @@ class CommentLogger(object):
             count = 0
             seen = 0
             # update comments
-            data = self.session.json(self.api_url.format(room_id=self.room.room_id),
-                                     default={"comment_log": []},
-                                     headers={'Referer': self.room.long_url})
+            data = self.client.comment_log(self.room.room_id) or []
 
-            for comment in data['comment_log']:
+            for comment in data:
                 cid = self.comment_id_pattern.format(**comment)
                 if cid not in self.comment_ids:
                     self.comment_log.append(comment)
@@ -130,12 +127,11 @@ class CommentLogger(object):
 
 
 class RoomScraper:
-    api_url = "https://www.showroom-live.com/api/live/comment_log?room_id={room_id}"
     comment_id_pattern = "{created_at}_{user_id}"
 
-    def __init__(self, room, session, settings, watcher, record_comments=False):
+    def __init__(self, room, client, settings, watcher, record_comments=False):
         self.room = room
-        self.session = session
+        self.client = client
         self.settings = settings
         self.watcher = watcher
 
@@ -221,10 +217,9 @@ class RoomScraper:
             count = 0
             seen = 0
             # update comments
-            data = self.session.json(self.api_url.format(room_id=self.room.room_id),
-                                     default={"comment_log": []},
-                                     headers={'Referer': self.room.long_url})
-            for comment in data['comment_log']:
+            data = self.client.comment_log(self.room.room_id) or []
+
+            for comment in data:
                 cid = self.comment_id_pattern.format(**comment)
                 if cid not in self.comment_ids:
                     self.comment_log.append(comment)
