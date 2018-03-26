@@ -1,3 +1,6 @@
+import re
+
+_csrf_re = re.compile("SrGlobal.csrfToken = \\'([\\w\\d-]+)\\';")
 
 
 class RoomEndpointsMixin:
@@ -70,6 +73,16 @@ class RoomEndpointsMixin:
         # TODO: find example responses
         return result
 
+    def room_settings(self, room_id):
+        endpoint = "/api/room/settings"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        return results
+
+    def banners(self, room_id):
+        endpoint = "/api/room/banners"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        return results
+
     def next_live(self, room_id):
         """
         Get the time of the next scheduled live
@@ -106,15 +119,18 @@ class RoomEndpointsMixin:
         result = self._api_get(endpoint, params={"room_id": room_id})
         return result
 
-    def follow(self, room_id, flag=None):
+    def follow(self, room_id, flag=1):
         """
         Requires auth
         :param room_id: 
-        :param flag: 
+        :param flag: 0 (unfollow) or 1 (follow)
         :return: 
         """
         if not self.is_authenticated: return
         endpoint = "/api/room/follow"
-        # TODO: what does flag do? what does this return?
-        response = self._api_post(endpoint, data={"room_id": room_id, "flag": flag})
-        raise NotImplementedError
+        r = self._api_post(endpoint, data={"room_id": room_id, "flag": flag, "csrf_token": self.csrf_token})
+        return r
+
+    def unfollow(self, room_id):
+        return self.follow(room_id, 0)
+

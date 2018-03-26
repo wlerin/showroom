@@ -3,6 +3,7 @@ from requests.exceptions import ConnectionError, ChunkedEncodingError, Timeout, 
 from requests.adapters import HTTPAdapter
 import logging
 import time
+from .cookiejar import ClientCookieJar
 
 try:
     from fake_useragent import UserAgent
@@ -37,6 +38,7 @@ class ClientSession(_Session):
     # TODO: set pool_maxsize based on config
     def __init__(self, pool_maxsize=100):
         super().__init__()
+        self.cookies = ClientCookieJar()
         https_adapter = HTTPAdapter(pool_maxsize=pool_maxsize)
         self.mount('https://www.showroom-live.com', https_adapter)
         self.headers = {"UserAgent": ua_str}

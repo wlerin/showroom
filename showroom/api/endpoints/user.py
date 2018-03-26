@@ -1,3 +1,4 @@
+from showroom.api.utils import get_csrf_token
 
 
 class UserEndpointsMixin:
@@ -48,14 +49,16 @@ class UserEndpointsMixin:
         :return: 
         """
         endpoint = "/api/user/update_gift_use_flg"
-        result = self._api_post(endpoint, data=dict(type=flag_type, flg=flag))
+        result = self._api_post(endpoint, data=dict(
+            type=flag_type, flg=flag,
+            csrf_token=self.csrf_token))
         return result
 
     def register_birthday(self, year, month, day):
         """
         Registers currently logged in user's birthday
         
-        Shouldn't return anything, but what happens if it has already been registered?
+        Returns {"ok": true} if successful, or a System Error otherwise (e.g. if trying to set it again)
         
         :param year: 
         :param month: 
@@ -63,10 +66,13 @@ class UserEndpointsMixin:
         :return: 
         """
         endpoint = "/api/user/register_birthday"
-        self._api_post(endpoint, data=dict(year=year, month=month, day=day))
+        r = self._api_post(endpoint, data=dict(
+            year=year, month=month, day=day,
+            csrf_token=self.csrf_token))
+        return r
 
     # authenticate
-    def login(self, username, password, captcha_word=None, csrf_token=None):
+    def login(self, username, password):
         """
         Not implemented.
         
@@ -79,12 +85,24 @@ class UserEndpointsMixin:
         :return: 
         """
         endpoint = "/user/login"
-        # TODO: probably need to fetch the login page to load the captcha and get the csrf token
+        # fetch home page
+        r = self._api_get("", return_response=True)
+        if not r:
+            # TODO: error
+            return
+
+        # get csrf_token
+        # csrf_token = get_csrf_token(r.text)
+
+        captcha_word = ""
+
         result = self._api_post(endpoint, data=dict(
             account_id=username,
             password=password,
             captcha_word=captcha_word,
-            csrf_token=csrf_token
+            csrf_token=self.csrf_token
         ))
-        return result
+
+        if result.get('ok'):
+            self._auth = result
 

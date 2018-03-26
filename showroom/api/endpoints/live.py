@@ -5,7 +5,6 @@ class LiveEndpointsMixin:
     """
     For endpoints in */api/live/*
     """
-
     def bradaru_texts(self, room_id):
         """
         Returns a list of canned responses, e.g.:
@@ -41,6 +40,11 @@ class LiveEndpointsMixin:
         # TODO: helper method to make this simpler to use?
         return results.get("onlives")
 
+    def onlive_num(self):
+        endpoint = "/api/live/onlive_num"
+        results = self._api_get(endpoint)
+        return results.get("num")
+
     def telop(self, room_id):
         """
         Get a live room's current telop
@@ -68,12 +72,39 @@ class LiveEndpointsMixin:
         # TODO: are there other names for the top field? e.g. performance_time, enquete_time
         return results.get("bravo_time")
 
+    def gift_log(self, room_id):
+        endpoint = "/api/live/gift_log"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        # TODO: are there other names for the top field? e.g. performance_time, enquete_time
+        return results.get("gift_log")
+
+    def summary_ranking(self, room_id):
+        endpoint = "/api/live/summary_ranking"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        # TODO: are there other names for the top field? e.g. performance_time, enquete_time
+        return results.get("ranking")
+
     def live_info(self, room_id):
         endpoint = "/api/live/live_info"
         results = self._api_get(endpoint, params={"room_id": room_id})
         # TODO: helper methods to get specific fields from this
         # TODO: document fields, e.g. what do the different values of live_status mean
         return results
+
+    def stage_user_list(self, room_id):
+        endpoint = "/api/live/stage_user_list"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        return results.get('stage_user_list')
+
+    def stage_gift_list(self, room_id):
+        endpoint = "/api/live/stage_gift_list"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        return results.get('stage_gift_list')
+
+    def polling(self, room_id):
+        endpoint = "/api/live/polling"
+        results = self._api_get(endpoint, params={"room_id": room_id})
+        return results.get('stage_gift_list')
 
     def enquete_result(self, room_id):
         endpoint = "/api/live/enquete_result"
@@ -94,34 +125,45 @@ class LiveEndpointsMixin:
     def verify_age(self):
         # does this require auth?
         endpoint = "/api/live/age_verification"
-        # result = self._api_post(endpoint, data=dict(
-        #     room_id=int,
-        #     year=int,
-        #     month=int,
-        #     day=int
-        # ))
-        raise NotImplementedError
+        result = self._api_post(endpoint, data=dict(
+            room_id=int,
+            year=int,
+            month=int,
+            day=int,
+            csrf_token=self.csrf_token
+        ))
+        return result
 
-    def send_free_gift(self):
+    def send_free_gift(self, gift_id, live_id, num, is_delay=None, latitude=None, longitude=None, radius=None):
         """
         Requires auth
         
+        valid free gift_ids = 1, 2, 1001, 1002, 1003
+        
+        TODO: are there other valid gift ids? e.g. for amateur rooms?
         :return: 
         """
         if not self.is_authenticated: return
-        endpoint = "/api/live/gifting_free"
-        # result = self._api_post(endpoint, data=dict(
-        #     gift_id=int,
-        #     live_id=int,
-        #     num=int,
-        #     is_delay=int,
-        #     lat=int,
-        #     lon=int,
-        #     rad=int
-        # ))
-        raise NotImplementedError
 
-    def send_paid_gift(self):
+        if int(gift_id) not in (1, 2, 1001, 1002, 1003):
+            raise ValueError("Invalid Free Gift ID")
+        if not (0 <= int(num) <= 10):
+            raise ValueError("Invalid Free Gift Count")
+
+        endpoint = "/api/live/gifting_free"
+        result = self._api_post(endpoint, data=dict(
+            gift_id=gift_id,
+            live_id=live_id,
+            num=num,
+            is_delay=is_delay,
+            lat=latitude,
+            lon=longitude,
+            rad=radius,
+            csrf_token=self.csrf_token
+        ))
+        return result
+
+    def send_paid_gift(self, gift_id, live_id, num, is_delay=None, latitude=None, longitude=None, radius=None):
         """
         Requires auth
         
@@ -129,18 +171,19 @@ class LiveEndpointsMixin:
         """
         if not self.is_authenticated: return
         endpoint = "/api/live/gifting_point_use"
-        # result = self._api_post(endpoint, data=dict(
-        #     gift_id=int,
-        #     live_id=int,
-        #     num=int,
-        #     is_delay=int,
-        #     lat=int,
-        #     lon=int,
-        #     rad=int
-        # ))
-        raise NotImplementedError
+        result = self._api_post(endpoint, data=dict(
+            gift_id=gift_id,
+            live_id=live_id,
+            num=num,  # TODO: bounds check
+            is_delay=is_delay,
+            lat=latitude,
+            lon=longitude,
+            rad=radius,
+            csrf_token=self.csrf_token
+        ))
+        return result
 
-    def send_comment(self):
+    def send_comment(self, live_id, comment, is_delay=None, latitude=None, longitude=None, radius=None):
         """
         Requires auth
         
@@ -148,12 +191,14 @@ class LiveEndpointsMixin:
         """
         if not self.is_authenticated: return
         endpoint = "/api/live/post_live_comment"
-        # result = self._api_post(endpoint, data=dict(
-        #     live_id=int,
-        #     comment=str,
-        #     is_delay=int,
-        #     lat=int,
-        #     lon=int,
-        #     rad=int
-        # ))
-        raise NotImplementedError
+
+        result = self._api_post(endpoint, data=dict(
+            live_id=live_id,
+            comment=comment,  # TODO: character limit ?
+            is_delay=is_delay,
+            lat=latitude,
+            lon=longitude,
+            rad=radius,
+            csrf_token=self.csrf_token
+        ))
+        return result
