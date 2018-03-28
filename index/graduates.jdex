@@ -1,7 +1,7 @@
 [
   {
     "jpnGroup": "AKB48",
-    "jpnTeam": "",
+    "jpnTeam": "元メンバー",
     "engGroup": "AKB48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/ayaka_morikawa",
@@ -12,7 +12,7 @@
   },
   {
     "jpnGroup": "SKE48",
-    "jpnTeam": "",
+    "jpnTeam": "元メンバー",
     "engGroup": "SKE48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/yagami-kumi",
@@ -23,7 +23,7 @@
   },
   {
     "jpnGroup": "AKB48",
-    "jpnTeam": "",
+    "jpnTeam": "元メンバー",
     "engGroup": "AKB48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/takahashi_kira",
@@ -34,7 +34,7 @@
   },
   {
     "jpnGroup": "HKT48",
-    "jpnTeam": "",
+    "jpnTeam": "元メンバー",
     "engGroup": "HKT48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/asia_naoko",
@@ -42,6 +42,16 @@
     "jpnName": "岡本尚子",
     "engName": "Okamoto Naoko",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "AKB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/umeta_ayano",
+    "showroom_id": "174164",
+    "jpnName": "梅田綾乃",
+    "engName": "Umeta Ayano",
+    "priority": 20
   }
-  
 ]
