@@ -10,3 +10,5 @@ STREAM_FOUND = True
 STREAM_NOT_FOUND = False
 # TODO: allow the user to set this
 MAX_GAP = 300.0
+
+ffmpeg = settings.ffmpeg.path

@@ -1,6 +1,12 @@
+import os
 import json
 from subprocess import check_output, DEVNULL, CalledProcessError
+from .constants import ffmpeg
 
+
+ffprobe = os.path.join(os.path.split(ffmpeg)[0], 'ffprobe')
+if ffmpeg.endswith('.exe'):
+    ffprobe += '.exe'
 
 def get_iframes(filename, read_interval=None):
     """
@@ -53,7 +59,7 @@ def get_iframes2(filename, read_interval=None):
         e.g. ["0.033333", "1.133333", "2.233333", ...]
     """
     args = [
-        "ffprobe",
+        ffprobe,
         "-loglevel", "16",
         "-show_packets",
         "-select_streams", "v",
@@ -76,7 +82,7 @@ def get_iframes2(filename, read_interval=None):
 def probe_video(filename, stream='v', entries=()):
     try:
         results = check_output([
-            "ffprobe",
+            ffprobe,
             '-loglevel', '16',
             '-show_entries', 'stream={}'.format(','.join(entries)),
             '-select_streams', stream,

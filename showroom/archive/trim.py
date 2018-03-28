@@ -21,6 +21,7 @@ from types import SimpleNamespace
 import subprocess
 from showroom.archive.probe import get_iframes2
 import os.path
+from .constants import ffmpeg
 
 
 class DumbNamespace(SimpleNamespace):
@@ -87,7 +88,7 @@ def detect_threshold(path):
 
 
 def trim_video(srcpath, destpath, start_pts_time, end_pts_time=None):
-    args = ['ffmpeg']
+    args = [ffmpeg]
     if not (start_pts_time is None or int(float(start_pts_time)) == 0):
         args.extend(['-ss', start_pts_time])
     args.extend(['-i', srcpath])
