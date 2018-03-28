@@ -3,6 +3,7 @@ from .check import check_dirs
 from .compare import compare_archives
 from .prune import prune_archive, replace_archive
 from .profile import scrape_profile_pics
+from .trim import trim_videos
 
 
 def kimi_dare_dispatch(**kwargs):
@@ -55,6 +56,12 @@ def build_parser():
     parser_profile.add_argument('profile_dir', help='Directory in which to save profile pics')
     parser_profile.add_argument('-n', dest='photo_num', help='Which iteration of profile pics this is')
     parser_profile.set_defaults(func=scrape_profile_pics)
+
+    parser_trim = subparsers.add_parser('trim', help='Trim some seconds from the start of a video or videos.')
+    parser_trim.add_argument('video_list', metavar='files', nargs='+', help='Files to trim')
+    parser_trim.add_argument('--output-dir', '-o', help='Output directory for finished files. Required', required=True)
+    parser_trim.add_argument('--trim-start', '-s', help='Seconds from start to trim', type=float)
+    parser_trim.set_defaults(func=trim_videos)
 
     return parser
 

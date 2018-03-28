@@ -4,7 +4,7 @@ from subprocess import check_output, DEVNULL, CalledProcessError
 
 def get_iframes(filename, read_interval=None):
     """
-    
+
     Args:
         filename: 
         read_interval: string specifying a read_interval, see  
@@ -37,7 +37,40 @@ def get_iframes(filename, read_interval=None):
         return None
     else:
         r = json.loads(results)
-        return [frame for frame in r['frames'] if frame['pict_type'].upper() == 'I']
+        return [frame['pkt_pts_time'] for frame in r['frames'] if frame['pict_type'].upper() == 'I']
+
+
+def get_iframes2(filename, read_interval=None):
+    """
+    Get all iframes in a video.
+    
+    Doesn't seem to actually work.
+    
+    :param filename: path to video
+    :param read_interval: A sequence of ffmpeg intervals separated by "," 
+        see read_intervals here: https://www.ffmpeg.org/ffprobe.html for more information
+    :return: a list of iframe timestamps, as strings
+        e.g. ["0.033333", "1.133333", "2.233333", ...]
+    """
+    args = [
+        "ffprobe",
+        "-loglevel", "16",
+        "-show_packets",
+        "-select_streams", "v",
+        "-show_entries", "packet=pts_time,flags"
+    ]
+    if read_interval:
+        args.extend(["-read_intervals", read_interval])
+    args.extend(["-i", filename, "-of", "json"])
+    try:
+        results = check_output([
+            *args
+        ])
+    except CalledProcessError:
+        return None
+    else:
+        r = json.loads(results)
+        return [packet['pts_time'] for packet in r['packets'] if 'K' in packet['flags']]
 
 
 def probe_video(filename, stream='v', entries=()):
