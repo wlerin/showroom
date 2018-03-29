@@ -175,10 +175,11 @@ class BasicCLI(object):
         self.control_thread = ShowroomController(self.index, self.settings)
         self.input_queue = InputQueue()
 
-        if 'all' in args and args.all:
+        if args.all:
             self.control_thread.index.filter_all()
         else:
             self.control_thread.index.filter_add(args.names)
+            self.control_thread.index.filter_add(self.settings.filter.wanted)
 
         self._time = datetime.datetime.fromtimestamp(0.0, tz=TOKYO_TZ)
 
