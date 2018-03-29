@@ -45,10 +45,34 @@ class Room(object):
         :param mod_time: Time the source file was last modified
         """
         self._mod_time = mod_time
+        room_info = self._fix_room_info(room_info)
         self._room_info = room_info
         self.set_language(language)
         self._wanted = wanted
         self._lock = RLock()
+
+    @classmethod
+    def _fix_room_info(self, info):
+        if 'showroom_id' in info:
+            info['room_id'] = info.pop('showroom_id')
+        if 'engGroup' not in info:
+            team = info['engTeam']
+            if '48' in team and len(team) > 5 and 'Gen' not in team:
+                for new, old in (
+                    ("engGroup", "engTeam"),
+                    ("jpnGroup", "jpnTeam"),
+                    ("engTeam", "engTeam"),
+                    ("jpnTeam", "jpnTeam")
+                ):
+                    info[new] = info[old][:5].strip()
+            else:
+                info['engGroup'] = info['engTeam']
+                info['jpnGroup'] = info['jpnTeam']
+                info['engTeam'] = ""
+                info['jpnTeam'] = ""
+        # TODO: genre_id
+        # TODO: save fixed rooms
+        return info
 
     def __getitem__(self, key):
         return self._room_info[key]
@@ -78,7 +102,7 @@ class Room(object):
 
     @property
     def room_id(self):
-        return self._room_info['showroom_id']
+        return self._room_info['room_id']
 
     @property
     def priority(self):
@@ -135,30 +159,6 @@ class Room(object):
                     "priority": self.priority,
                     "web_url": self.long_url,
                     "wanted": self.is_wanted()}
-
-
-class RoomOld(Room):
-    def __init__(self, room_info=None, mod_time=0, language='eng', wanted=True):
-        super(RoomOld, self).__init__(room_info=room_info, mod_time=mod_time,
-                                      language=language, wanted=wanted)
-
-    @property
-    def group(self):
-        # emulates old guessing method
-        team = self._room_info[self._language + 'Team']
-        if '48' in team and len(team) > 5 and 'Gen' not in team:
-            return team[:5]
-        else:
-            return team
-
-    @property
-    def team(self):
-        # emulates old guessing method
-        team = self._room_info[self._language + 'Team']
-        if '48' in team and len(team) > 5 and 'Gen' not in team:
-            return team[5:].strip()
-        else:
-            return ''
 
 
 # TODO: periodically check filter
@@ -343,13 +343,9 @@ class ShowroomIndex(object):
             # perhaps in this phase it is not necessary to update existing
             # rooms but simply overwrite but later we will need to update
             for room in temp_data:
-                if 'engGroup' in room:
-                    new_room = Room(room_info=room, mod_time=mod_time,
-                                    wanted=self.wanted_default, language=self.language)
-                else:
-                    # TODO: phase this out over time
-                    new_room = RoomOld(room_info=room, mod_time=mod_time,
-                                       wanted=self.wanted_default, language=self.language)
+                # will overwrite duplicate rooms
+                new_room = Room(room_info=room, mod_time=mod_time,
+                                wanted=self.wanted_default, language=self.language)
                 new_room_dict[new_room.room_id] = new_room
 
         self.room_dict.clear()
@@ -403,19 +399,14 @@ class ShowroomIndex(object):
             # if different, update priority and mod_time
             # if room does not exist, add
             for room in temp_data:
-                room_id = room['showroom_id']
+                room_id = room.get('room_id') or room.get('showroom_id')
                 if room_id in self.room_dict:
                     # is this check necessary?
                     if room['priority'] != self.room_dict[room_id]['priority']:
                         self.room_dict[room_id].set_priority(room['priority'], mod_time)
                 else:
-                    if 'engGroup' in room:
-                        new_room = Room(room_info=room, mod_time=mod_time,
-                                        wanted=self.wanted_default, language=self.language)
-                    else:
-                        # TODO: phase this out over time
-                        new_room = RoomOld(room_info=room, mod_time=mod_time,
-                                           wanted=self.wanted_default, language=self.language)
+                    new_room = Room(room_info=room, mod_time=mod_time,
+                                    wanted=self.wanted_default, language=self.language)
                     self.room_dict[new_room.room_id] = new_room
                     if self._room_url_lookup:
                         self._room_url_lookup[new_room.short_url] = new_room

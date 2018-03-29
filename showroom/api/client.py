@@ -9,28 +9,36 @@ from .endpoints import (
 from json import JSONDecodeError
 import time
 from showroom.api.utils import get_csrf_token
-
+from requests.exceptions import HTTPError
+import logging
 _base_url = 'https://www.showroom-live.com'
 
 # TODO: logging, warnings
 # TODO: load auth or credentials from file or dict
 # TODO: save auth or credentials to file
+client_logger = logging.getLogger('showroom.client')
 
 
-class Client(
+class ShowroomClient(
     LiveEndpointsMixin,
     UserEndpointsMixin,
     RoomEndpointsMixin,
     VREndpointsMixin,
     OtherEndpointsMixin
 ):
-    def __init__(self, cookies=None, settings=None):
+    """
+    Client for interacting with the Showroom API.
+    
+    :param cookies: dict containing stored cookies
+    
+    :ivar cookies: Reference to the underlying session's cookies.
+    """
+    def __init__(self, cookies=None):
         self._session = ClientSession()
-        # TODO: auth
         self._auth = None
         self.cookies = self._session.cookies
 
-        if cookies or (settings and settings.get('cookies')):
+        if cookies:
             self.cookies.update(cookies)
             expiry = self.cookies.expires_earliest
             if expiry and int(time.time()) >= expiry:
@@ -44,22 +52,25 @@ class Client(
         # self.session.cookies.update({'lang': 'ja'})
         # this doesn't always seem to work? it worked until i manually set lang:en, then switching back failed
 
-        self._csrf_token = None
+        self.__csrf_token = None
         self._last_response = None
 
     @property
-    def csrf_token(self):
-        if not self._csrf_token:
-            self.update_csrf_token(_base_url)
-        return self._csrf_token
+    def _csrf_token(self):
+        if not self.__csrf_token:
+            self._update_csrf_token(_base_url)
+        return self.__csrf_token
 
-    def update_csrf_token(self, url):
+    def _update_csrf_token(self, url):
         r = self._session.get(url)
 
-        self._csrf_token = get_csrf_token(r.text)
+        self.__csrf_token = get_csrf_token(r.text)
 
     def _api_get(self, endpoint, params=None, return_response=False, default=None):
-        r = self._session.get(_base_url + endpoint, params=params)
+        try:
+            r = self._session.get(_base_url + endpoint, params=params)
+        except HTTPError as e:
+            r = e.response
         self._last_response = r
 
         if return_response:
@@ -67,25 +78,25 @@ class Client(
         else:
             try:
                 return r.json()
-            except JSONDecodeError:
-                # TODO: log
+            except JSONDecodeError as e:
+                client_logger.error('JSON decoding error while getting {}: {}'.format(r.request.url, e))
                 return default or {}
 
     def _api_post(self, endpoint, params=None, data=None, return_response=None, default=None):
-        r = self._session.post(_base_url + endpoint, params=params, data=data)
+        try:
+            r = self._session.post(_base_url + endpoint, params=params, data=data)
+        except HTTPError as e:
+            r = e.response
         self._last_response = r
 
+        # TODO: check for expired csrf_token
         if return_response:
             return r
         else:
             try:
                 return r.json()
-            except JSONDecodeError:
-                # TODO: log
+            except JSONDecodeError as e:
+                client_logger.error('JSON decoding error while posting to {}: {}'.format(r.request.url, e))
                 return default or {}
-
-    @property
-    def is_authenticated(self):
-        return bool(self._auth)
 
 

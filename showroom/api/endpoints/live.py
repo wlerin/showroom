@@ -1,6 +1,7 @@
 # TODO: should these return the full dict? i.e. not get() the inner data when there's only one top field
 # doing so at least makes the return type consistent (always dict, unless it's like, is_live)
 
+
 class LiveEndpointsMixin:
     """
     For endpoints in */api/live/*
@@ -130,7 +131,7 @@ class LiveEndpointsMixin:
             year=int,
             month=int,
             day=int,
-            csrf_token=self.csrf_token
+            csrf_token=self._csrf_token
         ))
         return result
 
@@ -143,7 +144,6 @@ class LiveEndpointsMixin:
         TODO: are there other valid gift ids? e.g. for amateur rooms?
         :return: 
         """
-        if not self.is_authenticated: return
 
         if int(gift_id) not in (1, 2, 1001, 1002, 1003):
             raise ValueError("Invalid Free Gift ID")
@@ -159,7 +159,7 @@ class LiveEndpointsMixin:
             lat=latitude,
             lon=longitude,
             rad=radius,
-            csrf_token=self.csrf_token
+            csrf_token=self._csrf_token
         ))
         return result
 
@@ -169,7 +169,6 @@ class LiveEndpointsMixin:
         
         :return: 
         """
-        if not self.is_authenticated: return
         endpoint = "/api/live/gifting_point_use"
         result = self._api_post(endpoint, data=dict(
             gift_id=gift_id,
@@ -179,7 +178,7 @@ class LiveEndpointsMixin:
             lat=latitude,
             lon=longitude,
             rad=radius,
-            csrf_token=self.csrf_token
+            csrf_token=self._csrf_token
         ))
         return result
 
@@ -189,7 +188,6 @@ class LiveEndpointsMixin:
         
         :return: 
         """
-        if not self.is_authenticated: return
         endpoint = "/api/live/post_live_comment"
 
         result = self._api_post(endpoint, data=dict(
@@ -199,6 +197,6 @@ class LiveEndpointsMixin:
             lat=latitude,
             lon=longitude,
             rad=radius,
-            csrf_token=self.csrf_token
+            csrf_token=self._csrf_token
         ))
         return result

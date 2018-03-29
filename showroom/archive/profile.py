@@ -9,7 +9,7 @@ _name_pattern = '{group} {team} {name}_{count:02d}.{ext}'
 
 def get_profile_pic_url(room):
     room_id = room.room_id
-    # TODO: use Client.profile()['image'] instead, and replace the final _m (or _s?) with _l
+    # TODO: use ShowroomClient.profile()['image'] instead, and replace the final _m (or _s?) with _l
     r = _session.json('https://www.showroom-live.com/room/get_live_data', params={"room_id": room_id})
     url = r.get('room').get('image_l')
     if url:

@@ -1,4 +1,3 @@
-from showroom.api.utils import get_csrf_token
 
 
 class UserEndpointsMixin:
@@ -51,7 +50,7 @@ class UserEndpointsMixin:
         endpoint = "/api/user/update_gift_use_flg"
         result = self._api_post(endpoint, data=dict(
             type=flag_type, flg=flag,
-            csrf_token=self.csrf_token))
+            csrf_token=self._csrf_token))
         return result
 
     def register_birthday(self, year, month, day):
@@ -68,20 +67,16 @@ class UserEndpointsMixin:
         endpoint = "/api/user/register_birthday"
         r = self._api_post(endpoint, data=dict(
             year=year, month=month, day=day,
-            csrf_token=self.csrf_token))
+            csrf_token=self._csrf_token))
         return r
 
     # authenticate
     def login(self, username, password):
         """
-        Not implemented.
-        
-        Requires entering a captcha.
+        Login to a showroom account.
         
         :param username: 
         :param password: 
-        :param captcha_word: 
-        :param csrf_token: 
         :return: 
         """
         endpoint = "/user/login"
@@ -100,9 +95,12 @@ class UserEndpointsMixin:
             account_id=username,
             password=password,
             captcha_word=captcha_word,
-            csrf_token=self.csrf_token
+            csrf_token=self._csrf_token
         ))
 
         if result.get('ok'):
             self._auth = result
+            return True
+        else:
+            return False
 

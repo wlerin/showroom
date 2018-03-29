@@ -1,5 +1,4 @@
 import re
-
 _csrf_re = re.compile("SrGlobal.csrfToken = \\'([\\w\\d-]+)\\';")
 
 
@@ -126,9 +125,8 @@ class RoomEndpointsMixin:
         :param flag: 0 (unfollow) or 1 (follow)
         :return: 
         """
-        if not self.is_authenticated: return
         endpoint = "/api/room/follow"
-        r = self._api_post(endpoint, data={"room_id": room_id, "flag": flag, "csrf_token": self.csrf_token})
+        r = self._api_post(endpoint, data={"room_id": room_id, "flag": flag, "csrf_token": self._csrf_token})
         return r
 
     def unfollow(self, room_id):

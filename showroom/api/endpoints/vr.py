@@ -3,7 +3,9 @@
 class VREndpointsMixin:
     def vr_room_maps(self, normal_room_id=None, vr_room_id=None):
         """
-        If neither is given, returns a list of all vr room maps
+        Return a mapping between a normal and a vr room.
+        
+        If neither or both is given, returns a list of all vr room maps
         
         :param normal_room_id: 
         :param vr_room_id: 
@@ -17,5 +19,12 @@ class VREndpointsMixin:
         return result
 
     def vr_camera_settings(self, room_id):
+        """
+        Get settings for a VR room's camera.
+        
+        :param room_id: 
+        :return: 
+        """
         endpoint = "/api/vr/camera_settings"
         result = self._api_get(endpoint, params={"room_id": room_id})
+        return result

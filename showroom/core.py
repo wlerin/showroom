@@ -117,7 +117,7 @@ from heapq import heapify, heappush, heappop
 from json.decoder import JSONDecodeError
 from queue import Queue  # Empty as QueueEmpty
 
-from showroom.api import Client
+from showroom.api import ShowroomClient
 
 # from .message import ShowroomMessage
 # from .exceptions import ShowroomDownloadError
@@ -233,7 +233,7 @@ class Downloader(object):
         hls recording fails awfully. find out why
         For the failure detection to work properly, must ffmpeg be compiled with librtmp?
     """
-    def __init__(self, room, client: Client, settings, default_protocol='rtmp'):
+    def __init__(self, room, client: ShowroomClient, settings, default_protocol='rtmp'):
         self._room = room
         self._client = client
 
@@ -592,7 +592,7 @@ class Watcher(object):
         option to download all streams but only keep wanted
             instead of default of only downloading wanted
     """
-    def __init__(self, room: Room, client: Client, settings: ShowroomSettings,
+    def __init__(self, room: Room, client: ShowroomClient, settings: ShowroomSettings,
                  update_flag: threading.Event=None, start_time: datetime.datetime=None,
                  watch_duration: int=None):
         self._lock = threading.RLock()
@@ -654,7 +654,7 @@ class Watcher(object):
     
     @property
     def room_id(self):
-        return self._room['showroom_id']
+        return self._room.room_id
 
     @property
     def priority(self):
@@ -1138,7 +1138,7 @@ class WatchManager(object):
         # does it still need a priority queue?
         # various permutations of the base list
         self.index = index
-        self.client = Client()
+        self.client = ShowroomClient()
         self.settings = settings
         self.watchers = WatchQueue()
         self.completed = []

@@ -8,18 +8,16 @@ from .cookiejar import ClientCookieJar
 try:
     from fake_useragent import UserAgent
 except ImportError:
+    UserAgent = None
     ua = None
-    ua_str = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' \
-             '(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+    ua_str = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' \
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
 else:
-    ua = UserAgent(fallback='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
-                            '(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36')
+    ua = UserAgent(fallback='Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                   'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')
     ua_str = ua.chrome
 
 session_logger = logging.getLogger('showroom.session')
-
-
-# PageNotFoundError ?
 
 
 class ClientSession(_Session):
@@ -73,7 +71,7 @@ class ClientSession(_Session):
                     raise
 
             except HTTPError as e:
-                status_code = e.response.status_code if e.response else -1
+                status_code = e.response.status_code
                 session_logger.debug('{} while fetching {}: {}'.format(status_code, url, e))
 
                 error_count += 1
