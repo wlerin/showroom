@@ -51,20 +51,17 @@ class Room(object):
         self._wanted = wanted
         self._lock = RLock()
 
-    @classmethod
-    def _fix_room_info(self, info):
+    @staticmethod
+    def _fix_room_info(info):
         if 'showroom_id' in info:
             info['room_id'] = info.pop('showroom_id')
         if 'engGroup' not in info:
             team = info['engTeam']
             if '48' in team and len(team) > 5 and 'Gen' not in team:
-                for new, old in (
-                    ("engGroup", "engTeam"),
-                    ("jpnGroup", "jpnTeam"),
-                    ("engTeam", "engTeam"),
-                    ("jpnTeam", "jpnTeam")
-                ):
-                    info[new] = info[old][:5].strip()
+                info["engGroup"] = info["engTeam"][:5].strip()
+                info["jpnGroup"] = info["jpnTeam"][:5].strip()
+                info["engTeam"] = info["engTeam"][5:].strip()
+                info["jpnTeam"] = info["jpnTeam"][5:].strip()
             else:
                 info['engGroup'] = info['engTeam']
                 info['jpnGroup'] = info['jpnTeam']
