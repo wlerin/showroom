@@ -175,7 +175,7 @@ class BasicCLI(object):
         self.control_thread = ShowroomController(self.index, self.settings)
         self.input_queue = InputQueue()
 
-        if args.all:
+        if args.record_all:
             self.control_thread.index.filter_all()
         else:
             self.control_thread.index.filter_add(args.names)
