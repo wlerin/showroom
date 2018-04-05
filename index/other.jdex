@@ -255,5 +255,16 @@
     "showroom_id": "75384",
     "web_url": "https://www.showroom-live.com/hkt48_official",
     "priority": 20
+  },
+  {
+    "jpnName": "公式ルーム",
+    "engName": "Official Room",
+    "jpnTeam": "ドラフト３期",
+    "engTeam": "AKB48 Group Draft 3rd Gen",
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/akbdraft3rd",
+    "room_id": "153309"
   }
 ]
