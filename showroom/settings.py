@@ -30,7 +30,7 @@ ARGS_TO_SETTINGS = {
     "names": "filter.wanted",
     "logging": "ffmpeg.logging",
     "noisy": "feedback.console",
-    "comments": "comments.record"
+    # "comments": "comments.record"  # this was screwing up comment recording (setting it to always on)
 }
 
 _dirs = AppDirs('Showroom', appauthor=False)
@@ -97,7 +97,7 @@ DEFAULTS = {
 }
 _default_args = {
     "record_all": False,
-    "comments": False,
+    # "comments": False,
     "noisy": False,
     "logging": False,
     "names": []

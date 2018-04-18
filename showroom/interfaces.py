@@ -59,7 +59,8 @@ class BasicCLI(object):
         parser.add_argument('--schedule-rate', '-S', dest="upcoming_rate", type=float,
                             help='Seconds between each check of the schedule. \
                                 Defaults to {throttle[rate][upcoming]}'.format(**DEFAULTS))
-        parser.add_argument('--comments', dest='comments', action='store_true')
+        # conflicts with config
+        # parser.add_argument('--comments', dest='comments', action='store_true')
         '''
         # TODO: Allow the user to provide a schedule with different start and end hours per day.
         # Or else instead of stopping entirely, slow down polling during off hours.
