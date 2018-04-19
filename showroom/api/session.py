@@ -39,7 +39,7 @@ class ClientSession(_Session):
         self.cookies = ClientCookieJar()
         https_adapter = HTTPAdapter(pool_maxsize=pool_maxsize)
         self.mount('https://www.showroom-live.com', https_adapter)
-        self.headers = {"UserAgent": ua_str}
+        self.headers = {"User-Agent": ua_str}
 
     # TODO: post
     def get(self, url, params=None, max_delay=30.0, max_retries=20, **kwargs):
