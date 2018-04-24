@@ -53,5 +53,16 @@
     "jpnName": "梅田綾乃",
     "engName": "Umeta Ayano",
     "priority": 20
+  },
+  {
+    "engName": "Nishinaka Nanami",
+    "priority": 28,
+    "jpnName": "西仲 七海",
+    "engTeam": "KKS",
+    "jpnTeam": "研究生",
+    "web_url": "https://www.showroom-live.com/48_NANAMI_NISHINAKA",
+    "engGroup": "NMB48",
+    "jpnGroup": "NMB48",
+    "room_id": "61759"
   }
 ]

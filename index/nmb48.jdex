@@ -462,17 +462,6 @@
     "room_id": "61760"
   },
   {
-    "engName": "Nishinaka Nanami",
-    "priority": 28,
-    "jpnName": "西仲 七海",
-    "engTeam": "KKS",
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_NANAMI_NISHINAKA",
-    "engGroup": "NMB48",
-    "jpnGroup": "NMB48",
-    "room_id": "61759"
-  },
-  {
     "engName": "Ichikawa Miori",
     "priority": 29,
     "jpnName": "市川 美織",
@@ -509,8 +498,8 @@
     "engName": "Umeyama Cocona",
     "priority": 20,
     "jpnName": "梅山 恋和",
-    "engTeam": "KKS",
-    "jpnTeam": "研究生",
+    "engTeam": "Team N",
+    "jpnTeam": "チームN",
     "web_url": "https://www.showroom-live.com/48_COCONA_UMEYAMA",
     "engGroup": "NMB48",
     "jpnGroup": "NMB48",
