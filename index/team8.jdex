@@ -505,5 +505,16 @@
     "jpnName": "伊藤 きらら",
     "engName": "Ito Kirara",
     "priority": 40
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Hinako_Okuhara",
+    "showroom_id": "160515",
+    "jpnName": "奥原 妃奈子",
+    "engName": "Okuhara Hinako",
+    "priority": 40
   }
 ]
