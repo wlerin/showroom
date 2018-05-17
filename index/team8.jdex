@@ -483,5 +483,27 @@
     "jpnName": "春本 ゆき",
     "engName": "Harumoto Yuki",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Airi_Rissen",
+    "showroom_id": "186012",
+    "jpnName": "立仙 愛理",
+    "engName": "Rissen Airi",
+    "priority": 40
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Kirara_Ito",
+    "showroom_id": "186009",
+    "jpnName": "伊藤 きらら",
+    "engName": "Ito Kirara",
+    "priority": 40
   }
 ]
