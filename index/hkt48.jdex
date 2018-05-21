@@ -197,16 +197,16 @@
     "engGroup": "HKT48",
     "jpnGroup": "HKT48"
   },
-  {	
-    "jpnTeam": "チームH",	
-    "engTeam": "Team H",	
-    "web_url": "https://www.showroom-live.com/48_MARINA_YAMADA",	
-    "room_id": "61781",	
-    "jpnName": "山田 麻莉奈",	
-    "engName": "Yamada Marina",	
-    "priority": 36,	
-    "engGroup": "HKT48",	
-    "jpnGroup": "HKT48"	
+  {
+    "jpnTeam": "チームH",
+    "engTeam": "Team H",
+    "web_url": "https://www.showroom-live.com/48_MARINA_YAMADA",
+    "room_id": "61781",
+    "jpnName": "山田 麻莉奈",
+    "engName": "Yamada Marina",
+    "priority": 36,
+    "engGroup": "HKT48",
+    "jpnGroup": "HKT48"
   },
   {
     "jpnTeam": "チームH",
