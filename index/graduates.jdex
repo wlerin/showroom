@@ -64,5 +64,16 @@
     "engGroup": "NMB48",
     "jpnGroup": "NMB48",
     "room_id": "61759"
+  },
+  {
+    "jpnGroup": "HKT48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "HKT48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/yamadamarina",
+    "room_id": "182429",
+    "jpnName": "山田 麻莉奈",
+    "engName": "Yamada Marina",
+    "priority": 20
   }
 ]
