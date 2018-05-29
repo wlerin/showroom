@@ -9,6 +9,10 @@ from .constants import GOOD_HEIGHTS, ENGLISH_INDEX
 from .models import VideoGroup
 
 
+# TODO: make this configurable without modifying source
+GOOD_SUBFOLDERS = ['Draft']
+
+
 def check_group(target_dir, prefix, target_ext='mp4'):
     # based on concat's resize_videos and generate_concat_files
     group_name = target_dir.strip('/').split('/')[-1]
@@ -22,7 +26,8 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     except NotADirectoryError:
         return {}
 
-    files = sorted(glob.glob('*.{}'.format(target_ext)))
+    # we need to include subfolders for the final check
+    # files = sorted(glob.glob('*.{}'.format(target_ext)))
 
     logfile = os.path.join(oldcwd, '{}_{}_check.log'.format(prefix, target_dir.split('/')[-2]))
 
@@ -41,12 +46,24 @@ def check_group(target_dir, prefix, target_ext='mp4'):
         return '{:02d}{:02d}'.format(floor(hours), floor(minutes))
 
     member_dict = {}
-    for file in files:
+    found_files = []
+    for root, dirs, files in os.walk('.'):
+        dirnames = dirs[:]
+        for dirname in dirnames:
+            if dirname not in GOOD_SUBFOLDERS:
+                dirs.remove(dirname)
+        for file in files:
+            if file.endswith(target_ext):
+                # trim the ./ , change this if the method above changes
+                found_files.append(os.path.join(root, file)[2:])
+
+    for file in found_files:
         # get duration by decoding:
         # $ ffmpeg -i input.webm -f null -
         # ...
         # frame=206723 fps=1390 q=-0.0 Lsize=N/A time=00:57:28.87 bitrate=N/A speed=23.2x
-        member_name = file.rsplit(' ', 1)[0]
+        filename = os.path.basename(file)
+        member_name = filename.rsplit(' ', 1)[0]
         if member_name not in member_dict:
             member_dict[member_name] = {'files': [], 'streams': []}
 
@@ -68,11 +85,9 @@ def check_group(target_dir, prefix, target_ext='mp4'):
                 v_info, a_info = temp['video'], temp['audio']
             except KeyError as e:
                 with open(logfile, 'a', encoding='utf8') as outfp:
-                    print('Probe of {} failed'.format(file), e, file=outfp)
+                    print('Probe of {} failed'.format(filename), e, file=outfp)
                 new_video['valid'] = False
             else:
-                new_video['file'] = {'name': file,
-                                     'size': os.path.getsize(file)}
                 new_video['video'] = {'duration': float(v_info.get('duration', 0)),
                                       'height': int(v_info.get('height', 0)),
                                       'avg_frame_rate': v_info.get('avg_frame_rate', ""),

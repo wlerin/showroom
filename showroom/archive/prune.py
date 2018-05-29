@@ -45,16 +45,17 @@ def prune_archive(archive_dir, compare_results):
             prune_folder(folder, needed_list)
 
 
-def replace_folder(folder, replace_list):
+def replace_folder(folder, replace_list, prefix):
     oldcwd = os.getcwd()
     os.chdir(folder)
-
-    os.makedirs('replaced'.format(folder), exist_ok=True)
-    files = glob.glob('*.mp4'.format(folder))
+    replaced_folder = 'replaced_{}'.format(prefix)
+    os.makedirs(replaced_folder, exist_ok=True)
+    files = glob.glob('*.mp4')
     for file in files:
         if file in replace_list:
-            print('{} -> {}'.format(file, 'replaced/{}'.format(file)))
-            os.replace(file, 'replaced/{}'.format(file))
+            dest = '{}/{}'.format(replaced_folder, file)
+            print('{} -> {}'.format(file, dest))
+            os.replace(file, dest)
 
     os.chdir(oldcwd)
 
@@ -69,14 +70,14 @@ def get_replacements_list(results):
     return needed_list
 
 
-def replace_archive(archive_dir, compare_results):
+def replace_archive(archive_dir, compare_results, prefix='none'):
     with open(compare_results, encoding='utf8') as infp:
         results = json.load(infp)
 
     replace_list = get_replacements_list(results)
     for folder in glob.glob('{}/*'.format(archive_dir)):
         if os.path.isdir(folder):
-            replace_folder(folder, replace_list)
+            replace_folder(folder, replace_list, prefix)
 
 # TODO: move_archive using shutil
 # TODO: package_archive using ... some kind of packager? making another folder? for easy upload to MEGA
