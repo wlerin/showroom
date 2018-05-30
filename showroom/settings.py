@@ -415,8 +415,11 @@ class ShowroomSettings(SettingsDict):
     def makedirs(settings):
         links = []
         for dir_key, dir_path in settings.directory.items():
+            if dirpath is None:
+                continue
+
             os.makedirs(dir_path, exist_ok=True)
-            if dir_path and dir_key in settings.system.symlink_dirs:
+            if dir_key in settings.system.symlink_dirs:
                 links.append((dir_key, dir_path))
 
         if settings.system.make_symlinks:
