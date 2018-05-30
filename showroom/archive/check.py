@@ -138,6 +138,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     stream_catalogue = {}
     for member_name in member_dict.keys():
         member = member_dict[member_name]
+        member['files'].sort(key=lambda x: x['start_time'])
         try:
             stream_name, working = new_stream(member_name, member['files'][0])
         except IndexError:
