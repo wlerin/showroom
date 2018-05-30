@@ -41,7 +41,7 @@ DEFAULTS = {
     "directory": {
         "data": os.path.expanduser('~/Downloads/Showroom'),
         "output": '{data}',
-        "index": 'index',
+        "index": None,
         "log": _dirs.user_log_dir,
         "config": _dirs.user_config_dir,
         # This setting is NOT respected by Downloader (it uses {output}/active always)

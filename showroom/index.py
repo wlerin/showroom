@@ -22,6 +22,12 @@ _filename_re = re.compile(
     re.VERBOSE
 )
 
+def _get_index_path():
+    abspath = os.path.abspath(__file__)
+    return os.path.abspath(os.path.dirname(abspath) + '/../index')
+
+DEFAULT_INDEX_PATH = _get_index_path()
+
 # maps numerical genre_ids to human readable names
 # when fetching from the API via a script it seems to return English names
 # genre_id: (english name, japanese api name, english api name)
@@ -160,7 +166,7 @@ class Room(object):
 
 # TODO: periodically check filter
 class ShowroomIndex(object):
-    def __init__(self, index_directory: str,
+    def __init__(self, index_directory: str=None,
                  session: requests.Session = None,
                  record_all: bool = False,
                  language: str = 'eng'):
@@ -184,8 +190,8 @@ class ShowroomIndex(object):
         # and should only be removed if it's removed from all files
         # (and I don't want that to be a regular event)
         # mod_date is semi-useful when building the initial index
-        self.directory = index_directory
-        
+        self.directory = index_directory or DEFAULT_INDEX_PATH
+
         self.known_files = {}
         self.wanted_default = record_all
 
