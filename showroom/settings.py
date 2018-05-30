@@ -415,7 +415,7 @@ class ShowroomSettings(SettingsDict):
     def makedirs(settings):
         links = []
         for dir_key, dir_path in settings.directory.items():
-            if dirpath is None:
+            if dir_path is None:
                 continue
 
             os.makedirs(dir_path, exist_ok=True)
