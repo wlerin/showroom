@@ -71,7 +71,7 @@ def get_iframes2(filename, read_interval=None):
     try:
         results = check_output([
             *args
-        ])
+        ], universal_newlines=True)
     except CalledProcessError:
         return None
     else:
