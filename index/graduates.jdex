@@ -75,5 +75,16 @@
     "jpnName": "山田 麻莉奈",
     "engName": "Yamada Marina",
     "priority": 20
+  },
+  {
+    "jpnGroup": "NMB48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "NMB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/ririka-suto",
+    "room_id": "192306",
+    "jpnName": "須藤 凜々花",
+    "engName": "Suto Ririka",
+    "priority": 20
   }
 ]
