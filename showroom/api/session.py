@@ -5,17 +5,15 @@ import logging
 import time
 from .cookiejar import ClientCookieJar
 
-try:
-    from fake_useragent import UserAgent
-except ImportError:
-    UserAgent = None
-    ua = None
-    ua_str = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' \
-        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
-else:
-    ua = UserAgent(fallback='Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                   'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')
-    ua_str = ua.chrome
+#try:
+#    from fake_useragent import UserAgent
+#except ImportError:
+#    UserAgent = None
+#    ua = None
+ua_str = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+#else:
+#    ua = UserAgent(fallback='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36')
+#    ua_str = ua.chrome
 
 session_logger = logging.getLogger('showroom.session')
 
