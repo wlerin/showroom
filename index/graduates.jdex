@@ -86,5 +86,16 @@
     "jpnName": "須藤 凜々花",
     "engName": "Suto Ririka",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "AKB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/mikinishino",
+    "room_id": "134096",
+    "jpnName": "西野未姫",
+    "engName": "Nishino Miki",
+    "priority": 20
   }
 ]

@@ -341,58 +341,58 @@
     "room_id": "97446"
   },
   {
-    "jpnName": "溝口亜以子",
+    "jpnName": "溝口 亜以子",
     "engName": "Mizoguchi Aiko",
     "jpnTeam": "ドラフト研究生",
     "engTeam": "Draft KKS",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no60",
+    "web_url": "https://www.showroom-live.com/48_MIZOGUCHI_AIKO",
     "room_id": "146864"
   },
   {
-    "jpnName": "沖侑果",
+    "jpnName": "沖 侑果",
     "engName": "Oki Yuuka",
     "jpnTeam": "ドラフト研究生",
     "engTeam": "Draft KKS",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no16",
+    "web_url": "https://www.showroom-live.com/48_OKI_YUKA",
     "room_id": "146900"
   },
   {
-    "jpnName": "中村舞",
+    "jpnName": "中村 舞",
     "engName": "Nakamura Mai",
     "jpnTeam": "ドラフト研究生",
     "engTeam": "Draft KKS",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no47",
+    "web_url": "https://www.showroom-live.com/48_NAKAMURA_MAI",
     "room_id": "146985"
   },
   {
-    "jpnName": "信濃宙花",
+    "jpnName": "信濃 宙花",
     "engName": "Shinano Soraha",
     "jpnTeam": "ドラフト研究生",
     "engTeam": "Draft KKS",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no32",
+    "web_url": "https://www.showroom-live.com/48_SHINANO_SORAHA",
     "room_id": "147003"
   },
   {
-    "jpnName": "由良朱合",
+    "jpnName": "由良 朱合",
     "engName": "Yura Akari",
     "jpnTeam": "ドラフト研究生",
     "engTeam": "Draft KKS",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no69",
+    "web_url": "https://www.showroom-live.com/48_YURA_AKARI",
     "room_id": "147016"
   }
 ]

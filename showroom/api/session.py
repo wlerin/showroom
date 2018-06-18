@@ -51,11 +51,11 @@ class ClientSession(_Session):
             except Timeout as e:
                 session_logger.debug('Timeout while fetching {}: {}'.format(url, e))
                 timeouts += 1
-                wait = min(2 * 1.5 ** timeouts, max_delay)
+                wait = min(2 * 1.5 ** timeouts, max_delay*4)
 
                 if timeouts > max_retries:
                     session_logger.error('Max timeouts exceeded while fetching {}: {}'.format(url, e))
-                    raise
+                    # raise
                 elif timeouts > max_retries // 2:
                     session_logger.warning('{} timeouts while fetching {}: {}'.format(timeouts, url, e))
 

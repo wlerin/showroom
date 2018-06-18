@@ -1,3 +1,4 @@
+import os
 import json
 import re
 from collections import OrderedDict as od
@@ -6,14 +7,15 @@ from datetime import datetime
 from bs4 import BeautifulSoup as Soup
 
 from showroom.api.session import ClientSession as Session
-# from showroom.settings import ShowroomSettings
+from showroom.settings import ShowroomSettings
 from showroom.archive.constants import JAPANESE_INDEX as JI
 
 myonichi_re = re.compile(r'(?P<month>\d{1,2})月(?P<day>\d{1,2})日\((?P<weekday>\w)\)\s?(?P<name>[\w ]+)\s?[（\(](?P<team>[\wー ]+)[）\)]')
 file_re = re.compile(r'(?P<date>\d{6}) Showroom - SP AKB48 no Myonichi Yoroshiku! (?P<time>\d{4,6}).mp4$')
 text = ""  # text from here: https://www.showroom-live.com/room/profile?room_id=92289
 
-# settings = ShowroomSettings()
+settings = ShowroomSettings.from_file()
+os.environ.update(settings.environment)
 
 # this is such an awful design
 def update(data, datapath):

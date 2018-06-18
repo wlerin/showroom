@@ -547,6 +547,10 @@ class Downloader(object):
         # TODO: Does this work on Windows now?
         env = os.environ.copy()
 
+        # remove proxy information
+        for key in ('http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY'):
+            env.pop(key, None)
+
         if self._logging is True:
             log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
             env.update({'FFREPORT': 'file={}:level=40'.format(log_file)})
