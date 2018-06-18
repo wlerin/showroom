@@ -339,5 +339,104 @@
     "priority": 20,
     "showroom_id": "56597",
     "web_url": "https://www.showroom-live.com/46_MEI_HIGASHIMURA"
+  },
+  {
+    "jpnName": "濱岸 ひより",
+    "engName": "Hamagishi Hiyori",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134047",
+    "web_url": "https://www.showroom-live.com/46_HIYORI_HAMAGISHI"
+  },
+  {
+    "jpnName": "松田 好花",
+    "engName": "Matsuda Konoka",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134054",
+    "web_url": "https://www.showroom-live.com/46_KONOKA_MATSUDA"
+  },
+  {
+    "jpnName": "小坂 菜緒",
+    "engName": "Kosaka Nao",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134059",
+    "web_url": "https://www.showroom-live.com/46_NAO_KOSAKA"
+  },
+  {
+    "jpnName": "金村 美玖",
+    "engName": "Kanemura Miku",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134049",
+    "web_url": "https://www.showroom-live.com/46_MIKU_KANEMURA"
+  },
+  {
+    "jpnName": "渡邉 美穂",
+    "engName": "Watanabe Miho",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134060",
+    "web_url": "https://www.showroom-live.com/46_MIHO_WATANABE"
+  },
+  {
+    "jpnName": "宮田 愛萌",
+    "engName": "Miyata Manamo",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134063",
+    "web_url": "https://www.showroom-live.com/46_MANAMO_MIYATA"
+  },
+  {
+    "jpnName": "河田 陽菜",
+    "engName": "Kawata Hina",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134045",
+    "web_url": "https://www.showroom-live.com/46_HINA_KAWATA"
+  },
+  {
+    "jpnName": "富田 鈴花",
+    "engName": "Tomita Suzuka",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134055",
+    "web_url": "https://www.showroom-live.com/46_SUZUKA_TOMITA"
+  },
+  {
+    "jpnName": "丹生 明里",
+    "engName": "Nibu Akari",
+    "engGroup": "Keyakizaka46",
+    "jpnGroup": "けやき坂46",
+    "engTeam": "Hiragana",
+    "jpnTeam": "ひらがな",
+    "priority": 20,
+    "showroom_id": "134056",
+    "web_url": "https://www.showroom-live.com/46_AKARI_NIBU"
   }
 ]
