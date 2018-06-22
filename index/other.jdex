@@ -266,5 +266,16 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/akbdraft3rd",
     "room_id": "153309"
+  },
+  {
+    "jpnName": "猫舌SHOWROOM",
+    "engName": "Nekojita Showroom",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/nekojita",
+    "room_id": "190685"
   }
 ]
