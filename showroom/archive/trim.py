@@ -115,13 +115,39 @@ def trim_video(srcpath, destpath, start_pts_time, end_pts_time=None):
     # TODO: parse result?
 
 
-def trim_videos(video_list, output_dir, trim_start):
+def time_code_to_seconds(time_code):
+    """
+    Converts a time code to seconds.
+    """
+    if ':' in time_code:
+        if time_code.count(':') == 2:
+            hours, minutes, seconds = time_code.split(':')
+        elif time_code.count(':') == 1:
+            minutes, seconds = time_code.split(':')
+            hours = 0
+        else:
+            raise ValueError('Unrecognised time string')  # TODO: more testing, or use datetime or whatever that other lib is called
+        hours = float(hours)
+        minutes = float(minutes)
+        seconds = float(seconds)
+    else:
+        seconds = float(time_code)
+
+    return hours*60*60 + minutes*60 + seconds
+
+
+def trim_videos(video_list, output_dir, trim_start, trim_end):
     # find start iframe
     for video in video_list:
+        if isinstance(trim_start, str):
+            trim_start = time_code_to_seconds(trim_start)
+        if trim_end:
+            trim_end = time_code_to_seconds(trim_end)
+
         read_interval = '%{}'.format(trim_start)
         iframes = get_iframes2(video, read_interval)
         start_pts = iframes[-1] if iframes else None
         video_name = os.path.split(video)[-1]
         output_path = os.path.join(output_dir, video_name)
         print('Trimming {} from {} -> {}'.format(video, start_pts, output_path))
-        trim_video(video, output_path, start_pts)
+        trim_video(video, output_path, start_pts, trim_end)
