@@ -89,8 +89,8 @@ def detect_threshold(path):
 
 def trim_video(srcpath, destpath, start_pts_time, end_pts_time=None):
     args = [ffmpeg]
-    if not (start_pts_time is None or int(float(start_pts_time)) == 0):
-        args.extend(['-ss', start_pts_time])
+    if not (start_pts_time is None or int(start_pts_time) == 0):
+        args.extend(['-ss', str(start_pts_time)])
     args.extend(['-i', srcpath])
     if end_pts_time:
         args.extend(['-to', str(end_pts_time - start_pts_time)])
