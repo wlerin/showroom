@@ -93,7 +93,7 @@ def trim_video(srcpath, destpath, start_pts_time, end_pts_time=None):
         args.extend(['-ss', start_pts_time])
     args.extend(['-i', srcpath])
     if end_pts_time:
-        args.extend(['-to', end_pts_time - start_pts_time])
+        args.extend(['-to', str(end_pts_time - start_pts_time)])
     args.extend([
         '-c', 'copy',
         '-movflags', '+faststart',
@@ -146,7 +146,7 @@ def trim_videos(video_list, output_dir, trim_start, trim_end):
 
         read_interval = '%{}'.format(trim_start)
         iframes = get_iframes2(video, read_interval)
-        start_pts = iframes[-1] if iframes else None
+        start_pts = float(iframes[-1] if iframes else None)
         video_name = os.path.split(video)[-1]
         output_path = os.path.join(output_dir, video_name)
         print('Trimming {} from {} -> {}'.format(video, start_pts, output_path))
