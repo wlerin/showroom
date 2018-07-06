@@ -22,6 +22,7 @@ import subprocess
 from showroom.archive.probe import get_iframes2
 import os.path
 from .constants import ffmpeg
+from itertools import zip_longest
 
 
 class DumbNamespace(SimpleNamespace):
@@ -119,6 +120,16 @@ def time_code_to_seconds(time_code):
     """
     Converts a time code to seconds.
     """
+    try:
+        seconds = int(time_code)
+    except TypeError:
+        pass
+    else:
+        if seconds <= 0:
+            return None
+        else:
+            return seconds
+
     if ':' in time_code:
         if time_code.count(':') == 2:
             hours, minutes, seconds = time_code.split(':')
@@ -136,17 +147,23 @@ def time_code_to_seconds(time_code):
     return hours*60*60 + minutes*60 + seconds
 
 
-def trim_videos(video_list, output_dir, trim_start, trim_end):
+def trim_videos(video_list, output_dir, trim_starts, trim_ends):
     # find start iframe
-    for video in video_list:
-        if isinstance(trim_start, str):
+    len(video_list)
+
+    args = zip_longest(video_list, trim_starts, trim_ends, fillvalue=None)
+
+    for video, trim_start, trim_end in args:
+        if trim_start:
             trim_start = time_code_to_seconds(trim_start)
         if trim_end:
             trim_end = time_code_to_seconds(trim_end)
 
-        read_interval = '%{}'.format(trim_start)
-        iframes = get_iframes2(video, read_interval)
-        start_pts = float(iframes[-1] if iframes else None)
+        iframes = None
+        if trim_start:
+            read_interval = '%{}'.format(trim_start)
+            iframes = get_iframes2(video, read_interval)
+        start_pts = float(iframes[-1]) if iframes else None
         video_name = os.path.split(video)[-1]
         output_path = os.path.join(output_dir, video_name)
         print('Trimming {} from {} -> {}'.format(video, start_pts, output_path))

@@ -60,8 +60,8 @@ def build_parser():
     parser_trim = subparsers.add_parser('trim', help='Trim some seconds from the start of a video or videos.')
     parser_trim.add_argument('video_list', metavar='files', nargs='+', help='Files to trim')
     parser_trim.add_argument('--output-dir', '-o', help='Output directory for finished files. Required', required=True)
-    parser_trim.add_argument('--trim-start', '-s', help='Seconds from start to trim', type=float)
-    parser_trim.add_argument('--trim-end', '-t', help='Time to cut the end of the video', type=str)
+    parser_trim.add_argument('--trim-starts', '-s', nargs='*', help='Seconds from start to trim, for each video, use -1 for none', type=float)
+    parser_trim.add_argument('--trim-ends', '-t', nargs='*', help='Time to cut the end of the video, for each video', type=str)
     parser_trim.set_defaults(func=trim_videos)
 
     return parser
