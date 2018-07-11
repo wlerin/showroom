@@ -94,13 +94,14 @@ def trim_video(srcpath, destpath, start_pts_time, end_pts_time=None):
         args.extend(['-ss', str(start_pts_time)])
     args.extend(['-i', srcpath])
     if end_pts_time:
-        args.extend(['-to', str(end_pts_time - start_pts_time)])
+        args.extend(['-to', str(end_pts_time - (start_pts_time if not start_pts_time is None else 0))])
     args.extend([
         '-c', 'copy',
         '-movflags', '+faststart',
         '-avoid_negative_ts', 'make_zero',
         destpath
     ])
+    print(args)
     try:
         p = subprocess.Popen(
             args,
@@ -122,7 +123,7 @@ def time_code_to_seconds(time_code):
     """
     try:
         seconds = int(time_code)
-    except TypeError:
+    except ValueError:
         pass
     else:
         if seconds <= 0:
@@ -147,7 +148,7 @@ def time_code_to_seconds(time_code):
     return hours*60*60 + minutes*60 + seconds
 
 
-def trim_videos(video_list, output_dir, trim_starts, trim_ends):
+def trim_videos(video_list, output_dir, trim_starts=(), trim_ends=()):
     # find start iframe
     len(video_list)
 
