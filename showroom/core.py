@@ -145,7 +145,7 @@ WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 # TODO: handle genre/category by individual rooms
 # currently this checks the onlive list for each of Music, Idol, and Talent/Model
 # schedules are still Idol only
-GENRE_IDS = {101, 102, 103, 104}
+GENRE_IDS = {101, 102, 103, 104, 105, 106}
 
 
 
@@ -1222,10 +1222,28 @@ class WatchManager(object):
         onlives = self.client.onlives() or []
 
         # temporary fix for getting multiple genres
-        lives = []
-        for e in onlives:
-            if e['genre_id'] in GENRE_IDS:
-                lives.extend(e['lives'])
+        for livelist in onlives:
+            if livelist['genre_id'] in GENRE_IDS:
+                for item in [e for e in livelist['lives'] if 'room_id' in e and str(e['room_id']) in self.index]:
+                    room_id = str(item['room_id'])
+                    start_time = datetime.datetime.fromtimestamp(float(item['started_at']), tz=TOKYO_TZ)
+
+                    # core_logger.debug('Checking live room id {}'.format(room_id))
+                    if room_id in self.watchers:
+                        if self.watchers[room_id].mode == "schedule":
+                            self.watchers[room_id].reschedule(start_time)
+                            self.watchers[room_id].set_watch_time(datetime.datetime.now(tz=TOKYO_TZ))
+                            core_logger.debug('Early live for {} at {}'.format(self.watchers[room_id].name,
+                                                                               self.watchers[
+                                                                                   room_id].formatted_start_time))
+                    else:
+                        new = Watcher(self.index[room_id], self.client, self.settings,
+                                      update_flag=self.update_flag, start_time=start_time)
+                        new.set_watch_time(datetime.datetime.now(tz=TOKYO_TZ))
+                        info = new.get_info()
+                        core_logger.debug(
+                            'Unscheduled live for {} starting at {}'.format(info['name'], info['start_time']))
+                        self.add(new)
 
         # lives is a list of json objects (dicts)
         # representing items to include in the page
@@ -1239,24 +1257,7 @@ class WatchManager(object):
         #   "follower_num": 9690
         #   "view_num": 9662
         # core_logger.debug('Checking idol lives')
-        for item in [e for e in lives if 'room_id' in e and str(e['room_id']) in self.index]:
-            room_id = str(item['room_id'])
-            start_time = datetime.datetime.fromtimestamp(float(item['started_at']), tz=TOKYO_TZ)
 
-            # core_logger.debug('Checking live room id {}'.format(room_id))
-            if room_id in self.watchers:
-                if self.watchers[room_id].mode == "schedule":
-                    self.watchers[room_id].reschedule(start_time)
-                    self.watchers[room_id].set_watch_time(datetime.datetime.now(tz=TOKYO_TZ))
-                    core_logger.debug('Early live for {} at {}'.format(self.watchers[room_id].name,
-                                                                       self.watchers[room_id].formatted_start_time))
-            else:
-                new = Watcher(self.index[room_id], self.client, self.settings,
-                              update_flag=self.update_flag, start_time=start_time)
-                new.set_watch_time(datetime.datetime.now(tz=TOKYO_TZ))
-                info = new.get_info()
-                core_logger.debug('Unscheduled live for {} starting at {}'.format(info['name'], info['start_time']))
-                self.add(new)
 
     def update_schedule(self):
         """Checks the schedule and adds watchers for any new rooms found."""
