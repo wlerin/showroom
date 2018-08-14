@@ -90,6 +90,8 @@ class CommentLogger(object):
             data = self.client.comment_log(self.room.room_id) or []
 
             for comment in data:
+                if len(comment['comment'] < 4 and comment['comment'].isdigit():
+                    continue
                 cid = self.comment_id_pattern.format(**comment)
                 if cid not in self.comment_ids:
                     self.comment_log.append(comment)
@@ -202,7 +204,7 @@ class RoomScraper:
                                            self.watcher.start_time.strftime(FULL_DATE_FMT),
                                            self.room, self.settings.ffmpeg.container)
         # TODO: modify format_name so it doesn't require so much hackery for this
-        filename = filename.replace(self.settings.ffmpeg.container, ' comments.json')
+        filename = filename.replace('.{}'.format(self.settings.ffmpeg.container), ' comments.json')
         destdir += '/comments'
         # TODO: only call this once per group per day
         os.makedirs(destdir, exist_ok=True)

@@ -255,4 +255,5 @@ class ShowroomLiveControllerProcess(BaseShowroomLiveController):
             self._instance = Process(target=self.run, name="ShowroomLiveController")
             self._instance.start()
 
+
 Controller = ShowroomLiveControllerThread

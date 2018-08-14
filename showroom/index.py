@@ -339,8 +339,8 @@ class ShowroomIndex(object):
             try:
                 with open(jdex, encoding='utf8') as infp:
                     temp_data = json.load(infp)
-            except json.JSONDecodeError:
-                index_logger.debug('{} could not be read'.format(jdex))
+            except json.JSONDecodeError as e:
+                index_logger.debug('{} could not be read: {}'.format(jdex, e))
                 continue
             # add each room to the room_dict and the room_url_lookup
             # perhaps in this phase it is not necessary to update existing
