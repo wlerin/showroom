@@ -90,7 +90,7 @@ class CommentLogger(object):
             data = self.client.comment_log(self.room.room_id) or []
 
             for comment in data:
-                if len(comment['comment'] < 4 and comment['comment'].isdigit():
+                if len(comment['comment']) < 4 and comment['comment'].isdigit():
                     continue
                 cid = self.comment_id_pattern.format(**comment)
                 if cid not in self.comment_ids:
