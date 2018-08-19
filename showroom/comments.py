@@ -7,6 +7,7 @@ import time
 
 from showroom.constants import TOKYO_TZ, FULL_DATE_FMT
 from showroom.utils import format_name
+from requests.exceptions import HTTPError
 
 # TODO: save comments, stats, telop(s)
 # {
@@ -87,8 +88,12 @@ class CommentLogger(object):
             count = 0
             seen = 0
             # update comments
-            data = self.client.comment_log(self.room.room_id) or []
-
+            try:
+                data = self.client.comment_log(self.room.room_id) or []
+            except HTTPError as e:
+                # TODO: log/handle properly
+                print('HTTP Error while getting comments for {}: {}'.format(self.room.handle, e))
+                break
             for comment in data:
                 if len(comment['comment']) < 4 and comment['comment'].isdigit():
                     continue
@@ -219,7 +224,12 @@ class RoomScraper:
             count = 0
             seen = 0
             # update comments
-            data = self.client.comment_log(self.room.room_id) or []
+            try:
+                data = self.client.comment_log(self.room.room_id) or []
+            except HTTPError as e:
+                # TODO: log/handle properly
+                print('HTTP Error while getting comments for {}: {}\n{}'.format(self.room.handle, e, e.response.content))
+                break
 
             for comment in data:
                 cid = self.comment_id_pattern.format(**comment)
