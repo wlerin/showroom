@@ -39,7 +39,7 @@ Or take a gander at the start.sh script.
 
 ## Installation
 
-Requires FFmpeg, Python 3.5+, Requests, and pytz
+Requires FFmpeg, Python 3.5+, and Requests
 
 #####  1. Install ffmpeg
 
@@ -105,7 +105,6 @@ Or use the Download as ZIP button above.
 ##### 5. Install Required Python Packages
 
 - [Requests](http://docs.python-requests.org/en/master/)
-- [pytz](http://pytz.sourceforge.net/)
 
 Both of these packages can be installed by running:
 

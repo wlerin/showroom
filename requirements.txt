@@ -1,4 +1,3 @@
 requests
-pytz
 fake-useragent
 pyyaml
