@@ -122,7 +122,7 @@ def time_code_to_seconds(time_code):
     Converts a time code to seconds.
     """
     try:
-        seconds = int(time_code)
+        seconds = float(time_code)
     except ValueError:
         pass
     else:
@@ -148,6 +148,31 @@ def time_code_to_seconds(time_code):
     return hours*60*60 + minutes*60 + seconds
 
 
+def seconds_to_time_code(seconds):
+    try:
+        seconds = float(seconds)
+    except ValueError:
+        print('Failed to parse seconds value: {}'.format(seconds))
+        return None  # 
+    
+    if seconds <= 0:
+        return None
+
+    hours, seconds = seconds//3600, seconds % 3600
+    minutes, seconds = seconds//60, seconds % 60
+    seconds, milliseconds = seconds//1, round(seconds % 1 * 1000)
+    if hours == 0:
+        if minutes == 0:
+            intervals = (seconds,)
+        else:
+            intervals = (minutes, seconds)
+    else:
+        intervals = (hours, minutes, seconds)
+
+
+    return '{}.{:03d}'.format(':'.join([f'{int(e):02d}' for e in intervals]), milliseconds)
+
+
 def trim_videos(video_list, output_dir, trim_starts=(), trim_ends=()):
     # find start iframe
     len(video_list)
@@ -165,7 +190,13 @@ def trim_videos(video_list, output_dir, trim_starts=(), trim_ends=()):
             read_interval = '%{}'.format(trim_start)
             iframes = get_iframes2(video, read_interval)
         start_pts = float(iframes[-1]) if iframes else None
-        video_name = os.path.split(video)[-1]
-        output_path = os.path.join(output_dir, video_name)
+        video_name, video_ext = os.path.split(video)[-1].rsplit('.', 1)
+        final_video = '{}-[{}-{}].{}'.format(
+            video_name, 
+            seconds_to_time_code(start_pts) or '',
+            seconds_to_time_code(trim_end) or '',
+            video_ext
+        )
+        output_path = os.path.join(output_dir, final_video)
         print('Trimming {} from {} -> {}'.format(video, start_pts, output_path))
         trim_video(video, output_path, start_pts, trim_end)
