@@ -170,7 +170,7 @@ def seconds_to_time_code(seconds):
         intervals = (hours, minutes, seconds)
 
 
-    return '{}.{:03d}'.format(':'.join([f'{int(e):02d}' for e in intervals]), milliseconds)
+    return '{}.{:03d}'.format(':'.join(['{:02d}'.format(int(e)) for e in intervals]), milliseconds)
 
 
 def trim_videos(video_list, output_dir, trim_starts=(), trim_ends=()):
