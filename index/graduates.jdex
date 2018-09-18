@@ -5,7 +5,7 @@
     "engGroup": "AKB48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/ayaka_morikawa",
-    "showroom_id": "72215",
+    "room_id": "72215",
     "jpnName": "森川 彩香",
     "engName": "Morikawa Ayaka",
     "priority": 10
@@ -16,7 +16,7 @@
     "engGroup": "SKE48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/yagami-kumi",
-    "showroom_id": "56069",
+    "room_id": "56069",
     "jpnName": "矢神久美",
     "engName": "Yagami Kumi",
     "priority": 20
@@ -27,7 +27,7 @@
     "engGroup": "AKB48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/takahashi_kira",
-    "showroom_id": "156013",
+    "room_id": "156013",
     "jpnName": "高橋希来",
     "engName": "Takahashi Kira",
     "priority": 10
@@ -38,7 +38,7 @@
     "engGroup": "HKT48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/asia_naoko",
-    "showroom_id": "152125",
+    "room_id": "152125",
     "jpnName": "岡本尚子",
     "engName": "Okamoto Naoko",
     "priority": 20
@@ -49,7 +49,7 @@
     "engGroup": "AKB48",
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/umeta_ayano",
-    "showroom_id": "174164",
+    "room_id": "174164",
     "jpnName": "梅田綾乃",
     "engName": "Umeta Ayano",
     "priority": 20
@@ -96,6 +96,17 @@
     "room_id": "134096",
     "jpnName": "西野未姫",
     "engName": "Nishino Miki",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "AKB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/iwasamisaki0130",
+    "room_id": "80244",
+    "jpnName": "わさみんの何かやるでshow",
+    "engName": "Wasamin Show",
     "priority": 20
   }
 ]

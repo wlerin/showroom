@@ -66,11 +66,13 @@ class ShowroomClient(
 
         self.__csrf_token = get_csrf_token(r.text)
 
-    def _api_get(self, endpoint, params=None, return_response=False, default=None):
+    def _api_get(self, endpoint, params=None, return_response=False, default=None, raise_error=True):
         try:
             r = self._session.get(_base_url + endpoint, params=params)
         except HTTPError as e:
             r = e.response
+            if raise_error:
+                raise
         self._last_response = r
 
         if return_response:

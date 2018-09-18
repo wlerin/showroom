@@ -1,24 +1,24 @@
 [
   {
-    "jpnGroup": "原宿物語",
-    "engGroup": "Harajuku Monogatari",
+    "jpnGroup": "monogatari",
+    "engGroup": "monogatari",
     "jpnTeam": "",
     "engTeam": "",
     "web_url": "https://www.showroom-live.com/usa_monoga",
-    "showroom_id": "139526",
+    "room_id": "139526",
     "jpnName": "柊宇咲",
     "engName": "Hiiragi Usa",
     "priority": 5
   },
   {
-    "jpnGroup": "原宿物語",
-    "engGroup": "Harajuku Monogatari",
+    "jpnGroup": "monogatari",
+    "engGroup": "monogatari",
     "jpnTeam": "",
     "engTeam": "",
-    "web_url": "https://www.showroom-live.com/Harajuku_Monoga",
-    "showroom_id": "139409",
-    "jpnName": "",
-    "engName": "Official Room",
+    "web_url": "https://www.showroom-live.com/Monoga_tari",
+    "room_id": "139409",
+    "jpnName": "monogatariのSHOWROOM",
+    "engName": "monogatari Official Room",
     "priority": 20
   },
   {
@@ -27,7 +27,7 @@
     "jpnTeam": "",
     "engTeam": "",
     "web_url": "https://www.showroom-live.com/kuromiyarei",
-    "showroom_id": "87158",
+    "room_id": "87158",
     "jpnName": "黒宮れい",
     "engName": "Kuromiya Rei",
     "priority": 20
@@ -38,7 +38,7 @@
     "jpnTeam": "",
     "engTeam": "",
     "web_url": "https://www.showroom-live.com/horiemonidol_2nd",
-    "showroom_id": "170773",
+    "room_id": "170773",
     "jpnName": "第二回ホリエモンアイドルオーディション",
     "engName": "Horiemon Idol Audition",
     "priority": 20
@@ -49,11 +49,9 @@
     "jpnTeam": "",
     "engTeam": "",
     "web_url": "https://www.showroom-live.com/girls_idol",
-    "showroom_id": "51930",
+    "room_id": "51930",
     "jpnName": "溝口恵のgirls! Showroom",
     "engName": "Girls! Magazine",
     "priority": 20
   }
-  
-
 ]

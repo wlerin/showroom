@@ -125,7 +125,9 @@ class Room(object):
 
     @property
     def handle(self):
-        return ' '.join((x for x in (self.group, self.team, self.name) if x))
+        # Don't duplicate group/team names if already in the room name
+        # Are there any edge cases where this does the wrong thing?
+        return ' '.join((*(x for x in (self.group, self.team) if x and x not in self.name), self.name))
 
     def is_wanted(self):
         return self._wanted
@@ -340,7 +342,7 @@ class ShowroomIndex(object):
                 with open(jdex, encoding='utf8') as infp:
                     temp_data = json.load(infp)
             except json.JSONDecodeError as e:
-                index_logger.debug('{} could not be read: {}'.format(jdex, e))
+                index_logger.warning('{} could not be read: {}'.format(jdex, e))
                 continue
             # add each room to the room_dict and the room_url_lookup
             # perhaps in this phase it is not necessary to update existing
@@ -396,7 +398,7 @@ class ShowroomIndex(object):
                 with open(jdex, encoding='utf8') as infp:
                     temp_data = json.load(infp)
             except json.JSONDecodeError:
-                index_logger.debug('{} could not be read'.format(jdex))
+                index_logger.warning('{} could not be read'.format(jdex))
                 continue
             # check if room exists, if it does, check priority
             # if different, update priority and mod_time

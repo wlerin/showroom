@@ -1,0 +1,123 @@
+[
+  {
+    "jpnGroup": "AKB48",
+    "engGroup": "AKB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/akb48_official",
+    "room_id": "70088",
+    "jpnName": "AKB48 特別配信ルーム",
+    "engName": "AKB48 Official Showroom",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "engGroup": "AKB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "チーム8 特別配信ルーム",
+    "engName": "Team 8 Official Room",
+    "room_id": "109252",
+    "web_url": "https://www.showroom-live.com/akb48_team8",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "engGroup": "AKB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "AKB48 16期生 特別配信ルーム",
+    "engName": "AKB48 16th Gen Official Room",
+    "web_url": "https://www.showroom-live.com/akb48_16th",
+    "room_id": "91045",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "engGroup": "AKB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "AKB48 3期生のSHOWROOM",
+    "engName": "AKB48 3rd Gen Showroom",
+    "web_url": "https://www.showroom-live.com/akb48_3rd",
+    "room_id": "100190",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "engGroup": "AKB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "AKB48 選抜総選挙",
+    "engName": "AKB48 Sousenkyo Showroom",
+    "web_url": "https://www.showroom-live.com/akb48_sousenkyo",
+    "room_id": "105395",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SKE48",
+    "engGroup": "SKE48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/ske48_official",
+    "room_id": "74391",
+    "jpnName": "SKE48 特別配信ルーム",
+    "engName": "SKE48 Official Showroom",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "NMB48",
+    "engGroup": "NMB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "NMB48 特別配信ルーム",
+    "engName": "NMB48 Official Showroom",
+    "web_url": "https://www.showroom-live.com/nmb48_official",
+    "room_id": "69404",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "HKT48 特別配信ルーム",
+    "engName": "HKT48 Official Room",
+    "room_id": "75384",
+    "web_url": "https://www.showroom-live.com/hkt48_official",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "NGT48",
+    "engGroup": "NGT48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "NGT48 特別配信ルーム",
+    "engName": "NGT48 Official Showroom",
+    "web_url": "https://www.showroom-live.com/ngt48_official",
+    "room_id": "92733",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "STU48",
+    "engGroup": "STU48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "STU48 特別配信ルーム",
+    "engName": "STU48 Official",
+    "room_id": "109060",
+    "web_url": "https://www.showroom-live.com/stu48_official",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48 Group",
+    "engGroup": "AKB48 Group",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "ドラフト３期 公式ルーム",
+    "engName": "Draft 3rd Gen Official Room",
+    "web_url": "https://www.showroom-live.com/akbdraft3rd",
+    "room_id": "153309",
+    "priority": 20
+  }
+]
