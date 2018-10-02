@@ -122,7 +122,7 @@ def time_code_to_seconds(time_code):
     Converts a time code to seconds.
     """
     try:
-        seconds = float(time_code)
+        seconds = float(time_code or 0)
     except ValueError:
         pass
     else:
@@ -139,18 +139,18 @@ def time_code_to_seconds(time_code):
             hours = 0
         else:
             raise ValueError('Unrecognised time string')  # TODO: more testing, or use datetime or whatever that other lib is called
-        hours = float(hours)
-        minutes = float(minutes)
-        seconds = float(seconds)
+        hours = float(hours or 0)
+        minutes = float(minutes or 0)
+        seconds = float(seconds or 0)
     else:
-        seconds = float(time_code)
+        seconds = float(time_code or 0)
 
     return hours*60*60 + minutes*60 + seconds
 
 
 def seconds_to_time_code(seconds):
     try:
-        seconds = float(seconds)
+        seconds = float(seconds or 0)
     except ValueError:
         print('Failed to parse seconds value: {}'.format(seconds))
         return None  # 
