@@ -108,5 +108,16 @@
     "jpnName": "わさみんの何かやるでshow",
     "engName": "Wasamin Show",
     "priority": 20
+  },
+  {
+    "jpnGroup": "NMB48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "NMB48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/EH90798779",
+    "room_id": "214712",
+    "jpnName": "沖田彩華",
+    "engName": "Okita Ayaka",
+    "priority": 20
   }
 ]
