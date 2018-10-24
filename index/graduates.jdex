@@ -119,5 +119,27 @@
     "jpnName": "沖田彩華",
     "engName": "Okita Ayaka",
     "priority": 20
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/gband00040",
+    "room_id": "205941",
+    "jpnName": "早坂つむぎ",
+    "engName": "Hayasaka Tsumugi (Girls Band Audition)",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "SKE48",
+    "jpnTeam": "元メンバー",
+    "engGroup": "SKE48",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/minami-hara_pfh",
+    "room_id": "214006",
+    "jpnName": "原望奈美",
+    "engName": "Hara Minami",
+    "priority": 20
   }
 ]
