@@ -119,5 +119,16 @@
     "web_url": "https://www.showroom-live.com/akbdraft3rd",
     "room_id": "153309",
     "priority": 20
+  },
+  {
+    "jpnGroup": "NMB48",
+    "engGroup": "NMB48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "NMB48のしゃべくりアワー",
+    "engName": "NMB48 no Shaberi Hour",
+    "web_url": "https://www.showroom-live.com/nmb_syabekuri",
+    "room_id": "222457",
+    "priority": 20
   }
-]
+] 
