@@ -95,9 +95,10 @@ output/
 *.log*
 trash/
 *.idea
-/checks/
-/experiments/
-/design/
+checks/
+experiments/
+design/
 
 
 index/old/
+scraps/
