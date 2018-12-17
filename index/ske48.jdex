@@ -275,17 +275,6 @@
     "room_id": "61819"
   },
   {
-    "jpnTeam": "研究生",
-    "engTeam": "KKS",
-    "web_url": "https://www.showroom-live.com/48_AINA_WADA",
-    "jpnName": "和田 愛菜",
-    "engName": "Wada Aina",
-    "priority": 55,
-    "engGroup": "SKE48",
-    "jpnGroup": "SKE48",
-    "room_id": "61852"
-  },
-  {
     "jpnTeam": "チームKII",
     "engTeam": "Team KII",
     "web_url": "https://www.showroom-live.com/48_AYAKA_OTA",
@@ -649,31 +638,9 @@
     "room_id": "67794"
   },
   {
-    "engTeam": "KKS",
+    "jpnTeam": "チームS",
+    "engTeam": "Team S",
     "priority": 20,
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_AYAHA_ATSUMI",
-    "jpnName": "渥美 彩羽",
-    "engName": "Atsumi Ayaha",
-    "engGroup": "SKE48",
-    "jpnGroup": "SKE48",
-    "room_id": "76553"
-  },
-  {
-    "engTeam": "KKS",
-    "priority": 20,
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_SAKI_ISHIKAWA",
-    "jpnName": "石川 咲姫",
-    "engName": "Ishikawa Saki",
-    "engGroup": "SKE48",
-    "jpnGroup": "SKE48",
-    "room_id": "76498"
-  },
-  {
-    "engTeam": "KKS",
-    "priority": 20,
-    "jpnTeam": "研究生",
     "web_url": "https://www.showroom-live.com/48_YUZUKI_ISHIGURO",
     "jpnName": "石黒 友月",
     "engName": "Ishiguro Yuzuki",
@@ -693,9 +660,9 @@
     "room_id": "76539"
   },
   {
-    "engTeam": "KKS",
+    "jpnTeam": "チームKII",
+    "engTeam": "Team KII",
     "priority": 20,
-    "jpnTeam": "研究生",
     "web_url": "https://www.showroom-live.com/48_RINKA_OSHIBA",
     "jpnName": "大芝 りんか",
     "engName": "Oshiba Rinka",
@@ -704,26 +671,15 @@
     "room_id": "76535"
   },
   {
-    "engTeam": "KKS",
+    "jpnTeam": "チームS",
+    "engTeam": "Team S",
     "priority": 20,
-    "jpnTeam": "研究生",
     "web_url": "https://www.showroom-live.com/48_MIKU_OKADA",
     "jpnName": "岡田 美紅",
     "engName": "Okada Miku",
     "engGroup": "SKE48",
     "jpnGroup": "SKE48",
     "room_id": "76550"
-  },
-  {
-    "engTeam": "KKS",
-    "priority": 20,
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_ANNA_KAWAI",
-    "jpnName": "川合 杏奈",
-    "engName": "Kawai Anna",
-    "engGroup": "SKE48",
-    "jpnGroup": "SKE48",
-    "room_id": "76512"
   },
   {
     "engTeam": "Team S",
@@ -737,9 +693,9 @@
     "room_id": "76542"
   },
   {
-    "engTeam": "KKS",
+    "engTeam": "Team E",
     "priority": 20,
-    "jpnTeam": "研究生",
+    "jpnTeam": "チームE",
     "web_url": "https://www.showroom-live.com/48_AMI_KURASHIMA",
     "jpnName": "倉島 杏実",
     "engName": "Kurashima Ami",
@@ -748,20 +704,9 @@
     "room_id": "76549"
   },
   {
-    "engTeam": "KKS",
+    "engTeam": "Team S",
     "priority": 20,
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_KANO_KOBAYASHI",
-    "jpnName": "小林 佳乃",
-    "engName": "Kobayashi Kano",
-    "engGroup": "SKE48",
-    "jpnGroup": "SKE48",
-    "room_id": "76525"
-  },
-  {
-    "engTeam": "KKS",
-    "priority": 20,
-    "jpnTeam": "研究生",
+    "jpnTeam": "チームS",
     "web_url": "https://www.showroom-live.com/48_MARIN_SAKAMOTO",
     "jpnName": "坂本 真凛",
     "engName": "Sakamoto Marin",
@@ -781,9 +726,9 @@
     "room_id": "76511"
   },
   {
-    "engTeam": "KKS",
+    "engTeam": "Team E",
     "priority": 20,
-    "jpnTeam": "研究生",
+    "jpnTeam": "チームE",
     "web_url": "https://www.showroom-live.com/48_KOHAKU_SHIRAYUKI",
     "jpnName": "白雪 希明",
     "engName": "Shirayuki Kohaku",
@@ -792,9 +737,9 @@
     "room_id": "76524"
   },
   {
-    "engTeam": "KKS",
+    "engTeam": "Team S",
     "priority": 20,
-    "jpnTeam": "研究生",
+    "jpnTeam": "チームS",
     "web_url": "https://www.showroom-live.com/48_IZUMI_NAKAMURA",
     "jpnName": "仲村 和泉",
     "engName": "Nakamura Izumi",
@@ -803,9 +748,9 @@
     "room_id": "76554"
   },
   {
-    "engTeam": "KKS",
+    "engTeam": "Team E",
     "priority": 20,
-    "jpnTeam": "研究生",
+    "jpnTeam": "チームE",
     "web_url": "https://www.showroom-live.com/48_MIKI_NONOGAKI",
     "jpnName": "野々垣 美希",
     "engName": "Nonogaki Miki",
@@ -825,26 +770,15 @@
     "room_id": "76760"
   },
   {
-    "engTeam": "KKS",
+    "engTeam": "Team E",
     "priority": 20,
-    "jpnTeam": "研究生",
+    "jpnTeam": "チームE",
     "web_url": "https://www.showroom-live.com/48_NEGAI_FUKAI",
     "jpnName": "深井 ねがい",
     "engName": "Fukai Negai",
     "engGroup": "SKE48",
     "jpnGroup": "SKE48",
     "room_id": "76556"
-  },
-  {
-    "engTeam": "KKS",
-    "priority": 20,
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_RIKO_MORIHIRA",
-    "jpnName": "森平 莉子",
-    "engName": "Morihira Riko",
-    "engGroup": "SKE48",
-    "jpnGroup": "SKE48",
-    "room_id": "76518"
   },
   {
     "engTeam": "Team KII",
@@ -858,43 +792,54 @@
     "room_id": "76523"
   },
   {
-    "jpnName": "中野愛理",
+    "jpnName": "中野 愛理",
     "engName": "Nakano Airi",
-    "jpnTeam": "チームKIIドラフト研究生",
-    "engTeam": "Team KII Draft KKS",
+    "jpnTeam": "チームKII",
+    "engTeam": "Team KII",
     "jpnGroup": "SKE48",
     "engGroup": "SKE48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no43",
+    "web_url": "https://www.showroom-live.com/48_AIRI_NAKANO",
     "room_id": "146907"
   },
   {
-    "jpnName": "大谷悠妃",
+    "jpnName": "大谷 悠妃",
     "engName": "Otani Yuuki",
-    "jpnTeam": "チームSドラフト研究生",
-    "engTeam": "Team S Draft KKS",
+    "jpnTeam": "チームS",
+    "engTeam": "Team S",
     "jpnGroup": "SKE48",
     "engGroup": "SKE48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no13",
+    "web_url": "https://www.showroom-live.com/48_YUKI_OTANI",
     "room_id": "146933"
   },
   {
-    "jpnName": "平田詩奈",
+    "jpnName": "平田 詩奈",
     "engName": "Hirata Shiina",
-    "jpnTeam": "チームEドラフト研究生",
-    "engTeam": "Team E Draft KKS",
+    "jpnTeam": "チームE",
+    "engTeam": "Team E",
     "jpnGroup": "SKE48",
     "engGroup": "SKE48",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no52",
+    "web_url": "https://www.showroom-live.com/48_SHIINA_HIRATA",
     "room_id": "146955"
   },
   {
-    "jpnName": "上妻ほの香",
+    "jpnName": "西満 里奈",
+    "engName": "Nishi Marina",
+    "jpnTeam": "チームE",
+    "engTeam": "Team E",
+    "jpnGroup": "SKE48",
+    "engGroup": "SKE48",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/48_MARINA_NISHI",
+    "room_id": "147020"
+  },
+  {
+    "jpnName": "上妻 ほの香",
     "engName": "Kozuma Honoka",
-    "jpnTeam": "チームSドラフト研究生",
-    "engTeam": "Team S Draft KKS",
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
     "jpnGroup": "SKE48",
     "engGroup": "SKE48",
     "priority": 20,
@@ -902,14 +847,69 @@
     "room_id": "146982"
   },
   {
-    "jpnName": "西満里奈",
-    "engName": "Nishi Marina",
-    "jpnTeam": "チームEドラフト研究生",
-    "engTeam": "Team E Draft KKS",
-    "jpnGroup": "SKE48",
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
+    "web_url": "https://www.showroom-live.com/48_AINA_WADA",
+    "jpnName": "和田 愛菜",
+    "engName": "Wada Aina",
+    "priority": 55,
     "engGroup": "SKE48",
+    "jpnGroup": "SKE48",
+    "room_id": "61852"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
     "priority": 20,
-    "web_url": "https://www.showroom-live.com/akbdraft3rd_no48",
-    "room_id": "147020"
+    "web_url": "https://www.showroom-live.com/48_AYAHA_ATSUMI",
+    "jpnName": "渥美 彩羽",
+    "engName": "Atsumi Ayaha",
+    "engGroup": "SKE48",
+    "jpnGroup": "SKE48",
+    "room_id": "76553"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/48_SAKI_ISHIKAWA",
+    "jpnName": "石川 咲姫",
+    "engName": "Ishikawa Saki",
+    "engGroup": "SKE48",
+    "jpnGroup": "SKE48",
+    "room_id": "76498"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/48_ANNA_KAWAI",
+    "jpnName": "川合 杏奈",
+    "engName": "Kawai Anna",
+    "engGroup": "SKE48",
+    "jpnGroup": "SKE48",
+    "room_id": "76512"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/48_KANO_KOBAYASHI",
+    "jpnName": "小林 佳乃",
+    "engName": "Kobayashi Kano",
+    "engGroup": "SKE48",
+    "jpnGroup": "SKE48",
+    "room_id": "76525"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Former KKS",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/48_RIKO_MORIHIRA",
+    "jpnName": "森平 莉子",
+    "engName": "Morihira Riko",
+    "engGroup": "SKE48",
+    "jpnGroup": "SKE48",
+    "room_id": "76518"
   }
 ]
