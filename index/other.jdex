@@ -162,5 +162,16 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/nekojita",
     "room_id": "190685"
+  },
+  {
+    "jpnName": "秋元康プロデュース ガールズバンド",
+    "engName": "Girls Band Official",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/yaband",
+    "room_id": "227715"
   }
 ]
