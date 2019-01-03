@@ -173,5 +173,16 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/yaband",
     "room_id": "227715"
+  },
+  {
+    "jpnName": "舞台「山犬」特別配信",
+    "engName": "Yamainu Official Stream",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/yamainu2019",
+    "room_id": "230381"
   }
 ]
