@@ -636,5 +636,160 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/48_SAYAKA_BABA",
     "room_id": "147009"
+  },
+  
+  {
+    "jpnName": "市村 愛里",
+    "engName": "Airi Ichimura",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198497",
+    "web_url": "https://www.showroom-live.com/48_AIRI_ICHIMURA"
+  },
+  {
+    "jpnName": "工藤 陽香",
+    "engName": "Haruka Kudo",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "199134",
+    "web_url": "https://www.showroom-live.com/48_HARUKA_KUDO"
+  },
+  {
+    "jpnName": "川平 聖",
+    "engName": "Hijiri Kawahira",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "199115",
+    "web_url": "https://www.showroom-live.com/48_HIJIRI_KAWAHIRA"
+  },
+  {
+    "jpnName": "後藤 陽菜乃",
+    "engName": "Hinano Goto",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "197344",
+    "web_url": "https://www.showroom-live.com/48_HINANO_GOTO"
+  },
+  {
+    "jpnName": "石橋 颯",
+    "engName": "Ibuki Ishibashi",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "197343",
+    "web_url": "https://www.showroom-live.com/48_IBUKI_ISHIBASHI"
+  },
+  {
+    "jpnName": "田中 伊桜莉",
+    "engName": "Iori Tanaka",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198477",
+    "web_url": "https://www.showroom-live.com/48_IORI_TANAKA"
+  },
+  {
+    "jpnName": "上島 楓",
+    "engName": "Kaede Kamijima",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198511",
+    "web_url": "https://www.showroom-live.com/48_KAEDE_KAMIJIMA"
+  },
+  {
+    "jpnName": "竹本 くるみ",
+    "engName": "Kurumi Takemoto",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198479",
+    "web_url": "https://www.showroom-live.com/48_KURUMI_TAKEMOTO"
+  },
+  {
+    "jpnName": "長野 雅",
+    "engName": "Miyabi Nagano",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "197337",
+    "web_url": "https://www.showroom-live.com/48_MIYABI_NAGANO"
+  },
+  {
+    "jpnName": "水上 凜巳花",
+    "engName": "Rimika Mizukami",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "197353",
+    "web_url": "https://www.showroom-live.com/48_RIMIKA_MIZUKAMI"
+  },
+  {
+    "jpnName": "坂本 りの",
+    "engName": "Rino Sakamoto",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "197347",
+    "web_url": "https://www.showroom-live.com/48_RINO_SAKAMOTO"
+  },
+  {
+    "jpnName": "小川 紗奈",
+    "engName": "Sana Ogawa",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198480",
+    "web_url": "https://www.showroom-live.com/48_SANA_OGAWA"
+  },
+  {
+    "jpnName": "村上 和叶",
+    "engName": "Wakana Murakami",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198473",
+    "web_url": "https://www.showroom-live.com/48_WAKANA_MURAKAMI"
+  },
+  {
+    "jpnName": "栗山 梨奈",
+    "engName": "Kuriyama Rina",
+    "jpnTeam": "研究生",
+    "engTeam": "KKS",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "198483",
+    "web_url": "https://www.showroom-live.com/hkt48_5th_40"
   }
 ]
