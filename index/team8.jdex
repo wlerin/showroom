@@ -516,5 +516,17 @@
     "jpnName": "奥原 妃奈子",
     "engName": "Okuhara Hinako",
     "priority": 40
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/e86fa3102517",
+    "room_id": "238794",
+    "jpnName": "長 久玲奈",
+    "engName": "Cho Kurena",
+    "priority": 42,
+    "genre_id": 200
   }
 ]

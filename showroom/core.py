@@ -145,7 +145,7 @@ WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 # TODO: handle genre/category by individual rooms
 # currently this checks the onlive list for each of Music, Idol, and Talent/Model
 # schedules are still Idol only
-GENRE_IDS = {101, 102, 103, 104, 105, 106}
+GENRE_IDS = {101, 102, 103, 104, 105, 106, 107, 200}
 
 
 

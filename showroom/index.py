@@ -39,7 +39,11 @@ full_genre_map = {
     104: ("Voice Actor/Anime", "声優・アニメ", "Voice Actors & Anime"),
     105: ("Comedy/Talk Show", "お笑い・トーク", "Comedians/Talk Show"),
     106: ("Sports", "スポーツ", "Sports"),
+    107: ("Virtual", "バーチャル", "Virtual"),
     200: ("Amateur", "アマチュア", "Non-Professionals"),
+    703: ("Karaoke", "カラオケ", "Karaoke"),
+    704: ("Men's", "メンズ", "MEN'S"),
+    701: ("Birthday", "誕生日", "DOB")
 }
 genre_map = {key: val[0] for key, val in full_genre_map.items()}
 
