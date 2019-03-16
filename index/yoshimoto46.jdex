@@ -1,0 +1,24 @@
+[
+  {
+    "jpnName": "高野祐衣",
+    "engName": "Takano Yui",
+    "engGroup": "Yoshimotozaka46",
+    "jpnGroup": "吉本坂46",
+    "engTeam": "",
+    "jpnTeam": "",
+    "priority": 20,
+    "room_id": "124653",
+    "web_url": "https://www.showroom-live.com/yui-takano"
+  },
+  {
+    "jpnName": "三秋里歩",
+    "engName": "Miaki Riho",
+    "engGroup": "Yoshimotozaka46",
+    "jpnGroup": "吉本坂46",
+    "engTeam": "",
+    "jpnTeam": "",
+    "priority": 20,
+    "room_id": "124651",
+    "web_url": "https://www.showroom-live.com/riho-miaki"
+  }
+]
