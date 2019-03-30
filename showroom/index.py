@@ -15,16 +15,18 @@ index_logger = logging.getLogger('showroom.index')
 _filename_re = re.compile(
     r'''
         (?:\d{6}\ Showroom\ -\ )?
-        ([\w\ \-!\?’】！？、.]+?)
+        (.+)
         (?:\ \d{4,6})
         (?:\.mp4)?$
     ''',
     re.VERBOSE
 )
 
+
 def _get_index_path():
     abspath = os.path.abspath(__file__)
     return os.path.abspath(os.path.dirname(abspath) + '/../index')
+
 
 DEFAULT_INDEX_PATH = _get_index_path()
 
