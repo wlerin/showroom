@@ -791,5 +791,16 @@
     "priority": 20,
     "showroom_id": "198483",
     "web_url": "https://www.showroom-live.com/hkt48_5th_40"
+  },
+  {
+    "jpnName": "HKT48のヨカ×ヨカ！！",
+    "engName": "HKT48 no Yoka x Yoka",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "HKT48",
+    "engGroup": "HKT48",
+    "priority": 20,
+    "showroom_id": "195614",
+    "web_url": "https://www.showroom-live.com/hkt48_yoka_yoka"
   }
 ]
