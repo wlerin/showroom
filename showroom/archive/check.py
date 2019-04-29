@@ -270,5 +270,12 @@ def post_merge_check(check_file):
             print(*result, sep='\n', end='\n\n', file=outfp)
 
 
+def check_final(*, dirs=(), output_dir='.'):
+    check_dirs(dirs=dirs, output_dir=output_dir, prefix='final')
+    for target in dirs:
+        name = target.rsplit('/', 1)[-1]
+        outfile = os.path.join(output_dir, "final_{}_check.json".format(name))
+        post_merge_check(outfile)
+
     
      

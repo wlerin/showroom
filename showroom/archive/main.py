@@ -1,5 +1,5 @@
 import argparse
-from .check import check_dirs
+from .check import check_dirs, check_final
 from .compare import compare_archives
 from .prune import prune_archive, replace_archive
 from .profile import scrape_profile_pics
@@ -58,12 +58,17 @@ def build_parser():
     parser_profile.set_defaults(func=scrape_profile_pics)
 
     parser_trim = subparsers.add_parser('trim', help='Trim some seconds from the start of a video or videos.')
-    parser_trim.add_argument('--output-dir', '-o', help='Output directory for finished files. Required', required=True)
+    parser_trim.add_argument('--output-dir', '-o', help='Output directory for finished files. Required', default='.')
     parser_trim.add_argument('--trim-starts', '-s', action='append', help='Seconds from start to trim, for each video, use -1 for none', type=str)
     parser_trim.add_argument('--trim-ends', '-t', action='append', help='Time to cut the end of the video, repeat for each video.', type=str)
     parser_trim.add_argument('video_list', metavar='files', nargs='+', help='Files to trim')
     parser_trim.set_defaults(func=trim_videos)
 
+    parser_final = subparsers.add_parser('final', help='Final check')
+    parser_final.add_argument('dirs', nargs='+', help='Directories to check')
+    # prefix is automatically final
+    parser_final.add_argument('--output-dir', '-o', help='Output directory for results', default='.')
+    parser_final.set_defaults(func=check_final)
     return parser
 
 
