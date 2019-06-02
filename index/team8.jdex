@@ -528,5 +528,39 @@
     "engName": "Cho Kurena",
     "priority": 42,
     "genre_id": 200
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/09a6b3323918",
+    "room_id": "255412",
+    "jpnName": "中野 郁海",
+    "engName": "Nakano Ikumi",
+    "priority": 10,
+    "genre_id": 200
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Mashiro_Mitomo",
+    "room_id": "254126",
+    "jpnName": "御供 茉白",
+    "engName": "Mitomo Mashiro",
+    "priority": 40
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "チーム８",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8",
+    "web_url": "https://www.showroom-live.com/48_Rei_Fujizono",
+    "room_id": "254125",
+    "jpnName": "藤園 麗",
+    "engName": "Fujizono Rei",
+    "priority": 40
   }
 ]
