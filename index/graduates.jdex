@@ -141,5 +141,27 @@
     "jpnName": "原望奈美",
     "engName": "Hara Minami",
     "priority": 20
+  },
+  {
+    "jpnName": "上西 恵",
+    "engName": "Jonishi Kei",
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "jpnGroup": "NMB48",
+    "engGroup": "NMB48",
+    "priority": 20,
+    "room_id": "252963",
+    "web_url": "https://www.showroom-live.com/KEI_ROOM"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/yamadamarina",
+    "room_id": "182429",
+    "jpnName": "山田 麻莉奈",
+    "engName": "Yamada Marina",
+    "priority": 20,
+    "engGroup": "HKT48",
+    "jpnGroup": "HKT48"
   }
 ]
