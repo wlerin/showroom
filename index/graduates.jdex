@@ -163,5 +163,16 @@
     "priority": 20,
     "engGroup": "HKT48",
     "jpnGroup": "HKT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/hasegawarena",
+    "room_id": "256930",
+    "jpnName": "長谷川 玲奈",
+    "engName": "Hasegawa Rena",
+    "priority": 10,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
   }
 ]
