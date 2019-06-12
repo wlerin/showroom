@@ -174,5 +174,16 @@
     "priority": 10,
     "engGroup": "NGT48",
     "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/5029f3347498",
+    "room_id": "257350",
+    "jpnName": "佐藤 栞",
+    "engName": "Sato Shiori",
+    "priority": 30,
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
   }
 ]
