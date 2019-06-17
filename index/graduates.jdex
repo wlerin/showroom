@@ -185,5 +185,16 @@
     "priority": 30,
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/f0a6c3354300",
+    "room_id": "258298",
+    "jpnName": "谷川 聖",
+    "engName": "Tanikawa Hijiri",
+    "priority": 30,
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
   }
 ]
