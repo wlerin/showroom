@@ -56,7 +56,7 @@ from showroom.settings import settings as config
 # 960x540 (march kimi dare episodes)
 # 1280x720 (a single kimi dare episode)
 # 1920x1080 (ann vr)
-GOOD_HEIGHTS = (198, 360, 396, 720, 1080)
+GOOD_HEIGHTS = (198, 270, 360, 396, 720, 1080)
 
 # bitrate for upscaled videos, this is actually a bit too high
 DEF_BITRATE = '300k'
