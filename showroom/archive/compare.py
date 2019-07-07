@@ -57,6 +57,7 @@ def compare_rooms(main_room, alt_room):
 
     SIZE_IEC_MB = 2 ** 20
 
+    # changing these all to 0 is probably going to bias it in favour of whichever is checked first
     # TODO: drastically reduce the tolerances for top priority (< 8 or so) rooms
     def calc_max_time_diff(duration, priority):
         # this should never allow more than a minute of difference
@@ -70,7 +71,7 @@ def compare_rooms(main_room, alt_room):
             else:
                 break
 
-        return max_seconds
+        return 0 # max_seconds
 
         # while factor < 5:
         #     if factor > priority / factor:
@@ -96,7 +97,7 @@ def compare_rooms(main_room, alt_room):
             else:
                 break
 
-        return SIZE_IEC_MB*max_mib
+        return 0 # SIZE_IEC_MB*max_mib
 
         # factor = 1
         # while factor < 5:
