@@ -196,5 +196,16 @@
     "priority": 30,
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/riko_sugahara",
+    "room_id": "261084",
+    "jpnName": "長谷川 玲奈",
+    "engName": "Sugahara Riko",
+    "priority": 10,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
   }
 ]
