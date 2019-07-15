@@ -202,10 +202,21 @@
     "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/riko_sugahara",
     "room_id": "261084",
-    "jpnName": "長谷川 玲奈",
+    "jpnName": "菅原 りこ",
     "engName": "Sugahara Riko",
     "priority": 10,
     "engGroup": "NGT48",
     "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/c73513384335",
+    "room_id": "260197",
+    "jpnName": "阿部 芽唯",
+    "engName": "Abe Mei",
+    "priority": 10,
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
   }
 ]
