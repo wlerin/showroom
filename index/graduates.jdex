@@ -218,5 +218,16 @@
     "priority": 10,
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/room/profile?room_id=260654",
+    "room_id": "260654",
+    "jpnName": "山田 菜々美",
+    "engName": "Yamada Nanami",
+    "priority": 40,
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
   }
 ]
