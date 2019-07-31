@@ -271,6 +271,8 @@ def post_merge_check(check_file):
 
 
 def check_final(*, dirs=(), output_dir='.'):
+    if isinstance(dirs, str):
+        dirs = (dirs,)
     check_dirs(dirs=dirs, output_dir=output_dir, prefix='final')
     for target in dirs:
         name = target.rsplit('/', 1)[-1]
