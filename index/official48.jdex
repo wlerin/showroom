@@ -130,5 +130,16 @@
     "web_url": "https://www.showroom-live.com/nmb_syabekuri",
     "room_id": "222457",
     "priority": 20
+  },
+  {
+    "jpnGroup": "SDN48",
+    "engGroup": "SDN48",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnName": "SDN48結成10年記念前夜祭",
+    "engName": "SDN48 Official",
+    "web_url": "https://www.showroom-live.com/sdn48_official",
+    "room_id": "263484",
+    "priority": 20
   }
-] 
+]
