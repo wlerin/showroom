@@ -49,9 +49,7 @@ def get_iframes(filename, read_interval=None):
 def get_iframes2(filename, read_interval=None):
     """
     Get all iframes in a video.
-    
-    Works, but the read_interval doesn't perform as desired
-    
+        
     :param filename: path to video
     :param read_interval: A sequence of ffmpeg intervals separated by "," 
         see read_intervals here: https://www.ffmpeg.org/ffprobe.html for more information
