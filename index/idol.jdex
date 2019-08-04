@@ -53,5 +53,16 @@
     "jpnName": "溝口恵のgirls! Showroom",
     "engName": "Girls! Magazine",
     "priority": 20
+  },
+  {
+    "jpnGroup": "アイドル",
+    "engGroup": "Idol",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/tif_infocentre",
+    "room_id": "645",
+    "jpnName": "TIF INFO CENTRE",
+    "engName": "TIF Info Center",
+    "priority": 20
   }
 ]
