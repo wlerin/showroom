@@ -50,7 +50,7 @@ def get_iframes2(filename, read_interval=None):
     """
     Get all iframes in a video.
     
-    Doesn't seem to actually work.
+    Works, but the read_interval doesn't perform as desired
     
     :param filename: path to video
     :param read_interval: A sequence of ffmpeg intervals separated by "," 
@@ -76,7 +76,8 @@ def get_iframes2(filename, read_interval=None):
         return None
     else:
         r = json.loads(results)
-        return [packet['pts_time'] for packet in r['packets'] if 'K' in packet['flags']]
+        iframes = [float(packet['pts_time']) for packet in r['packets'] if 'K' in packet['flags']]
+        return iframes
 
 
 def probe_video(filename, stream='v', entries=()):

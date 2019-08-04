@@ -152,8 +152,11 @@ def seconds_to_time_code(seconds):
     try:
         seconds = float(seconds or 0)
     except ValueError:
-        print('Failed to parse seconds value: {}'.format(seconds))
-        return None  # 
+        if seconds is None:
+            return 0
+        else:
+            print('Failed to parse seconds value: {}'.format(seconds))
+            return None 
     
     if seconds <= 0:
         return None
@@ -185,15 +188,13 @@ def trim_videos(video_list, output_dir, trim_starts=(), trim_ends=()):
         if trim_end:
             trim_end = time_code_to_seconds(trim_end)
 
-        iframes = None
+        start_pts = None
         if trim_start:
-            read_interval = '%{}'.format(trim_start)
-            iframes = get_iframes2(video, read_interval)
-        start_pts = float(iframes[-1]) if iframes else None
+            start_pts = float(detect_start_iframe(video, trim_start))
         video_name, video_ext = os.path.split(video)[-1].rsplit('.', 1)
         final_video = '{}-[{}-{}].{}'.format(
             video_name, 
-            seconds_to_time_code(start_pts) or '',
+            seconds_to_time_code(start_pts) or '0',
             seconds_to_time_code(trim_end) or '',
             video_ext
         )
