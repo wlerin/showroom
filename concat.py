@@ -143,19 +143,24 @@ else:
 _ffmpeg = config.ffmpeg.path
 _ffprobe = os.path.join(os.path.split(_ffmpeg)[0], 'ffprobe')
 
-def probe_file(filename, streams):
+
+def probe_file(filename):
     if _iswin32:
         extra_args = dict(shell=True)
     else:
         extra_args = dict()
 
+    # So, I need to get both audio and video stream data
+    # Simplest way to do that is to fetch all the streams
+    # and map the audio stream to an audio key and the video to a video key etc.
     try:
-        results = check_output(
+        data = check_output(
             [
             _ffprobe,
             '-loglevel', '16',
-            '-show_entries', 'stream={}'.format(','.join(streams)),
-            '-select_streams', 'v',
+            # '-show_entries', 'stream={}'.format(','.join(streams)),
+            # '-select_streams', 'v,a',
+            '-show_streams',
             '-i', filename,
             '-of', 'json'
             ],
@@ -164,8 +169,32 @@ def probe_file(filename, streams):
         )
     except CalledProcessError:
         return None
-    else:
-        return results
+    try:
+        streams = json.loads(data)['streams']
+    except KeyError:
+        # TODO: log this
+        return None
+
+    results = {}
+
+    for stream in streams:
+        if stream['codec_type'] == 'video':
+            if 'video' in results:
+                # TODO: log this
+                print('Found multiple video streams in {}, ignoring extra stream info'.format(filename))
+            else:
+                results['video'] = stream
+        elif stream['codec_type'] == 'audio':
+            if 'audio' in results:
+                print('Found multiple audio streams in {}, ignoring extra stream info'.format(filename))
+            else:
+                results['audio'] = stream
+        else:
+            print('Found unknown stream type in {}: {}'.format(filename, stream['codec_type']))
+    if len(results) == 1:
+        print('Found only one stream in', filename)
+        print(json.dumps(results, indent=2))
+    return results
 
 
 def get_source_videos(target_ext):
@@ -187,13 +216,9 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
     members = set()
     to_resize=[]
     for file in files:
-        results = probe_file(file, streams=('duration', 'height'))
+        results = probe_file(file)
         if results:
-            try:
-                stream = json.loads(results)['streams'][0]
-            except IndexError:
-                continue
-            if float(stream['duration']) >= 0.001 and int(stream['height']) == 198:
+            if float(stream['video']['duration']) >= 0.001 and int(stream['video']['height']) == 198:
                 to_resize.append(file)
 
     if len(to_resize) > 0:
@@ -259,8 +284,8 @@ def generate_concat_files(target_dir, target_ext, max_gap):
     
     member_dict = {}
     for file in files:
-        results = probe_file(file, streams=('duration', 'height'))
-        if not results:
+        streams = probe_file(file)
+        if not streams:
             continue
 
         member_name = file.rsplit(' ', 1)[0]
@@ -269,23 +294,24 @@ def generate_concat_files(target_dir, target_ext, max_gap):
 
         new_video = {"start_time": get_start_seconds(file)}
 
-        try:
-            stream = json.loads(results)['streams'][0]
-        except IndexError:
-            new_video['valid']  = False
-            print('failed to load ffprobe results')
-            print(results)
-        else:
-            new_video['file']     = file
-            new_video['duration'] = float(stream['duration'])
-            new_video['height']   = int(stream['height'])
-            if new_video['duration'] >= 0.001:
-                if new_video['height'] in GOOD_HEIGHTS or (new_video['height'] == 540 and ("Kimi Dare" in member_name or "Official" in member_name)):
-                    new_video['valid']  = True
-                else:
-                    new_video['valid'] = False
+        # try:
+        #     stream = json.loads(results)['streams'][0]
+        # except IndexError:
+        #     new_video['valid']  = False
+        #     print('failed to load ffprobe results')
+        #     print(results)
+        # else:
+        new_video['file']     = file
+        new_video['duration'] = float(streams['video']['duration'])
+        new_video['height']   = int(streams['video']['height'])
+        new_video['audio_sample_rate'] = int(streams['audio']['sample_rate'])
+        if new_video['duration'] >= 0.001:
+            if new_video['height'] in GOOD_HEIGHTS or (new_video['height'] == 540 and ("Kimi Dare" in member_name or "Official" in member_name)):
+                new_video['valid']  = True
             else:
-                new_video['valid']  = False
+                new_video['valid'] = False
+        else:
+            new_video['valid']  = False
         
         if new_video['valid']:
             member_dict[member_name].append(new_video)
@@ -301,6 +327,7 @@ def generate_concat_files(target_dir, target_ext, max_gap):
         filename = '{} {}.{}.{}'.format(member, get_start_hhmm(first_video['start_time']), target_ext, info_ext)
         info = {'files': []}
         info['height'] = first_video['height']
+        info['audio_sample_rate'] = first_video['audio_sample_rate']
         info['last_time'] = first_video['start_time'] + first_video['duration']
         info['files'].append(first_video['file'])
         return filename, info
@@ -324,7 +351,8 @@ def generate_concat_files(target_dir, target_ext, max_gap):
             continue
         for item in member_dict[member][1:]:
             if (item['start_time'] >= working['last_time'] + max_gap
-                    or item['height'] != working['height']):
+                    or item['height'] != working['height']
+                    or item['audio_sample_rate'] != working['audio_sample_rate']):
                 if filename in working:
                     # This needs to be dealt with by hand for now
                     print('Tried to add duplicate concat file name: {}'.format(filename))
