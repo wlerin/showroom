@@ -218,7 +218,7 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
     for file in files:
         results = probe_file(file)
         if results:
-            if float(stream['video']['duration']) >= 0.001 and int(stream['video']['height']) == 198:
+            if float(results['video']['duration']) >= 0.001 and int(results['video']['height']) == 198:
                 to_resize.append(file)
 
     if len(to_resize) > 0:
