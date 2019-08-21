@@ -121,17 +121,6 @@
     "jpnGroup": "AKB48"
   },
   {
-    "jpnTeam": "チームA",
-    "engTeam": "Team A",
-    "web_url": "https://www.showroom-live.com/48_Moe_Goto",
-    "jpnName": "後藤 萌咲",
-    "engName": "Goto Moe",
-    "priority": 8,
-    "room_id": "61572",
-    "engGroup": "AKB48",
-    "jpnGroup": "AKB48"
-  },
-  {
     "jpnTeam": "チームB",
     "engTeam": "Team B",
     "web_url": "https://www.showroom-live.com/48_Yukari_Sasaki",

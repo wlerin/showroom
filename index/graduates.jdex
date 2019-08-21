@@ -229,5 +229,27 @@
     "priority": 40,
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/syoji_nagisa",
+    "priority": 10,
+    "jpnName": "庄司なぎさ",
+    "engName": "Shoji Nagisa",
+    "room_id": "252943",
+    "engGroup": "AKB48",
+    "jpnGroup": "ハープスター"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/04e793461162",
+    "jpnName": "後藤 萌咲",
+    "engName": "Goto Moe",
+    "priority": 8,
+    "room_id": "267158",
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
   }
 ]
