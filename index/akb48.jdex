@@ -889,16 +889,5 @@
     "room_id": "89465",
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
-  },
-  {
-    "jpnTeam": "",
-    "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/syoji_nagisa",
-    "priority": 10,
-    "jpnName": "庄司なぎさ",
-    "engName": "Shoji Nagisa",
-    "room_id": "252943",
-    "engGroup": "AKB48",
-    "jpnGroup": "ハープスター"
-  }  
+  }
 ]
