@@ -95,13 +95,16 @@ def check_group(target_dir, prefix, target_ext='mp4'):
                                       'frames': int(v_info.get('nb_frames', 0))}
                 new_video['audio'] = {'duration': float(a_info.get('duration', 0)),
                                       'bit_rate': int(a_info.get('bit_rate', 0))}
-                if (new_video['video']['duration'] >= 0.001
-                    and (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name)):
-                    new_video['valid'] = True
-                else:
+                if (new_video['video']['duration'] < 0.001):
                     with open(logfile, 'a', encoding='utf8') as outfp:
-                        print('{} is invalid'.format(file), file=outfp)
+                        print('{} video is too short'.format(file), file=outfp)
                     new_video['valid'] = False
+                elif not (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name):
+                    with open(logfile, 'a', encoding='utf8') as outfp:
+                        print('{} has bad video height: {}'.format(file, new_video['video']['height']), file=outfp)
+                    new_video['valid'] = False
+                else:
+                    new_video['valid'] = True
         else:
             new_video['valid'] = False
         member_dict[member_name]['files'].append(new_video)
