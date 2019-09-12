@@ -56,7 +56,8 @@ from showroom.settings import settings as config
 # 960x540 (march kimi dare episodes)
 # 1280x720 (a single kimi dare episode)
 # 1920x1080 (ann vr)
-GOOD_HEIGHTS = (180, 198, 270, 360, 396, 720, 1080)
+# GOOD_HEIGHTS = (180, 198, 270, 360, 396, 720, 1080)
+BAD_HEIGHTS = (540,)
 
 # bitrate for upscaled videos, this is actually a bit too high
 DEF_BITRATE = '300k'
@@ -209,12 +210,14 @@ def get_source_videos(target_ext):
 
 
 def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
+    # TODO: scale up to the tallest video in a "stream"
     oldcwd = os.getcwd()
     os.chdir(target_dir)
     files = get_source_videos(target_ext)
 
     members = set()
     to_resize=[]
+
     for file in files:
         results = probe_file(file)
         if results:
@@ -303,15 +306,16 @@ def generate_concat_files(target_dir, target_ext, max_gap):
         # else:
         new_video['file']     = file
         new_video['duration'] = float(streams['video']['duration'])
+        new_video['bit_rate'] = int(streams['video']['bit_rate'])
         new_video['height']   = int(streams['video']['height'])
         new_video['audio_sample_rate'] = int(streams['audio']['sample_rate'])
         if new_video['duration'] >= 0.001:
-            if new_video['height'] in GOOD_HEIGHTS or (new_video['height'] == 540 and ("Kimi Dare" in member_name or "Official" in member_name)):
-                new_video['valid']  = True
+            if new_video['height'] in BAD_HEIGHTS and new_video['duration'] < 90 and new_video['bit_rate'] < 10000:
+                new_video['valid']  = False
             else:
-                new_video['valid'] = False
+                new_video['valid'] = True
         else:
-            new_video['valid']  = False
+            new_video['valid'] = False
         
         if new_video['valid']:
             member_dict[member_name].append(new_video)

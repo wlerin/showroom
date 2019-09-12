@@ -5,7 +5,7 @@ from math import floor
 from collections import OrderedDict
 
 from .probe import probe_video
-from .constants import GOOD_HEIGHTS, ENGLISH_INDEX
+from .constants import BAD_HEIGHTS, ENGLISH_INDEX
 from .models import VideoGroup
 
 
@@ -99,9 +99,16 @@ def check_group(target_dir, prefix, target_ext='mp4'):
                     with open(logfile, 'a', encoding='utf8') as outfp:
                         print('{} video is too short'.format(file), file=outfp)
                     new_video['valid'] = False
-                elif not (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name):
+                # elif not (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name):
+                #     with open(logfile, 'a', encoding='utf8') as outfp:
+                #         print('{} has bad video height: {}'.format(file, new_video['video']['height']), file=outfp)
+                #     new_video['valid'] = False
+                elif (new_video['video']['height'] in BAD_HEIGHTS
+                        and new_video['video']['bit_rate'] < 10000
+                        and new_video['video']['duration'] < 90):
+                    # black screen videos tend to be about 7200 bps, last for ~60 seconds, and have a height of 540
                     with open(logfile, 'a', encoding='utf8') as outfp:
-                        print('{} has bad video height: {}'.format(file, new_video['video']['height']), file=outfp)
+                        print('{} video matches profile of a black screen'.format(file), file=outfp)
                     new_video['valid'] = False
                 else:
                     new_video['valid'] = True
