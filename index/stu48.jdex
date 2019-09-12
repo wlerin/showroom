@@ -47,17 +47,6 @@
     "engGroup": "STU48",
     "priority": 20,
     "jpnTeam": "1期生",
-    "engName": "Ichioka Ayumi",
-    "engTeam": "1st Gen",
-    "jpnName": "市岡 愛弓",
-    "web_url": "https://www.showroom-live.com/48_ICHIOKA_AYUMI",
-    "jpnGroup": "STU48",
-    "room_id": "96999"
-  },
-  {
-    "engGroup": "STU48",
-    "priority": 20,
-    "jpnTeam": "1期生",
     "engName": "Imamura Mitsuki",
     "engTeam": "1st Gen",
     "jpnName": "今村 美月",
@@ -108,17 +97,6 @@
     "web_url": "https://www.showroom-live.com/48_IWATA_HINA",
     "jpnGroup": "STU48",
     "room_id": "96992"
-  },
-  {
-    "engGroup": "STU48",
-    "priority": 20,
-    "jpnTeam": "1期生",
-    "engName": "Kadota Momona",
-    "engTeam": "1st Gen",
-    "jpnName": "門田 桃奈",
-    "web_url": "https://www.showroom-live.com/48_KADOTA_MOMONA",
-    "jpnGroup": "STU48",
-    "room_id": "97433"
   },
   {
     "engGroup": "STU48",
@@ -341,24 +319,13 @@
     "room_id": "97446"
   },
   {
-    "jpnName": "溝口 亜以子",
-    "engName": "Mizoguchi Aiko",
-    "jpnTeam": "ドラフト研究生",
-    "engTeam": "Draft KKS",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "web_url": "https://www.showroom-live.com/48_MIZOGUCHI_AIKO",
-    "room_id": "146864"
-  },
-  {
     "jpnName": "沖 侑果",
     "engName": "Oki Yuuka",
     "jpnTeam": "ドラフト研究生",
-    "engTeam": "Draft KKS",
+    "engTeam": "Draft 3rd Gen",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
-    "priority": 20,
+    "priority": 5,
     "web_url": "https://www.showroom-live.com/48_OKI_YUKA",
     "room_id": "146900"
   },
@@ -366,7 +333,7 @@
     "jpnName": "中村 舞",
     "engName": "Nakamura Mai",
     "jpnTeam": "ドラフト研究生",
-    "engTeam": "Draft KKS",
+    "engTeam": "Draft 3rd Gen",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
@@ -377,7 +344,7 @@
     "jpnName": "信濃 宙花",
     "engName": "Shinano Soraha",
     "jpnTeam": "ドラフト研究生",
-    "engTeam": "Draft KKS",
+    "engTeam": "Draft 3rd Gen",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
@@ -385,10 +352,43 @@
     "room_id": "147003"
   },
   {
+    "engGroup": "STU48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Ichioka Ayumi",
+    "engTeam": "Graduate",
+    "jpnName": "市岡 愛弓",
+    "web_url": "https://www.showroom-live.com/48_ICHIOKA_AYUMI",
+    "jpnGroup": "STU48",
+    "room_id": "96999"
+  },
+  {
+    "engGroup": "STU48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Kadota Momona",
+    "engTeam": "Graduate",
+    "jpnName": "門田 桃奈",
+    "web_url": "https://www.showroom-live.com/48_KADOTA_MOMONA",
+    "jpnGroup": "STU48",
+    "room_id": "97433"
+  },
+  {
+    "jpnName": "溝口 亜以子",
+    "engName": "Mizoguchi Aiko",
+    "jpnTeam": "元ドラフト研究生",
+    "engTeam": "Former KKS",
+    "jpnGroup": "STU48",
+    "engGroup": "STU48",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/48_MIZOGUCHI_AIKO",
+    "room_id": "146864"
+  },
+  {
     "jpnName": "由良 朱合",
     "engName": "Yura Akari",
-    "jpnTeam": "ドラフト研究生",
-    "engTeam": "Draft KKS",
+    "jpnTeam": "元ドラフト研究生",
+    "engTeam": "Former KKS",
     "jpnGroup": "STU48",
     "engGroup": "STU48",
     "priority": 20,
