@@ -526,5 +526,125 @@
     "priority": 20,
     "room_id": "70819",
     "web_url": "https://www.showroom-live.com/46_yodayuuki"
+  },{
+    "jpnName": "遠藤 さくら",
+    "engName": "Endo Sakura",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199902",
+    "web_url": "https://www.showroom-live.com/46_endosakura"
+  },
+  {
+    "jpnName": "早川 聖来",
+    "engName": "Hayakawa Seira",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199895",
+    "web_url": "https://www.showroom-live.com/46_hayakawaseira"
+  },
+  {
+    "jpnName": "掛橋 沙耶香",
+    "engName": "Kakehashi Sayaka",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "201120",
+    "web_url": "https://www.showroom-live.com/46_kakehashisayaka"
+  },
+  {
+    "jpnName": "賀喜 遥香",
+    "engName": "Kaki Haruka",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199343",
+    "web_url": "https://www.showroom-live.com/46_kakiharuka"
+  },
+  {
+    "jpnName": "金川 紗耶",
+    "engName": "Kanagawa Saya",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "201106",
+    "web_url": "https://www.showroom-live.com/46_kanagawasaya"
+  },
+  {
+    "jpnName": "北川 悠理",
+    "engName": "Kitagawa Yuri",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "200832",
+    "web_url": "https://www.showroom-live.com/46_kitagawayuri"
+  },
+  {
+    "jpnName": "清宮 レイ",
+    "engName": "Seimiya Rei",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199334",
+    "web_url": "https://www.showroom-live.com/46_seimiyarei"
+  },
+  {
+    "jpnName": "柴田 柚菜",
+    "engName": "Shibata Yuna",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199333",
+    "web_url": "https://www.showroom-live.com/46_shibatayuna"
+  },
+  {
+    "jpnName": "田村 真佑",
+    "engName": "Tamura Mayu",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199316",
+    "web_url": "https://www.showroom-live.com/46_tamuramayu"
+  },
+  {
+    "jpnName": "筒井 あやめ",
+    "engName": "Tsutsui Ayame",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "199900",
+    "web_url": "https://www.showroom-live.com/46_tsutsuiayame"
+  },
+  {
+    "jpnName": "矢久保 美緒",
+    "engName": "Yakubo Mio",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "乃木坂46",
+    "engGroup": "Nogizaka46",
+    "priority": 30,
+    "room_id": "200838",
+    "web_url": "https://www.showroom-live.com/46_yakubomio"
   }
 ]

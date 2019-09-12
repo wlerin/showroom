@@ -218,5 +218,104 @@
     "priority": 20,
     "room_id": "122672",
     "web_url": "https://www.showroom-live.com/46_NERU_NAGAHAMA"
+  },
+  {
+    "jpnName": "藤吉 夏鈴",
+    "engName": "Fujiyoshi Karin",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "201093",
+    "web_url": "https://www.showroom-live.com/46_KARIN_FUJIYOSHI"
+  },
+  {
+    "jpnName": "井上 梨名",
+    "engName": "Inoue Rina",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "201108",
+    "web_url": "https://www.showroom-live.com/46_RINA_INOUE"
+  },
+  {
+    "jpnName": "松田 里奈",
+    "engName": "Matsuda Rina",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "199910",
+    "web_url": "https://www.showroom-live.com/46_RINA_MATSUDA"
+  },
+  {
+    "jpnName": "松平 璃子",
+    "engName": "Matsudaira Riko",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "200831",
+    "web_url": "https://www.showroom-live.com/46_RIKO_MATSUDAIRA"
+  },
+  {
+    "jpnName": "森田 ひかる",
+    "engName": "Morita Hikaru",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "199909",
+    "web_url": "https://www.showroom-live.com/46_HIKARU_MORITA"
+  },
+  {
+    "jpnName": "関 有美子",
+    "engName": "Seki Yumiko",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "199904",
+    "web_url": "https://www.showroom-live.com/46_YUMIKO_SEKI"
+  },
+  {
+    "jpnName": "武元 唯衣",
+    "engName": "Takemoto Yui",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "199913",
+    "web_url": "https://www.showroom-live.com/46_YUI_TAKEMOTO"
+  },
+  {
+    "jpnName": "田村 保乃",
+    "engName": "Tamura Hono",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "201122",
+    "web_url": "https://www.showroom-live.com/46_HONO_TAMURA"
+  },
+  {
+    "jpnName": "山﨑 天",
+    "engName": "Yamasaki Ten",
+    "jpnTeam": "2期生",
+    "engTeam": "2nd Gen",
+    "jpnGroup": "欅坂46",
+    "engGroup": "Keyakizaka46",
+    "priority": 30,
+    "room_id": "201098",
+    "web_url": "https://www.showroom-live.com/46_TEN_YAMASAKI"
   }
 ]

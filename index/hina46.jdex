@@ -218,5 +218,16 @@
     "priority": 20,
     "room_id": "134056",
     "web_url": "https://www.showroom-live.com/46_AKARI_NIBU"
+  },
+  {
+    "jpnName": "上村 ひなの",
+    "engName": "Kamimura Hinano",
+    "jpnTeam": "3期生",
+    "engTeam": "3rd Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "199345",
+    "web_url": "https://www.showroom-live.com/46_HINANO_KAMIMURA"
   }
 ]
