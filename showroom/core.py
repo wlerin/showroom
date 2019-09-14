@@ -231,9 +231,10 @@ class Downloader(object):
 
     TESTING:
         hls recording fails awfully. find out why
-        For the failure detection to work properly, must ffmpeg be compiled with librtmp?
+        For the failure detection to work properly, must ffmpeg be compiled with librtmp? (yes)
     """
-    def __init__(self, room, client: ShowroomClient, settings, default_protocol='rtmp'):
+    # TODO: reset this to RTMP once testing is finished. Allow it to be changed via config.
+    def __init__(self, room, client: ShowroomClient, settings, default_protocol='hls'):
         self._room = room
         self._client = client
 
@@ -336,6 +337,8 @@ class Downloader(object):
         # Some streams seem to start fine with up to 4 pings before beginning download?
         # More investigation is needed
         max_pings = 1 + self._pingouts
+        # timeout after 1 minute
+        timeout = datetime.datetime.now() + datetime.timedelta(minutes=1)
         try:
             for line in self._process.stderr:
                 # TODO: add mpegts or other variants depending on the container settings? or no?
@@ -385,6 +388,17 @@ class Downloader(object):
                     time.sleep(0.1)
                     # process will be garbage collected when the next one is started, or the Watcher dies
                     # self._process = None
+                # This *should* work for newer builds of FFmpeg without librtmp.
+                # Only question is whether 1 minute is too long (or too short).
+                elif datetime.datetime.now() > timeout:
+                    core_logger.debug("Download of {} timed out".format(self.outfile))
+                    self.stop()
+                    time.sleep(0.1)
+                    self._process.stderr.close()
+                    time.sleep(0.1)
+                else:
+                    time.sleep(0.2)
+
         except ValueError:
             core_logger.debug('ffmpeg stderr closed unexpectedly')
 
@@ -447,15 +461,20 @@ class Downloader(object):
         hls_streams = []
         for stream in data:
             if stream['type'] == 'rtmp':
-                rtmp_streams.append((stream['quality'], '/'.join((stream['url'], stream['stream_name']))))
+                rtmp_streams.append((int(stream['quality']), '/'.join((stream['url'], stream['stream_name']))))
             elif stream['type'] == 'hls':
-                hls_streams.append((stream['quality'], stream['url']))
+                hls_streams.append((int(stream['quality']), stream['url']))
         try:
             new_rtmp_url = sorted(rtmp_streams)[-1][1]
+        except IndexError as e:
+            core_logger.warn("Caught IndexError while reading RTMP url: {}\n{}".format(e, data))
+            new_rtmp_url = ""
+
+        try:
             new_hls_url = sorted(hls_streams)[-1][1]
         except IndexError as e:
-            core_logger.warn("Caught IndexError while fetching streams: {}\n{}".format(e, data))
-            return
+            core_logger.warn("Caught IndexError while reading HLS url: {}\n{}".format(e, data))
+            new_hls_url = ""
 
         with self._lock:
             if new_rtmp_url != self.rtmp_url:
@@ -463,11 +482,11 @@ class Downloader(object):
                 # TODO: Trigger this message when the stream first goes live, from elsewhere
                 # print('Downloading {}\'s Showroom'.format(self.room.name))
                 # self.announce((self.web_url, self.stream_url))
-                pass
+                core_logger.debug("Found new RTMP url: {}".format(new_rtmp_url))
 
             if new_hls_url != self.hls_url:
                 # TODO: log url change
-                pass
+                core_logger.debug("Found new HLS url: {}".format(new_hls_url))
 
             self._rtmp_url = new_rtmp_url
             self._hls_url = new_hls_url
@@ -475,7 +494,10 @@ class Downloader(object):
     def update_streaming_url_web(self):
         """Updates streaming urls from the showroom website.
         
-        Fallback if api changes again"""
+        Fallback if api changes again
+
+        But pretty sure this doesn't work anymore
+        """
         # TODO: add an endpoint for fetching the browser page
         r = self._client._session.get(self._room.long_url)
 
@@ -535,7 +557,6 @@ class Downloader(object):
         Returns:
             datetime object representing the time the download started
         """
-        self.update_streaming_url()
         tokyo_time = datetime.datetime.now(tz=TOKYO_TZ)
         temp, dest, out = format_name(self._rootdir,
                                       strftime(tokyo_time, FULL_DATE_FMT),
@@ -558,14 +579,25 @@ class Downloader(object):
             # maybe too much
         normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
 
+        self.update_streaming_url()
+
+        # Fall back to HLS if no RTMP stream available
+        # Better to do this here or in update_streaming_url?
+        # There's a possible race condition here, if some external thread modifies either of these
+        if not self._rtmp_url and self._protocol == 'rtmp':
+            self._protocol = 'hls'
+
         extra_args = []
-        if self._ffmpeg_container == 'ts':
-            extra_args.extend(['-bsf:v', 'h264_mp4toannexb'])
-        elif self.protocol == 'hls':
-            extra_args.extend(['-bsf:a', 'aac_adtstoasc'])
-        elif self._ffmpeg_container != 'mp4':
-            # TODO: support additional container formats
-            self._ffmpeg_container = 'mp4'
+        # force using TS container with HLS
+        if self.protocol == 'hls':
+            self._ffmpeg_container = 'ts'
+
+        # I don't think this is needed?
+        # if self._ffmpeg_container == 'ts':
+        #     extra_args.extend(['-bsf:v', 'h264_mp4toannexb'])
+        # elif self._ffmpeg_container != 'mp4':
+        #     # TODO: support additional container formats, e.g. FLV
+        #     self._ffmpeg_container = 'mp4'
 
         self._process = subprocess.Popen([
             self._ffmpeg_path,
