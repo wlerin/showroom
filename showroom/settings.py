@@ -372,7 +372,6 @@ class ShowroomSettings(SettingsDict):
         self._formatting = True
         # TODO: add some properties like e.g. curr_time, curr_date that can be including in formatting specifiers
 
-    # TODO: check that this all works
     @classmethod
     def from_file(cls, path=None):
         new = cls(DEFAULTS)
@@ -393,7 +392,6 @@ class ShowroomSettings(SettingsDict):
 
         new = cls.from_file(path=args.get('config', None))
 
-        # TODO: translate args to settings keys
         args_data = {}
         for key in args:
             if args[key] is not None and key in ARGS_TO_SETTINGS:
