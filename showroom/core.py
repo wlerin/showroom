@@ -233,8 +233,7 @@ class Downloader(object):
         hls recording fails awfully. find out why
         For the failure detection to work properly, must ffmpeg be compiled with librtmp? (yes)
     """
-    # TODO: reset this to RTMP once testing is finished. Allow it to be changed via config.
-    def __init__(self, room, client: ShowroomClient, settings, default_protocol='hls'):
+    def __init__(self, room, client: ShowroomClient, settings, default_protocol='rtmp'):
         self._room = room
         self._client = client
 
