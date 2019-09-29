@@ -1,27 +1,5 @@
 [
   {
-    "jpnGroup": "monogatari",
-    "engGroup": "monogatari",
-    "jpnTeam": "",
-    "engTeam": "",
-    "web_url": "https://www.showroom-live.com/usa_monoga",
-    "room_id": "139526",
-    "jpnName": "柊宇咲",
-    "engName": "Hiiragi Usa",
-    "priority": 5
-  },
-  {
-    "jpnGroup": "monogatari",
-    "engGroup": "monogatari",
-    "jpnTeam": "",
-    "engTeam": "",
-    "web_url": "https://www.showroom-live.com/Monoga_tari",
-    "room_id": "139409",
-    "jpnName": "monogatariのSHOWROOM",
-    "engName": "monogatari Official Room",
-    "priority": 20
-  },
-  {
     "jpnGroup": "アイドル",
     "engGroup": "Idol",
     "jpnTeam": "",
@@ -63,6 +41,17 @@
     "room_id": "645",
     "jpnName": "TIF INFO CENTRE",
     "engName": "TIF Info Center",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "アイドル",
+    "engGroup": "Idol",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/idolclub",
+    "room_id": "235424",
+    "jpnName": "渋谷LOFT9 アイドル倶楽部",
+    "engName": "Shibuya Loft Idol Club",
     "priority": 20
   }
 ]

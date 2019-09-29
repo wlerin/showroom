@@ -1,0 +1,35 @@
+[
+  {
+    "jpnGroup": "monogatari",
+    "engGroup": "monogatari",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/usa_monoga",
+    "room_id": "139526",
+    "jpnName": "柊宇咲",
+    "engName": "Hiiragi Usa",
+    "priority": 5
+  },
+  {
+    "jpnGroup": "monogatari",
+    "engGroup": "monogatari",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/Monoga_tari",
+    "room_id": "139409",
+    "jpnName": "monogatariのSHOWROOM",
+    "engName": "monogatari Official Room",
+    "priority": 20
+  },
+  {
+    "jpnGroup": "monogatari",
+    "engGroup": "monogatari",
+    "jpnTeam": "",
+    "engTeam": "",
+    "web_url": "https://www.showroom-live.com/tina_monogatari",
+    "room_id": "268843",
+    "jpnName": "工藤茶南の早朝",
+    "engName": "Kudo Tina",
+    "priority": 5
+  }
+]
