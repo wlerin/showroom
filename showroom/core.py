@@ -117,6 +117,8 @@ from heapq import heapify, heappush, heappop
 from json.decoder import JSONDecodeError
 from queue import Queue  # Empty as QueueEmpty
 
+from requests.exceptions import HTTPError
+
 from showroom.api import ShowroomClient
 
 # from .message import ShowroomMessage
@@ -812,7 +814,11 @@ class Watcher(object):
         """Checks if the stream is live or not.
 
         This actually checks the website"""
-        self._live = self._client.is_live(self.room_id)
+        try:
+            self._live = self._client.is_live(self.room_id)
+        except HTTPError as e:
+            core_logger.warn('Caught HTTPError while checking room\'s live status: {}'.format(e))
+            self._live = False
         return self._live
 
     def stop(self):
@@ -1199,6 +1205,9 @@ class WatchManager(object):
             self._schedule_update_thread.daemon = True
             self._schedule_update_thread.start()
 
+        self.__schedule_warned = False
+        self.__onlives_warned = False
+
     def __len__(self):
         return len(self.watchers)
 
@@ -1250,7 +1259,18 @@ class WatchManager(object):
 
     def update_lives(self):
         """Looks for unexpected live rooms."""
-        onlives = self.client.onlives() or []
+        try:
+            onlives = self.client.onlives() or []
+        except HTTPError as e:
+            if not self.__onlives_warned:
+                if e.response.status_code >= 400:
+                    core_logger.warn('Fetching onlives failed with error: {}'.format(e))
+                else:
+                    # I don't think any of these would actually raise?
+                    core_logger.warn('Fetching onlives failed unexpectedly: {}'.format(e))
+                self.__onlives_warned = True
+            return
+        self.__onlives_warned = False
 
         # temporary fix for getting multiple genres
         for livelist in onlives:
@@ -1289,11 +1309,23 @@ class WatchManager(object):
         #   "view_num": 9662
         # core_logger.debug('Checking idol lives')
 
-
     def update_schedule(self):
         """Checks the schedule and adds watchers for any new rooms found."""
         # TODO: get multiple genres
-        upcoming = self.client.upcoming(genre_id=102) or []
+        try:
+            upcoming = self.client.upcoming(genre_id=102) or []
+        except HTTPError as e:
+            if not self.__schedule_warned:
+                if e.response.status_code >= 500:
+                    core_logger.warn('Fetching schedule failed temporarily: {}'.format(e))
+                elif e.response.status_code >= 400:
+                    core_logger.warn('Fetching schedule failed permanently: {}'.format(e))
+                else:
+                    # I don't think any of these would actually raise?
+                    core_logger.warn('Fetching onlives failed unexpectedly: {}'.format(e))
+                self.__schedule_warned = True
+            return
+        self.__schedule_warned = False
 
         for item in [e for e in upcoming if str(e['room_id']) in self.index]:
             start_time = datetime.datetime.fromtimestamp(float(item['next_live_start_at']), 
