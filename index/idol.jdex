@@ -53,5 +53,16 @@
     "jpnName": "渋谷LOFT9 アイドル倶楽部",
     "engName": "Shibuya Loft Idol Club",
     "priority": 20
+  },
+  {
+    "jpnGroup": "アイドル",
+    "engGroup": "Idol",
+    "jpnTeam": "たけやま3.5",
+    "engTeam": "Takeyama3.5",
+    "web_url": "https://www.showroom-live.com/nba_b_hinaho0303",
+    "room_id": "108198",
+    "jpnName": "たけやま3.5 ひなほのゆる部屋",
+    "engName": "Takeda Hinaho",
+    "priority": 20
   }
 ]
