@@ -184,5 +184,16 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/yamainu2019",
     "room_id": "230381"
+  },
+  {
+    "jpnName": "AKB48メンバーとリアルタイム対戦！？『逆転オセロニア』",
+    "engName": "AKB48 to Othellonia Real Time Battle",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "AKB48",
+    "engGroup": "AKB48",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/othellonia_akb48",
+    "room_id": "274235"
   }
 ]
