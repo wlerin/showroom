@@ -251,5 +251,27 @@
     "room_id": "267158",
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
+  },
+  {
+    "jpnTeam": "元チーム8メンバー",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/ed55e1702678",
+    "priority": 30,
+    "jpnName": "谷 優里",
+    "engName": "Tani Yuri",
+    "room_id": "130692",
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
+  },
+  {
+    "jpnTeam": "元チーム8メンバー",
+    "engTeam": "Team 8 Graduate",
+    "web_url": "https://www.showroom-live.com/5b19e3560684",
+    "jpnName": "寺田 美咲",
+    "engName": "Terada Misaki",
+    "priority": 20,
+    "room_id": "275415",
+    "engGroup": "AKB48",
+    "jpnGroup": "AKB48"
   }
 ]
