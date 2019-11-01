@@ -1,7 +1,7 @@
 [
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_OGINO_YUKA",
     "room_id": "61707",
     "jpnName": "荻野 由佳",
@@ -11,8 +11,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_KATO_MINAMI",
     "room_id": "61710",
     "jpnName": "加藤 美南",
@@ -22,8 +22,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/48_SATO_ANJU",
     "room_id": "61712",
     "jpnName": "佐藤 杏樹",
@@ -33,8 +33,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_SEIJI_REINA",
     "room_id": "61730",
     "jpnName": "清司 麗菜",
@@ -44,8 +44,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_TAKAKURA_MOEKA",
     "room_id": "61885",
     "jpnName": "高倉 萌香",
@@ -55,8 +55,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_TANO_AYAKA",
     "room_id": "61719",
     "jpnName": "太野 彩香",
@@ -66,8 +66,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_NISHIGATA_MARINA",
     "room_id": "61721",
     "jpnName": "西潟 茉莉奈",
@@ -77,8 +77,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_NISHIMURA_NANAKO",
     "room_id": "61734",
     "jpnName": "西村 菜那子",
@@ -88,8 +88,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームNIII",
-    "engTeam": "Team NIII",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_YAMADA_NOE",
     "room_id": "61726",
     "jpnName": "山田 野絵",
@@ -100,7 +100,7 @@
   },
   {
     "jpnTeam": "チームNⅢ ドラフト3期研究生",
-    "engTeam": "Team NIII Draft KKS",
+    "engTeam": "Draft KKS",
     "web_url": "https://www.showroom-live.com/48_ANDO_CHIKANA",
     "room_id": "146972",
     "jpnName": "安藤 千伽奈",
@@ -111,7 +111,7 @@
   },
   {
     "jpnTeam": "チームNⅢ ドラフト3期研究生",
-    "engTeam": "Team NIII Draft KKS",
+    "engTeam": "Draft KKS",
     "web_url": "https://www.showroom-live.com/48_SATO_KAIRI",
     "room_id": "146975",
     "jpnName": "佐藤 海里",
@@ -122,7 +122,7 @@
   },
   {
     "jpnTeam": "チームNⅢ ドラフト3期研究生",
-    "engTeam": "Team NIII Draft KKS",
+    "engTeam": "Draft KKS",
     "web_url": "https://www.showroom-live.com/48_TAKAHASHI_NANAMI",
     "room_id": "147018",
     "jpnName": "高橋 七実",
@@ -133,7 +133,7 @@
   },
   {
     "jpnTeam": "チームNⅢ ドラフト3期研究生",
-    "engTeam": "Team NIII Draft KKS",
+    "engTeam": "Draft KKS",
     "web_url": "https://www.showroom-live.com/48_TSUSHIMA_YUNAKO",
     "room_id": "147005",
     "jpnName": "對馬 優菜子",
@@ -144,7 +144,7 @@
   },
   {
     "jpnTeam": "チームNⅢ ドラフト3期研究生",
-    "engTeam": "Team NIII Draft KKS",
+    "engTeam": "Draft KKS",
     "web_url": "https://www.showroom-live.com/48_FUJISAKI_MIYU",
     "room_id": "146990",
     "jpnName": "藤崎 未夢",
@@ -154,8 +154,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_OGUMA_TSUGUMI",
     "room_id": "61884",
     "jpnName": "小熊 倫実",
@@ -165,8 +165,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_KADO_YURIA",
     "room_id": "61728",
     "jpnName": "角 ゆりあ",
@@ -176,8 +176,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_KUSAKABE_AINA",
     "room_id": "61729",
     "jpnName": "日下部 愛菜",
@@ -187,19 +187,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
-    "web_url": "https://www.showroom-live.com/48_SUGAHARA_RIKO",
-    "room_id": "61713",
-    "jpnName": "菅原 りこ",
-    "engName": "Sugahara Riko",
-    "priority": 55,
-    "engGroup": "NGT48",
-    "jpnGroup": "NGT48"
-  },
-  {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_NAKAI_RIKA",
     "room_id": "61720",
     "jpnName": "中井 りか",
@@ -209,8 +198,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_NAKAMURA_AYUKA",
     "room_id": "61732",
     "jpnName": "中村 歩加",
@@ -220,8 +209,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_NARA_MIHARU",
     "room_id": "61733",
     "jpnName": "奈良 未遥",
@@ -231,19 +220,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
-    "web_url": "https://www.showroom-live.com/48_HASEGAWA_RENA",
-    "room_id": "61722",
-    "jpnName": "長谷川 玲奈",
-    "engName": "Hasegawa Rena",
-    "priority": 55,
-    "engGroup": "NGT48",
-    "jpnGroup": "NGT48"
-  },
-  {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
+    "jpnTeam": "一期生",
+    "engTeam": "1st Gen",
     "web_url": "https://www.showroom-live.com/48_HOMMA_HINATA",
     "room_id": "61723",
     "jpnName": "本間 日陽",
@@ -253,30 +231,8 @@
     "jpnGroup": "NGT48"
   },
   {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
-    "web_url": "https://www.showroom-live.com/48_MURAKUMO_FUKA",
-    "room_id": "61724",
-    "jpnName": "村雲 颯香",
-    "engName": "Murakumo Fuka",
-    "priority": 55,
-    "engGroup": "NGT48",
-    "jpnGroup": "NGT48"
-  },
-  {
-    "jpnTeam": "チームG",
-    "engTeam": "Team G",
-    "web_url": "https://www.showroom-live.com/48_YAMAGUCHI_MAHO",
-    "room_id": "61725",
-    "jpnName": "山口 真帆",
-    "engName": "Yamaguchi Maho",
-    "priority": 7,
-    "engGroup": "NGT48",
-    "jpnGroup": "NGT48"
-  },
-  {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_OTSUKA_NANAMI",
     "room_id": "175355",
     "jpnName": "大塚 七海",
@@ -287,7 +243,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_OGOE_HARUKA",
     "room_id": "175347",
     "jpnName": "小越 春花",
@@ -298,7 +254,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_KAWAGOE_SAAYA",
     "room_id": "175381",
     "jpnName": "川越 紗彩",
@@ -309,7 +265,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_KOMIYAMA_SARA",
     "room_id": "175359",
     "jpnName": "小見山 沙空",
@@ -320,7 +276,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_SOGABE_YUME",
     "room_id": "175456",
     "jpnName": "曽我部 優芽",
@@ -331,7 +287,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_TAKAZAWA_TOMOKA",
     "room_id": "175353",
     "jpnName": "高沢 朋花",
@@ -342,7 +298,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_TERADA_HINA",
     "room_id": "175345",
     "jpnName": "寺田 陽菜",
@@ -353,7 +309,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_TOMINAGA_YU",
     "room_id": "175366",
     "jpnName": "富永 夢有",
@@ -364,7 +320,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_HAGIRI_RUNA",
     "room_id": "175386",
     "jpnName": "羽切 瑠菜",
@@ -375,7 +331,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_FURUSAWA_MANA",
     "room_id": "175383",
     "jpnName": "古澤 愛",
@@ -386,7 +342,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_FURUTATE_AOI",
     "room_id": "175392",
     "jpnName": "古舘 葵",
@@ -397,7 +353,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_MASHIMO_KAHO",
     "room_id": "175460",
     "jpnName": "真下 華穂",
@@ -408,7 +364,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_MIMURA_HINO",
     "room_id": "175461",
     "jpnName": "三村 妃乃",
@@ -419,7 +375,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_MOROHASHI_HINATA",
     "room_id": "175379",
     "jpnName": "諸橋 姫向",
@@ -430,7 +386,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_WATANABE_AYUSA",
     "room_id": "175405",
     "jpnName": "渡邉 歩咲",
@@ -441,7 +397,7 @@
   },
   {
     "jpnTeam": "研究生",
-    "engTeam": "KKS",
+    "engTeam": "2nd Gen KKS",
     "web_url": "https://www.showroom-live.com/48_YAMAZAKI_MIRII",
     "room_id": "175410",
     "jpnName": "山崎 美里衣",
@@ -502,6 +458,50 @@
     "jpnName": "水澤 彩佳",
     "engName": "Mizusawa Ayaka",
     "priority": 55,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/48_SUGAHARA_RIKO",
+    "room_id": "61713",
+    "jpnName": "菅原 りこ",
+    "engName": "Sugahara Riko",
+    "priority": 55,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/48_HASEGAWA_RENA",
+    "room_id": "61722",
+    "jpnName": "長谷川 玲奈",
+    "engName": "Hasegawa Rena",
+    "priority": 55,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/48_MURAKUMO_FUKA",
+    "room_id": "61724",
+    "jpnName": "村雲 颯香",
+    "engName": "Murakumo Fuka",
+    "priority": 55,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/48_YAMAGUCHI_MAHO",
+    "room_id": "61725",
+    "jpnName": "山口 真帆",
+    "engName": "Yamaguchi Maho",
+    "priority": 7,
     "engGroup": "NGT48",
     "jpnGroup": "NGT48"
   }
