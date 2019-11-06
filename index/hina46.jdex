@@ -229,5 +229,16 @@
     "priority": 30,
     "room_id": "199345",
     "web_url": "https://www.showroom-live.com/46_HINANO_KAMIMURA"
+  },
+  {
+    "jpnGroup": "日向坂46",
+    "jpnTeam": "",
+    "jpnName": "日向坂46は観た!恐怖人形の恐怖!",
+    "engGroup": "Hinatazaka46",
+    "engTeam": "",
+    "engName": "Hinatazaka46 Official Room",
+    "priority": 20,
+    "room_id": "240323",
+    "web_url": "https://www.showroom-live.com/hinatazaka46"
   }
 ]

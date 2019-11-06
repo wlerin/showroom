@@ -317,5 +317,16 @@
     "priority": 30,
     "room_id": "201098",
     "web_url": "https://www.showroom-live.com/46_TEN_YAMASAKI"
+  },
+  {
+    "jpnGroup": "欅坂46",
+    "jpnTeam": "",
+    "jpnName": "欅坂46日向坂46リズムゲームアプリ詳細発表SHOWROOM",
+    "engGroup": "Keyakizaka46",
+    "engTeam": "",
+    "engName": "Keyakizaka46 Official Room",
+    "priority": 20,
+    "room_id": "68109",
+    "web_url": "https://www.showroom-live.com/keyakizaka46"
   }
 ]

@@ -273,5 +273,16 @@
     "room_id": "275415",
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
+  },
+  {
+    "jpnGroup": "AKB48",
+    "jpnTeam": "元チーム8メンバー",
+    "jpnName": "佐藤 七海",
+    "engGroup": "AKB48",
+    "engTeam": "Team 8 Graduate",
+    "engName": "Sato Nanami",
+    "priority": 50,
+    "room_id": "274512",
+    "web_url": "https://www.showroom-live.com/408f53529333"
   }
 ]
