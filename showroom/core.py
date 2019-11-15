@@ -142,6 +142,9 @@ core_logger = logging.getLogger('showroom.core')
 
 hls_url_re1 = re.compile(r'(https://edge-(\d*)-(\d*)-(\d*)-(\d*).showroom-live.com:443/liveedge/(\w*))/playlist.m3u8')
 
+# TODO: Make this a config file option
+STREAM_PREFERENCE = ("rtmp", "lhls", "hls")
+
 WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 
 # TODO: handle genre/category by individual rooms
@@ -249,7 +252,8 @@ class Downloader(object):
         self._protocol = default_protocol
         self._rtmp_url = ""
         self._hls_url = ""
-        self._rtmps_url = ""
+        self._lhls_url = ""
+        self._stream_data = []
 
         self._process = None
         # self._timeouts = 0
@@ -274,6 +278,10 @@ class Downloader(object):
         return self._hls_url
 
     @property
+    def lhls_url(self):
+        return self._lhls_url
+
+    @property
     def stream_url(self):
         return getattr(self, '_{}_url'.format(self.protocol))
 
@@ -283,10 +291,7 @@ class Downloader(object):
 
     def get_info(self):
         with self._lock:
-            return {"streaming_urls": {
-                        "hls_url": self._hls_url,
-                        "rtmp_url": self._rtmp_url,
-                        "rtmps_url": self._rtmps_url},
+            return {"streaming_urls": self._stream_data,
                     "protocol": self._protocol,
                     "filename": self.outfile,
                     "dest_dir": self.destdir,
@@ -453,6 +458,8 @@ class Downloader(object):
 
     def update_streaming_url(self):
         data = self._client.streaming_url(self._room.room_id)
+        self._stream_data = data
+        core_logger.debug('{}'.format(self._stream_data))
 
         # TODO: it shouldn't still attempt to start up without a fresh url
         if not data:
@@ -460,64 +467,63 @@ class Downloader(object):
 
         rtmp_streams = []
         hls_streams = []
+        lhls_streams = []
         for stream in data:
             if stream['type'] == 'rtmp':
                 rtmp_streams.append((int(stream['quality']), '/'.join((stream['url'], stream['stream_name']))))
             elif stream['type'] == 'hls':
                 hls_streams.append((int(stream['quality']), stream['url']))
+            elif stream['type'] == 'lhls':
+                lhls_streams.append((int(stream['quality']), stream['url']))
         try:
             new_rtmp_url = sorted(rtmp_streams)[-1][1]
         except IndexError as e:
-            core_logger.warn("Caught IndexError while reading RTMP url: {}\n{}".format(e, data))
+            # core_logger.warn("Caught IndexError while reading RTMP url: {}\n{}".format(e, data))
             new_rtmp_url = ""
 
         try:
             new_hls_url = sorted(hls_streams)[-1][1]
         except IndexError as e:
-            core_logger.warn("Caught IndexError while reading HLS url: {}\n{}".format(e, data))
+            # core_logger.warn("Caught IndexError while reading HLS url: {}\n{}".format(e, data))
             new_hls_url = ""
 
+        try:
+            new_lhls_url = sorted(lhls_streams)[-1][1]
+        except IndexError as e:
+            # core_logger.warn("Caught IndexError while reading HLS url: {}\n{}".format(e, data))
+            new_lhls_url = ""
+
         with self._lock:
-            if new_rtmp_url != self.rtmp_url:
-                # TODO: log url change
-                # TODO: Trigger this message when the stream first goes live, from elsewhere
-                # print('Downloading {}\'s Showroom'.format(self.room.name))
-                # self.announce((self.web_url, self.stream_url))
-                core_logger.debug("Found new RTMP url: {}".format(new_rtmp_url))
-
-            if new_hls_url != self.hls_url:
-                # TODO: log url change
-                core_logger.debug("Found new HLS url: {}".format(new_hls_url))
-
             self._rtmp_url = new_rtmp_url
             self._hls_url = new_hls_url
+            self._lhls_url = new_lhls_url
 
-    def update_streaming_url_web(self):
-        """Updates streaming urls from the showroom website.
+    # def update_streaming_url_web(self):
+    #     """Updates streaming urls from the showroom website.
         
-        Fallback if api changes again
+    #     Fallback if api changes again
 
-        But pretty sure this doesn't work anymore
-        """
-        # TODO: add an endpoint for fetching the browser page
-        r = self._client._session.get(self._room.long_url)
+    #     But pretty sure this doesn't work anymore
+    #     """
+    #     # TODO: add an endpoint for fetching the browser page
+    #     r = self._client._session.get(self._room.long_url)
 
-        if r.ok:
-            match = hls_url_re1.search(r.text)
-            # TODO: check if there was a match
-            if not match:
-                # no url found in the page
-                # probably the stream has ended but is_live returned true
-                # just don't update the urls
-                # except what happens if they are still "" ?
-                return
-            hls_url = match.group(0)
-            rtmps_url = match.group(1).replace('https', 'rtmps')
-            rtmp_url = "rtmp://{}.{}.{}.{}:1935/liveedge/{}".format(*match.groups()[1:])
-            with self._lock:
-                self._rtmp_url = rtmp_url
-                self._hls_url = hls_url
-                self._rtmps_url = rtmps_url
+    #     if r.ok:
+    #         match = hls_url_re1.search(r.text)
+    #         # TODO: check if there was a match
+    #         if not match:
+    #             # no url found in the page
+    #             # probably the stream has ended but is_live returned true
+    #             # just don't update the urls
+    #             # except what happens if they are still "" ?
+    #             return
+    #         hls_url = match.group(0)
+    #         rtmps_url = match.group(1).replace('https', 'rtmps')
+    #         rtmp_url = "rtmp://{}.{}.{}.{}:1935/liveedge/{}".format(*match.groups()[1:])
+    #         with self._lock:
+    #             self._rtmp_url = rtmp_url
+    #             self._hls_url = hls_url
+    #             self._rtmps_url = rtmps_url
 
     # def update_streaming_url_old(self):
     #     """Updates streaming urls from the showroom website."""
@@ -559,12 +565,6 @@ class Downloader(object):
             datetime object representing the time the download started
         """
         tokyo_time = datetime.datetime.now(tz=TOKYO_TZ)
-        temp, dest, out = format_name(self._rootdir,
-                                      strftime(tokyo_time, FULL_DATE_FMT),
-                                      self._room, ext=self._ffmpeg_container)
-
-        with self._lock:
-            self.tempdir, self.destdir, self.outfile = temp, dest, out
 
         # TODO: Does this work on Windows now?
         env = os.environ.copy()
@@ -573,25 +573,27 @@ class Downloader(object):
         for key in ('http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY'):
             env.pop(key, None)
 
-        if self._logging is True:
-            log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
-            env.update({'FFREPORT': 'file={}:level=40'.format(log_file)})
-            # level=48  is debug mode, with lots and lots of extra information
-            # maybe too much
-        normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
-
         self.update_streaming_url()
+
+        # TODO: rework this whole process to include lhls, and make it configurable
+        # and less braindead
+        self._protocol = 'rtmp'
+        self._ffmpeg_container = 'mp4'
 
         # Fall back to HLS if no RTMP stream available
         # Better to do this here or in update_streaming_url?
         # There's a possible race condition here, if some external thread modifies either of these
         if not self._rtmp_url and self._protocol == 'rtmp':
-            self._protocol = 'hls'
+            self._protocol = 'hls'                
 
-        extra_args = []
+        # extra_args = []
         # force using TS container with HLS
-        if self.protocol == 'hls':
-            self._ffmpeg_container = 'ts'
+        # this is causing more problems than it solves
+        # if self.protocol in ('hls', 'lhls'):
+        #     self._ffmpeg_container = 'ts'
+        # consider using flv instead of ts for hls recordings
+        if self.protocol in ('hls', 'lhls') and self._ffmpeg_container == 'mp4':
+            extra_args = ["-bsf:a", "aac_adtstoasc"]
 
         # I don't think this is needed?
         # if self._ffmpeg_container == 'ts':
@@ -599,6 +601,19 @@ class Downloader(object):
         # elif self._ffmpeg_container != 'mp4':
         #     # TODO: support additional container formats, e.g. FLV
         #     self._ffmpeg_container = 'mp4'
+        temp, dest, out = format_name(self._rootdir,
+                                      strftime(tokyo_time, FULL_DATE_FMT),
+                                      self._room, ext=self._ffmpeg_container)
+
+        with self._lock:
+            self.tempdir, self.destdir, self.outfile = temp, dest, out
+
+        if self._logging is True:
+            log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
+            env.update({'FFREPORT': 'file={}:level=40'.format(log_file)})
+            # level=48  is debug mode, with lots and lots of extra information
+            # maybe too much
+        normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
 
         self._process = subprocess.Popen([
             self._ffmpeg_path,
@@ -859,7 +874,7 @@ class Watcher(object):
             Nothing
         """
         self._update_flag.set()
-        core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
+        # core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
         while self._mode == "schedule":
             if self._watch_ready():
                 core_logger.info('Watching {}'.format(self.name))
@@ -867,7 +882,7 @@ class Watcher(object):
             else:
                 time.sleep(1.0)
 
-        core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
+        # core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
         while self._mode == "watch":
             if self._watch_ready():
                 if self.check_live_status():
@@ -889,7 +904,7 @@ class Watcher(object):
             if self.comment_logger:
                 self.comment_logger.start()
 
-        core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
+        # core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
         while self._mode in ("live", "download"):
             # These are together so that users can toggle
             # "wanted" status and switch between them, though it would almost be better
@@ -926,7 +941,7 @@ class Watcher(object):
                 time.sleep(0.5)
                 self.check_live_status()
 
-        core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
+        # core_logger.debug('Entering {} mode for {}'.format(self.mode, self.name))
         # TODO: decide what to do with the three end states
         if self._mode == "quitting":
             # what is this mode? it's presumably a way to break out of the download loop
@@ -1495,7 +1510,7 @@ class WatchManager(object):
             if len(list(self.watchers.get_by_mode("live"))) < 1:
                 return True
             else:
-                core_logger.debug('Live watcher prevents maintenance, rescheduling')
+                # core_logger.debug('Live watcher prevents maintenance, rescheduling')
                 # TODO: print live watchers that are preventing maintenance
                 self.schedule_next_maintenance(30)
         return False
@@ -1517,9 +1532,9 @@ class WatchManager(object):
             self.update_lives()
 
         if self._schedule_ready():
-            core_logger.debug('Checking schedule')
+            # core_logger.debug('Checking schedule')
             self.update_schedule()
-            core_logger.debug('{} active watchers'.format(len(self.watchers)))
+            # core_logger.debug('{} active watchers'.format(len(self.watchers)))
 
         if self._maintenance_ready():
             self.do_maintenance()
