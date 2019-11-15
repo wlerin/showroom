@@ -579,7 +579,7 @@ class Downloader(object):
         # and less braindead
         self._protocol = 'rtmp'
         self._ffmpeg_container = 'mp4'
-
+        extra_args = []
         # Fall back to HLS if no RTMP stream available
         # Better to do this here or in update_streaming_url?
         # There's a possible race condition here, if some external thread modifies either of these
