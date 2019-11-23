@@ -152,7 +152,7 @@ class BasicCLI(object):
                                                  name=e['room']['name'],
                                                  status=print_status(e),
                                                  web_url=e['room']['web_url'],
-                                                 rtmp_url=e['download']['streaming_urls']['rtmp_url'])
+                                                 rtmp_url=e['download']['streaming_urls'])
                   for e in downloads]
         print('----------\nDOWNLOAD LINKS:')
         print(*output, sep='\n')
