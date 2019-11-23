@@ -69,6 +69,8 @@ def update(data, datapath):
     # TODO: sort it in the other direction
 
     for date, val in myou.items():
+        if val['jpnName'] == '張織 慧':
+            val['jpnName'] = '張 織慧'
         room = JI.find_room(name=val['jpnName'])
         if not room:
             # this allows me to manually change the jpnName to fix inconsistencies in the source
