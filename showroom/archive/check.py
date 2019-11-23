@@ -267,7 +267,7 @@ def post_merge_check(check_file):
             for stream in room['streams']:
                 total_video_duration = sum(file['video']['duration'] for file in stream['files'] if file['valid'])
                 total_audio_duration = sum(file['audio']['duration'] for file in stream['files'] if file['valid'])
-                if not (-1.0 < total_video_duration - total_audio_duration < 1.0):
+                if not (-2.0 < total_video_duration - total_audio_duration < 2.0):
                     results.append((
                         stream['stream_name'], 
                         "audio: {}".format(total_audio_duration), 
