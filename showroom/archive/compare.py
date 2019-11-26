@@ -88,15 +88,15 @@ def compare_rooms(main_room, alt_room):
         # 90-180 minutes: 3 MiB  30*6    3*2
         # 180-360 minutes: 4 MiB 30*12   3*4
         # 360+ minutes: 5 MiB
-        base_case = 41 - min(priority, 11)
-        max_mib = 1
+        # base_case = 41 - min(priority, 11)
+        # max_mib = 1
 
-        for mult in (1, 3, 6, 12):
-            if duration > base_case*60*mult and max_mib < 5:
-                max_mib+=1
-            else:
-                break
-
+        # for mult in (1, 3, 6, 12):
+        #     if duration > base_case*60*mult and max_mib < 5:
+        #         max_mib+=1
+        #     else:
+        #         break
+        # all files are now downloded and compared locally, there is no point in selecting a worse file
         return 0 # SIZE_IEC_MB*max_mib
 
         # factor = 1
@@ -124,36 +124,39 @@ def compare_rooms(main_room, alt_room):
         "main_room": main_room,
         "alt_room": alt_room,
     }
+    if alt_room['total_duration'] == 0:
+        return None
+    elif main_room['total_duration'] == 0:
+        return result
 
-    if main_room['total_duration'] == 0:
-        if alt_room['total_duration'] == 0:
-            # TODO: log this
-            # print('Found 0 duration:', main_room['handle'])
-            return None
-        else:
-            return result
-    else:
-        if alt_room['total_duration'] == 0:
-            return None
-
-    if (main_size + calc_max_size_diff(main_room['total_duration'], main_room['priority'])
-                >= alt_size 
-            and
-            main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority'])
-                >= alt_room['total_duration']
-            # and 
-            # main_frames - calc_max_frame_diff(main_room['total_duration'], main_room['priority']) 
-            #     >= alt_frames
-        ):
+    # if more frames 
+    # if more bytes
+    # if longer duration (duration is one of the first things to get messed up though, is it ever something i should select off of?)
+    if main_frames >= alt_frames:
+        if main_size < alt_size and main_room['total_duration'] < alt_room['total_duration']:
+            print('{}\'s room needs checking: larger size and duration but lower frames in one comparison')
         return None
     else:
-        # print("{}'s room failed the size test: {:.2f} - {:.2f} = {:.2f} MiB".format(
-        #     main_room['name'],
-        #     main_size / SIZE_IEC_MB,
-        #     alt_size / SIZE_IEC_MB,
-        #     (main_size - alt_size) / SIZE_IEC_MB
-        # ))
         return result
+
+    # if (main_size + calc_max_size_diff(main_room['total_duration'], main_room['priority'])
+    #             >= alt_size 
+    #         and
+    #         main_room['total_duration'] + calc_max_time_diff(main_room['total_duration'], main_room['priority'])
+    #             >= alt_room['total_duration']
+    #         # and 
+    #         # main_frames - calc_max_frame_diff(main_room['total_duration'], main_room['priority']) 
+    #         #     >= alt_frames
+    #     ):
+    #     return None
+    # else:
+    #     # print("{}'s room failed the size test: {:.2f} - {:.2f} = {:.2f} MiB".format(
+    #     #     main_room['name'],
+    #     #     main_size / SIZE_IEC_MB,
+    #     #     alt_size / SIZE_IEC_MB,
+    #     #     (main_size - alt_size) / SIZE_IEC_MB
+    #     # ))
+    #     return result
 
 
     # simplest check: compare total duration
