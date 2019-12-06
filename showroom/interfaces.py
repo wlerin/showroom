@@ -296,8 +296,7 @@ The following commands are recognised:
   quit              -- stop activity and exit
   help              -- this text
                 """)
-            print('\nNOTE: Not all are implemented, most have not been tested in years.', 
-                'The "links" command has very noisy and unhelpful output at this time.', 
+            print('\nNOTE: The "links" command has very noisy and unhelpful output at this time.', 
                 'Also, sometimes commands are ignored. Wait a bit and try again.', sep='\n')
             # NOT IMPLEMENTED
             # not sure if the index stuff is implemented or not. `get index filter` doesn't work, at least
