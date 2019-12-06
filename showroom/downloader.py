@@ -6,7 +6,7 @@ import logging
 import time
 import os
 
-from .constants import TOKYO_TZ
+from .constants import TOKYO_TZ, FULL_DATE_FMT
 from .utils import format_name, strftime
 
 download_logger = logging.getLogger('showroom.downloader')
@@ -36,9 +36,9 @@ class Downloader(object):
     NOTE: all_files is the only attribute that has any reason to be public
 
     Properties:
-        stream_url: url of the stream, picks from rtmp_url and hls_url based on protocol
+        stream_data: stream data returned by showroom
         protocol: protocol in use, either rtmp or hls (use enum?)
-        rtmp_url, hls_url: separate handles for rtmp and hls urls
+        rtmp_url, lhls_url, hls_url: separate handles for rtmp and hls urls
         timed_out: whether the last wait() timed out
 
     Methods: (remove this before release)
@@ -229,6 +229,8 @@ class Downloader(object):
                     # self._process = None
                 # This *should* work for newer builds of FFmpeg without librtmp.
                 # Only question is whether 1 minute is too long (or too short).
+                # UPDATE: Why doesn't this ever seem to work?
+                # is it because FFmpeg freezes output and hangs now? so we're never getting another line to iterate over
                 elif datetime.datetime.now() > timeout:
                     download_logger.debug("Download of {} timed out".format(self.outfile))
                     self.stop()
@@ -301,6 +303,9 @@ class Downloader(object):
         rtmp_streams = []
         hls_streams = []
         lhls_streams = []
+        # TODO: sort according to a priority list defined in config file
+        # e.g. ('rtmp', 'lhls', 'hls'), or just "rtmp" (infer the others from defaults)
+        #
         for stream in data:
             if stream['type'] == 'rtmp':
                 rtmp_streams.append((int(stream['quality']), '/'.join((stream['url'], stream['stream_name']))))
@@ -417,6 +422,7 @@ class Downloader(object):
         # Better to do this here or in update_streaming_url?
         # There's a possible race condition here, if some external thread modifies either of these
         if not self._rtmp_url and self._protocol == 'rtmp':
+            download_logger.warn('Using HLS downloader for {}'.format(self._room.handle))
             self._protocol = 'hls'
 
             # extra_args = []
