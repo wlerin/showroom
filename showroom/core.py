@@ -954,7 +954,7 @@ class WatchManager(object):
                                             ('live', False if status not in ('live', 'downloading') else True),
                                             ('status', status),
                                             ('start_time', strftime(item['start_time'], FULL_DATE_FMT)),
-                                            ('streaming_urls', item['download']['streaming_urls'].copy()),
+                                            ('streaming_urls', (item['download']['streaming_urls'] or []).copy()),
                                             ('room', item['room'])])
                 schedules.append(new_schedule)
 
