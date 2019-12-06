@@ -192,8 +192,10 @@ class BasicCLI(object):
                            "downloads_links": self._parse_download_links}
 
     def start(self):
+        print('Starting up Showroom Watcher...')
         self.input_queue.start()
         self.control_thread.start()
+        # Is this the best place to put this message?
 
     def run(self):
         """Do stuff."""
@@ -286,25 +288,37 @@ class BasicCLI(object):
 
         elif line.strip() == 'help':
             print("""
-                The following commands are recognised:
-                  index filter all  --  selects all rooms for downloading
-                  index filter none --  selects no rooms for downloading
-                  index filter add name1, name2, name3...
-                  index filter remove name1, name2, name3...
-                                    -- add or remove rooms from the download list
-                                    -- name must match exactly (case insensitive)
-                  index update      -- locally update the index
-                  index update from web -- update the index from github (NOT IMPLEMENTED)
-                  get index filter  -- returns info about the filter
-                  get schedule      -- prints a schedule
-                  get live          -- prints currently live rooms
-                  get downloads     -- prints current downloads
-                  get links         -- prints live rooms with links
-                  stop              -- stop activity (program will continue running)
-                  start             -- restart activity
-                  quit              -- stop activity and exit
-                  help              -- this text
+The following commands are recognised:
+  schedule          -- prints a schedule
+  live              -- prints currently live rooms
+  downloads         -- prints current downloads
+  links             -- prints live rooms with links (and full JSON streaming data)
+  quit              -- stop activity and exit
+  help              -- this text
                 """)
+            print('\nNOTE: Not all are implemented, most have not been tested in years.', 
+                'The "links" command has very noisy and unhelpful output at this time.', 
+                'Also, sometimes commands are ignored. Wait a bit and try again.', sep='\n')
+            # NOT IMPLEMENTED
+            # not sure if the index stuff is implemented or not. `get index filter` doesn't work, at least
+            """
+            index update from web -- update the index from github (NOT IMPLEMENTED)
+            index filter all  --  selects all rooms for downloading
+            index filter none --  selects no rooms for downloading
+            index filter add name1, name2, name3...
+            index filter remove name1, name2, name3...
+                            -- add or remove rooms from the download list
+                            -- name must match exactly (case insensitive)
+            index update      -- locally update the index
+            get index filter      -- returns info about the filter
+            """
+            # No idea if these work, but I know I haven't tested them thoroughly and they're too dangerous.
+            """
+            stop              -- stop activity (program will continue running)
+            start             -- restart activity
+            """
+
+
         # TODO: test these
         elif line.strip() == 'stop':
             "--stop--"
@@ -375,6 +389,7 @@ class InputQueue(Queue):
         self.input_thread = threading.Thread(target=self.read_commands)
         self.input_thread.daemon = True
         self.input_thread.start()
+        print('\nType "help" for a list of commands.')
 
     def stop(self):
         # the alternative is sending SIGKILL or something
