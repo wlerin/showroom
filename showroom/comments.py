@@ -10,6 +10,7 @@ import websocket    # this is to record comments on real time
 import math
 
 from json import JSONDecodeError
+from websocket import WebSocketConnectionClosedException
 
 from showroom.constants import TOKYO_TZ, FULL_DATE_FMT
 from showroom.utils import format_name
@@ -64,7 +65,7 @@ class setInterval :
 
     def cancel(self, name) :
         self.stopEvent.set()
-        print(name + ' interval thread closed')
+        print(name + ': interval thread closed')
 
 
 class CommentLogger(object):
@@ -82,7 +83,7 @@ class CommentLogger(object):
         self.comment_log = []
         self.comment_ids = set()
         self._thread = None
-
+        self.comment_count = 0
         self.ws = None
         self.ws_startTime = 0
         self.ws_send_txt = ''
@@ -228,8 +229,12 @@ class CommentLogger(object):
 
         
         def send_bcsvr_key():
-            #print(self.room.name+' sending: ' + self.ws_send_txt)
-            ws.send(self.ws_send_txt)  
+            try:
+                #print(self.room.name+' sending: ' + self.ws_send_txt)
+                ws.send(self.ws_send_txt)  
+            except WebSocketConnectionClosedException as e:
+                print('{}: Error sending bcsvr_key. {} Now closing interval thread...'.format(self.room.name, e))
+                self.ws_inter.cancel(self.room.name)
 
 
         # websocket callback
@@ -288,7 +293,7 @@ class CommentLogger(object):
                     #print(self.room.name + ' ' + str(data['received_at']) + ': comment = ' + comment)
                     data['cm'] = comment
                     self.comment_log.append(data)
-                    
+                    self.comment_count += 1                    
                 
             elif m_type == '2':    # gift
                 pass
