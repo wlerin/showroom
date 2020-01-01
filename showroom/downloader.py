@@ -231,12 +231,12 @@ class Downloader(object):
                 # Only question is whether 1 minute is too long (or too short).
                 # UPDATE: Why doesn't this ever seem to work?
                 # is it because FFmpeg freezes output and hangs now? so we're never getting another line to iterate over
-                elif datetime.datetime.now() > timeout:
-                    download_logger.debug("Download of {} timed out".format(self.outfile))
-                    self.stop()
-                    time.sleep(0.1)
-                    self._process.stderr.close()
-                    time.sleep(0.1)
+                # elif datetime.datetime.now() > timeout:
+                #     download_logger.debug("Download of {} timed out".format(self.outfile))
+                #     self.stop()
+                #     time.sleep(0.1)
+                #     self._process.stderr.close()
+                #     time.sleep(0.1)
                 else:
                     time.sleep(0.2)
 
