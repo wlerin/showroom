@@ -134,7 +134,7 @@ def compare_rooms(main_room, alt_room):
     # if longer duration (duration is one of the first things to get messed up though, is it ever something i should select off of?)
     if main_frames >= alt_frames:
         if main_size < alt_size and main_room['total_duration'] < alt_room['total_duration']:
-            print('{}\'s room needs checking: larger size and duration but lower frames in one comparison')
+            print('{}\'s room needs checking: larger size and duration but lower frames in one comparison'.format(main_room['name']))
         return None
     else:
         return result
