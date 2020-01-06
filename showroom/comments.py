@@ -290,6 +290,17 @@ class CommentLogger(object):
 
         def ws_on_error(ws, error):
             """ WebSocket callback """
+            if isinstance(error, UnicodeDecodeError):
+                data = error.object
+                try:
+                    data = data.decode('latin-1')
+                except UnicodeDecodeError:
+                    cmt_logger.error('UnicodeDecodeError cannot be fixed by latin-1 decode: {}'.format(error))
+                else:
+                    ws_on_message(ws, data)
+                    cmt_logger.debug('UnicodeDecodeError: {}'.format(error))
+                    cmt_logger.debug('--> fixed by latin-1 decode: {}'.format(data))
+                    return
             cmt_logger.error('websocket on error: {}'.format(error))
 
         def ws_on_close(ws):
