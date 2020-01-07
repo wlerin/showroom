@@ -195,6 +195,7 @@ class CommentLogger(object):
         self._thread_interval = None
         self._isQuit = False
         self._isRecording = False
+        self._needReconnect = False
 
     @property
     def isRecording(self):
@@ -298,6 +299,7 @@ class CommentLogger(object):
                     cmt_logger.error('UnicodeDecodeError cannot be fixed by latin-1 decode: {}'.format(error))
                 else:
                     ws_on_message(ws, data)
+                    self._needReconnect = True
                     cmt_logger.debug('UnicodeDecodeError: {}'.format(error))
                     cmt_logger.debug('--> fixed by latin-1 decode: {}'.format(data))
                     return
@@ -340,7 +342,8 @@ class CommentLogger(object):
 
         def ws_on_open(ws):
             """ WebSocket callback """
-            self.ws_startTime = int(time.time() * 1000)
+            if self.ws_startTime == 0:      # if not zero then it's a reconnection due to utf-8 decode error
+                self.ws_startTime = int(time.time() * 1000)
             cmt_logger.debug('websocket on open')
 
             # keep sending bcsvr_key to prevent disconnection
@@ -438,6 +441,22 @@ class CommentLogger(object):
                                          on_close=ws_on_close)
         self.ws.on_open = ws_on_open
         self.ws.run_forever(skip_utf8_validation=True)
+
+        if self._thread_interval is not None:
+            self._thread_interval.join()
+
+        # reconnection if utf-8 decode error causes websocket to close
+        while self._needReconnect:
+            # reset to initial value
+            self._thread_interval = None
+            self._isQuit = False
+            self._needReconnect = False
+
+            cmt_logger.debug('Reconnecting WebSocket...')
+            self.ws.run_forever(skip_utf8_validation=True)
+
+            if self._thread_interval is not None:
+                self._thread_interval.join()
 
         self.comment_log = sorted(self.comment_log, key=lambda x: x['received_at'])
 
