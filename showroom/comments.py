@@ -437,7 +437,7 @@ class CommentLogger(object):
                                          on_error=ws_on_error,
                                          on_close=ws_on_close)
         self.ws.on_open = ws_on_open
-        self.ws.run_forever()
+        self.ws.run_forever(skip_utf8_validation=True)
 
         self.comment_log = sorted(self.comment_log, key=lambda x: x['received_at'])
 
