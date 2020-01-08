@@ -195,7 +195,6 @@ class CommentLogger(object):
         self._thread_interval = None
         self._isQuit = False
         self._isRecording = False
-        self._needReconnect = False
 
     @property
     def isRecording(self):
@@ -291,19 +290,7 @@ class CommentLogger(object):
 
         def ws_on_error(ws, error):
             """ WebSocket callback """
-            if isinstance(error, UnicodeDecodeError):
-                data = error.object
-                try:
-                    data = data.decode('latin-1')
-                except UnicodeDecodeError:
-                    cmt_logger.error('UnicodeDecodeError cannot be fixed by latin-1 decode: {}'.format(error))
-                else:
-                    ws_on_message(ws, data)
-                    self._needReconnect = True
-                    cmt_logger.debug('UnicodeDecodeError: {}'.format(error))
-                    cmt_logger.debug('--> fixed by latin-1 decode: {}'.format(data))
-                    return
-            cmt_logger.error('websocket on error: {}'.format(error))
+            cmt_logger.error('websocket on error: {} - {}'.format(type(error).__name__, error))
 
         def ws_on_close(ws):
             """ WebSocket callback """
@@ -342,14 +329,59 @@ class CommentLogger(object):
 
         def ws_on_open(ws):
             """ WebSocket callback """
-            if self.ws_startTime == 0:      # if not zero then it's a reconnection due to utf-8 decode error
-                self.ws_startTime = int(time.time() * 1000)
+            self.ws_startTime = int(time.time() * 1000)
             cmt_logger.debug('websocket on open')
 
             # keep sending bcsvr_key to prevent disconnection
             self._thread_interval = threading.Thread(target=interval_send,
                                                      name='{} Comment Log interval'.format(self.room.name), args=(ws,))
             self._thread_interval.start()
+
+        def ws_start(ws_uri, on_open=ws_on_open, on_message=ws_on_message,
+                     on_error=ws_on_error, on_close=ws_on_close):
+            """ WebSocket main loop """
+            self.ws = websocket.WebSocket()
+            # connect
+            try:
+                self.ws.connect(ws_uri)
+            except Exception as e:
+                on_error(self.ws, e)
+                return
+
+            on_open(self.ws)
+
+            while True:
+                if self._isQuit:
+                    break
+
+                try:
+                    frame = self.ws.recv_frame()
+                except WebSocketConnectionClosedException as e:
+                    cmt_logger.debug('WebSocket Closed')
+                    break
+                except Exception as e:
+                    on_error(self.ws, e)
+                    break
+
+                if frame.opcode != websocket.ABNF.OPCODE_TEXT:
+                    cmt_logger.debug('ignored frame opcode = {}'.format(websocket.ABNF.OPCODE_MAP[frame.opcode]))
+                    cmt_logger.debug('--> {}'.format(frame.data))
+                    continue
+
+                data = frame.data
+                message = ''
+                try:
+                    message = data.decode('utf-8')
+                except UnicodeDecodeError as e:
+                    message = data.decode('latin-1')
+                    cmt_logger.debug('decoded as latin-1: {}'.format(message))
+                except Exception as e:
+                    on_error(self.ws, e)
+
+                on_message(self.ws, message)
+
+            on_close(self.ws)
+            self.ws.close()
 
         # Get live info from https://www.showroom-live.com/api/live/live_info?room_id=xxx
         # If a room closes and then reopen on live within 30 seconds (approximately),
@@ -435,29 +467,15 @@ class CommentLogger(object):
         self._isRecording = True
         self.ws_send_txt = 'SUB\t' + info['bcsvr_key']
         websocket.enableTrace(False)  # False: disable trace outputs
-        self.ws = websocket.WebSocketApp('ws://' + info['bcsvr_host'] + ':' + str(info['bcsvr_port']),
-                                         on_message=ws_on_message,
-                                         on_error=ws_on_error,
-                                         on_close=ws_on_close)
-        self.ws.on_open = ws_on_open
-        self.ws.run_forever(skip_utf8_validation=True)
+
+        ws_start('ws://' + info['bcsvr_host'] + ':' + str(info['bcsvr_port']),
+                 on_open=ws_on_open, on_message=ws_on_message,
+                 on_error=ws_on_error, on_close=ws_on_close)
 
         if self._thread_interval is not None:
             self._thread_interval.join()
 
-        # reconnection if utf-8 decode error causes websocket to close
-        while self._needReconnect:
-            # reset to initial value
-            self._thread_interval = None
-            self._isQuit = False
-            self._needReconnect = False
-
-            cmt_logger.debug('Reconnecting WebSocket...')
-            self.ws.run_forever(skip_utf8_validation=True)
-
-            if self._thread_interval is not None:
-                self._thread_interval.join()
-
+        # sorting
         self.comment_log = sorted(self.comment_log, key=lambda x: x['received_at'])
 
         with open(outfile, 'w', encoding='utf8') as outfp:
