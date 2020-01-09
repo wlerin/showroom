@@ -10,6 +10,7 @@ import websocket  # this is to record comments on real time
 import math
 import logging
 from json import JSONDecodeError
+from websocket import ABNF
 from websocket import WebSocketConnectionClosedException
 
 from showroom.constants import TOKYO_TZ, FULL_DATE_FMT
@@ -350,35 +351,67 @@ class CommentLogger(object):
 
             on_open(self.ws)
 
-            while True:
-                if self._isQuit:
-                    break
-
+            buffer = b""
+            buffered_opcode = ABNF.OPCODE_TEXT
+            while not self._isQuit:
                 try:
                     frame = self.ws.recv_frame()
                 except WebSocketConnectionClosedException as e:
-                    cmt_logger.debug('WebSocket Closed')
+                    cmt_logger.debug('ws_start: WebSocket Closed')
                     break
                 except Exception as e:
                     on_error(self.ws, e)
                     break
 
-                if frame.opcode != websocket.ABNF.OPCODE_TEXT:
-                    cmt_logger.debug('ignored frame opcode = {}'.format(websocket.ABNF.OPCODE_MAP[frame.opcode]))
-                    cmt_logger.debug('--> {}'.format(frame.data))
-                    continue
+                """
+                Fragmented frame example: For a text message sent as three fragments, 
+                the 1st fragment: opcode = 0x1 (OPCODE_TEXT) and FIN bit = 0, 
+                the 2nd fragment: opcode = 0x0 (OPCODE_CONT) and FIN bit = 0, 
+                the last fragment: opcode = 0x0 (OPCODE_CONT) and FIN bit = 1. 
+                """
+                if frame.opcode in (ABNF.OPCODE_TEXT, ABNF.OPCODE_BINARY, ABNF.OPCODE_CONT):
+                    buffer += frame.data
+                    if frame.opcode != ABNF.OPCODE_CONT:
+                        buffered_opcode = frame.opcode
+                    else:
+                        cmt_logger.debug('ws_start: fragment message: {}'.format(frame.data))
 
-                data = frame.data
-                message = ''
-                try:
-                    message = data.decode('utf-8')
-                except UnicodeDecodeError as e:
-                    message = data.decode('latin-1')
-                    cmt_logger.debug('decoded as latin-1: {}'.format(message))
-                except Exception as e:
-                    on_error(self.ws, e)
+                    # it's either a last fragmented frame, or a non-fragmented single message frame
+                    if frame.fin == 1:
+                        data = buffer
+                        buffer = b""
+                        if buffered_opcode == ABNF.OPCODE_TEXT:
+                            message = ""
+                            try:
+                                message = data.decode('utf-8')
+                            except UnicodeDecodeError as e:
+                                message = data.decode('latin-1')
+                                cmt_logger.debug('ws_start: decoded as latin-1: {}'.format(message))
+                            except Exception as e:
+                                on_error(self.ws, e)
 
-                on_message(self.ws, message)
+                            on_message(self.ws, message)
+
+                        elif buffered_opcode == ABNF.OPCODE_BINARY:
+                            cmt_logger.debug('ws_start: received unknown binary data: {}'.format(data))
+
+                elif frame.opcode == ABNF.OPCODE_CLOSE:
+                    cmt_logger.debug('ws_start: received close opcode')
+                    # self.ws.close() will try to send close frame, so we skip sending close frame here
+                    break
+
+                elif frame.opcode == ABNF.OPCODE_PING:
+                    cmt_logger.debug('ws_start: received ping, sending pong')
+                    if len(frame.data) < 126:
+                        self.ws.pong(frame.data)
+                    else:
+                        cmt_logger.debug('ws_start: ping message too big to send')
+
+                elif frame.opcode == ABNF.OPCODE_PONG:
+                    cmt_logger.debug('ws_start: received pong')
+
+                else:
+                    cmt_logger.error('ws_start: unknown frame opcode = {}'.format(frame.opcode))
 
             on_close(self.ws)
             self.ws.close()
