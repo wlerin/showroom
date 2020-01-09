@@ -97,12 +97,22 @@ def convert_comments_to_danmaku(startTime, commentList,
 
     for data in commentList:
         m_type = str(data['t'])
-        if m_type != '1' and m_type != '8':
-            # not a comment and not a telop
-            continue
-
         comment = ''
-        if m_type == '8':  # telop
+        if m_type == '1':  # comment
+            comment = data['cm']
+
+        elif m_type == '4':  # voting result
+            poll = data['l']
+            if len(poll) < 1:
+                continue
+            comment = 'Poll: 【({}) {}%'.format(poll[0]['id'] % 10000, poll[0]['r'])
+            for k in range(1, len(poll)):
+                if k > 4:
+                    break
+                comment += ', ({}) {}%'.format(poll[k]['id'] % 10000, poll[k]['r'])
+            comment += '】'
+
+        elif m_type == '8':  # telop
             telop = data['telop']
             if telop is not None and telop != previousTelop:
                 previousTelop = telop
@@ -111,8 +121,8 @@ def convert_comments_to_danmaku(startTime, commentList,
             else:
                 continue
 
-        else:  # comment
-            comment = data['cm']
+        else:   # not comment, telop, or voting result
+            continue
 
         # compute current relative time
         t = data['received_at'] - startTime
@@ -272,6 +282,10 @@ class CommentLogger(object):
 
             elif m_type == '2':  # gift
                 pass
+
+            elif m_type == '4':  # voting result
+                self.comment_log.append(data)
+                cmt_logger.debug('{}: has voting result'.format(self.room.name))
 
             elif m_type == '8':  # telop
                 self.comment_log.append(data)
