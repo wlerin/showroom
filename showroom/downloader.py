@@ -8,6 +8,9 @@ import os
 
 from .constants import TOKYO_TZ, FULL_DATE_FMT
 from .utils import format_name, strftime
+from .hls import HLSDownloader
+
+USE_PYTHON_HLS_DOWNLOADER = True
 
 download_logger = logging.getLogger('showroom.downloader')
 
@@ -172,79 +175,83 @@ class Downloader(object):
                 I've had a couple zombie streams even with the new system
                 (no ffmpeg logs, so no idea what happened)
         """
-        num_pings = 0
-        # Some streams seem to start fine with up to 4 pings before beginning download?
-        # More investigation is needed
-        max_pings = 1 + self._pingouts
-        # timeout after 1 minute
-        timeout = datetime.datetime.now() + datetime.timedelta(minutes=1)
-        try:
-            for line in self._process.stderr:
-                # TODO: add mpegts or other variants depending on the container settings? or no?
-                # if "Output #0, mp4" in line:
-                if "Output #0" in line:
-                    self._process.communicate()
-                    self.move_to_dest()
-                    self._pingouts = 0
-                    break
-                elif "HandleCtrl, Ping" in line:
-                    num_pings += 1
-                if num_pings > max_pings:
-                    # The main issue with this is that the slain processes will not have their files moved
-                    # But I think this is preferable to the other solutions I've come up with.
-                    # For future reference, those were:
-                    #
-                    # 1) Sending SIGINT then continuing to read stderr until it exited (sometimes it doesn't)
-                    # 2) Sending SIGINT, storing a reference to the process, then restarting the download.
-                    #    This prevents the process from being garbage collected until the Watcher is
-                    # 3) Sending SIGINT, then storing info about src and dest paths for the stopped download.
-                    #    If a reference to the process is NOT stored, there's no way to be sure it has finished writing
-                    #    (if it's writing at all). The only way was to give them a grace period and then just start
-                    #    moving, but this adds undesirable time to the cleanup phase, when we may want to restart
-                    #    a falsely completed Watcher asap.
-                    # 4) Just moving the file straightaway. This is obviously bad since ffmpeg takes a few moments to
-                    #    finish.
-                    # NOTE: only option #1 was actually tried, the others were partially written before being
-                    # abandoned as their problems became clear
-                    #
-                    # Two additional options exist (not mutually exclusive):
-                    # 1) Passing the dead processes off to a queue and having another thread clean up.
-                    # 2) Having regular maintenance sweep the active folder and move files it can be sure are done
-                    #    to their proper folders.
-                    #
-                    # I *probably* need to use 1) eventually, especially once I figure out how to actually end
-                    # stuck processes without killing the parent. But it requires a lot more code.
-                    # Until then let's just see how this works.
-                    #
-                    # When that time does come, a Downloader copy constructor may be useful.
-                    download_logger.debug("Download pinged {} times: Stopping".format(num_pings))
-                    self._pingouts += 1
-                    self.stop()
+        if USE_PYTHON_HLS_DOWNLOADER and self.protocol == 'hls':
+            self._process.wait()
+        else:
+            num_pings = 0
+            # Some streams seem to start fine with up to 4 pings before beginning download?
+            # More investigation is needed
+            max_pings = 1 + self._pingouts
+            # timeout after 1 minute
+            timeout = datetime.datetime.now() + datetime.timedelta(minutes=1)
+            try:
+                for line in self._process.stderr:
+                    # TODO: add mpegts or other variants depending on the container settings? or no?
+                    # if "Output #0, mp4" in line:
+                    if "Output #0" in line:
+                        self._process.communicate()
+                        self.move_to_dest()
+                        self._pingouts = 0
+                        break
+                    elif "HandleCtrl, Ping" in line:
+                        num_pings += 1
+                    if num_pings > max_pings:
+                        # The main issue with this is that the slain processes will not have their files moved
+                        # But I think this is preferable to the other solutions I've come up with.
+                        # For future reference, those were:
+                        #
+                        # 1) Sending SIGINT then continuing to read stderr until it exited (sometimes it doesn't)
+                        # 2) Sending SIGINT, storing a reference to the process, then restarting the download.
+                        #    This prevents the process from being garbage collected until the Watcher is
+                        # 3) Sending SIGINT, then storing info about src and dest paths for the stopped download.
+                        #    If a reference to the process is NOT stored, there's no way to be sure it has finished
+                        #    writing (if it's writing at all). The only way was to give them a grace period and then
+                        #    just start moving, but this adds undesirable time to the cleanup phase, when we may want
+                        #    to restart a falsely completed Watcher asap.
+                        # 4) Just moving the file straightaway. This is obviously bad since ffmpeg takes a few moments
+                        #    to finish.
+                        # NOTE: only option #1 was actually tried, the others were partially written before being
+                        # abandoned as their problems became clear
+                        #
+                        # Two additional options exist (not mutually exclusive):
+                        # 1) Passing the dead processes off to a queue and having another thread clean up.
+                        # 2) Having regular maintenance sweep the active folder and move files it can be sure are done
+                        #    to their proper folders.
+                        #
+                        # I *probably* need to use 1) eventually, especially once I figure out how to actually end
+                        # stuck processes without killing the parent. But it requires a lot more code.
+                        # Until then let's just see how this works.
+                        #
+                        # When that time does come, a Downloader copy constructor may be useful.
+                        download_logger.debug("Download pinged {} times: Stopping".format(num_pings))
+                        self._pingouts += 1
+                        self.stop()
 
-                    # close stderr to force the loop to exit
-                    time.sleep(0.1)
-                    self._process.stderr.close()
-                    time.sleep(0.1)
-                    # process will be garbage collected when the next one is started, or the Watcher dies
-                    # self._process = None
-                # This *should* work for newer builds of FFmpeg without librtmp.
-                # Only question is whether 1 minute is too long (or too short).
-                # UPDATE: Why doesn't this ever seem to work?
-                # is it because FFmpeg freezes output and hangs now? so we're never getting another line to iterate over
-                # elif datetime.datetime.now() > timeout:
-                #     download_logger.debug("Download of {} timed out".format(self.outfile))
-                #     self.stop()
-                #     time.sleep(0.1)
-                #     self._process.stderr.close()
-                #     time.sleep(0.1)
-                else:
-                    time.sleep(0.2)
+                        # close stderr to force the loop to exit
+                        time.sleep(0.1)
+                        self._process.stderr.close()
+                        time.sleep(0.1)
+                        # process will be garbage collected when the next one is started, or the Watcher dies
+                        # self._process = None
+                    # This *should* work for newer builds of FFmpeg without librtmp.
+                    # Only question is whether 1 minute is too long (or too short).
+                    # UPDATE: Why doesn't this ever seem to work?
+                    # is it because FFmpeg freezes output and hangs now? so we're never getting another line to
+                    #     iterate over
+                    # elif datetime.datetime.now() > timeout:
+                    #     download_logger.debug("Download of {} timed out".format(self.outfile))
+                    #     self.stop()
+                    #     time.sleep(0.1)
+                    #     self._process.stderr.close()
+                    #     time.sleep(0.1)
+                    else:
+                        time.sleep(0.2)
 
-        except ValueError:
-            download_logger.debug('ffmpeg stderr closed unexpectedly')
+            except ValueError:
+                download_logger.debug('ffmpeg stderr closed unexpectedly')
 
-        # Is it possible for the process to end prematurely?
-        return self._process.returncode
+            # Is it possible for the process to end prematurely?
+            return self._process.returncode
 
     def stop(self):
         """Stop an active download.
@@ -422,52 +429,45 @@ class Downloader(object):
         # Better to do this here or in update_streaming_url?
         # There's a possible race condition here, if some external thread modifies either of these
         if not self._rtmp_url and self._protocol == 'rtmp':
-            download_logger.warn('Using HLS downloader for {}'.format(self._room.handle))
+            download_logger.warning('Using HLS downloader for {}'.format(self._room.handle))
             self._protocol = 'hls'
 
-            # extra_args = []
+        # extra_args = []
         # force using TS container with HLS
         # this is causing more problems than it solves
         # if self.protocol in ('hls', 'lhls'):
         #     self._ffmpeg_container = 'ts'
 
-        # consider using flv instead of ts for hls recordings
-        if self.protocol in ('hls', 'lhls') and self._ffmpeg_container == 'mp4':
-            extra_args = ["-bsf:a", "aac_adtstoasc"]
-
-        # I don't think this is needed?
-        # if self._ffmpeg_container == 'ts':
-        #     extra_args.extend(['-bsf:v', 'h264_mp4toannexb'])
-        # elif self._ffmpeg_container != 'mp4':
-        #     # TODO: support additional container formats, e.g. FLV
-        #     self._ffmpeg_container = 'mp4'
         temp, dest, out = format_name(self._rootdir,
                                       strftime(tokyo_time, FULL_DATE_FMT),
                                       self._room, ext=self._ffmpeg_container)
-
+        out = out.rsplit('.', 1)[0]
         with self._lock:
             self.tempdir, self.destdir, self.outfile = temp, dest, out
-
-        if self._logging is True:
-            log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
-            env.update({'FFREPORT': 'file={}:level=40'.format(log_file)})
-            # level=48  is debug mode, with lots and lots of extra information
-            # maybe too much
         normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
 
-        self._process = subprocess.Popen([
-            self._ffmpeg_path,
-            # '-nostdin',
-            # '-nostats',  # will this omit any useful information?
-            '-loglevel', '40',  # 40+ required for wait() to check output
-            '-copytb', '1',
-            '-i', self.stream_url,
-            '-c', 'copy',
-            *extra_args,
-            normed_outpath
-        ],
-            stdin=subprocess.DEVNULL,
-            stderr=subprocess.PIPE,  # ffmpeg sends all output to stderr
-            universal_newlines=True,
-            bufsize=1,
-            env=env)
+        if self.protocol in ('hls', 'lhls'):
+            segment_folder = normed_outpath.rsplit('.', 1)[0]
+            self._process = HLSDownloader(dest=segment_folder, playlist=self.stream_url)
+            # this will block until the download finishes
+            # make it so it doesn't do that
+        else:
+            if self._logging is True:
+                log_file = os.path.normpath('{}/logs/{}.log'.format(self.destdir, self.outfile))
+                env.update({'FFREPORT': 'file={}:level=40'.format(log_file)})
+            self._process = subprocess.Popen([
+                self._ffmpeg_path,
+                # '-nostdin',
+                # '-nostats',  # will this omit any useful information?
+                '-loglevel', '40',  # 40+ required for wait() to check output
+                '-copytb', '1',
+                '-i', self.stream_url,
+                '-c', 'copy',
+                *extra_args,
+                normed_outpath
+            ],
+                stdin=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,  # ffmpeg sends all output to stderr
+                universal_newlines=True,
+                bufsize=1,
+                env=env)
