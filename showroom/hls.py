@@ -279,7 +279,7 @@ def _worker(inq, outq, func):
 
 class HLSDownloader:
     def __init__(self, dest, playlist):
-        self.ts_queue, self.error_queue = None
+        self.ts_queue, self.error_queue = None, None
         self.dest = dest
         self.playlist = playlist
         self._running = False
