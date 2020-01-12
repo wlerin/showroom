@@ -441,7 +441,6 @@ class Downloader(object):
         temp, dest, out = format_name(self._rootdir,
                                       strftime(tokyo_time, FULL_DATE_FMT),
                                       self._room, ext=self._ffmpeg_container)
-        out = out.rsplit('.', 1)[0]
         with self._lock:
             self.tempdir, self.destdir, self.outfile = temp, dest, out
         normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
@@ -449,6 +448,7 @@ class Downloader(object):
         if self.protocol in ('hls', 'lhls'):
             segment_folder = normed_outpath.rsplit('.', 1)[0]
             self._process = HLSDownloader(dest=segment_folder, playlist=self.stream_url)
+            self._process.start()
             # this will block until the download finishes
             # make it so it doesn't do that
         else:
