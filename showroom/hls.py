@@ -5,6 +5,7 @@ import glob
 import time
 import datetime
 from multiprocessing.dummy import Process, Pool, JoinableQueue as Queue
+from urllib.error import HTTPError
 import logging
 
 import requests
@@ -49,7 +50,6 @@ def load_m3u8(src, url=None, headers=None):
         m3u8_obj.playlist_url = url
         m3u8_obj.base_uri = _parsed_url(url)
     else:
-
         m3u8_obj = m3u8.load(src, headers=headers or DEFAULT_HEADERS)
         m3u8_obj.playlist_url = src
     return m3u8_obj
@@ -201,8 +201,9 @@ def download_hls_video(
     def sleep(sleepdt):
         time.sleep(max((sleepdt - datetime.datetime.now()).total_seconds(), 1))
 
+    errors = 0
     # check if is_endlist, if not keep looping and downloading new segments
-    while True:
+    while errors < 3:
         # This isn't great for DMM or other live sources
         # as the segment index won't be comparable across recordings
         # also it can't be used to determine the iv
@@ -237,12 +238,14 @@ def download_hls_video(
             break
         sleep( request_start + sleep_delta / ( 1 if new_segments else 2 ) )
         request_start = datetime.datetime.now()
-        m3u8_obj = load_m3u8(m3u8_obj.playlist_url, headers=playlist_headers)
+        try:
+            m3u8_obj = load_m3u8(m3u8_obj.playlist_url, headers=playlist_headers)
+        except HTTPError as e:
+            # TODO: analyse the exception
+            hls_logger.debug('HTTPError while loading playlist: {}'.format(e))
+            errors += 1
     ts_queue.join()
     return error_queue  #
-
-    # TODO: don't run this from within this function
-    # merge_segments(dest)
 
 
 def merge_segments(dest, sort_key=default_segment_sort_key):
@@ -272,7 +275,7 @@ def _worker(inq, outq, func):
         try:
             func(*item)
         except Exception as e:
-            hls_logger.debug('\n'.join((e, item[0])))
+            hls_logger.debug(', '.join((e.__name__, str(e), item[0])))
             outq.put(item)
         inq.task_done()
 
