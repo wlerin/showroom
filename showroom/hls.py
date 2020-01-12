@@ -14,6 +14,7 @@ from m3u8 import _parsed_url
 
 hls_logger = logging.getLogger('showroom.hls')
 filename_re = re.compile(r'/([\w=\-_]+\.ts)')
+media_sequence_re = re.compile(r'\d+.ts')
 
 # TODO: make these configurable
 FILENAME_PADDING = 6
@@ -62,7 +63,7 @@ def is_m3u8_content(playlist):
         return False
 
 
-def save_segment(url, destfile, key=None, iv=None, headers=None, timeout=None, attempts=None):
+def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
     if not headers:
         headers = {}
         headers.update(DEFAULT_HEADERS)
@@ -87,23 +88,19 @@ def save_segment(url, destfile, key=None, iv=None, headers=None, timeout=None, a
                 raise
             continue
 
-        if key:
-            # TODO: handle keys
-            pass
-        else:
-            with open(destfile, 'wb') as outfp:
-                try:
-                    for chunk in r.iter_content(chunk_size=chunksize):
-                        if chunk:
-                            outfp.write(chunk)
-                except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
-                    hls_logger.debug(destfile, e)
-                    exc = e
-                    continue
-                else:
-                    break
-                finally:
-                    r.close()
+        with open(destfile, 'wb') as outfp:
+            try:
+                for chunk in r.iter_content(chunk_size=chunksize):
+                    if chunk:
+                        outfp.write(chunk)
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+                hls_logger.debug(destfile, e)
+                exc = e
+                continue
+            else:
+                break
+            finally:
+                r.close()
     else:
         try:
             os.remove(destfile)
@@ -113,9 +110,6 @@ def save_segment(url, destfile, key=None, iv=None, headers=None, timeout=None, a
 
 
 # TODO: better (i.e. more consistent) session handling when fetching m3u8 contents
-# TODO: flag to use session only for fetching key, for fetching key and playlists, or fetching all three.
-# 6 digit media_000000.ts file format
-# this gets trickier with live recordings, but you can't really redo a live recording so who cares
 def download_hls_video(
         src, dest, url=None,
         # authentication options
@@ -136,6 +130,7 @@ def download_hls_video(
     :param cookies:
     :param auth_mode: 0/None - keys only, 1 - keys and playlists, 2 - keys, playlists, segments
     :param skip_exists: Whether to skip existing files (for VOD)
+    :param use_original_filenames: Whether to extract the original filenames or generate them based on sequence
     :return:
     """
     if not session:
@@ -156,6 +151,7 @@ def download_hls_video(
         playlist_headers = {}
         segment_headers = {}
 
+    request_start = datetime.datetime.now()
     m3u8_obj = load_m3u8(src, url, playlist_headers)
     # is this a variant playlist? (are there nested variant playlists???)
     while m3u8_obj.is_variant:
@@ -166,27 +162,33 @@ def download_hls_video(
         request_start = datetime.datetime.now()
         m3u8_obj = load_m3u8(best_variant.absolute_uri, headers=playlist_headers)
 
-    if not m3u8_obj.is_endlist:
-        # calculate when to fetch the next playlist
-        total_duration = sum(x.duration for x in m3u8_obj.segments)
-        target_duration = m3u8_obj.target_duration
-        sleep_delta = datetime.timedelta(seconds=min(total_duration//3+1, target_duration))
-
-    # TODO: split this into a separate function
-    # is there a key? or even multiple keys?
-    if len(m3u8_obj.keys) > 1 or m3u8_obj.keys[0] is not None:
-        # TODO: fetch keys
-        # how to handle multiple keys?
-        key = None
-        iv = None
-    else:
-        # I don't care about keys and iv for now
-        key = None
-        iv = None
+    # this is specifically for Showroom, both HLS and LHLS have a similar segment length for no apparent reason
+    # but HLS gives a much-too-high target duration
+    # if not m3u8_obj.is_endlist:
+    #     # calculate when to fetch the next playlist
+    #     total_duration = sum(x.duration for x in m3u8_obj.segments)
+    #     target_duration = m3u8_obj.target_duration
+    #     sleep_delta = datetime.timedelta(seconds=min(total_duration//3+1, target_duration))
+    sleep_delta = datetime.timedelta(seconds=3)
 
     known_segments = set()
     ts_queue = Queue()
     error_queue = Queue()
+
+    # guess at earlier segments
+    first_segment = m3u8_obj.segments[0]
+    first_segment_url = first_segment.absolute_uri
+    m = filename_re.search(first_segment_url)
+    if m:
+        filename = m.group(1)
+        seq = default_segment_sort_key(filename)
+        ptn = media_sequence_re.sub('{}.ts', filename)
+        url_ptn = first_segment_url.replace(filename, ptn)
+        for n in range(seq-10, seq):
+            filename = ptn.format(n)
+            url = url_ptn.format(n)
+        outpath = '{}/{}'.format(dest, filename)
+        ts_queue.put((url, outpath, segment_headers))
 
     workers = []
     # TODO: setup workers
@@ -203,10 +205,9 @@ def download_hls_video(
 
     errors = 0
     # check if is_endlist, if not keep looping and downloading new segments
+
+    segment_url = None
     while errors < 3:
-        # This isn't great for DMM or other live sources
-        # as the segment index won't be comparable across recordings
-        # also it can't be used to determine the iv
         index = m3u8_obj.media_sequence or 1
         new_segments = 0
         for segment in m3u8_obj.segments:
@@ -226,17 +227,13 @@ def download_hls_video(
             if skip_exists and os.path.exists(outpath):
                 index += 1
                 continue
-            # TODO: handle multiple keys (or any keys at all)
-            # pass the whole segment object?
-            # TODO: pass segment_headers
-            # TODO: pass iv
-            ts_queue.put((segment_url, outpath, key, iv, segment_headers))
+            ts_queue.put((segment_url, outpath, segment_headers))
             known_segments.add(segment.uri)
             index += 1
 
         if m3u8_obj.is_endlist or not segment_url:
             break
-        sleep( request_start + sleep_delta / ( 1 if new_segments else 2 ) )
+        sleep(request_start + sleep_delta / (1 if new_segments else 2))
         request_start = datetime.datetime.now()
         try:
             m3u8_obj = load_m3u8(m3u8_obj.playlist_url, headers=playlist_headers)
