@@ -101,6 +101,18 @@ def convert_comments_to_danmaku(startTime, commentList,
         if m_type == '1':  # comment
             comment = data['cm']
 
+        elif m_type == '3':  # voting start
+            poll = data['l']
+            if len(poll) < 1:
+                continue
+            comment = 'Poll Started: 【({})'.format(poll[0]['id'] % 10000)
+            for k in range(1, len(poll)):
+                if k > 4:
+                    comment += ', ...'
+                    break
+                comment += ', ({})'.format(poll[k]['id'] % 10000)
+            comment += '】'
+
         elif m_type == '4':  # voting result
             poll = data['l']
             if len(poll) < 1:
@@ -108,6 +120,7 @@ def convert_comments_to_danmaku(startTime, commentList,
             comment = 'Poll: 【({}) {}%'.format(poll[0]['id'] % 10000, poll[0]['r'])
             for k in range(1, len(poll)):
                 if k > 4:
+                    comment += ', ...'
                     break
                 comment += ', ({}) {}%'.format(poll[k]['id'] % 10000, poll[k]['r'])
             comment += '】'
@@ -234,16 +247,15 @@ class CommentLogger(object):
             try:
                 data = json.loads(message)
             except JSONDecodeError as e:
-                cmt_logger.debug('broken message, JSON decode error: {}'.format(e))
-                cmt_logger.debug('--> {}'.format(message))
+                # cmt_logger.debug('JSONDecodeError, broken message: {}'.format(message))
                 # try to fix
                 message += '","t":"1"}'
                 try:
                     data = json.loads(message)
                 except JSONDecodeError:
-                    cmt_logger.error('failed to fix broken message, JSON decode error: {}'.format(message))
+                    cmt_logger.error('JSONDecodeError, failed to fix broken message: {}'.format(message))
                     return
-                cmt_logger.debug('--> fix passed: {}'.format(message))
+                cmt_logger.debug('broken message, JSONDecodeError is fixed: {}'.format(message))
 
             # add current time
             data['received_at'] = now
@@ -283,6 +295,9 @@ class CommentLogger(object):
             elif m_type == '2':  # gift
                 pass
 
+            elif m_type == '3':  # voting start
+                self.comment_log.append(data)
+
             elif m_type == '4':  # voting result
                 self.comment_log.append(data)
                 cmt_logger.debug('{}: has voting result'.format(self.room.name))
@@ -309,7 +324,7 @@ class CommentLogger(object):
 
         def ws_on_close(ws):
             """ WebSocket callback """
-            cmt_logger.debug('websocket closed')
+            # cmt_logger.debug('websocket closed')
             self._isQuit = True
 
         def interval_send(ws):
@@ -340,12 +355,12 @@ class CommentLogger(object):
             if ws is not None:
                 ws.close()
                 ws = None
-            cmt_logger.debug('interval thread finished')
+            # cmt_logger.debug('interval thread finished')
 
         def ws_on_open(ws):
             """ WebSocket callback """
             self.ws_startTime = int(time.time() * 1000)
-            cmt_logger.debug('websocket on open')
+            # cmt_logger.debug('websocket on open')
 
             # keep sending bcsvr_key to prevent disconnection
             self._thread_interval = threading.Thread(target=interval_send,
@@ -400,7 +415,7 @@ class CommentLogger(object):
                                 message = data.decode('utf-8')
                             except UnicodeDecodeError as e:
                                 message = data.decode('latin-1')
-                                cmt_logger.debug('ws_start: decoded as latin-1: {}'.format(message))
+                                cmt_logger.debug('ws_start: UnicodeDecodeError, decoded as latin-1: {}'.format(message))
                             except Exception as e:
                                 on_error(self.ws, e)
 
@@ -410,7 +425,7 @@ class CommentLogger(object):
                             cmt_logger.debug('ws_start: received unknown binary data: {}'.format(data))
 
                 elif frame.opcode == ABNF.OPCODE_CLOSE:
-                    cmt_logger.debug('ws_start: received close opcode')
+                    # cmt_logger.debug('ws_start: received close opcode')
                     # self.ws.close() will try to send close frame, so we skip sending close frame here
                     break
 
@@ -530,7 +545,7 @@ class CommentLogger(object):
             #                      outfp, indent=2, ensure_ascii=False)
             json.dump(self.comment_log, outfp, indent=2, ensure_ascii=False)
 
-        if self.comment_count > 0:
+        if len(self.comment_log) > 0:
             # convert comments to danmaku
             assTxt = convert_comments_to_danmaku(self.ws_startTime, self.comment_log,
                                                  fontsize=18, fontname='MS PGothic', alpha='1A',
