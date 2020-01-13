@@ -142,7 +142,7 @@ core_logger = logging.getLogger('showroom.core')
 hls_url_re1 = re.compile(r'(https://edge-(\d*)-(\d*)-(\d*)-(\d*).showroom-live.com:443/liveedge/(\w*))/playlist.m3u8')
 
 # TODO: Make this a config file option
-STREAM_PREFERENCE = ("rtmp", "lhls", "hls")
+STREAM_PREFERENCE = ("rtmp", "hls", "lhls", )
 
 WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 

@@ -12,15 +12,18 @@ import requests
 import m3u8
 from m3u8 import _parsed_url
 
+from .constants import TOKYO_TZ
+
 hls_logger = logging.getLogger('showroom.hls')
 filename_re = re.compile(r'/([\w=\-_]+\.ts)')
 media_sequence_re = re.compile(r'\d+.ts')
 
 # TODO: make these configurable
 FILENAME_PADDING = 6
-NUM_WORKERS = 16
+NUM_WORKERS = 20
 DEFAULT_CHUNKSIZE = 4096
 MAX_ATTEMPTS = 5
+MAX_TIME_TRAVEL = 25
 
 # TODO: inherit headers from config
 DEFAULT_HEADERS = {
@@ -94,7 +97,7 @@ def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
                     if chunk:
                         outfp.write(chunk)
             except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
-                hls_logger.debug(destfile, e)
+                hls_logger.debug(', '.join(destfile, str(e)))
                 exc = e
                 continue
             else:
@@ -116,7 +119,7 @@ def download_hls_video(
         session=None, headers=None, cookies=None,
         # how to use auth
         # best solution is to use advanced cookies that inform requests which domains to use which on
-        auth_mode=0, skip_exists=False, use_original_filenames=True,
+        auth_mode=0, skip_exists=True, use_original_filenames=True,
     ):
     """
     Download hls streaming video
@@ -133,6 +136,9 @@ def download_hls_video(
     :param use_original_filenames: Whether to extract the original filenames or generate them based on sequence
     :return:
     """
+    # TODO: decide on dest by #EXT-X-PROGRAM-DATE-TIME instead of when the recording started
+    # simplest kludge is to just drop the end of the string
+
     if not session:
         # TODO: use a session with a Social48CookieJar instead that accepts more advanced cookie formats
         session = requests.Session()
@@ -152,7 +158,12 @@ def download_hls_video(
         segment_headers = {}
 
     request_start = datetime.datetime.now()
-    m3u8_obj = load_m3u8(src, url, playlist_headers)
+    try:
+        m3u8_obj = load_m3u8(src, url, playlist_headers)
+    except HTTPError as e:
+        hls_logger.debug('HTTPError while first loading playlist: {}'.format(e))
+        return
+
     # is this a variant playlist? (are there nested variant playlists???)
     while m3u8_obj.is_variant:
         # select the best playlist
@@ -160,8 +171,21 @@ def download_hls_video(
         # "Every EXT-X-STREAM-INF tag MUST include the BANDWIDTH attribute." -- 4.3.4.2
         best_variant = sorted((item for item in m3u8_obj.playlists), key=lambda x: x.stream_info.bandwidth)[-1]
         request_start = datetime.datetime.now()
-        m3u8_obj = load_m3u8(best_variant.absolute_uri, headers=playlist_headers)
+        try:
+            m3u8_obj = load_m3u8(best_variant.absolute_uri, headers=playlist_headers)
+        except HTTPError as e:
+            hls_logger.debug('HTTPError while loading variant playlist: {}'.format(e))
+            return
 
+    # if we've reached this point, m3u8_obj is most likely a chunklist
+    # check if it has n EXT-X-PROGRAM-DATE-TIME, and if so, modify the dest accordingly
+    # It might be better to use the start time that Showroom's API reports, but then that might
+    program_date_time = m3u8_obj.program_date_time
+    if program_date_time:
+        # should already be in Asia/Tokyo but just to make sure
+        dt = program_date_time.astimezone(TOKYO_TZ)
+        start_time = dt.strftime('%H%M%S')
+        dest = ' '.join((dest.rsplit(' ', 1)[0], start_time))
     # this is specifically for Showroom, both HLS and LHLS have a similar segment length for no apparent reason
     # but HLS gives a much-too-high target duration
     # if not m3u8_obj.is_endlist:
@@ -173,31 +197,16 @@ def download_hls_video(
 
     known_segments = set()
     ts_queue = Queue()
-    error_queue = Queue()
-
-    # guess at earlier segments
-    first_segment = m3u8_obj.segments[0]
-    first_segment_url = first_segment.absolute_uri
-    m = filename_re.search(first_segment_url)
-    if m:
-        filename = m.group(1)
-        seq = default_segment_sort_key(filename)
-        ptn = media_sequence_re.sub('{}.ts', filename)
-        url_ptn = first_segment_url.replace(filename, ptn)
-        for n in range(seq-10, seq):
-            filename = ptn.format(n)
-            url = url_ptn.format(n)
-        outpath = '{}/{}'.format(dest, filename)
-        ts_queue.put((url, outpath, segment_headers))
 
     workers = []
     # TODO: setup workers
     for i in range(NUM_WORKERS):
-        p = Process(target=_worker, args=(ts_queue, error_queue, save_segment))
+        p = Process(target=_worker, args=(ts_queue, save_segment))
         p.start()
         workers.append(p)
 
     os.makedirs(dest, exist_ok=True)
+
     filename_pattern = 'media_{:0%dd}.ts' % FILENAME_PADDING
 
     def sleep(sleepdt):
@@ -206,8 +215,25 @@ def download_hls_video(
     errors = 0
     # check if is_endlist, if not keep looping and downloading new segments
 
+    url_ptn = None
+    # guess at earlier segments
+    first_segment = m3u8_obj.segments[0]
+    first_segment_url = first_segment.absolute_uri
+    m = filename_re.search(first_segment_url)
+    if m:
+        filename = m.group(1)
+        hls_logger.debug('First segment for {}: {}'.format(dest, filename))
+        seq = default_segment_sort_key(filename)
+        ptn = media_sequence_re.sub('{}.ts', filename)
+        url_ptn = first_segment_url.replace(filename, ptn)
+        for n in range(max(1, seq-MAX_TIME_TRAVEL), seq):
+            filename = ptn.format(n)
+            url = url_ptn.format(n)
+            outpath = '{}/{}'.format(dest, filename)
+            ts_queue.put((url, outpath, segment_headers))
+
     segment_url = None
-    while errors < 3:
+    while True:
         index = m3u8_obj.media_sequence or 1
         new_segments = 0
         for segment in m3u8_obj.segments:
@@ -239,14 +265,43 @@ def download_hls_video(
             m3u8_obj = load_m3u8(m3u8_obj.playlist_url, headers=playlist_headers)
         except HTTPError as e:
             # TODO: analyse the exception
-            hls_logger.debug('HTTPError while loading playlist: {}'.format(e))
-            errors += 1
-    ts_queue.join()
-    return error_queue  #
+            hls_logger.debug('HTTPError while loading chunklist: {}'.format(e))
+            break
+
+    # see if any later segments are available before exiting
+    # never works
+    # if url_ptn:
+    #     hls_logger.debug('Last segment: {}'.format(outpath))
+    #     for n in range(index, index+5):
+    #         filename = ptn.format(n)
+    #         url = url_ptn.format(n)
+    #         outpath = '{}/{}'.format(dest, filename)
+    #         hls_logger.debug('Speculatively downloading {}'.format(outpath))
+    #         ts_queue.put((url, outpath, segment_headers))
+
+    # just let the queue end on its own
+    # for vods this would be bad but this is live only
+    # might still be bad tbh...
+    # ts_queue.join()
 
 
 def merge_segments(dest, sort_key=default_segment_sort_key):
     files = sorted(glob.glob('{}/*.ts'.format(dest)), key=sort_key)
+
+    # assume sort_key returns an integer
+    final_media_sequence = sort_key(files[-1])
+    expected_media_set = set(range(1, final_media_sequence+1))
+    found_media_set = set(sort_key(e) for e in files)
+    missing_segments = sorted(expected_media_set - found_media_set)
+    if missing_segments:
+        hls_logger.warning('Missing segments for {}:\n{}'.format(dest, missing_segments))
+        choice = input('Really continue with merge?: ')
+        if not choice[0].lower() == 'y':
+            hls_logger.info('Aborting merge.')
+            return
+    else:
+        hls_logger.info('All expected segments found, beginning merge.')
+
     destfile = '{}.ts'.format(dest)
     bytes_written = 0
 
@@ -264,7 +319,7 @@ def merge_segments(dest, sort_key=default_segment_sort_key):
     hls_logger.debug('Bytes Written: {}'.format(bytes_written))
 
 
-def _worker(inq, outq, func):
+def _worker(inq, func):
     while True:
         item = inq.get()
         if item is None:
@@ -272,14 +327,12 @@ def _worker(inq, outq, func):
         try:
             func(*item)
         except Exception as e:
-            hls_logger.debug(', '.join((e.__name__, str(e), item[0])))
-            outq.put(item)
+            hls_logger.debug(', '.join((str(e), item[0])))
         inq.task_done()
 
 
 class HLSDownloader:
     def __init__(self, dest, playlist):
-        self.ts_queue, self.error_queue = None, None
         self.dest = dest
         self.playlist = playlist
         self._running = False
@@ -287,7 +340,7 @@ class HLSDownloader:
     def start(self):
         # this needs to open it in a separate process or something, because it's going to block
         self._running = True
-        self.ts_queue, self.error_queue = download_hls_video(self.playlist, self.dest)
+        download_hls_video(self.playlist, self.dest)
 
     def wait(self):
         pass
