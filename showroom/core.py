@@ -386,6 +386,7 @@ class Watcher(object):
         self._mode = "quitting"
         if self._download.is_running():
             self._download.stop()
+        self.comment_logger.quit()
 
     def kill(self):
         with self._lock:
