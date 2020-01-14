@@ -5,7 +5,7 @@ import glob
 import time
 import datetime
 from multiprocessing.dummy import Process, Pool, JoinableQueue as Queue
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 import logging
 
 import requests
@@ -163,6 +163,9 @@ def download_hls_video(
     except HTTPError as e:
         hls_logger.debug('HTTPError while first loading playlist: {}'.format(e))
         return
+    except URLError as e:
+        hls_logger.debug('URLError while first loading playlist: {}'.format(e))
+        return
 
     # is this a variant playlist? (are there nested variant playlists???)
     while m3u8_obj.is_variant:
@@ -175,6 +178,9 @@ def download_hls_video(
             m3u8_obj = load_m3u8(best_variant.absolute_uri, headers=playlist_headers)
         except HTTPError as e:
             hls_logger.debug('HTTPError while loading variant playlist: {}'.format(e))
+            return
+        except URLError as e:
+            hls_logger.debug('URLError while loading variant playlist: {}'.format(e))
             return
 
     # if we've reached this point, m3u8_obj is most likely a chunklist
@@ -266,6 +272,10 @@ def download_hls_video(
         except HTTPError as e:
             # TODO: analyse the exception
             hls_logger.debug('HTTPError while loading chunklist: {}'.format(e))
+            break
+        except URLError as e:
+            # TODO: analyse the exception
+            hls_logger.debug('URLError while loading chunklist: {}'.format(e))
             break
 
     # see if any later segments are available before exiting
