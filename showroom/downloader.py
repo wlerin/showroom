@@ -430,6 +430,7 @@ class Downloader(object):
         # this is causing more problems than it solves
         # if self.protocol in ('hls', 'lhls'):
         #     self._ffmpeg_container = 'ts'
+
         # consider using flv instead of ts for hls recordings
         if self.protocol in ('hls', 'lhls') and self._ffmpeg_container == 'mp4':
             extra_args = ["-bsf:a", "aac_adtstoasc"]
