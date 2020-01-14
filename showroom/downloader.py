@@ -431,11 +431,6 @@ class Downloader(object):
         # if self.protocol in ('hls', 'lhls'):
         #     self._ffmpeg_container = 'ts'
 
-        # 2020-01-10: those problems were preferrable to completely unwatchable streams
-        if self.protocol in ('hls', 'lhls'):
-            self._ffmpeg_container = 'flv'
-            extra_args = ["-bsf:a", "aac_adtstoasc"]
-
         # consider using flv instead of ts for hls recordings
         if self.protocol in ('hls', 'lhls') and self._ffmpeg_container == 'mp4':
             extra_args = ["-bsf:a", "aac_adtstoasc"]
