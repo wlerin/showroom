@@ -325,10 +325,13 @@ def merge_segments(dest, sort_key=default_segment_sort_key, force_yes=False):
     missing_segments = sorted(expected_media_set - found_media_set)
     if missing_segments:
         hls_logger.warning('Missing segments for {}:\n{}'.format(dest, missing_segments))
-        choice = input('Really continue with merge?: ')
-        if not choice[0].lower() == 'y':
-            hls_logger.info('Aborting merge.')
-            return
+        if not force_yes:
+            choice = input('Really continue with merge?: ')
+            if not choice[0].lower() == 'y':
+                hls_logger.info('Aborting merge.')
+                return
+        else:
+            hls_logger.info('Continuing with merge anyway.')
     else:
         hls_logger.info('All expected segments found, beginning merge.')
 
