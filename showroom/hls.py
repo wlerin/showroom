@@ -239,13 +239,19 @@ def download_hls_video(
             ts_queue.put((url, outpath, segment_headers))
 
     segment_url = None
+
+    # sometimes the playlist just stays open, forever
+    # number of loops without new segments
+    no_new_segments_count = 0
     while True:
         index = m3u8_obj.media_sequence or 1
         new_segments = 0
         for segment in m3u8_obj.segments:
-            if segment in known_segments:
+            if segment.uri in known_segments:
+                index += 1
                 continue
-            new_segments+=1
+            new_segments += 1
+            no_new_segments_count = 0
             segment_url = segment.absolute_uri
             if use_original_filenames:
                 m = filename_re.search(segment_url)
@@ -263,6 +269,11 @@ def download_hls_video(
             known_segments.add(segment.uri)
             index += 1
 
+        if not new_segments:
+            no_new_segments_count += 1
+        if no_new_segments_count > 3:
+            break
+
         if m3u8_obj.is_endlist or not segment_url:
             break
         sleep(request_start + sleep_delta / (1 if new_segments else 2))
@@ -278,8 +289,9 @@ def download_hls_video(
             hls_logger.debug('URLError while loading chunklist: {}'.format(e))
             break
 
-    # see if any later segments are available before exiting
-    # never works
+    for _ in range(NUM_WORKERS):
+        ts_queue.put(None)
+
     # if url_ptn:
     #     hls_logger.debug('Last segment: {}'.format(outpath))
     #     for n in range(index, index+5):
@@ -295,7 +307,7 @@ def download_hls_video(
     # ts_queue.join()
 
 
-def merge_segments(dest, sort_key=default_segment_sort_key):
+def merge_segments(dest, sort_key=default_segment_sort_key, force_yes=False):
     files = sorted(glob.glob('{}/*.ts'.format(dest)), key=sort_key)
 
     # assume sort_key returns an integer
