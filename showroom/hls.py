@@ -48,6 +48,7 @@ def load_m3u8(src, url=None, headers=None):
     if src.upper().startswith('#EXTM3U'):
         m3u8_obj = m3u8.loads(src)
         m3u8_obj.playlist_url = url
+        m3u8_obj.base_uri = _parsed_url(url)
     elif os.path.exists(src):
         m3u8_obj = m3u8.load(src)
         # is this going to split the url correctly?
@@ -287,6 +288,13 @@ def download_hls_video(
         except URLError as e:
             # TODO: analyse the exception
             hls_logger.debug('URLError while loading chunklist: {}'.format(e))
+            break
+        # this is going to catch way too many other errors
+        except ValueError as e:
+            # thrown by M3U8 library
+            r = requests.get(m3u8_obj.playlist_url, headers=playlist_headers)
+            hls_logger.debug('Failed to load M3U8: {}\n{}'.format(e, r.text))
+            # probably recoverable, but we're going to rewind the stream anyway
             break
 
     for _ in range(NUM_WORKERS):
