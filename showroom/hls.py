@@ -4,19 +4,37 @@ import os
 import glob
 import time
 import datetime
-from multiprocessing.dummy import Process, Pool, JoinableQueue as Queue
+from multiprocessing.dummy import Process, JoinableQueue as Queue
 from urllib.error import HTTPError, URLError
 import logging
 
 import requests
+from m3u8 import parser
+
+
+# Handle negative media-sequence values
+# does this have any, ahem, negative consequences?
+def _showroom_parse_simple_parameter_raw_value(line, cast_to=str, normalize=False):
+    param, value = line.split(':', 1)
+    param = parser.normalize_attribute(param.replace('#EXT-X-', ''))
+    if normalize:
+        value = parser.normalize_attribute(value)
+    try:
+        return param, cast_to(value)
+    except ValueError:
+        return param, cast_to(value.replace('_', '-'))
+
+
+parser._parse_simple_parameter_raw_value = _showroom_parse_simple_parameter_raw_value
 import m3u8
 from m3u8 import _parsed_url
 
 from .constants import TOKYO_TZ
 
 hls_logger = logging.getLogger('showroom.hls')
-filename_re = re.compile(r'/([\w=\-_]+\.ts)')
-media_sequence_re = re.compile(r'\d+.ts')
+# filename_re = re.compile(r'/([\w=\-_]+\.ts)')
+# media_sequence_re = re.compile(r'\d+.ts')
+_filename_re = re.compile(r'([\w=\-]+?)(\d+).ts')
 
 # TODO: make these configurable
 FILENAME_PADDING = 6
@@ -33,14 +51,18 @@ DEFAULT_HEADERS = {
 TIMEOUT = 3
 
 
-def default_segment_sort_key(file):
+def _segment_sort_key(file):
     """
-    Returns the last contiguous number in a filename as an integer
+    Returns a tuple containing the filename split into a string and an integer
 
     e.g. given the filename "bob-and-cut=3516.ts"
-    will return 3516
+    will return ('bob-and-cut=', 3516)
     """
-    return int(re.findall(r'(\d+)', file)[-1])
+    # return int(re.findall(r'(\d+)', file)[-1])
+    m = _filename_re.search(file)
+    if m:
+        return m.group(1), int(m.group(2))
+    raise ValueError('Unable to determine sort sequence: {}'.format(file))
 
 
 def load_m3u8(src, url=None, headers=None):
@@ -114,6 +136,10 @@ def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
 
 
 # TODO: better (i.e. more consistent) session handling when fetching m3u8 contents
+# TODO: wrap this up in a class
+# TODO: once in a class, keep track of files, discontinuities, etc. and allow merging
+# or printing such information to disk, for later merging
+# TODO: automatically save segments to a tar file when complete
 def download_hls_video(
         src, dest, url=None,
         # authentication options
@@ -219,47 +245,66 @@ def download_hls_video(
     def sleep(sleepdt):
         time.sleep(max((sleepdt - datetime.datetime.now()).total_seconds(), 1))
 
-    errors = 0
-    # check if is_endlist, if not keep looping and downloading new segments
-
-    url_ptn = None
     # guess at earlier segments
     first_segment = m3u8_obj.segments[0]
     first_segment_url = first_segment.absolute_uri
-    m = filename_re.search(first_segment_url)
+    m = _filename_re.search(first_segment_url)
     if m:
-        filename = m.group(1)
+        filename, media_group, media_sequence = m.group(0), m.group(1), int(m.group(2))
         hls_logger.debug('First segment for {}: {}'.format(dest, filename))
-        seq = default_segment_sort_key(filename)
-        ptn = media_sequence_re.sub('{}.ts', filename)
+        ptn = _filename_re.sub(r'\1{}.ts', filename)
         url_ptn = first_segment_url.replace(filename, ptn)
-        for n in range(max(1, seq-MAX_TIME_TRAVEL), seq):
+        for n in range(max(1, media_sequence-MAX_TIME_TRAVEL), media_sequence):
             filename = ptn.format(n)
             url = url_ptn.format(n)
             outpath = '{}/{}'.format(dest, filename)
+            if skip_exists and os.path.exists(outpath):
+                continue
             ts_queue.put((url, outpath, segment_headers))
 
     segment_url = None
 
-    # sometimes the playlist just stays open, forever
+    errors = 0
+    url_ptn = None
+    discontinuity_detected = False
+    # sometimes the playlist just stays open, long after the stream is finished
     # number of loops without new segments
     no_new_segments_count = 0
     while True:
         index = m3u8_obj.media_sequence or 1
         new_segments = 0
+
+        # TODO: log if index doesn't match sequence extracted from segment url
+        # TODO: handle negative media-sequence here and above
+        # TODO: detect if skipped segments or missing files on disk and add them to queue
+        # before they are gone forever
+        if index < 0:
+            pass
+
         for segment in m3u8_obj.segments:
             if segment.uri in known_segments:
                 index += 1
                 continue
+
+            # TODO: handle discontinuity above
+            if segment.discontinuity:
+                discontinuity_detected = True
+                discontinuity_file = '{}/discontinuity_{}.m3u8'.format(
+                    dest,
+                    datetime.datetime.now(tz=TOKYO_TZ).strftime('%Y%m%d_%H%M%S')
+                )
+                m3u8_obj.dump(discontinuity_file)
+
             new_segments += 1
             no_new_segments_count = 0
             segment_url = segment.absolute_uri
-            if use_original_filenames:
-                m = filename_re.search(segment_url)
+
+            if use_original_filenames or discontinuity_detected:
+                m = _filename_re.search(segment_url)
                 if not m:
                     filename = filename_pattern.format(index)
                 else:
-                    filename = m.group(1)
+                    filename = m.group(0)
             else:
                 filename = filename_pattern.format(index)
             outpath = '{}/{}'.format(dest, filename)
@@ -270,6 +315,7 @@ def download_hls_video(
             known_segments.add(segment.uri)
             index += 1
 
+        # close if no new segments after several requests
         if not new_segments:
             no_new_segments_count += 1
         if no_new_segments_count > 3:
@@ -292,6 +338,7 @@ def download_hls_video(
         # this is going to catch way too many other errors
         except ValueError as e:
             # thrown by M3U8 library
+            # this shouldn't get thrown anymore, but might as well still catch it
             r = requests.get(m3u8_obj.playlist_url, headers=playlist_headers)
             hls_logger.debug('Failed to load M3U8: {}\n{}'.format(e, r.text))
             # probably recoverable, but we're going to rewind the stream anyway
@@ -300,40 +347,38 @@ def download_hls_video(
     for _ in range(NUM_WORKERS):
         ts_queue.put(None)
 
-    # if url_ptn:
-    #     hls_logger.debug('Last segment: {}'.format(outpath))
-    #     for n in range(index, index+5):
-    #         filename = ptn.format(n)
-    #         url = url_ptn.format(n)
-    #         outpath = '{}/{}'.format(dest, filename)
-    #         hls_logger.debug('Speculatively downloading {}'.format(outpath))
-    #         ts_queue.put((url, outpath, segment_headers))
-
     # just let the queue end on its own
     # for vods this would be bad but this is live only
     # might still be bad tbh...
     # ts_queue.join()
 
 
-def merge_segments(dest, sort_key=default_segment_sort_key, force_yes=False):
+# TODO: detect and handle segments in the same stream with differing filename patterns
+# TODO: detect and utilise discontinuity m3u8 files
+def merge_segments(dest, sort_key=_segment_sort_key, force_yes=False):
     files = sorted(glob.glob('{}/*.ts'.format(dest)), key=sort_key)
 
-    # assume sort_key returns an integer
-    final_media_sequence = sort_key(files[-1])
-    expected_media_set = set(range(1, final_media_sequence+1))
-    found_media_set = set(sort_key(e) for e in files)
-    missing_segments = sorted(expected_media_set - found_media_set)
-    if missing_segments:
-        hls_logger.warning('Missing segments for {}:\n{}'.format(dest, missing_segments))
-        if not force_yes:
-            choice = input('Really continue with merge?: ')
-            if not choice[0].lower() == 'y':
-                hls_logger.info('Aborting merge.')
-                return
-        else:
-            hls_logger.info('Continuing with merge anyway.')
+    # assume sort_key returns an tuple of a str and an integer
+    final_key = sort_key(files[-1])
+    try:
+        final_media_sequence = final_key[1]
+        expected_media_set = set(range(1, final_media_sequence + 1))
+        found_media_set = set(sort_key(e)[1] for e in files)
+    except TypeError as e:
+        hls_logger.warning('Unable to read media-sequence using provided sort_key, will not check for missing files')
     else:
-        hls_logger.info('All expected segments found, beginning merge.')
+        missing_segments = sorted(expected_media_set - found_media_set)
+        if missing_segments:
+            hls_logger.warning('Missing segments for {}:\n{}'.format(dest, missing_segments))
+            if not force_yes:
+                choice = input('Really continue with merge?: ')
+                if not choice[0].lower() == 'y':
+                    hls_logger.info('Aborting merge.')
+                    return
+            else:
+                hls_logger.info('Continuing with merge anyway.')
+        else:
+            hls_logger.info('All expected segments found, beginning merge.')
 
     destfile = '{}.ts'.format(dest)
     bytes_written = 0
