@@ -210,15 +210,6 @@ def download_hls_video(
             hls_logger.debug('URLError while loading variant playlist: {}'.format(e))
             return
 
-    # if we've reached this point, m3u8_obj is most likely a chunklist
-    # check if it has n EXT-X-PROGRAM-DATE-TIME, and if so, modify the dest accordingly
-    # It might be better to use the start time that Showroom's API reports, but then that might
-    program_date_time = m3u8_obj.program_date_time
-    if program_date_time:
-        # should already be in Asia/Tokyo but just to make sure
-        dt = program_date_time.astimezone(TOKYO_TZ)
-        start_time = dt.strftime('%H%M%S')
-        dest = ' '.join((dest.rsplit(' ', 1)[0], start_time))
     # this is specifically for Showroom, both HLS and LHLS have a similar segment length for no apparent reason
     # but HLS gives a much-too-high target duration
     # if not m3u8_obj.is_endlist:

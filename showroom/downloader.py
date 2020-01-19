@@ -446,6 +446,7 @@ class Downloader(object):
         normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
 
         if self.protocol in ('hls', 'lhls'):
+            # TODO: For HLS, use the start time reported by Showroom's API to simplify later processing?
             segment_folder = normed_outpath.rsplit('.', 1)[0]
             self._process = HLSDownloader(dest=segment_folder, playlist=self.stream_url)
             self._process.start()
