@@ -9,23 +9,7 @@ from urllib.error import HTTPError, URLError
 import logging
 
 import requests
-from m3u8 import parser
 
-
-# Handle negative media-sequence values
-# does this have any, ahem, negative consequences?
-def _showroom_parse_simple_parameter_raw_value(line, cast_to=str, normalize=False):
-    param, value = line.split(':', 1)
-    param = parser.normalize_attribute(param.replace('#EXT-X-', ''))
-    if normalize:
-        value = parser.normalize_attribute(value)
-    try:
-        return param, cast_to(value)
-    except ValueError:
-        return param, cast_to(value.replace('_', '-'))
-
-
-parser._parse_simple_parameter_raw_value = _showroom_parse_simple_parameter_raw_value
 import m3u8
 from m3u8 import _parsed_url
 

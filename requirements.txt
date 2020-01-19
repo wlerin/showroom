@@ -1,5 +1,5 @@
 requests
 fake-useragent
 pyyaml
-m3u8
+m3u8>=0.5.4
 websocket-client
