@@ -16,8 +16,6 @@ from m3u8 import _parsed_url
 from .constants import TOKYO_TZ
 
 hls_logger = logging.getLogger('showroom.hls')
-# filename_re = re.compile(r'/([\w=\-_]+\.ts)')
-# media_sequence_re = re.compile(r'\d+.ts')
 _filename_re = re.compile(r'([\w=\-]+?)(\d+).ts')
 
 # TODO: make these configurable
@@ -57,7 +55,6 @@ def load_m3u8(src, url=None, headers=None):
         m3u8_obj.base_uri = _parsed_url(url)
     elif os.path.exists(src):
         m3u8_obj = m3u8.load(src)
-        # is this going to split the url correctly?
         m3u8_obj.playlist_url = url
         m3u8_obj.base_uri = _parsed_url(url)
     else:
@@ -131,11 +128,11 @@ def download_hls_video(
         # how to use auth
         # best solution is to use advanced cookies that inform requests which domains to use which on
         auth_mode=0, skip_exists=True, use_original_filenames=True,
-    ):
+        ):
     """
     Download hls streaming video
 
-    :param playlist: playlist source
+    :param src: playlist source
     :param dest: destination, will be created as a folder containing individual segments,
         and then a merged ts file with the same name
     :param url: url of the playlist, used to set the base_uri if a file or raw text is given as playlist
@@ -147,11 +144,8 @@ def download_hls_video(
     :param use_original_filenames: Whether to extract the original filenames or generate them based on sequence
     :return:
     """
-    # TODO: decide on dest by #EXT-X-PROGRAM-DATE-TIME instead of when the recording started
-    # simplest kludge is to just drop the end of the string
-
     if not session:
-        # TODO: use a session with a Social48CookieJar instead that accepts more advanced cookie formats
+        # TODO: use a CookieJar that accepts more advanced cookie formats
         session = requests.Session()
     if headers:
         session.headers.update(headers)
@@ -250,7 +244,6 @@ def download_hls_video(
         new_segments = 0
 
         # TODO: log if index doesn't match sequence extracted from segment url
-        # TODO: handle negative media-sequence here and above
         # TODO: detect if skipped segments or missing files on disk and add them to queue
         # before they are gone forever
         if index < 0:
@@ -261,7 +254,6 @@ def download_hls_video(
                 index += 1
                 continue
 
-            # TODO: handle discontinuity above
             if segment.discontinuity:
                 discontinuity_detected = True
                 discontinuity_file = '{}/discontinuity_{}.m3u8'.format(
@@ -391,7 +383,6 @@ class HLSDownloader:
         self._running = False
 
     def start(self):
-        # this needs to open it in a separate process or something, because it's going to block
         self._running = True
         download_hls_video(self.playlist, self.dest)
 
@@ -399,7 +390,6 @@ class HLSDownloader:
         pass
 
     def stop(self):
-        # TODO: actually stop it. A ton of stuff needs to change for that to happen
         self._running = False
 
     def kill(self):
