@@ -398,7 +398,7 @@ done
 """
 
 
-def merge_videos(target_dir, output_dir, copytb=1):
+def merge_videos(target_dir, output_dir, copyts=False, copytb=1):
     oldcwd = os.getcwd()
     os.chdir(target_dir)
 
@@ -412,7 +412,6 @@ def merge_videos(target_dir, output_dir, copytb=1):
                             # '-report', 
                             # 'file=logs/concat-{}.log:level=40'.format(os.path.splitext(concat_file)[0]),
                             '-copytb', str(copytb)]
-            
             with open(concat_file, encoding='utf8') as infp:
                 data = infp.read()
             if data.count('file \'') == 0:
@@ -454,6 +453,9 @@ def merge_videos(target_dir, output_dir, copytb=1):
                 
                 instructions.extend(['-i', videostring, '-bsf:a', 'aac_adtstoasc'])
 
+            if copyts:
+                instructions.append('-copyts')
+
             run([_ffmpeg,
                 *instructions,
                 '-movflags', '+faststart',
@@ -488,6 +490,8 @@ if __name__ == '__main__':
     parser.add_argument("--copytb", type=int, choices=[-1, 0, 1], default=1,
                         help='it may be useful to try setting this to 0 or -1 if a video has timing issues.'
                         'Defaults to %(default)s')
+    parser.add_argument('--copyts', action='store_true', help='Try setting this if there\'s a lot of DTS adjustment. '
+                        'Only affects merges.')
     parser.add_argument("--output-dir", "-o", dest='output_dir', type=str, default='.',
                         help='Optional, defaults to target directory. Note that relative paths will be relative to \
                         the target directory, not the current working directory', metavar='OUTPUT_DIR')
@@ -505,10 +509,10 @@ if __name__ == '__main__':
         generate_concat_files(target_dir=args.target_dir, target_ext=args.ext,
                               max_gap=args.max_gap)
     if (args.merge or args.both) and not args.use_concat_protocol:
-        merge_videos(target_dir=args.target_dir, output_dir=args.output_dir,
+        merge_videos(target_dir=args.target_dir, output_dir=args.output_dir, copyts=args.copyts,
                      copytb=args.copytb)
     if args.aggressive or ((args.merge or args.both) and args.use_concat_protocol):
-        merge_videos(target_dir=args.target_dir, output_dir=args.output_dir,
+        merge_videos(target_dir=args.target_dir, output_dir=args.output_dir, copyts=args.copyts,
                      copytb=args.copytb)
 
 
