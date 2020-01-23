@@ -99,3 +99,29 @@ def probe_video(filename, stream='v', entries=()):
             return json.loads(results)['streams']
         except IndexError:
             return None
+
+
+def probe_video2(filename):
+    """
+    Leaves it up to the caller to filter the returned info
+    """
+    try:
+        results = check_output([
+            ffprobe,
+            '-loglevel', '16',
+            '-show_streams',
+            '-show_format',
+            '-i', filename,
+            '-of', 'json'
+        ],
+            universal_newlines=True,
+            stderr=DEVNULL,
+            stdin=DEVNULL
+        )
+    except CalledProcessError:
+        return None
+    else:
+        try:
+            return json.loads(results)
+        except IndexError:
+            return None
