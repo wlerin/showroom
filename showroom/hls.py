@@ -1,4 +1,3 @@
-# generic methods for downloading video (streaming or otherwise)
 import re
 import os
 import glob
@@ -82,6 +81,7 @@ def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
     if attempts is None:
         attempts = MAX_ATTEMPTS
 
+    not_found_count = 0
     for attempt in range(attempts):
         time.sleep(attempt)
         r = requests.get(url, headers=headers, timeout=timeout, stream=True)
@@ -92,7 +92,10 @@ def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
             exc = e
             status = e.response.status_code
             if status == 404:
-                raise
+                not_found_count += 1
+                # allow three 404 errors
+                if not_found_count > 3:
+                    raise
             continue
 
         with open(destfile, 'wb') as outfp:
