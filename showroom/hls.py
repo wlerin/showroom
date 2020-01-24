@@ -12,6 +12,7 @@ import requests
 import m3u8
 from m3u8 import _parsed_url
 
+from showroom.utils.media import md5sum
 from .constants import TOKYO_TZ
 
 hls_logger = logging.getLogger('showroom.hls')
@@ -400,3 +401,139 @@ class HLSDownloader:
 
     def poll(self):
         return self._running
+
+
+# various additional utilities for processing hls recordings saved by this module
+def check_missing(files):
+    # checks a list of files to see if any are missing, based on an int value returned by key
+    # files.sort(key=key)
+    key = _segment_sort_key
+    files.sort(key=key)
+
+    patterns = _identify_patterns(files)
+
+    result = {}
+    for pattern in patterns:
+        pattern_files = [e for e in files if pattern in e]
+        final_index = key(pattern_files[-1])[1]
+        expected_segments = set(range(1, final_index+1))
+        found_segments = set(key(file)[1] for file in pattern_files)
+        missing = expected_segments - found_segments
+        result[pattern] = sorted(missing)
+
+    return result
+
+
+def _identify_patterns(files):
+    return sorted(set(_segment_sort_key(e)[0] for e in files))
+
+
+# Segment folder consolidation
+# this is the final version i came up with while tinkering with 2020-01-15
+def simplify(path):
+    """
+    Tries to simplify an archive as much as possible prior to either tar + upload or comparison and merge
+    """
+    oldcwd = os.getcwd()
+    os.chdir(path)
+
+    streams = sorted(glob.glob('*Showroom*'))
+    rooms = {}
+    for stream in streams:
+        date, handle = stream.split(' Showroom - ')
+        handle, time = stream.rsplit(' ', 1)
+        if handle not in rooms:
+            rooms[handle] = []
+        rooms[handle].append((date, time, stream))
+
+    for handle, streams in rooms.items():
+        start_date, start_time, first_stream = streams[0]
+
+        # check for a discontinuity m3u8
+        # once i reach those i want to revise this script
+        if glob.glob('{}/discontinuity*.m3u8'.format(first_stream)):
+            print(first_stream, 'has a discontinuity.m3u8')
+        # TODO: sort by date not filename
+        base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
+        if not base_files:
+            print('{} contains no segments, attempting to remove'.format(first_stream))
+            try:
+                os.rmdir(first_stream)
+            except OSError as e:
+                print(e)
+            continue
+
+        filename_patterns = _identify_patterns(base_files)
+        if len(filename_patterns) > 1:
+            # TODO: handle this situation
+            print('Multiple filename patterns detected in first stream: {}\n{}'.format(first_stream, filename_patterns))
+            continue
+        # TODO: identify the oldest pattern either by file date (preserved through tar) or a discontinuity m3u8
+        # except actually we'd want to be using the latest pattern here (and split it from the earlier one(s))
+        base_pattern = filename_patterns[0]
+        # step 1: check for multiple filename patterns
+        for stream in streams[1:]:
+            if glob.glob('{}/discontinuity*.m3u8'.format(stream)):
+                print(stream, 'has a discontinuity.m3u8')
+            new_date, new_time, new_stream = stream
+            new_files = sorted(glob.glob('{}/*.ts'.format(new_stream)), key=_segment_sort_key)
+            if not new_files:
+                try:
+                    os.rmdir(new_stream)
+                except OSError:
+                    print(new_stream, 'is not empty')
+                continue
+            new_patterns = _identify_patterns(new_files)
+            if len(new_patterns) > 1:
+                if len(new_patterns) == 2 and base_pattern in new_patterns:
+                    # move files that do match the old pattern
+                    move_files(file for file in new_files if base_pattern in file)
+                    new_patterns.remove(base_pattern)  # will hit the if clause below and then continue
+                    # don't know how to handle more than two patterns in a single folder
+                    # at least not without a discontinuity.m3u8, and those don't exist yet in the archives i'm testing
+                else:
+                    # can this be dealt with without raising an error?
+                    # in theory, even three patterns could be handled if we looked at streams before and after this one
+                    print('Too many filename patterns detected in stream: {}\n{}'.format(
+                        new_stream, new_patterns
+                    ))
+                    continue
+
+            new_pattern = new_patterns[0]
+            if base_pattern != new_pattern:
+                # Only one pattern in the new file, so this means we're in an actual new stream, not a discontinuity
+                # future "streams" will be merged into this one instead
+                start_date, start_time, first_stream = new_date, new_time, new_stream
+                base_pattern = new_pattern
+                base_files = new_files
+                continue
+
+            move_files(new_files)
+            # TODO: verify that the move works correctly, then delete the "new" stream
+            base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
+            if not set(e.split('/')[-1] for e in new_files) - set(e.split('/')[-1] for e in base_files):
+                rm_files = glob.glob('{}/*.ts'.format(new_stream))
+                for file in rm_files:
+                    os.remove(file)
+                try:
+                    os.rmdir(new_stream)
+                except OSError:
+                    print(new_stream, 'is not empty')
+
+    os.chdir(oldcwd)
+
+
+def move_files(files, dest):
+    num_moved = 0
+    for file in files:
+        filename = file.split('/')[-1]
+        destfile = '{}/{}'.format(dest, filename)
+        if not os.path.exists(destfile):
+            num_moved += 1
+            os.replace(file, destfile)
+        if md5sum(file) == md5sum(dest):
+            print('{} exists in destination, removing duplicate'.format(file))
+            os.remove(file)
+        else:
+            print('{} exists in destination, but checksums do not match'.format(file))
+    return num_moved

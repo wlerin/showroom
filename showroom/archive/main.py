@@ -11,6 +11,36 @@ def kimi_dare_dispatch(**kwargs):
     _dispatch(**kwargs)
 
 
+def hls_dispatch(**kwargs):
+    from .. import hls
+    command = kwargs.pop('command')
+    if command == 'simplify':
+        target = kwargs.get('target')
+        hls.simplify(target)
+    elif command == 'merge':
+        # TODO: this uses logging to print output
+        # set up logging to console and convert the other two to logging output instead of print
+        target = kwargs.get('target')
+        force_yes = kwargs.get('force_yes')
+        hls.merge_segments(target, force_yes=force_yes)
+    elif command == 'check':
+        target = kwargs.get('target')
+        results = hls.check_missing(target)
+        if len(results) > 1:
+            print('Found multiple filename patterns in', target)
+            for key, val in results.items():
+                if val:
+                    print(key, 'is missing', val)
+                else:
+                    print(key, 'has all expected files')
+        else:
+            for key, val in results.items():
+                if val:
+                    print(target, 'is missing', val)
+                else:
+                    print(target, 'has all expected files')
+
+
 def build_parser():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest='subcommand')
@@ -63,6 +93,14 @@ def build_parser():
     parser_trim.add_argument('--trim-ends', '-t', action='append', help='Time to cut the end of the video, repeat for each video.', type=str)
     parser_trim.add_argument('video_list', metavar='files', nargs='+', help='Files to trim')
     parser_trim.set_defaults(func=trim_videos)
+
+    parser_hls = subparsers.add_parser('hls', help='Various commands for working with experimental hls recordings')
+    parser_hls.add_argument('command', choices=('simplify', 'merge', 'check'), help='Command to run:\n'
+                            'Check a single stream folder to see if any files are missing.\n'
+                            'Merge a single stream folder into a TS file\n'
+                            'Simplify a folder of streams, combining any that were obviously from the same broadcast.')
+    parser_hls.add_argument('target', help='Target folder')
+    parser_hls.add_argument('--force_yes', '-y', action='store_true', help='Force merger to ignore missing files')
 
     parser_final = subparsers.add_parser('final', help='Final check')
     parser_final.add_argument('dirs', nargs='+', help='Directories to check')
