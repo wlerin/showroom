@@ -487,7 +487,7 @@ def simplify(path):
             if len(new_patterns) > 1:
                 if len(new_patterns) == 2 and base_pattern in new_patterns:
                     # move files that do match the old pattern
-                    move_files(file for file in new_files if base_pattern in file)
+                    move_files((file for file in new_files if base_pattern in file), first_stream)
                     new_patterns.remove(base_pattern)  # will hit the if clause below and then continue
                     # don't know how to handle more than two patterns in a single folder
                     # at least not without a discontinuity.m3u8, and those don't exist yet in the archives i'm testing
@@ -508,7 +508,7 @@ def simplify(path):
                 base_files = new_files
                 continue
 
-            move_files(new_files)
+            move_files(new_files, first_stream)
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
             if not set(e.split('/')[-1] for e in new_files) - set(e.split('/')[-1] for e in base_files):
@@ -531,7 +531,7 @@ def move_files(files, dest):
         if not os.path.exists(destfile):
             num_moved += 1
             os.replace(file, destfile)
-        if md5sum(file) == md5sum(dest):
+        elif md5sum(file) == md5sum(destfile):
             print('{} exists in destination, removing duplicate'.format(file))
             os.remove(file)
         else:
