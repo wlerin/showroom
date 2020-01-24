@@ -147,7 +147,7 @@ def download_hls_video(
     :param auth_mode: 0/None - keys only, 1 - keys and playlists, 2 - keys, playlists, segments
     :param skip_exists: Whether to skip existing files (for VOD)
     :param use_original_filenames: Whether to extract the original filenames or generate them based on sequence
-    :return:
+    :return:run, PIPE,
     """
     if not session:
         # TODO: use a CookieJar that accepts more advanced cookie formats
@@ -549,7 +549,7 @@ def move_files(files, dest, ignore_checksums=False):
             print('{} failed probe'.format(file))
         # both videos were successfully probed
         elif ignore_checksums or md5sum(file) == md5sum(destfile):
-            print('{} exists in destination, removing duplicate'.format(file))
+            # print('{} exists in destination, removing duplicate'.format(file))
             os.remove(file)
 
     return num_moved
