@@ -13,6 +13,7 @@ import m3u8
 from m3u8 import _parsed_url
 
 from showroom.utils.media import md5sum
+from showroom.archive.probe import probe_video2
 from .constants import TOKYO_TZ
 
 hls_logger = logging.getLogger('showroom.hls')
@@ -430,7 +431,7 @@ def _identify_patterns(files):
 
 # Segment folder consolidation
 # this is the final version i came up with while tinkering with 2020-01-15
-def simplify(path):
+def simplify(path, ignore_checksums=False):
     """
     Tries to simplify an archive as much as possible prior to either tar + upload or comparison and merge
     """
@@ -487,7 +488,7 @@ def simplify(path):
             if len(new_patterns) > 1:
                 if len(new_patterns) == 2 and base_pattern in new_patterns:
                     # move files that do match the old pattern
-                    move_files((file for file in new_files if base_pattern in file), first_stream)
+                    move_files((file for file in new_files if base_pattern in file), first_stream, ignore_checksums)
                     new_patterns.remove(base_pattern)  # will hit the if clause below and then continue
                     # don't know how to handle more than two patterns in a single folder
                     # at least not without a discontinuity.m3u8, and those don't exist yet in the archives i'm testing
@@ -508,13 +509,13 @@ def simplify(path):
                 base_files = new_files
                 continue
 
-            move_files(new_files, first_stream)
+            move_files(new_files, first_stream, ignore_checksums)
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
             if not set(e.split('/')[-1] for e in new_files) - set(e.split('/')[-1] for e in base_files):
-                rm_files = glob.glob('{}/*.ts'.format(new_stream))
-                for file in rm_files:
-                    os.remove(file)
+                # rm_files = glob.glob('{}/*.ts'.format(new_stream))
+                # for file in rm_files:
+                #     os.remove(file)
                 try:
                     os.rmdir(new_stream)
                 except OSError:
@@ -523,7 +524,7 @@ def simplify(path):
     os.chdir(oldcwd)
 
 
-def move_files(files, dest):
+def move_files(files, dest, ignore_checksums=False):
     num_moved = 0
     for file in files:
         filename = file.split('/')[-1]
@@ -531,9 +532,24 @@ def move_files(files, dest):
         if not os.path.exists(destfile):
             num_moved += 1
             os.replace(file, destfile)
-        elif md5sum(file) == md5sum(destfile):
+        # tarring and untarring has invalidated checksums on a few occasions
+        # TODO: find a way to prevent or reduce the frequency of this
+        # and determine how much damage is actually being done
+        # bad destination file
+        elif probe_video2(destfile) is None:
+            if probe_video2(file):
+                num_moved += 1
+                os.replace(file, destfile)
+            else:
+                print('{} exists in destination, but both versions failed probe.'.format(file))
+                # os.remove(file)
+                # os.remove(destfile)
+        # bad source file
+        elif probe_video2(file) is None:
+            print('{} failed probe'.format(file))
+        # both videos were successfully probed
+        elif ignore_checksums or md5sum(file) == md5sum(destfile):
             print('{} exists in destination, removing duplicate'.format(file))
             os.remove(file)
-        else:
-            print('{} exists in destination, but checksums do not match'.format(file))
+
     return num_moved

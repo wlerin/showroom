@@ -121,7 +121,4 @@ def probe_video2(filename):
     except CalledProcessError:
         return None
     else:
-        try:
-            return json.loads(results)
-        except IndexError:
-            return None
+        return json.loads(results)
