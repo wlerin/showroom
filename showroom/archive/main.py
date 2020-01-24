@@ -101,6 +101,7 @@ def build_parser():
                             'Simplify a folder of streams, combining any that were obviously from the same broadcast.')
     parser_hls.add_argument('target', help='Target folder')
     parser_hls.add_argument('--force_yes', '-y', action='store_true', help='Force merger to ignore missing files')
+    parser_hls.set_defaults(func=hls_dispatch)
 
     parser_final = subparsers.add_parser('final', help='Final check')
     parser_final.add_argument('dirs', nargs='+', help='Directories to check')
