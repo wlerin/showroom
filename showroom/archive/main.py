@@ -25,7 +25,10 @@ def hls_dispatch(**kwargs):
         hls.merge_segments(target, force_yes=force_yes)
     elif command == 'check':
         target = kwargs.get('target')
-        results = hls.check_missing(target)
+        import glob
+        # check_missing requires a list of files
+        files = glob.glob('{}/*.ts'.format(target))
+        results = hls.check_missing(files)
         if len(results) > 1:
             print('Found multiple filename patterns in', target)
             for key, val in results.items():

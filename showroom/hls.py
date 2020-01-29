@@ -447,13 +447,18 @@ def simplify(path, ignore_checksums=False):
             rooms[handle] = []
         rooms[handle].append((date, time, stream))
 
+    def move_discontinuity_files(src, dest):
+        chunklists = glob.glob('{}/*.m3u8'.format(src))
+        move_files(chunklists, dest, no_probe=True)
+
     for handle, streams in rooms.items():
         start_date, start_time, first_stream = streams[0]
 
         # check for a discontinuity m3u8
         # once i reach those i want to revise this script
-        if glob.glob('{}/discontinuity*.m3u8'.format(first_stream)):
-            print(first_stream, 'has a discontinuity.m3u8')
+        # begin with 2020-01-18
+        # if glob.glob('{}/discontinuity*.m3u8'.format(first_stream)):
+        #     print(first_stream, 'has a discontinuity.m3u8')
         # TODO: sort by date not filename
         base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
         if not base_files:
@@ -474,11 +479,10 @@ def simplify(path, ignore_checksums=False):
         base_pattern = filename_patterns[0]
         # step 1: check for multiple filename patterns
         for stream in streams[1:]:
-            if glob.glob('{}/discontinuity*.m3u8'.format(stream)):
-                print(stream, 'has a discontinuity.m3u8')
             new_date, new_time, new_stream = stream
             new_files = sorted(glob.glob('{}/*.ts'.format(new_stream)), key=_segment_sort_key)
             if not new_files:
+                move_discontinuity_files(new_stream, first_stream)
                 try:
                     os.rmdir(new_stream)
                 except OSError:
@@ -516,6 +520,7 @@ def simplify(path, ignore_checksums=False):
                 # rm_files = glob.glob('{}/*.ts'.format(new_stream))
                 # for file in rm_files:
                 #     os.remove(file)
+                move_discontinuity_files(new_stream, first_stream)
                 try:
                     os.rmdir(new_stream)
                 except OSError:
@@ -524,7 +529,7 @@ def simplify(path, ignore_checksums=False):
     os.chdir(oldcwd)
 
 
-def move_files(files, dest, ignore_checksums=False):
+def move_files(files, dest, ignore_checksums=False, no_probe=False):
     num_moved = 0
     for file in files:
         filename = file.split('/')[-1]
@@ -536,7 +541,7 @@ def move_files(files, dest, ignore_checksums=False):
         # TODO: find a way to prevent or reduce the frequency of this
         # and determine how much damage is actually being done
         # bad destination file
-        elif probe_video2(destfile) is None:
+        elif not no_probe and probe_video2(destfile) is None:
             if probe_video2(file):
                 num_moved += 1
                 os.replace(file, destfile)
@@ -545,7 +550,7 @@ def move_files(files, dest, ignore_checksums=False):
                 # os.remove(file)
                 # os.remove(destfile)
         # bad source file
-        elif probe_video2(file) is None:
+        elif not no_probe and probe_video2(file) is None:
             print('{} failed probe'.format(file))
         # both videos were successfully probed
         elif ignore_checksums or md5sum(file) == md5sum(destfile):
