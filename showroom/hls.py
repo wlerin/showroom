@@ -471,12 +471,12 @@ def simplify(path, ignore_checksums=False):
                 print(e)
             continue
 
+        abort_on_checksum_fail = False
         filename_patterns = _identify_patterns(base_files)
         if 'media_v2_' in filename_patterns:
-            # ABORT ABORT
-            hls_logger.warning('Detected old-style filename pattern in {}, aborting simplification...'.format(handle))
-            return
-        if len(filename_patterns) > 1:
+            hls_logger.warning('Detected old-style filename pattern in {}'.format(handle))
+            abort_on_checksum_fail = True
+        elif len(filename_patterns) > 1:
             # TODO: handle this situation
             hls_logger.warning('Multiple filename patterns detected in first stream: {}\n{}'.format(
                 first_stream, filename_patterns
@@ -501,6 +501,11 @@ def simplify(path, ignore_checksums=False):
             new_patterns = _identify_patterns(new_files)
             hls_logger.debug('{} patterns found'.format(len(new_patterns)))
             if len(new_patterns) > 1:
+                if 'media_v2_' in new_patterns:
+                    hls_logger.error('No idea how to handle mixed v2 and v3 stream: {}\nAborting...'.format(
+                        new_stream
+                    ))
+                    return
                 if len(new_patterns) == 2 and base_pattern in new_patterns:
                     # move files that do match the old pattern
                     move_files((file for file in new_files if base_pattern in file), first_stream, ignore_checksums)
@@ -523,9 +528,14 @@ def simplify(path, ignore_checksums=False):
                 start_date, start_time, first_stream = new_date, new_time, new_stream
                 base_pattern = new_pattern
                 base_files = new_files
+                if new_pattern == 'media_v2_':
+                    hls_logger.warning('{} switched from v3 to v2'.format(new_stream))
+                    abort_on_checksum_fail = True
+                else:
+                    abort_on_checksum_fail = False
                 continue
 
-            num_moved = move_files(new_files, first_stream, ignore_checksums)
+            num_moved = move_files(new_files, first_stream, ignore_checksums, abort_on_checksum_fail)
             hls_logger.debug('Moved {} files to {}'.format(num_moved, first_stream))
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
@@ -542,8 +552,17 @@ def simplify(path, ignore_checksums=False):
     os.chdir(oldcwd)
 
 
-def move_files(files, dest, ignore_checksums=False, no_probe=False):
+def move_files(files, dest, ignore_checksums=False, abort_on_checksum_fail=False, no_probe=False):
     num_moved = 0
+    if abort_on_checksum_fail:
+        for file in files:
+            source, filename = file.split('/')[-2:]
+            destfile = '{}/{}'.format(dest, filename)
+            if os.path.exists(destfile):
+                if not md5sum(file) == md5sum(destfile):
+                    hls_logger.error('Checksum mismatch in version 2 stream: {}'.format(source))
+                    return num_moved
+
     for file in files:
         filename = file.split('/')[-1]
         destfile = '{}/{}'.format(dest, filename)
