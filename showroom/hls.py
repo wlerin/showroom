@@ -443,6 +443,8 @@ def simplify(path, ignore_checksums=False):
     streams = sorted(glob.glob('*Showroom*'))
     rooms = {}
     for stream in streams:
+        if not os.path.isdir(stream):
+            continue
         date, handle = stream.split(' Showroom - ')
         handle, time = stream.rsplit(' ', 1)
         if handle not in rooms:
@@ -496,7 +498,7 @@ def simplify(path, ignore_checksums=False):
                 try:
                     os.rmdir(new_stream)
                 except OSError:
-                    hls_logger.info(new_stream, 'is not empty')
+                    hls_logger.info('{} is not empty'.format(new_stream))
                 continue
             new_patterns = _identify_patterns(new_files)
             hls_logger.debug('{} patterns found'.format(len(new_patterns)))
