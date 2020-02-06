@@ -13,6 +13,9 @@ def kimi_dare_dispatch(**kwargs):
 
 def hls_dispatch(**kwargs):
     from .. import hls
+    import logging
+    # TODO: configure log level based on commandline switch
+    logging.basicConfig(level=logging.DEBUG)
     command = kwargs.pop('command')
     if command == 'simplify':
         target = kwargs.get('target')

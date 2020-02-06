@@ -6,9 +6,10 @@ import datetime
 from multiprocessing.dummy import Process, JoinableQueue as Queue
 from urllib.error import HTTPError, URLError
 import logging
+from itertools import zip_longest
+import shutil
 
 import requests
-
 import m3u8
 from m3u8 import _parsed_url
 
@@ -430,11 +431,12 @@ def _identify_patterns(files):
 
 
 # Segment folder consolidation
-# this is the final version i came up with while tinkering with 2020-01-15
 def simplify(path, ignore_checksums=False):
     """
     Tries to simplify an archive as much as possible prior to either tar + upload or comparison and merge
     """
+    # TODO: handle filename pattern weirdness, e.g. pattern x -> pattern y -> pattern x
+    # (probably the start_time is wrong for pattern_y)
     oldcwd = os.getcwd()
     os.chdir(path)
 
@@ -453,7 +455,7 @@ def simplify(path, ignore_checksums=False):
 
     for handle, streams in rooms.items():
         start_date, start_time, first_stream = streams[0]
-
+        hls_logger.debug('Beginning analysis of {}...'.format(first_stream))
         # check for a discontinuity m3u8
         # once i reach those i want to revise this script
         # begin with 2020-01-18
@@ -462,7 +464,7 @@ def simplify(path, ignore_checksums=False):
         # TODO: sort by date not filename
         base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
         if not base_files:
-            print('{} contains no segments, attempting to remove'.format(first_stream))
+            hls_logger.debug('{} contains no segments, attempting to remove'.format(first_stream))
             try:
                 os.rmdir(first_stream)
             except OSError as e:
@@ -470,9 +472,15 @@ def simplify(path, ignore_checksums=False):
             continue
 
         filename_patterns = _identify_patterns(base_files)
+        if 'media_v2_' in filename_patterns:
+            # ABORT ABORT
+            hls_logger.warning('Detected old-style filename pattern in {}, aborting simplification...'.format(handle))
+            return
         if len(filename_patterns) > 1:
             # TODO: handle this situation
-            print('Multiple filename patterns detected in first stream: {}\n{}'.format(first_stream, filename_patterns))
+            hls_logger.warning('Multiple filename patterns detected in first stream: {}\n{}'.format(
+                first_stream, filename_patterns
+            ))
             continue
         # TODO: identify the oldest pattern either by file date (preserved through tar) or a discontinuity m3u8
         # except actually we'd want to be using the latest pattern here (and split it from the earlier one(s))
@@ -480,15 +488,18 @@ def simplify(path, ignore_checksums=False):
         # step 1: check for multiple filename patterns
         for stream in streams[1:]:
             new_date, new_time, new_stream = stream
+            hls_logger.debug('Beginning analysis of {}...'.format(new_stream))
             new_files = sorted(glob.glob('{}/*.ts'.format(new_stream)), key=_segment_sort_key)
+            hls_logger.debug('{} files found'.format(len(new_files)))
             if not new_files:
                 move_discontinuity_files(new_stream, first_stream)
                 try:
                     os.rmdir(new_stream)
                 except OSError:
-                    print(new_stream, 'is not empty')
+                    hls_logger.info(new_stream, 'is not empty')
                 continue
             new_patterns = _identify_patterns(new_files)
+            hls_logger.debug('{} patterns found'.format(len(new_patterns)))
             if len(new_patterns) > 1:
                 if len(new_patterns) == 2 and base_pattern in new_patterns:
                     # move files that do match the old pattern
@@ -499,13 +510,14 @@ def simplify(path, ignore_checksums=False):
                 else:
                     # can this be dealt with without raising an error?
                     # in theory, even three patterns could be handled if we looked at streams before and after this one
-                    print('Too many filename patterns detected in stream: {}\n{}'.format(
+                    hls_logger.warning('Too many filename patterns detected in stream: {}\n{}'.format(
                         new_stream, new_patterns
                     ))
                     continue
 
             new_pattern = new_patterns[0]
             if base_pattern != new_pattern:
+                hls_logger.debug('Pattern mismatch: {} {}'.format(base_pattern, new_pattern))
                 # Only one pattern in the new file, so this means we're in an actual new stream, not a discontinuity
                 # future "streams" will be merged into this one instead
                 start_date, start_time, first_stream = new_date, new_time, new_stream
@@ -513,7 +525,8 @@ def simplify(path, ignore_checksums=False):
                 base_files = new_files
                 continue
 
-            move_files(new_files, first_stream, ignore_checksums)
+            num_moved = move_files(new_files, first_stream, ignore_checksums)
+            hls_logger.debug('Moved {} files to {}'.format(num_moved, first_stream))
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
             if not set(e.split('/')[-1] for e in new_files) - set(e.split('/')[-1] for e in base_files):
@@ -524,7 +537,7 @@ def simplify(path, ignore_checksums=False):
                 try:
                     os.rmdir(new_stream)
                 except OSError:
-                    print(new_stream, 'is not empty')
+                    hls_logger.info(new_stream, 'is not empty')
 
     os.chdir(oldcwd)
 
@@ -546,15 +559,255 @@ def move_files(files, dest, ignore_checksums=False, no_probe=False):
                 num_moved += 1
                 os.replace(file, destfile)
             else:
-                print('{} exists in destination, but both versions failed probe.'.format(file))
+                hls_logger.warning('{} exists in destination, but both versions failed probe.'.format(file))
                 # os.remove(file)
                 # os.remove(destfile)
         # bad source file
         elif not no_probe and probe_video2(file) is None:
-            print('{} failed probe'.format(file))
+            hls_logger.warning('{} failed probe'.format(file))
         # both videos were successfully probed
         elif ignore_checksums or md5sum(file) == md5sum(destfile):
             # print('{} exists in destination, removing duplicate'.format(file))
             os.remove(file)
+        elif os.path.getsize(file) > os.path.getsize(destfile):
+            os.replace(file, destfile)
+        else:
+            os.remove(file)
 
     return num_moved
+
+
+def compare_archives(archive_paths, final_root, simplify_first=False):
+    """
+    Compare archive folders containing separate recordings of the same streams
+
+    Create a consolidated version of those recordings at final_root
+
+    WARNING: run hls.simplify (or archiver.py hls simplify) on each archive beforehand
+    If there are errors during simplify (e.g. two patterns in a folder)
+    these must be resolved before running this function
+
+    :param archive_paths:
+    :param final_root:
+    :param simplify_first: Runs hls.simplify on each archive path before doing anything else
+    :return:
+    """
+    # get a list of all streams in each archive
+    # "zip" up the streams
+    # run compare_streams on each set of zipped streams
+    # may be necessary to scan files in each stream to determine which one goes with which
+    if simplify_first:
+        for archive_path in archive_paths:
+            simplify(archive_path)
+
+    archive_data = {
+        # streams will be stored as full paths
+        path: sorted(e for e in glob.glob('{}/*'.format(path)) if os.path.isdir(e))
+        for path in archive_paths
+    }
+
+    # this is provided for documentation rather than performance
+    def split_stream_name(file):
+        stream_name = os.path.basename(file)
+        room_name, start_time = stream_name.rsplit(' ', 1)
+        return room_name, start_time
+
+    def compare_start_times(start_times):
+        def convert_time_str(time_str):
+            hours, minutes, seconds = map(int, (time_str[:2], time_str[2:4], time_str[4:]))
+            # i don't think the date will matter at all, but is this a correct assumption?
+            return datetime.datetime(2020, 1, 1, hour=hours, minute=minutes, second=seconds)
+
+        times = sorted(convert_time_str(e) for e in start_times)
+        # all streams are within 5 minutes of the earliest stream
+        return all((x - times[0]).total_seconds() < 5*60 for x in times[1:])
+
+    def get_filename_patterns(path):
+        return _identify_patterns(glob.glob('{}/*.ts'.format(path)))
+
+    rooms = {}
+    for path, streams in archive_data.items():
+        for stream in streams:
+            # assumption: stream names are still those used by showroom.py
+            room_name = split_stream_name(stream)[0]
+            if room_name not in rooms:
+                rooms[room_name] = {}
+            if path not in rooms[room_name]:
+                rooms[room_name][path] = []
+            rooms[room_name][path].append(stream)
+
+    all_streams = []
+    for room_name, room_data in rooms.items():
+        # how many streams are there for this room in each archive?
+        lengths = set(map(len, room_data.values()))
+        if len(lengths) == 1:
+            # will run the same timestamp checks whether there are 1 or 20 streams for a given room
+            new_streams = []
+            check_passed = True
+            for streams in zip(*room_data.values()):
+                if compare_start_times(map(lambda x: split_stream_name(x)[-1], streams)):
+                    new_streams.append(list(streams))
+                else:
+                    check_passed = False
+                    break
+            if check_passed:
+                all_streams.extend(new_streams)
+                continue
+            # if timestamp checks failed
+            # assuming that simplify was run first
+            # that means there will only be one folder per filename pattern
+            # i *think* that the logic from this point on doesn't require equal length stream lists...
+        # (room_name, filename_pattern): [streams]
+        new_streams = {}
+        for stream_list in room_data.values():
+            for stream in stream_list:
+                patterns = get_filename_patterns(stream)
+                if not patterns:
+                    # empty folder?
+                    hls_logger.warning('Empty folder: {}'.format(stream))
+                    continue
+                if len(patterns) > 1:
+                    # this should have been solved via simplify or by hand!!!
+                    raise ValueError('Too many filename patterns in folder: {}'.format(stream))
+                stream_key = (room_name, patterns[0])
+                if stream_key not in new_streams:
+                    new_streams[stream_key] = []
+                new_streams[stream_key].append(stream)
+
+        for stream_key, stream_list in new_streams.items():
+            if len(stream_list) > len(archive_paths):
+                # more streams in than there should be, run simplify!!!!
+                # raise ValueError('Too many streams with the same key, run simplify first! '
+                #                  'Problem room: {}'.format(room_name))
+                hls_logger.debug('Too many streams with the same stream_key: {}\n{}'.format(room_name, stream_list))
+                raise ValueError('Too many streams with the same key, run simplify first!')
+
+            all_streams.append(stream_list)
+
+    # that should be all of them?
+    for stream_list in all_streams:
+        try:
+            stream_list.sort(key=split_stream_name)
+        except AttributeError:
+            print(stream_list)
+            raise
+        dest = '{}/{}'.format(final_root, os.path.basename(stream_list[0]))
+        final_count, missing = compare_streams(stream_list, final_root)
+        if missing:
+            hls_logger.info('Missing segments for {}: {}'.format(dest, missing))
+
+
+def compare_streams(scan_paths, final_root):
+    """
+    Compare several different recordings of the same stream, save a single (more) complete copy under final_root
+
+    :param scan_paths: list of 2 or more paths to recordings of the same stream to compare
+    :param final_root: root path for final, merged recording (still as segments)
+        - folder name will be the earliest of the paths, placed under final_root
+    :return: number of segments in the final stream, and the indexes of any still-missing segments
+    :raises: ValueError if multiple segment filename prefixes found
+        or two segments at the same index have different filenames (should be impossible?)
+        hls.simplify should fix the first case most of the time, but it may occasionally require manual intervention
+    """
+    scan_paths = sorted(scan_paths, key=lambda x: os.path.basename(x))  # make the earliest folder the first one
+    dest = '{}/{}'.format(final_root, os.path.basename(scan_paths[0]))
+    os.makedirs(dest, exist_ok=True)
+    hls_logger.info('Comparing sources for {}'.format(os.path.basename(dest)))
+    data = {}
+    for path in scan_paths:
+        data[path] = scan_stream(path)
+
+    def compare_segments(segments):
+        """
+        Compare different versions of the same segment, return the best one
+
+        :param segments: list of file data objects like that returned by scan_stream
+        :return: returns best version of the segment in question
+        :raises: ValueError if the segment names do not match
+        """
+        choice = None
+        # TODO: how to compare ffprobe data?
+        for segment in segments:
+            # skip non-existent segments and segments that failed probe (i.e. no readable content)
+            if not segment:  # or not segment['probe_result']:
+                continue
+
+            if choice is None:  # set initial data
+                choice = segment
+                continue
+
+            if choice['name'] != segment['name']:
+                raise ValueError('Segment names do not match: {}\n{}'.format(
+                    choice['path'], segment['path']
+                ))
+
+            # if choice['checksum'] != segment['checksum']:
+            #     hls_logger.warning('Checksums do not match: {}\n{}'.format(choice['path'], segment['path']))
+            # TODO: how can i skip this if the destination path already exists?
+            if os.path.getsize(choice['path']) < os.path.getsize(segment['path']):
+                choice = segment
+
+        return choice
+
+    # compare each index starting from 1 until the longest path
+    # identify the best at each index, append that to chosen
+    # None = no segment for that index
+    final_segments = (compare_segments(item) for item in zip_longest(*data.values()))
+    missing = []
+    i = 0
+    for i, item in enumerate(final_segments, 1):
+        if item:
+            destfile = '{}/{}'.format(dest, item['name'])
+            if os.path.exists(destfile):
+                continue  # avoid writing over a previous run of this function
+            # TODO: use shutil.copy2 instead
+            # Using os.replace for now because it's faster and i've already made copies
+            os.replace(item['path'], destfile)
+        else:
+            missing.append(i)
+    length = i
+    return length, missing
+
+
+def scan_stream(path):
+    """
+    Scan a stream and return info about each saved segment
+    :param path: Path to stream
+    :return: a list of dicts containing info about each segment:
+        - index
+        - name
+        - path
+        - checksum
+        - ffprobe results (to be further parsed)
+        - size
+    """
+    # it would be more efficient to only grab some of this info as needed
+    # especially the checksums
+    files = sorted(glob.glob('{}/*.ts'.format(path)), key=_segment_sort_key)
+    if not files:
+        return
+    # check that there is only one prefix
+    prefixes = set(_segment_sort_key(e)[0] for e in files)
+    if len(prefixes) > 1:
+        raise ValueError('Too many segment filename prefixes in {}'.format(path))
+    final_index = _segment_sort_key(files[-1])[1]
+    segments = {}
+    for file in files:
+        item = {}
+        prefix, index = _segment_sort_key(file)
+        item['index'] = index
+        item['name'] = os.path.basename(file)
+        item['path'] = file
+        segments[index] = item
+
+    # delay time consuming tasks until the file is asked for
+    # TODO: avoid doing any of this unless needed
+    for i in range(1, final_index+1):
+        item = segments.get(i)
+        # if item:
+        #     item['probe_result'] = probe_video2(item['path'])
+        #     # item['checksum'] = md5sum(item['path'])
+        #     item['size'] = os.path.getsize(item['path'])
+        yield item
+
+    # return [segments.get(i) for i in range(1, final_index+1)]
