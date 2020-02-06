@@ -5,10 +5,12 @@ import datetime
 import logging
 import time
 import os
+import shutil
 
 from .constants import TOKYO_TZ, FULL_DATE_FMT
 from .utils import format_name, strftime
 from .hls import HLSDownloader
+
 
 USE_PYTHON_HLS_DOWNLOADER = True
 
@@ -295,6 +297,11 @@ class Downloader(object):
             except FileNotFoundError:
                 download_logger.debug('File not found: {} -> {}'.format(srcpath, destpath))
                 return
+            except OSError as e:
+                download_logger.debug('{}'.format(e))
+                # assume cross-device link
+                # too slow though...
+                shutil.move(srcpath, destpath)
             else:
                 return destpath
 

@@ -13,6 +13,23 @@ from .models import VideoGroup
 GOOD_SUBFOLDERS = ['Draft']
 
 
+def _split_filename(file):
+    """
+    Split a filename into handle and timestamp
+
+    :param file:
+    :return:
+    """
+    handle, time_str = file.rsplit('.', 1)[0].rsplit(' ', 1)
+    # ignore things like _fix and (bad)
+    # they'll still cause issues with concat, etc.
+    if '_' in time_str:
+        time_str = time_str.split('_')[0]
+    elif '(' in time_str:
+        handle, time_str = handle.rsplit(' ', 1)
+    return handle, time_str
+
+
 def check_group(target_dir, prefix, target_ext='mp4'):
     # based on concat's resize_videos and generate_concat_files
     group_name = target_dir.strip('/').split('/')[-1]
@@ -32,7 +49,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     logfile = os.path.join(oldcwd, '{}_{}_check.log'.format(prefix, target_dir.split('/')[-2]))
 
     def get_start_seconds(file):
-        time_str = file.rsplit(' ', 1)[1].split('.')[0]
+        time_str = _split_filename(file)[1]
         hours, minutes = int(time_str[:2]), int(time_str[2:4])
         try:
             seconds = int(time_str[4:6])
@@ -43,7 +60,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
     def get_start_hhmm(seconds):
         hours = seconds / (60 * 60)
         minutes = (hours - floor(hours)) * 60
-        return '{:02d}{:02d}'.format(floor(hours), floor(minutes))
+        return '{:02d}{:02d}'.format(floor(hours), floor(minutes+1))
 
     member_dict = {}
     found_files = []
@@ -63,7 +80,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
         # ...
         # frame=206723 fps=1390 q=-0.0 Lsize=N/A time=00:57:28.87 bitrate=N/A speed=23.2x
         filename = os.path.basename(file)
-        member_name = filename.rsplit(' ', 1)[0]
+        member_name = _split_filename(filename)[0]
         if member_name not in member_dict:
             member_dict[member_name] = {'files': [], 'streams': []}
 
@@ -267,7 +284,8 @@ def post_merge_check(check_file):
             for stream in room['streams']:
                 total_video_duration = sum(file['video']['duration'] for file in stream['files'] if file['valid'])
                 total_audio_duration = sum(file['audio']['duration'] for file in stream['files'] if file['valid'])
-                if not (-2.0 < total_video_duration - total_audio_duration < 2.0):
+                # this
+                if not (abs(total_video_duration - total_audio_duration) < 0.1):
                     results.append((
                         stream['stream_name'], 
                         "audio: {}".format(total_audio_duration), 

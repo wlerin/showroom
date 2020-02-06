@@ -111,6 +111,8 @@ def probe_video2(filename):
             '-loglevel', '16',
             '-show_streams',
             '-show_format',
+            '-count_frames',
+            '-count_packets',
             '-i', filename,
             '-of', 'json'
         ],

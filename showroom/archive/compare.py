@@ -52,6 +52,16 @@ def unify_streams(room1, room2):
         pass
 
 
+def check_desync(room, threshold=0.1):
+    for stream in room['streams']:
+        total_video_duration = sum(file['video']['duration'] for file in stream['files'] if file['valid'])
+        total_audio_duration = sum(file['audio']['duration'] for file in stream['files'] if file['valid'])
+        desync_seconds = total_video_duration - total_audio_duration
+        if not (abs(desync_seconds) < threshold):
+            return stream, desync_seconds
+    return False
+
+
 def compare_rooms(main_room, alt_room):
     result = {}
 
@@ -111,7 +121,6 @@ def compare_rooms(main_room, alt_room):
     def calc_max_frame_diff(duration, priority):
         return calc_max_time_diff(duration, priority) * 25
 
-    
     # TODO: Compare streams instead of rooms
     main_size = sum((s['total_size'] for s in main_room['streams']))
     alt_size = sum((s['total_size'] for s in alt_room['streams']))
@@ -129,11 +138,21 @@ def compare_rooms(main_room, alt_room):
     elif main_room['total_duration'] == 0:
         return result
 
+    # desync check
+    if check_desync(main_room):
+        if not check_desync(alt_room):
+            # main_room has av desync but alt_room doesn't
+            return result
+    elif check_desync(alt_room):
+        # main_room has no av desync but alt_room does
+        return None
+
     # if more frames 
     # if more bytes
     # if longer duration (duration is one of the first things to get messed up though, is it ever something i should select off of?)
     if main_frames >= alt_frames:
         if main_size < alt_size and main_room['total_duration'] < alt_room['total_duration']:
+            # check if one of the versions is desynced
             print('{}\'s room needs checking: larger size and duration but lower frames in one comparison'.format(main_room['name']))
         return None
     else:
