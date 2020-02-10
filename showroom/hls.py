@@ -549,7 +549,7 @@ def simplify(path, ignore_checksums=False):
                 try:
                     os.rmdir(new_stream)
                 except OSError:
-                    hls_logger.info(new_stream, 'is not empty')
+                    hls_logger.info('{} is not empty'.format(new_stream))
 
     os.chdir(oldcwd)
 
