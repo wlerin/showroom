@@ -195,5 +195,16 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/othellonia_akb48",
     "room_id": "274235"
+  },
+  {
+    "jpnName": "坂道研修生 配属発表 SHOWROOM",
+    "engName": "Sakamichi Kenshusei",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/sakamichikenshu",
+    "room_id": "273359"
   }
 ]
