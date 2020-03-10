@@ -27,7 +27,7 @@ def update(data, datapath):
 
     soup = Soup(r.text, 'lxml')
 
-    text = soup.select_one('div#js-room-profile-detail > ul.room-profile-info').select('> li')[1].p.text
+    text = soup.select_one('div#js-room-profile-detail > ul.room-profile-info').select('li')[1].p.text
     text = re.sub(r'\(\(', '(', text)
     lines = [e for e in text.split('\n') if e.strip()]
 
