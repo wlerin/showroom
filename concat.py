@@ -306,7 +306,12 @@ def generate_concat_files(target_dir, target_ext, max_gap):
         # else:
         new_video['file']     = file
         new_video['duration'] = float(streams['video']['duration'])
-        new_video['bit_rate'] = int(streams['video']['bit_rate'])
+        try:
+            new_video['bit_rate'] = int(streams['video']['bit_rate'])
+        except KeyError:
+            print(file)
+            raise
+        
         new_video['height']   = int(streams['video']['height'])
         new_video['audio_sample_rate'] = int(streams['audio']['sample_rate'])
         if new_video['duration'] >= 0.001:
@@ -398,7 +403,7 @@ done
 """
 
 
-def merge_videos(target_dir, output_dir, copyts=False, copytb=1):
+def merge_videos(target_dir, output_dir, copyts=False, copytb=1, skip_exists=False):
     oldcwd = os.getcwd()
     os.chdir(target_dir)
 
@@ -456,10 +461,16 @@ def merge_videos(target_dir, output_dir, copyts=False, copytb=1):
             if copyts:
                 instructions.append('-copyts')
 
+            if skip_exists:
+                postfix = ('-n',)
+            else:
+                postfix = ()
+
             run([_ffmpeg,
                 *instructions,
                 '-movflags', '+faststart',
-                '-c', 'copy', outfile])
+                '-c', 'copy', outfile,
+                *postfix])
 
             if bTempFiles:
                 for tempfile in glob.glob('temp/*.ts'):
@@ -500,6 +511,7 @@ if __name__ == '__main__':
     parser.add_argument("--use-concat-protocol", action="store_true", help="!!EXPERIMENTAL!! Uses ffmpeg's concat protocol"
                         " instead of the concat demuxer to allow merging videos with differing timebases (as result from"
                         " --resize). Creates temporary intermediate .ts files. Used automatically with --aggressive")
+    parser.add_argument("--skip-exists", "-n", action="store_true", help="Skip existing files without asking")
     args = parser.parse_args()
 
     if args.resize or args.aggressive:
@@ -508,12 +520,13 @@ if __name__ == '__main__':
     if args.generate or args.both or args.aggressive:
         generate_concat_files(target_dir=args.target_dir, target_ext=args.ext,
                               max_gap=args.max_gap)
+    # why is use_concat_protocol being ignored?
     if (args.merge or args.both) and not args.use_concat_protocol:
         merge_videos(target_dir=args.target_dir, output_dir=args.output_dir, copyts=args.copyts,
-                     copytb=args.copytb)
+                     copytb=args.copytb, skip_exists=args.skip_exists)
     if args.aggressive or ((args.merge or args.both) and args.use_concat_protocol):
         merge_videos(target_dir=args.target_dir, output_dir=args.output_dir, copyts=args.copyts,
-                     copytb=args.copytb)
+                     copytb=args.copytb, skip_exists=args.skip_exists)
 
 
 # 2017-02-02
