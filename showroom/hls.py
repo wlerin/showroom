@@ -475,7 +475,10 @@ def simplify(path, ignore_checksums=False):
 
         abort_on_checksum_fail = False
         filename_patterns = _identify_patterns(base_files)
-        if 'media_v2_' in filename_patterns:
+        if 'media_' in filename_patterns:
+            # media_XXX.ts or media_v2_XXX.ts
+            # really we should be checking for checksum matches not aborting on fails
+            # because this fails when a segment had a botched download
             hls_logger.warning('Detected old-style filename pattern in {}'.format(handle))
             abort_on_checksum_fail = True
         elif len(filename_patterns) > 1:
