@@ -1,3 +1,4 @@
 requests
 fake-useragent
 pyyaml
+websocket-client

@@ -31,6 +31,7 @@ To download only specific members' rooms, use:
 To set a different data directory, use:
 
     python showroom.py --data-dir <data directory> [--all or "Member Name"]
+
 For additional options, type:
 
     python showroom.py --help
@@ -39,7 +40,8 @@ Or take a gander at the start.sh script.
 
 ## Installation
 
-Requires FFmpeg, Python 3.5+, and Requests
+Requires FFmpeg, Python 3.5+, and the Python libraries requests,
+websocket-client, and pyyaml
 
 #####  1. Install ffmpeg
 
@@ -104,26 +106,13 @@ Or use the Download as ZIP button above.
 
 ##### 5. Install Required Python Packages
 
-- [Requests](http://docs.python-requests.org/en/master/)
-
-Both of these packages can be installed by running:
+All required packages can be installed by running:
 
     pip install -r requirements.txt
 
-in the showroom-dev directory.
+in the showroom directory.
 
-##### 6. (Optional) Install PyYAML
-
-- [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
-
-Required if you want to format your config files using YAML instead
-of JSON. In the future this may also be an option for output. You
-may wish to install libyaml as well (see the
-[libYAML](http://pyyaml.org/wiki/LibYAML) docs) for faster parsing.
-
-    pip install pyyaml
-
-##### 7. (Optional) Install index_maker Dependencies
+##### 6. (Optional) Install index_maker Dependencies
 
 - [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/)
 
