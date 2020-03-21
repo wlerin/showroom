@@ -15,7 +15,7 @@ def hls_dispatch(**kwargs):
     from .. import hls
     import logging
     # TODO: configure log level based on commandline switch
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(filename=kwargs.get('logfile'), level=logging.DEBUG)
     command = kwargs.pop('command')
     if command == 'simplify':
         target = kwargs.get('target')
@@ -95,8 +95,10 @@ def build_parser():
 
     parser_trim = subparsers.add_parser('trim', help='Trim some seconds from the start of a video or videos.')
     parser_trim.add_argument('--output-dir', '-o', help='Output directory for finished files. Required', default='.')
-    parser_trim.add_argument('--trim-starts', '-s', action='append', help='Seconds from start to trim, for each video, use -1 for none', type=str)
-    parser_trim.add_argument('--trim-ends', '-t', action='append', help='Time to cut the end of the video, repeat for each video.', type=str)
+    parser_trim.add_argument('--trim-starts', '-s', action='append',
+                             help='Seconds from start to trim, for each video, use -1 for none', type=str)
+    parser_trim.add_argument('--trim-ends', '-t', action='append',
+                             help='Time to cut the end of the video, repeat for each video.', type=str)
     parser_trim.add_argument('video_list', metavar='files', nargs='+', help='Files to trim')
     parser_trim.set_defaults(func=trim_videos)
 
@@ -108,6 +110,7 @@ def build_parser():
     parser_hls.add_argument('target', help='Target folder')
     parser_hls.add_argument('--force_yes', '-y', action='store_true', help='Force merger to ignore missing files')
     parser_hls.add_argument('--ignore_checksums', action='store_true', help='Ignore checksums when simplifying')
+    parser_hls.add_argument('--logfile', help='Log to file instead of the console')
     parser_hls.set_defaults(func=hls_dispatch)
 
     parser_final = subparsers.add_parser('final', help='Final check')

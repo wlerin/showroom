@@ -453,7 +453,8 @@ def simplify(path, ignore_checksums=False):
 
     def move_discontinuity_files(src, dest):
         chunklists = glob.glob('{}/*.m3u8'.format(src))
-        move_files(chunklists, dest, no_probe=True)
+        if chunklists:
+            move_files(chunklists, dest, no_probe=True)
 
     for handle, streams in rooms.items():
         start_date, start_time, first_stream = streams[0]
@@ -473,15 +474,15 @@ def simplify(path, ignore_checksums=False):
                 print(e)
             continue
 
-        abort_on_checksum_fail = False
+        # abort_on_checksum_fail = False
         filename_patterns = _identify_patterns(base_files)
-        if 'media_' in filename_patterns or 'media_v2_' in filename_patterns:
-            # media_XXX.ts or media_v2_XXX.ts
-            # really we should be checking for checksum matches not aborting on fails
-            # because this fails when a segment had a botched download
-            hls_logger.warning('Detected old-style filename pattern in {}'.format(handle))
-            abort_on_checksum_fail = True
-        elif len(filename_patterns) > 1:
+        # if 'media_' in filename_patterns or 'media_v2_' in filename_patterns:
+        #     # media_XXX.ts or media_v2_XXX.ts
+        #     # really we should be checking for checksum matches not aborting on fails
+        #     # because this fails when a segment had a botched download
+        #     hls_logger.warning('Detected old-style filename pattern in {}'.format(handle))
+        #     abort_on_checksum_fail = True
+        if len(filename_patterns) > 1:
             # TODO: handle this situation
             hls_logger.warning('Multiple filename patterns detected in first stream: {}\n{}'.format(
                 first_stream, filename_patterns
@@ -494,7 +495,9 @@ def simplify(path, ignore_checksums=False):
         for stream in streams[1:]:
             new_date, new_time, new_stream = stream
             hls_logger.debug('Beginning analysis of {}...'.format(new_stream))
+
             new_files = sorted(glob.glob('{}/*.ts'.format(new_stream)), key=_segment_sort_key)
+            
             hls_logger.debug('{} files found'.format(len(new_files)))
             if not new_files:
                 move_discontinuity_files(new_stream, first_stream)
@@ -505,6 +508,7 @@ def simplify(path, ignore_checksums=False):
                 continue
             new_patterns = _identify_patterns(new_files)
             hls_logger.debug('{} patterns found'.format(len(new_patterns)))
+            # is this irrelevant now?
             if len(new_patterns) > 1:
                 if 'media_v2_' in new_patterns:
                     hls_logger.error('No idea how to handle mixed v2 and v3 stream: {}\nAborting...'.format(
@@ -532,15 +536,15 @@ def simplify(path, ignore_checksums=False):
                 # future "streams" will be merged into this one instead
                 start_date, start_time, first_stream = new_date, new_time, new_stream
                 base_pattern = new_pattern
-                base_files = new_files
-                if new_pattern == 'media_v2_':
-                    hls_logger.warning('{} switched from v3 to v2'.format(new_stream))
-                    abort_on_checksum_fail = True
-                else:
-                    abort_on_checksum_fail = False
                 continue
 
-            num_moved = move_files(new_files, first_stream, ignore_checksums, abort_on_checksum_fail)
+            # consolidate a lot of the checking into one function
+            if not _stream_identity_check(first_stream, new_stream):
+                start_date, start_time, first_stream = new_date, new_time, new_stream
+                base_pattern = new_pattern
+                continue
+
+            num_moved = move_files(new_files, first_stream, ignore_checksums)
             hls_logger.debug('Moved {} files to {}'.format(num_moved, first_stream))
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
@@ -557,26 +561,201 @@ def simplify(path, ignore_checksums=False):
     os.chdir(oldcwd)
 
 
-def move_files(files, dest, ignore_checksums=False, abort_on_checksum_fail=False, no_probe=False):
-    num_moved = 0
-    if abort_on_checksum_fail:
-        for file in files:
-            source, filename = file.split('/')[-2:]
-            destfile = '{}/{}'.format(dest, filename)
-            if os.path.exists(destfile):
-                if not md5sum(file) == md5sum(destfile):
-                    hls_logger.error('Checksum mismatch in version 2 stream: {}'.format(source))
-                    return num_moved
+def _stream_identity_check(stream1, stream2):
+    """
+    Test whether two folders represent parts of the same stream
 
+    :param stream1: first stream folder to test against. this should be the earlier recording
+    :param stream2: second stream folder to test. this should be the later recording
+    :return: True if folders appear to be from the same stream, False otherwise
+    """
+    # check mod times
+    # find overlap between the folders
+    # if there is overlap:
+    # check that it makes sense
+    # i.e. it should look like <early files in stream1> <overlap in both> <later files in stream2>
+    # if mod times are checked, can switch stream1 and stream2 if necessary. but i should control that
+    # in the caller
+    # if the overlap makes sense, test some checksums. if enough match (between 1 and 5, depending on how big the
+    # overlap is, i.e. like, min(overlap, 1), given there is overlap)
+    # if there's enough matching checksums (even just one should be enough tbh), return True
+    # if there is no overlap, check that:
+    # the earlier stream has lower sequence than the later stream
+    # the gap is not too large
+    # if both are true, return True
+    # otherwise, return False
+    files1 = sorted(glob.glob('{}/*.ts'.format(stream1)), key=_segment_sort_key)
+    files2 = sorted(glob.glob('{}/*.ts'.format(stream2)), key=_segment_sort_key)
+    if not files1 or not files2:
+        # i dunno what this means
+        hls_logger.warning('Empty folder')
+        return True
+    if _segment_sort_key(files1[0])[0] != _segment_sort_key(files2[0])[0]:
+        hls_logger.warning('Different filename patterns')
+        return False
+    # build tables of file : (sequence, st_mtime)
+    data1 = {}
+    data2 = {}
+    for files, data in ((files1, data1), (files2, data2)):
+        earliest_modtime = None
+        latest_modtime = None
+        lastseq = 0
+        for i, file in enumerate(files):
+            _, seq = _segment_sort_key(file)
+            modtime = os.stat(file).st_mtime
+            data[file] = (seq, modtime)
+            if i == 0:
+                earliest_modtime = latest_modtime = modtime
+                lastseq = seq
+            else:
+                # if seq - lastseq > 30:
+                #     # see how often this triggers
+                #     hls_logger.debug(
+                #         'More than a minute gap between segments: {}s {}'.format((seq - lastseq)*2, file))
+                #     # too often
+                lastseq = seq
+                if modtime < earliest_modtime:
+                    gap = earliest_modtime - modtime
+                    if gap > 30:
+                        raise ValueError(
+                            'Too large a gap between segment and start of the stream: {} {}'.format(gap, file))
+                    earliest_modtime = modtime
+                else:
+                    gap = modtime - latest_modtime
+                    # if abs(gap) > 60:
+                    #     hls_logger.debug(
+                    #         'Large modtime gap between segment and previous latest segment: {}s {}'.format(gap, file))
+                    if gap > 0:
+                        latest_modtime = modtime
+                    elif gap < -120:
+                        hls_logger.warning('Large modtime decrease: {}s {}'.format(gap, file))
+
+        data.update(dict(start_time=earliest_modtime, end_time=latest_modtime))
+
+    # make sure the streams are in the correct order
+    if data2['start_time'] < data1['start_time']:
+        # flip them
+        hls_logger.warning('Streams provided in wrong order, switching')
+        stream1, stream2 = stream2, stream1
+        files1, files2 = files2, files1
+        data1, data2 = data2, data1
+
+    # modtime check
+    if data1['end_time'] > data2['start_time']:
+        modtime_overlap = data1['end_time'] - data2['start_time']
+        if modtime_overlap < 30:
+            hls_logger.warning('Modtime overlap detected: {}'.format(modtime_overlap))
+        else:
+            raise ValueError('Large modtime overlap detected: {}s {} {}'.format(modtime_overlap, stream1, stream2))
+    else:
+        if data2['start_time'] - data1['end_time'] > 120:
+            # 2 minute gap == assume new stream
+            # maybe increase the gap a bit though
+            return False
+
+    # TODO: test sequence check logic
+    # startseq1 = data1[files2[0]][0]
+    startseq2 = data2[files2[0]][0]
+    endseq1 = data1[files1[-1]][0]
+    # endseq2 = data2[files1[-1]][0]
+
+    # case 1: media_792.ts vs media_777.ts (or so)
+    # normal sequence progression with overlap from speculative rewind
+    # but how big an overlap can it be? surely more than just MAX_TIME_TRAVEL
+    # case 2: media_55.ts vs media_1.ts
+    # short first stream, if it's short enough it could potentially still pass the sequence check
+    # case 3: media_792.ts vs media_1.ts
+    # long first stream, obviously not the same thing
+    # case 4: media_55.ts vs. media_777.ts
+    # no overlap, assume new stream unless the gap is very small
+    if endseq1 >= startseq2:
+        # excludes case 3 and some instances of case 2
+        # Hasegawa Rena's 200320 stream had up to 32 files worth of overlap
+        # in theory the max should be MAX_TIME_TRAVEL + chunklist length
+        # but there's no way to know the latter here
+        if endseq1 - startseq2 > MAX_TIME_TRAVEL+10:
+            hls_logger.info('Sequence overlap between streams too large, assuming new stream')
+            return False
+    else:
+        # case 4, nothing to check so assume same stream, if it passed the modtime check earlier assume the same stream
+        hls_logger.warning(
+            'No sequence overlap, but segments are in the correct order: {} -> {}'.format(endseq1, startseq2))
+        return True
+
+    # TODO: checksum test
+    file_overlap = sorted(
+        (set(os.path.basename(file) for file in files1) & set(os.path.basename(file) for file in files2)),
+        key=_segment_sort_key
+    )
+    if not file_overlap:
+        hls_logger.warning('Passed all other tests, but no matching files to test checksums against')
+        return False
+    # half the matching segments, or 5 if more than 10 matches, or 1 if just one match
+    matches_required = min(len(file_overlap) // 2, 5) or 1
+    matches = 0
+    for file in file_overlap:
+        file1 = os.path.join(stream1, file)
+        file2 = os.path.join(stream2, file)
+        if md5sum(file1) == md5sum(file2):
+            matches += 1
+            if matches >= matches_required:
+                return True
+        else:
+            # TODO: change this to debug
+            hls_logger.warning('checksum failed: {}'.format(file))
+    if matches > 0:
+        hls_logger.warning('Some checksums match but not enough to pass')
+        raise ValueError(stream2)
+
+
+# def is_checksum_match(files, dest):
+#     # rather than aborting on checksum fail, check that overlapping segments match checksums before transferring missing
+#     # it's fine if a few don't match
+#     # if
+#     destfiles = [f.split('/')[-1] for f in glob.glob('{}/*.ts'.format(dest))]
+#     matches = 0
+#     overlap = 0
+#
+#     for file in files:
+#         filename = file.split('/')[-1]
+#         if filename not in destfiles:
+#             continue
+#         overlap += 1
+#         destfile = '{}/{}'.format(dest, filename)
+#         if md5sum(file) == md5sum(destfile):
+#             matches += 1
+#     if matches:
+#         return True
+#     elif overlap:
+#         return False
+#     else:
+#         # no overlapping files, inconclusive
+#         try:
+#             source, filename = files[0].split('/')[-2:]
+#         except IndexError:
+#             print(files)
+#             raise
+#         hls_logger.error('No file overlap between: {} and {}'.format(source, dest))
+#         return False
+
+
+def move_files(files, dest, ignore_checksums=False, no_probe=False):
+    num_moved = 0
+
+    # if abort_on_checksum_fail:
+    #     for file in files:
+    #         source, filename = file.split('/')[-2:]
+    #         destfile = '{}/{}'.format(dest, filename)
+    #         if os.path.exists(destfile):
+    #             if not md5sum(file) == md5sum(destfile):
+    #                 hls_logger.error('Checksum mismatch in version 2 stream: {}'.format(source))
+    #                 return num_moved
     for file in files:
         filename = file.split('/')[-1]
         destfile = '{}/{}'.format(dest, filename)
         if not os.path.exists(destfile):
             num_moved += 1
             os.replace(file, destfile)
-        # tarring and untarring has invalidated checksums on a few occasions
-        # TODO: find a way to prevent or reduce the frequency of this
-        # and determine how much damage is actually being done
         # bad destination file
         elif not no_probe and probe_video2(destfile) is None:
             if probe_video2(file):
@@ -590,7 +769,7 @@ def move_files(files, dest, ignore_checksums=False, abort_on_checksum_fail=False
         elif not no_probe and probe_video2(file) is None:
             hls_logger.warning('{} failed probe'.format(file))
         # both videos were successfully probed
-        elif ignore_checksums or md5sum(file) == md5sum(destfile):
+        elif not ignore_checksums and md5sum(file) == md5sum(destfile):
             # print('{} exists in destination, removing duplicate'.format(file))
             os.remove(file)
         elif os.path.getsize(file) > os.path.getsize(destfile):
