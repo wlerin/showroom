@@ -642,11 +642,13 @@ def _stream_identity_check(stream1, stream2):
 
     # modtime check
     if data1['end_time'] > data2['start_time']:
+        # this actually shouldn't happen at all during normal simplification, only possibly after comparison
+        # and only then because i screwed something up there and having figured out what yet
         modtime_overlap = data1['end_time'] - data2['start_time']
         if modtime_overlap < 30:
-            hls_logger.warning('Modtime overlap detected: {}'.format(modtime_overlap))
+            hls_logger.debug('Modtime overlap detected: {}'.format(modtime_overlap))
         else:
-            raise ValueError('Large modtime overlap detected: {}s {} {}'.format(modtime_overlap, stream1, stream2))
+            hls_logger.warning('Large modtime overlap detected: {}s {} {}'.format(modtime_overlap, stream1, stream2))
     else:
         if data2['start_time'] - data1['end_time'] > 120:
             # 2 minute gap == assume new stream
@@ -674,8 +676,9 @@ def _stream_identity_check(stream1, stream2):
         # in theory the max should be MAX_TIME_TRAVEL + chunklist length
         # but there's no way to know the latter here
         if endseq1 - startseq2 > MAX_TIME_TRAVEL+10:
-            hls_logger.info('Sequence overlap between streams too large, assuming new stream')
-            return False
+            hls_logger.info('Sequence overlap between streams is very large')
+            # hls_logger.info('Sequence overlap between streams is very large, assuming new stream')
+            # return False
     else:
         # case 4, nothing to check so assume same stream, if it passed the modtime check earlier assume the same stream
         hls_logger.warning(
@@ -693,13 +696,16 @@ def _stream_identity_check(stream1, stream2):
     # half the matching segments, or 5 if more than 10 matches, or 1 if just one match
     matches_required = min(len(file_overlap) // 2, 5) or 1
     matches = 0
-    for file in file_overlap:
+    for i, file in enumerate(file_overlap):
         file1 = os.path.join(stream1, file)
         file2 = os.path.join(stream2, file)
         if md5sum(file1) == md5sum(file2):
             matches += 1
             if matches >= matches_required:
                 return True
+        elif i > 30 and not matches:
+            hls_logger.warning('no checksum matches in first thirty overlapping files, assuming new stream')
+            return False
         else:
             # TODO: change this to debug
             hls_logger.warning('checksum failed: {}'.format(file))
@@ -860,6 +866,7 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
             # assuming that simplify was run first
             # that means there will only be one folder per filename pattern
             # i *think* that the logic from this point on doesn't require equal length stream lists...
+            # 2020-03-21: except now the filename pattern isn't unique, they're just all media_ or media_v2_
         # (room_name, filename_pattern): [streams]
         new_streams = {}
         for stream_list in room_data.values():
@@ -882,7 +889,8 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
                 # more streams in than there should be, run simplify!!!!
                 # raise ValueError('Too many streams with the same key, run simplify first! '
                 #                  'Problem room: {}'.format(room_name))
-                hls_logger.debug('Too many streams with the same stream_key: {}\n{}'.format(room_name, stream_list))
+                hls_logger.debug('Too many streams with the same stream_key: {} {}\n{}'.format(
+                    stream_key, room_name, stream_list))
                 raise ValueError('Too many streams with the same key, run simplify first!')
 
             all_streams.append(stream_list)
@@ -965,7 +973,7 @@ def compare_streams(scan_paths, final_root):
                 continue  # avoid writing over a previous run of this function
             # TODO: use shutil.copy2 instead
             # Using os.replace for now because it's faster and i've already made copies
-            os.replace(item['path'], destfile)
+            shutil.copy2(item['path'], destfile)
         else:
             missing.append(i)
     length = i
