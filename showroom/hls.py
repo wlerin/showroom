@@ -616,7 +616,7 @@ def _stream_identity_check(stream1, stream2):
                 lastseq = seq
                 if modtime < earliest_modtime:
                     gap = earliest_modtime - modtime
-                    if gap > 30:
+                    if gap > 120:
                         raise ValueError(
                             'Too large a gap between segment and start of the stream: {} {}'.format(gap, file))
                     earliest_modtime = modtime
@@ -704,13 +704,14 @@ def _stream_identity_check(stream1, stream2):
             if matches >= matches_required:
                 return True
         elif i > 30 and not matches:
-            hls_logger.warning('no checksum matches in first thirty overlapping files, assuming new stream')
+            hls_logger.info('no checksum matches in first thirty overlapping files, assuming new stream')
             return False
         else:
             # TODO: change this to debug
-            hls_logger.warning('checksum failed: {}'.format(file))
+            hls_logger.debug('checksum failed: {}'.format(file))
     if matches > 0:
-        hls_logger.warning('Some checksums match but not enough to pass')
+        # this needs to be personally investigated
+        hls_logger.error('Some checksums match but not enough to pass')
         raise ValueError(stream2)
 
 
