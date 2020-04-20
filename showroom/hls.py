@@ -5,6 +5,7 @@ import time
 import datetime
 from multiprocessing.dummy import Process, JoinableQueue as Queue
 from urllib.error import HTTPError, URLError
+from http.client import RemoteDisconnected
 import logging
 from itertools import zip_longest
 import shutil
@@ -174,10 +175,13 @@ def download_hls_video(
     try:
         m3u8_obj = load_m3u8(src, url, playlist_headers)
     except HTTPError as e:
-        hls_logger.debug('HTTPError while first loading playlist: {}'.format(e))
+        hls_logger.debug('HTTPError while loading first playlist: {}'.format(e))
         return
     except URLError as e:
-        hls_logger.debug('URLError while first loading playlist: {}'.format(e))
+        hls_logger.debug('URLError while loading first playlist: {}'.format(e))
+        return
+    except RemoteDisconnected as e:
+        hls_logger.debug('Remote disconnected while loading first playlist: {}'.format(e))
         return
 
     # is this a variant playlist? (are there nested variant playlists???)
@@ -194,6 +198,9 @@ def download_hls_video(
             return
         except URLError as e:
             hls_logger.debug('URLError while loading variant playlist: {}'.format(e))
+            return
+        except RemoteDisconnected as e:
+            hls_logger.debug('Remote disconnected while loading variant playlist: {}'.format(e))
             return
 
     # this is specifically for Showroom, both HLS and LHLS have a similar segment length for no apparent reason
@@ -310,6 +317,9 @@ def download_hls_video(
             # TODO: analyse the exception
             hls_logger.debug('URLError while loading chunklist: {}'.format(e))
             break
+        except RemoteDisconnected as e:
+            hls_logger.debug('Remote disconnected while loading chunklist: {}'.format(e))
+            return
         # this is going to catch way too many other errors
         except ValueError as e:
             # thrown by M3U8 library
