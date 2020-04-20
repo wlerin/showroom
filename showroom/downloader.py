@@ -436,8 +436,10 @@ class Downloader(object):
         # Better to do this here or in update_streaming_url?
         # There's a possible race condition here, if some external thread modifies either of these
         if not self._rtmp_url and self._protocol == 'rtmp':
-            download_logger.warning('Using HLS downloader for {}'.format(self._room.handle))
             self._protocol = 'hls'
+            if not self.stream_url:
+                return
+            download_logger.warning('Using HLS downloader for {}'.format(self._room.handle))
 
         # extra_args = []
         # force using TS container with HLS
@@ -453,8 +455,8 @@ class Downloader(object):
         normed_outpath = os.path.normpath('{}/{}'.format(self.tempdir, self.outfile))
 
         if self.protocol in ('hls', 'lhls'):
-            # TODO: For HLS, use the start time reported by Showroom's API to simplify later processing?
             segment_folder = normed_outpath.rsplit('.', 1)[0]
+
             self._process = HLSDownloader(dest=segment_folder, playlist=self.stream_url)
             self._process.start()
             # this will block until the download finishes

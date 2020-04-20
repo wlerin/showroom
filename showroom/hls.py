@@ -26,7 +26,9 @@ NUM_WORKERS = 20
 DEFAULT_CHUNKSIZE = 4096
 MAX_ATTEMPTS = 5
 MAX_TIME_TRAVEL = 25
-
+# there seems to be a flaw in the recording script that results in streams being mixed together in one folder
+# need more than just 5 matches to confirm it's the same stream
+MAX_CHECKSUM_MATCHES = 15
 # TODO: inherit headers from config
 DEFAULT_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
@@ -650,7 +652,7 @@ def _stream_identity_check(stream1, stream2):
         else:
             hls_logger.warning('Large modtime overlap detected: {}s {} {}'.format(modtime_overlap, stream1, stream2))
     else:
-        if data2['start_time'] - data1['end_time'] > 120:
+        if data2['start_time'] - data1['end_time'] > 1800:
             # 2 minute gap == assume new stream
             # maybe increase the gap a bit though
             return False
@@ -692,9 +694,12 @@ def _stream_identity_check(stream1, stream2):
     )
     if not file_overlap:
         hls_logger.warning('Passed all other tests, but no matching files to test checksums against')
-        return False
+        if startseq2 > 100:
+            return True
+        else:
+            return False
     # half the matching segments, or 5 if more than 10 matches, or 1 if just one match
-    matches_required = min(len(file_overlap) // 2, 5) or 1
+    matches_required = min(len(file_overlap) // 2, MAX_CHECKSUM_MATCHES) or 1
     matches = 0
     for i, file in enumerate(file_overlap):
         file1 = os.path.join(stream1, file)
@@ -703,9 +708,11 @@ def _stream_identity_check(stream1, stream2):
             matches += 1
             if matches >= matches_required:
                 return True
-        elif i > 30 and not matches:
-            hls_logger.info('no checksum matches in first thirty overlapping files, assuming new stream')
-            return False
+        elif i > MAX_CHECKSUM_MATCHES*2:
+            hls_logger.info('no checksum matches in first {} overlapping files, assuming new stream'.format(
+                MAX_CHECKSUM_MATCHES*2
+            ))
+            break
         # else:
         #     hls_logger.debug('checksum failed: {}'.format(file))
     if matches > 0:
@@ -890,9 +897,10 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
                 # more streams in than there should be, run simplify!!!!
                 # raise ValueError('Too many streams with the same key, run simplify first! '
                 #                  'Problem room: {}'.format(room_name))
-                hls_logger.debug('Too many streams with the same stream_key: {} {}\n{}'.format(
-                    stream_key, room_name, stream_list))
-                raise ValueError('Too many streams with the same key, run simplify first!')
+                hls_logger.debug('Too many streams with the same stream_key: {} {}'.format(
+                    stream_key, room_name))
+                raise TooManyStreamsWithSameKeyError('Too many streams with the same key, run simplify first!',
+                                                     stream_list)
 
             all_streams.append(stream_list)
 
@@ -907,6 +915,18 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
         final_count, missing = compare_streams(stream_list, final_root)
         if missing:
             hls_logger.info('Missing segments for {}: {}'.format(dest, missing))
+
+
+class TooManyStreamsWithSameKeyError(ValueError):
+    """Super common error during comparisons, this will allow for easier troubleshooting
+    """
+    def __init__(self, message, streams):
+        super().__init__(message)
+        self.message = message
+        self.streams = streams
+
+    def __repr__(self):
+        return '{}\n{}'.format(self.message, '\n'.join(*self.streams))
 
 
 def compare_streams(scan_paths, final_root):

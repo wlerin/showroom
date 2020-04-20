@@ -312,8 +312,12 @@ def generate_concat_files(target_dir, target_ext, max_gap):
             print(file)
             raise
         
-        new_video['height']   = int(streams['video']['height'])
-        new_video['audio_sample_rate'] = int(streams['audio']['sample_rate'])
+        new_video['height'] = int(streams['video']['height'])
+        try:
+            new_video['audio_sample_rate'] = int(streams['audio']['sample_rate'])
+        except KeyError:
+            if 'audio' not in streams:
+                new_video['audio_sample_rate'] = 0
         if new_video['duration'] >= 0.001:
             if new_video['height'] in BAD_HEIGHTS and new_video['duration'] < 90 and new_video['bit_rate'] < 10000:
                 new_video['valid']  = False
