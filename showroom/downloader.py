@@ -178,7 +178,11 @@ class Downloader(object):
                 (no ffmpeg logs, so no idea what happened)
         """
         if USE_PYTHON_HLS_DOWNLOADER and self.protocol == 'hls':
-            self._process.wait()
+            # if self._process:
+            #     # why does this give 'NoneType' object has no attribute 'wait' errors?
+            #     # anyway it's a no-op so
+            #     self._process.wait()
+            pass
         else:
             num_pings = 0
             # Some streams seem to start fine with up to 4 pings before beginning download?
