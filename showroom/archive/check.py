@@ -285,15 +285,21 @@ def post_merge_check(check_file):
                 total_video_duration = sum(file['video']['duration'] for file in stream['files'] if file['valid'])
                 total_audio_duration = sum(file['audio']['duration'] for file in stream['files'] if file['valid'])
                 # this
-                if not (abs(total_video_duration - total_audio_duration) < 0.1):
+                if not (abs(total_video_duration - total_audio_duration) < 1.0):
                     results.append((
                         stream['stream_name'], 
                         "audio: {}".format(total_audio_duration), 
                         "video: {}".format(total_video_duration),
                         "difference: {}".format(total_audio_duration - total_video_duration)
                         ))
+                else:
+                    if total_audio_duration == 0:
+                        print(stream['stream_name'], 'has no audio')
+                    if total_video_duration == 0:
+                        print(stream['stream_name'], 'has no video')
 
     with open(check_file.replace('_check.json', '_desync.log'), 'w', encoding='utf8') as outfp:
+        results.sort(key=lambda x: x[0])
         for result in results:
             print(*result, sep='\n', end='\n\n', file=outfp)
 

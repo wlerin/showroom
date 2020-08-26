@@ -11,8 +11,11 @@ from itertools import zip_longest
 import shutil
 
 import requests
-import m3u8
-from m3u8 import _parsed_url
+try:
+    import m3u8
+    from m3u8 import _parsed_url
+except ImportError:
+    print('Unable to import M3U8 library. Some functionality will be unavailable.')
 
 from showroom.utils.media import md5sum
 from showroom.archive.probe import probe_video2
@@ -341,7 +344,7 @@ def download_hls_video(
 # TODO: detect and handle segments in the same stream with differing filename patterns
 # TODO: detect and utilise discontinuity m3u8 files
 def merge_segments(dest, sort_key=_segment_sort_key, force_yes=False):
-    files = sorted(glob.glob('{}/*.ts'.format(dest)), key=sort_key)
+    files = sorted(glob.glob('{}/*.ts'.format(glob.escape(dest))), key=sort_key)
 
     # assume sort_key returns an tuple of a str and an integer
     final_key = sort_key(files[-1])
@@ -470,7 +473,8 @@ def simplify(path, ignore_checksums=False):
 
     for handle, streams in rooms.items():
         start_date, start_time, first_stream = streams[0]
-        hls_logger.debug('Beginning analysis of {}...'.format(first_stream))
+        # don't spam about singleton streams
+        # hls_logger.debug('Beginning analysis of {}...'.format(first_stream))
         # check for a discontinuity m3u8
         # once i reach those i want to revise this script
         # begin with 2020-01-18
