@@ -113,7 +113,7 @@ def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
                     if chunk:
                         outfp.write(chunk)
             except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
-                hls_logger.debug(', '.join(destfile, str(e)))
+                hls_logger.debug(', '.join((destfile, str(e))))
                 exc = e
                 continue
             else:
@@ -177,11 +177,8 @@ def download_hls_video(
     request_start = datetime.datetime.now()
     try:
         m3u8_obj = load_m3u8(src, url, playlist_headers)
-    except HTTPError as e:
-        hls_logger.debug('HTTPError while loading first playlist: {}'.format(e))
-        return
-    except URLError as e:
-        hls_logger.debug('URLError while loading first playlist: {}'.format(e))
+    except (HTTPError, URLError, ConnectionResetError) as e:
+        hls_logger.debug('Error while loading first playlist: {}'.format(e))
         return
     except RemoteDisconnected as e:
         hls_logger.debug('Remote disconnected while loading first playlist: {}'.format(e))
@@ -196,11 +193,8 @@ def download_hls_video(
         request_start = datetime.datetime.now()
         try:
             m3u8_obj = load_m3u8(best_variant.absolute_uri, headers=playlist_headers)
-        except HTTPError as e:
+        except (HTTPError, URLError, ConnectionResetError) as e:
             hls_logger.debug('HTTPError while loading variant playlist: {}'.format(e))
-            return
-        except URLError as e:
-            hls_logger.debug('URLError while loading variant playlist: {}'.format(e))
             return
         except RemoteDisconnected as e:
             hls_logger.debug('Remote disconnected while loading variant playlist: {}'.format(e))
@@ -312,13 +306,9 @@ def download_hls_video(
         request_start = datetime.datetime.now()
         try:
             m3u8_obj = load_m3u8(m3u8_obj.playlist_url, headers=playlist_headers)
-        except HTTPError as e:
+        except (HTTPError, URLError, ConnectionResetError) as e:
             # TODO: analyse the exception
-            hls_logger.debug('HTTPError while loading chunklist: {}'.format(e))
-            break
-        except URLError as e:
-            # TODO: analyse the exception
-            hls_logger.debug('URLError while loading chunklist: {}'.format(e))
+            hls_logger.debug('Error while loading chunklist: {}'.format(e))
             break
         except RemoteDisconnected as e:
             hls_logger.debug('Remote disconnected while loading chunklist: {}'.format(e))
@@ -932,7 +922,8 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
 
 
 class TooManyStreamsWithSameKeyError(ValueError):
-    """Super common error during comparisons, this will allow for easier troubleshooting
+    """
+    Super common error during comparisons, this will allow for easier troubleshooting
     """
     def __init__(self, message, streams):
         super().__init__(message)
@@ -940,7 +931,7 @@ class TooManyStreamsWithSameKeyError(ValueError):
         self.streams = streams
 
     def __repr__(self):
-        return '{}\n{}'.format(self.message, '\n'.join(*self.streams))
+        return '{}\n{}'.format(self.message, '\n'.join(self.streams))
 
 
 def compare_streams(scan_paths, final_root):

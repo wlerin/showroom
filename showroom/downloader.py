@@ -443,7 +443,8 @@ class Downloader(object):
             self._protocol = 'hls'
             if not self.stream_url:
                 return
-            download_logger.warning('Using HLS downloader for {}'.format(self._room.handle))
+            # This is normal now, stop printing constantly.
+            # download_logger.warning('Using HLS downloader for {}'.format(self._room.handle))
 
         # extra_args = []
         # force using TS container with HLS
