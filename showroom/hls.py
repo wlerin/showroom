@@ -430,7 +430,7 @@ def check_missing(files):
         missing = sorted(expected_segments - found_segments)
         if start_index != 1:
             missing.insert(0, 0)
-            missing.insert(0, start_index-1)
+            missing.insert(1, start_index-1)
         result[pattern] = missing
 
     return result
