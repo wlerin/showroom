@@ -423,7 +423,7 @@ def check_missing(files):
     for pattern in patterns:
         # TODO: handle missing before the start segment differently.
         pattern_files = [e for e in files if pattern in e]
-        start_index = key(patern_files[0])[1]
+        start_index = key(pattern_files[0])[1]
         final_index = key(pattern_files[-1])[1]
         expected_segments = set(range(start_index, final_index+1))
         found_segments = set(key(file)[1] for file in pattern_files)
