@@ -36,13 +36,19 @@ def hls_dispatch(**kwargs):
             print('Found multiple filename patterns in', target)
             for key, val in results.items():
                 if val:
-                    print(key, 'is missing', val)
+                    if val[0] == 0:
+                        print(key, 'is missing', 1, '...', val[1], *val[2:])
+                    else:
+                        print(key, 'is missing', *val)
                 else:
                     print(key, 'has all expected files')
         else:
             for key, val in results.items():
                 if val:
-                    print(target, 'is missing', val)
+                    if val[0] == 0:
+                        print(key, 'is missing', 1, '...', val[1], *val[2:])
+                    else:
+                        print(key, 'is missing', *val)
                 else:
                     print(target, 'has all expected files')
 

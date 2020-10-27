@@ -30,6 +30,78 @@ def _split_filename(file):
     return handle, time_str
 
 
+
+def check_file(path, logfile=None):
+    if not logfile:
+        logfile = f'{os.bath.dirname(path)}_check.log'
+    
+    def get_start_seconds(file):
+        time_str = _split_filename(file)[1]
+        hours, minutes = int(time_str[:2]), int(time_str[2:4])
+        try:
+            seconds = int(time_str[4:6])
+        except ValueError:
+            seconds = 0
+        return hours * 60 * 60 + minutes * 60 + seconds + 1
+
+    filename = os.path.basename(path)
+
+    try:
+        start_time = get_start_seconds(path)
+    except ValueError:
+        # TODO: handle None-value later in the code when start_time is actually checked
+        start_time = None
+
+    new_video = {'start_time': start_time,
+              'file': {'name': filename,
+                       'size': os.path.getsize(path)}}
+
+    probe_results = probe_video(path, stream="",
+                                entries=('codec_name', 'codec_type',
+                                         'duration', 'height', 'avg_frame_rate', 'bit_rate', 'nb_frames'))
+
+    # ignore empty results (CalledProcessError or unreadable json)
+    if probe_results:
+        temp = {}
+        try:
+            for e in probe_results:
+                stream_type = e.pop('codec_type')
+                temp[stream_type] = e
+            v_info, a_info = temp['video'], temp['audio']
+        except KeyError as e:
+            with open(logfile, 'a', encoding='utf8') as outfp:
+                print('Probe of {} failed'.format(filename), e, file=outfp)
+            new_video['valid'] = False
+        else:
+            new_video['video'] = {'duration': float(v_info.get('duration', 0)),
+                                  'height': int(v_info.get('height', 0)),
+                                  'avg_frame_rate': v_info.get('avg_frame_rate', ""),
+                                  'bit_rate': int(v_info.get('bit_rate', 0)),
+                                  'frames': int(v_info.get('nb_frames', 0))}
+            new_video['audio'] = {'duration': float(a_info.get('duration', 0)),
+                                  'bit_rate': int(a_info.get('bit_rate', 0))}
+            if (new_video['video']['duration'] < 0.001):
+                with open(logfile, 'a', encoding='utf8') as outfp:
+                    print('{} video is too short'.format(path), file=outfp)
+                new_video['valid'] = False
+            # elif not (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name):
+            #     with open(logfile, 'a', encoding='utf8') as outfp:
+            #         print('{} has bad video height: {}'.format(file, new_video['video']['height']), file=outfp)
+            #     new_video['valid'] = False
+            elif (new_video['video']['height'] in BAD_HEIGHTS
+                    and new_video['video']['bit_rate'] < 10000
+                    and new_video['video']['duration'] < 90):
+                # black screen videos tend to be about 7200 bps, last for ~60 seconds, and have a height of 540
+                with open(logfile, 'a', encoding='utf8') as outfp:
+                    print('{} video matches profile of a black screen'.format(path), file=outfp)
+                new_video['valid'] = False
+            else:
+                new_video['valid'] = True
+    else:
+        new_video['valid'] = False
+    return new_video
+
+
 def check_group(target_dir, prefix, target_ext='mp4'):
     # based on concat's resize_videos and generate_concat_files
     group_name = target_dir.strip('/').split('/')[-1]
@@ -48,19 +120,10 @@ def check_group(target_dir, prefix, target_ext='mp4'):
 
     logfile = os.path.join(oldcwd, '{}_{}_check.log'.format(prefix, target_dir.split('/')[-2]))
 
-    def get_start_seconds(file):
-        time_str = _split_filename(file)[1]
-        hours, minutes = int(time_str[:2]), int(time_str[2:4])
-        try:
-            seconds = int(time_str[4:6])
-        except ValueError:
-            seconds = 0
-        return float(hours * 60 * 60 + minutes * 60 + seconds)
-
     def get_start_hhmm(seconds):
         hours = seconds / (60 * 60)
         minutes = (hours - floor(hours)) * 60
-        return '{:02d}{:02d}'.format(floor(hours), floor(minutes+1))
+        return '{:02d}{:02d}'.format(floor(hours), floor(minutes))
 
     member_dict = {}
     found_files = []
@@ -84,53 +147,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
         if member_name not in member_dict:
             member_dict[member_name] = {'files': [], 'streams': []}
 
-        new_video = {'start_time': get_start_seconds(file),
-                     'file': {'name': file,
-                              'size': os.path.getsize(file)}}
-
-        probe_results = probe_video(file, stream="",
-                                    entries=('codec_name', 'codec_type',
-                                             'duration', 'height', 'avg_frame_rate', 'bit_rate', 'nb_frames'))
-
-        # ignore empty results (CalledProcessError or unreadable json)
-        if probe_results:
-            temp = {}
-            try:
-                for e in probe_results:
-                    stream_type = e.pop('codec_type')
-                    temp[stream_type] = e
-                v_info, a_info = temp['video'], temp['audio']
-            except KeyError as e:
-                with open(logfile, 'a', encoding='utf8') as outfp:
-                    print('Probe of {} failed'.format(filename), e, file=outfp)
-                new_video['valid'] = False
-            else:
-                new_video['video'] = {'duration': float(v_info.get('duration', 0)),
-                                      'height': int(v_info.get('height', 0)),
-                                      'avg_frame_rate': v_info.get('avg_frame_rate', ""),
-                                      'bit_rate': int(v_info.get('bit_rate', 0)),
-                                      'frames': int(v_info.get('nb_frames', 0))}
-                new_video['audio'] = {'duration': float(a_info.get('duration', 0)),
-                                      'bit_rate': int(a_info.get('bit_rate', 0))}
-                if (new_video['video']['duration'] < 0.001):
-                    with open(logfile, 'a', encoding='utf8') as outfp:
-                        print('{} video is too short'.format(file), file=outfp)
-                    new_video['valid'] = False
-                # elif not (new_video['video']['height'] in GOOD_HEIGHTS or 'Kimi Dare' in member_name):
-                #     with open(logfile, 'a', encoding='utf8') as outfp:
-                #         print('{} has bad video height: {}'.format(file, new_video['video']['height']), file=outfp)
-                #     new_video['valid'] = False
-                elif (new_video['video']['height'] in BAD_HEIGHTS
-                        and new_video['video']['bit_rate'] < 10000
-                        and new_video['video']['duration'] < 90):
-                    # black screen videos tend to be about 7200 bps, last for ~60 seconds, and have a height of 540
-                    with open(logfile, 'a', encoding='utf8') as outfp:
-                        print('{} video matches profile of a black screen'.format(file), file=outfp)
-                    new_video['valid'] = False
-                else:
-                    new_video['valid'] = True
-        else:
-            new_video['valid'] = False
+        new_video = check_file(file, logfile=logfile)
         member_dict[member_name]['files'].append(new_video)
 
     # TODO: URGENT check validity
@@ -302,6 +319,20 @@ def post_merge_check(check_file):
         results.sort(key=lambda x: x[0])
         for result in results:
             print(*result, sep='\n', end='\n\n', file=outfp)
+
+
+def check_folder(target, ext='mp4'):
+    files = sorted(glob.glob(f'{target}/*.{ext}'))
+    results = []
+    for file in files:
+        r = check_file(file)
+        results.append(r)
+        # do a desync check automatically
+        diff = r['video']['duration'] - r['audio']['duration']
+        if not abs(diff) < 1.0:
+            print(file, diff, sep='\n')
+
+    return results
 
 
 def check_final(*, dirs=(), output_dir='.'):
