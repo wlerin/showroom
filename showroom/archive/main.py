@@ -37,18 +37,18 @@ def hls_dispatch(**kwargs):
             for key, val in results.items():
                 if val:
                     if val[0] == 0:
-                        print(key, 'is missing', 1, '...', val[1], *val[2:])
+                        print(target, 'is missing', 1, '...', val[1], *val[2:])
                     else:
-                        print(key, 'is missing', *val)
+                        print(target, 'is missing', *val)
                 else:
-                    print(key, 'has all expected files')
+                    print(target, 'has all expected files')
         else:
             for key, val in results.items():
                 if val:
                     if val[0] == 0:
-                        print(key, 'is missing', 1, '...', val[1], *val[2:])
+                        print(target, 'is missing', 1, '...', val[1], *val[2:])
                     else:
-                        print(key, 'is missing', *val)
+                        print(target, 'is missing', *val)
                 else:
                     print(target, 'has all expected files')
 

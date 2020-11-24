@@ -803,7 +803,7 @@ def move_files(files, dest, ignore_checksums=False, no_probe=False):
     return num_moved
 
 
-def compare_archives(archive_paths, final_root, simplify_first=False):
+def compare_archives(archive_paths, final_root, simplify_first=False, check_only=False):
     """
     Compare archive folders containing separate recordings of the same streams
 
@@ -816,6 +816,7 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
     :param archive_paths:
     :param final_root:
     :param simplify_first: Runs hls.simplify on each archive path before doing anything else
+    :param check_only: Exit after checking for symmetry
     :return:
     """
     # get a list of all streams in each archive
@@ -913,6 +914,10 @@ def compare_archives(archive_paths, final_root, simplify_first=False):
 
             all_streams.append(stream_list)
 
+    # only check if ready for merging into final destination, don't actually merge
+    if check_only:
+        return
+    
     # that should be all of them?
     for stream_list in all_streams:
         try:
