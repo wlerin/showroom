@@ -130,6 +130,7 @@ class Downloader(object):
     def get_info(self):
         with self._lock:
             return {"streaming_urls": self._stream_data,
+                    "active_url": self.stream_url,
                     "protocol": self._protocol,
                     "filename": self.outfile,
                     "dest_dir": self.destdir,
@@ -462,7 +463,7 @@ class Downloader(object):
 
         if self.protocol in ('hls', 'lhls'):
             segment_folder = normed_outpath.rsplit('.', 1)[0]
-            download_logger.info('Downloading from {} to {}'.format(self.stream_url, segment_folder))
+            download_logger.debug('Downloading from {} to {}'.format(self.stream_url, segment_folder))
             self._process = HLSDownloader(dest=segment_folder, playlist=self.stream_url)
             self._process.start()
             # this will block until the download finishes
