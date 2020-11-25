@@ -462,7 +462,7 @@ class Downloader(object):
 
         if self.protocol in ('hls', 'lhls'):
             segment_folder = normed_outpath.rsplit('.', 1)[0]
-
+            download_logger.info('Downloading from {} to {}'.format(self.stream_url, segment_folder))
             self._process = HLSDownloader(dest=segment_folder, playlist=self.stream_url)
             self._process.start()
             # this will block until the download finishes
