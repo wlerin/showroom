@@ -338,7 +338,8 @@ class Downloader(object):
             new_rtmp_url = ""
 
         try:
-            new_hls_url = sorted(hls_streams)[-1][1]
+            # quick fix to avoid unexpectedly changing the hls url
+            new_hls_url = sorted(hls_streams)[-1][1].replace('_source/', '/')
         except IndexError as e:
             # download_logger.warn("Caught IndexError while reading HLS url: {}\n{}".format(e, data))
             new_hls_url = ""

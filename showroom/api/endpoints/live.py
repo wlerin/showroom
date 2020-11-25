@@ -57,9 +57,12 @@ class LiveEndpointsMixin:
         results = self._api_get(endpoint, params={"room_id": room_id})
         return results.get('telop')
 
-    def streaming_url(self, room_id):
+    def streaming_url(self, room_id, abr_available=1):
+        # https://www.showroom-live.com/api/live/streaming_url?room_id=61633&abr_available=1
+        # adding abr_available adds an hls_all option, a variant playlist containing several different chunklists
+        # not sure if these chunklists differ from the others provided in the json
         endpoint = "/api/live/streaming_url"
-        results = self._api_get(endpoint, params={"room_id": room_id})
+        results = self._api_get(endpoint, params={"room_id": room_id, "abr_available": abr_available})
         return results.get('streaming_url_list')
 
     def current_user(self, room_id):
