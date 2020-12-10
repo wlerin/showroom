@@ -33,7 +33,7 @@ def _split_filename(file):
 
 def check_file(path, logfile=None):
     if not logfile:
-        logfile = f'{os.bath.dirname(path)}_check.log'
+        logfile = f'{os.path.dirname(path)}_check.log'
     
     def get_start_seconds(file):
         time_str = _split_filename(file)[1]
