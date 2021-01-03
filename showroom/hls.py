@@ -803,6 +803,16 @@ def move_files(files, dest, ignore_checksums=False, no_probe=False):
     return num_moved
 
 
+def group_by_archive(streams):
+    data = {}
+    for stream in streams:
+        *_, archive, date, file = stream.split('/')
+        if archive not in data:
+            data[archive] = []
+        data[archive].append(stream)
+    return data
+    
+
 def compare_archives(archive_paths, final_root, simplify_first=False, check_only=False):
     """
     Compare archive folders containing separate recordings of the same streams
@@ -863,6 +873,7 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
                 rooms[room_name][path] = []
             rooms[room_name][path].append(stream)
 
+    b_too_many_streams = False
     all_streams = []
     for room_name, room_data in rooms.items():
         # how many streams are there for this room in each archive?
@@ -875,6 +886,12 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
                 if compare_start_times(map(lambda x: split_stream_name(x)[-1], streams)):
                     new_streams.append(list(streams))
                 else:
+                    hls_logger.debug('Start times do not match: {}'.format(
+                        room_name))
+
+                    for archive, archive_streams in room_data.items():
+                        print(archive, len(archive_streams))
+                        print(*archive_streams, sep='\n')
                     check_passed = False
                     break
             if check_passed:
@@ -903,20 +920,26 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
                 new_streams[stream_key].append(stream)
 
         for stream_key, stream_list in new_streams.items():
-            if len(stream_list) > len(archive_paths):
+            archives_grouped = group_by_archive(stream_list)
+            if len(set(map(len, archives_grouped.values()))) != 1:
                 # more streams in than there should be, run simplify!!!!
                 # raise ValueError('Too many streams with the same key, run simplify first! '
                 #                  'Problem room: {}'.format(room_name))
                 hls_logger.debug('Too many streams with the same stream_key: {} {}'.format(
                     stream_key, room_name))
-                raise TooManyStreamsWithSameKeyError('Too many streams with the same key, run simplify first!',
-                                                     stream_list)
+                for archive, archive_streams in archives_grouped.items():
+                    print(archive, len(archive_streams))
+                    print(*archive_streams, sep='\n')
+
+                b_too_many_streams = True
 
             all_streams.append(stream_list)
 
     # only check if ready for merging into final destination, don't actually merge
     if check_only:
         return
+    elif b_too_many_streams:
+        raise TooManyStreamsWithSameKeyError('Too many streams with the same key, run simplify first!', ())
     
     # that should be all of them?
     for stream_list in all_streams:
