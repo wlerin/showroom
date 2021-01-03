@@ -43,10 +43,12 @@ https://pyscenedetect.readthedocs.io/en/latest/features/
 
 import os
 import glob
-import argparse
-from subprocess import check_output, run, CalledProcessError
 import json
+import shutil
+import argparse
 from math import floor
+from subprocess import check_output, run, CalledProcessError
+
 from showroom.settings import settings as config
 
 # known resolutions:
@@ -237,7 +239,7 @@ def resize_videos(target_dir, target_ext, copytb=1, target_bitrate='300k'):
     # the concat demuxer is not sufficient to merge files resized this way
     for file in to_resize:
         low_res_file = 'resized/' + file.replace('.' + target_ext, '_198p.' + target_ext)
-        os.replace(file, low_res_file)
+        shutil.move(file, low_res_file)
         members.add(file.rsplit(' ', 1)[0])
         run([_ffmpeg,
              '-copytb', str(copytb),

@@ -4,6 +4,7 @@
 import os
 import glob
 import json
+import shutil
 
 
 def prune_folder(folder, needed_list):
@@ -16,7 +17,7 @@ def prune_folder(folder, needed_list):
         # print(repr(file))
         if file not in needed_list:
             # print('{} -> {}'.format(file, 'unneeded/{}'.format(file)))
-            os.replace(file, 'unneeded/{}'.format(file))
+            shutil.move(file, 'unneeded/{}'.format(file))
         else:
             # print('Needed:', repr(file))
             pass
@@ -55,7 +56,7 @@ def replace_folder(folder, replace_list, prefix):
         if file in replace_list:
             dest = '{}/{}'.format(replaced_folder, file)
             print('{} -> {}'.format(file, dest))
-            os.replace(file, dest)
+            shutil.move(file, dest)
 
     os.chdir(oldcwd)
 

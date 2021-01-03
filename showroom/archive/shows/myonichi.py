@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import shutil
 from collections import OrderedDict as od
 from datetime import datetime
 
@@ -126,7 +127,7 @@ def rename(srcpath, destpath, data):
             ep=episodes.index(long_date)+1,
             name=data[long_date]['engName'],
         )
-        os.replace(
+        shutil.move(
             file,
             '{}/{}'.format(destpath, new_file)
         )

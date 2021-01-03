@@ -5,6 +5,7 @@ import datetime
 import logging
 import time
 import os
+import shutil
 
 from .constants import TOKYO_TZ, FULL_DATE_FMT
 from .utils import format_name, strftime
@@ -284,7 +285,7 @@ class Downloader(object):
             raise FileExistsError
         else:
             try:
-                os.replace(srcpath, destpath)
+                shutil.move(srcpath, destpath)
             except FileNotFoundError:
                 download_logger.debug('File not found: {} -> {}'.format(srcpath, destpath))
                 return
