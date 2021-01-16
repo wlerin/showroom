@@ -887,6 +887,10 @@ class WatchManager(object):
                     core_logger.warn('Fetching onlives failed unexpectedly: {}'.format(e))
                 self.__schedule_warned = True
             return
+        except AttributeError as e:
+            core_logger.warn('Failed to fetch upcoming')
+            return
+        
         self.__schedule_warned = False
 
         for item in [e for e in upcoming if str(e['room_id']) in self.index]:
