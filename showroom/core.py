@@ -839,6 +839,10 @@ class WatchManager(object):
             if livelist['genre_id'] in GENRE_IDS:
                 for item in [e for e in livelist['lives'] if 'room_id' in e and str(e['room_id']) in self.index]:
                     room_id = str(item['room_id'])
+                    # TODO: incorporate live_id into watchers
+                    # either as '{room_id}_{live_id}' or as (room_id, live_id)
+                    # TODO: store room_id and live_id as integers instead of strings
+                    live_id = str(item['live_id'])
                     start_time = datetime.datetime.fromtimestamp(float(item['started_at']), tz=TOKYO_TZ)
 
                     # core_logger.debug('Checking live room id {}'.format(room_id))
