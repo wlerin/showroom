@@ -328,8 +328,12 @@ def check_folder(target, ext='mp4'):
         r = check_file(file)
         results.append(r)
         # do a desync check automatically
-        diff = r['video']['duration'] - r['audio']['duration']
-        if not abs(diff) < 1.0:
+        try:
+            diff = r['video']['duration'] - r['audio']['duration']
+        except KeyError as e:
+            print('Missing key for', file, e)
+            continue
+        if not abs(diff) < 2.0:
             print(file, diff, sep='\n')
 
     return results

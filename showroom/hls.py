@@ -39,6 +39,8 @@ DEFAULT_HEADERS = {
                   '(KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36',
 }
 TIMEOUT = 3
+# under ordinary circumstances, use 5*60
+MAX_START_TIME_DIFFERENCE=2*60*60
 
 
 def _segment_sort_key(file):
@@ -857,7 +859,7 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
 
         times = sorted(convert_time_str(e) for e in start_times)
         # all streams are within 5 minutes of the earliest stream
-        return all((x - times[0]).total_seconds() < 5*60 for x in times[1:])
+        return all((x - times[0]).total_seconds() < MAX_START_TIME_DIFFERENCE for x in times[1:])
 
     def get_filename_patterns(path):
         return _identify_patterns(glob.glob('{}/*.ts'.format(path)))
@@ -925,14 +927,14 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
                 # more streams in than there should be, run simplify!!!!
                 # raise ValueError('Too many streams with the same key, run simplify first! '
                 #                  'Problem room: {}'.format(room_name))
-                hls_logger.debug('Too many streams with the same stream_key: {} {}'.format(
-                    stream_key, room_name))
+                error_lines = ['Too many streams with the same stream_key: {} {}'.format(stream_key, room_name),]
                 for archive, archive_streams in archives_grouped.items():
-                    print(archive, len(archive_streams))
-                    print(*archive_streams, sep='\n')
-
+                    error_lines.append(f'{archive} {len(archive_streams)}')
+                    error_lines.extend(archive_streams)
+                error_lines.append('\n')
+                error_msg = '\n'.join(error_lines)
+                hls_logger.debug(error_msg)
                 b_too_many_streams = True
-
             all_streams.append(stream_list)
 
     # only check if ready for merging into final destination, don't actually merge
