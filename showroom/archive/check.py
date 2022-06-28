@@ -349,4 +349,12 @@ def check_final(*, dirs=(), output_dir='.'):
         post_merge_check(outfile)
 
     
-     
+def check_folders(*, dirs=()):
+    if isinstance(dirs, str):
+        dirs = (dirs,)
+    for folder in dirs:
+        results = check_folder(folder)
+        # if include_show:
+        #     results.extend(check_folder(DEFAULT_SHOW_DIR))
+        # return results
+        # depend on the printouts of check_folder

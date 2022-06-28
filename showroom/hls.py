@@ -253,8 +253,15 @@ def download_hls_video(
     # sometimes the playlist just stays open, long after the stream is finished
     # number of loops without new segments
     no_new_segments_count = 0
+    old_starting_index = None
     while True:
         index = m3u8_obj.media_sequence or 1
+
+        # Check if the numbering has restarted
+        if old_starting_index and old_starting_index > index:
+            hls_logger.warning('Media sequence restarted, restarting download')
+            break
+        old_starting_index = index
         new_segments = 0
 
         # TODO: log if index doesn't match sequence extracted from segment url
@@ -267,6 +274,7 @@ def download_hls_video(
             if segment.uri in known_segments:
                 index += 1
                 continue
+            segment_index = _segment_sort_key(segment.uri)[1]
 
             if segment.discontinuity:
                 discontinuity_detected = True
@@ -275,6 +283,12 @@ def download_hls_video(
                     datetime.datetime.now(tz=TOKYO_TZ).strftime('%Y%m%d_%H%M%S')
                 )
                 m3u8_obj.dump(discontinuity_file)
+            # alternative discontinuity detection
+            if segment_index != index:
+                hls_logger.warning(f'Segments out of order: expected {index}, got {segment_index}')
+                for _ in range(NUM_WORKERS):
+                    ts_queue.put(None)
+                return
 
             new_segments += 1
             no_new_segments_count = 0
@@ -314,7 +328,7 @@ def download_hls_video(
             break
         except RemoteDisconnected as e:
             hls_logger.debug('Remote disconnected while loading chunklist: {}'.format(e))
-            return
+            break
         # this is going to catch way too many other errors
         except ValueError as e:
             # thrown by M3U8 library
@@ -1083,3 +1097,5 @@ def scan_stream(path):
         yield item
 
     # return [segments.get(i) for i in range(1, final_index+1)]
+
+

@@ -1,5 +1,5 @@
 import argparse
-from .check import check_dirs, check_final
+from .check import check_dirs, check_final, check_folders
 from .compare import compare_archives
 from .prune import prune_archive, replace_archive
 from .profile import scrape_profile_pics
@@ -124,6 +124,11 @@ def build_parser():
     # prefix is automatically final
     parser_final.add_argument('--output-dir', '-o', help='Output directory for results', default='.')
     parser_final.set_defaults(func=check_final)
+
+    parser_final = subparsers.add_parser('check2', help='Check individual folders')
+    parser_final.add_argument('dirs', nargs='+', help='Directories to check')
+    parser_final.set_defaults(func=check_folders)
+
     return parser
 
 
