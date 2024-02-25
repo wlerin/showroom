@@ -9,7 +9,7 @@ import time
 import re
 from .constants import TOKYO_TZ
 
-__all__ = ['ShowroomIndex']
+__all__ = ['ShowroomIndex', 'Room']
 
 index_logger = logging.getLogger('showroom.index')
 _filename_re = re.compile(
@@ -79,6 +79,8 @@ class Room(object):
                 info['jpnGroup'] = info['jpnTeam']
                 info['engTeam'] = ""
                 info['jpnTeam'] = ""
+        if 'room_url_key' not in info:
+            info['room_url_key'] = info['web_url'].split('/')[-1]
         # TODO: genre_id
         # TODO: save fixed rooms
         return info
@@ -112,6 +114,10 @@ class Room(object):
     @property
     def room_id(self):
         return self._room_info['room_id']
+
+    @property
+    def room_url_key(self):
+        return self._room_info['room_url_key']
 
     @property
     def priority(self):
