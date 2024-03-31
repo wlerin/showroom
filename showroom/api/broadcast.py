@@ -14,9 +14,10 @@ import time
 import logging  # not async safe?
 import random
 import threading
+import websocket 
 
-import aiohttp
-import asyncio
+# import aiohttp
+# import asyncio
 
 from json import JSONDecodeError
 
