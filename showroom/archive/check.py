@@ -127,7 +127,7 @@ def check_group(target_dir, prefix, target_ext='mp4'):
 
     member_dict = {}
     found_files = []
-    for root, dirs, files in os.walk('.'):
+    for root, dirs, files in os.walk(''):
         dirnames = dirs[:]
         for dirname in dirnames:
             if dirname not in GOOD_SUBFOLDERS:

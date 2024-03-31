@@ -11,9 +11,10 @@ from itertools import zip_longest
 import shutil
 
 import requests
+from urllib.parse import urljoin
 try:
     import m3u8
-    from m3u8 import _parsed_url
+    # from m3u8 import _parsed_url
 except ImportError:
     print('Unable to import M3U8 library. Some functionality will be unavailable.')
 
@@ -62,11 +63,11 @@ def load_m3u8(src, url=None, headers=None):
     if src.upper().startswith('#EXTM3U'):
         m3u8_obj = m3u8.loads(src)
         m3u8_obj.playlist_url = url
-        m3u8_obj.base_uri = _parsed_url(url)
+        m3u8_obj.base_uri = urljoin(url, '.')
     elif os.path.exists(src):
         m3u8_obj = m3u8.load(src)
         m3u8_obj.playlist_url = url
-        m3u8_obj.base_uri = _parsed_url(url)
+        m3u8_obj.base_uri = urljoin(url, '.')
     else:
         m3u8_obj = m3u8.load(src, headers=headers or DEFAULT_HEADERS)
         m3u8_obj.playlist_url = src

@@ -83,7 +83,7 @@ class ClientSession(_Session):
                     session_logger.error('Getting {} failed: 403 permission denied. Throttled.'.format(url))
                     wait = min(wait + 2 + error_count, max_delay)*2
                     # raise  # specific error?
-                elif status_code == 402:
+                elif status_code == 401:
                     session_logger.error('Getting {} failed permanently: '
                                          '401 auth required (not implemented)'.format(url))
                     raise

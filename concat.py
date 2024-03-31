@@ -47,7 +47,7 @@ import argparse
 from subprocess import check_output, run, CalledProcessError
 import json
 from math import floor
-from showroom.settings import settings as config
+from showroom import settings as config
 
 # known resolutions:
 # 352x198

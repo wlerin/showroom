@@ -65,10 +65,10 @@ class LiveEndpointsMixin:
         results = self._api_get(endpoint, params={"room_id": room_id, "abr_available": abr_available})
         return results.get('streaming_url_list')
 
-    def current_user(self, room_id):
-        endpoint = "/api/live/current_user"
-        results = self._api_get(endpoint, params={"room_id": room_id})
-        return results.get('streaming_url_list')
+    # def current_user(self, room_id):
+    #     endpoint = "/api/live/current_user"
+    #     results = self._api_get(endpoint, params={"room_id": room_id})
+    #     return results.get('streaming_url_list')
 
     def gift_list(self, room_id):
         endpoint = "/api/live/gift_list"

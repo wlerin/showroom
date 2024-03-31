@@ -1,7 +1,7 @@
 import os
 import json
 import glob
-import requests
+# import requests
 from threading import Thread, RLock
 import logging
 import datetime
@@ -81,6 +81,10 @@ class Room(object):
                 info['jpnTeam'] = ""
         if 'room_url_key' not in info:
             info['room_url_key'] = info['web_url'].split('/')[-1]
+        # force all room_ids to int
+        # should have been like this from the beginning since that's how they appear in the API
+        # dunno whether this will break anything but I'm going to have to rewrite almost the entire program anyway
+        info['room_id'] = int(info['room_id'])
         # TODO: genre_id
         # TODO: save fixed rooms
         return info
@@ -174,25 +178,25 @@ class Room(object):
                     "team": self.team,
                     "room_id": self.room_id,
                     "priority": self.priority,
-                    "web_url": self.long_url,
+                    "url_key": self.room_url_key,
                     "wanted": self.is_wanted()}
 
 
 # TODO: periodically check filter
 class ShowroomIndex(object):
-    def __init__(self, index_directory: str=None,
-                 session: requests.Session = None,
+    def __init__(self, index_directory: str = None,
+                 # session: requests.Session = None,
                  record_all: bool = False,
                  language: str = 'eng'):
         self.room_dict = {}
-        self._room_url_lookup = None
+        self._room_url_key_lookup = None
         self._room_name_lookup = None
         self._room_handle_lookup = None
 
-        if session:
-            self.session = session
-        else:
-            self.session = requests.Session()
+        # if session:
+        #     self.session = session
+        # else:
+        #     self.session = requests.Session()
 
         # TODO: test validity
         self.language = language
@@ -236,7 +240,7 @@ class ShowroomIndex(object):
         except KeyError:
             return False
 
-    def find_room(self, room_id=None, url=None, name=None, file_name=None):
+    def find_room(self, room_id=None, url_key=None, name=None, file_name=None, ):
         """
         Find a room matching one criterion.
 
@@ -245,7 +249,7 @@ class ShowroomIndex(object):
         
         Args:
             room_id: id of the room to search for
-            url: last part of room url, 
+            url_key: last part of room url,
                 48_Tomu_Mutou
             name: member name in the index's language, 
                 "Muto Tomu"
@@ -261,14 +265,11 @@ class ShowroomIndex(object):
                 return self.room_dict[room_id]
             except KeyError:
                 index_logger.debug("Failed to find ID {}".format(room_id))
-        if url:
-            # TODO: use the full https://www.showroom-live.com url
-            # Primary hangup here is that the "url" could be a number of things...
-            # but let us limit it to the end of the url, after the final /
+        if url_key:
             try:
-                return self.room_url_lookup[url]
+                return self.room_url_key_lookup[url_key]
             except KeyError:
-                index_logger.debug("Failed to find Room URL {}".format(url))
+                index_logger.debug("Failed to find Room URL Key {}".format(url_key))
         if name:
             # TODO: support separating group/teams from string
             try:
@@ -425,8 +426,8 @@ class ShowroomIndex(object):
                     new_room = Room(room_info=room, mod_time=mod_time,
                                     wanted=self.wanted_default, language=self.language)
                     self.room_dict[new_room.room_id] = new_room
-                    if self._room_url_lookup:
-                        self._room_url_lookup[new_room.short_url] = new_room
+                    if self._room_url_key_lookup:
+                        self._room_url_key_lookup[new_room.short_url] = new_room
                     if self._room_name_lookup:
                         self._room_name_lookup[new_room.name] = new_room
                     if self._room_handle_lookup:
@@ -435,29 +436,29 @@ class ShowroomIndex(object):
                     # adding a custom room is managed by something else
                     # likewise the option to create rooms from an event or campaign page
 
-    def update_from_web(self, update_url=None):
-        """
-        :param update_url: URL to a list of JDEX files, w/ name, modtime, and path for each.
-            Defaults to https://wlerin.github.io/showroom-index/list.json
-            which see for an example.
-
-        Modtime of each file is compared against the local copy and if newer, the contents are
-        compared. Priorities and names are not changed. Group and Team may be updated, and any
-        new rooms will be added.
-
-        TODO: decide how to handle ignored rooms, i.e. say someone removes a file from the index
-        Or just find a better way to manage who gets downloaded, e.g. a config.json option.
-        """
-        if not update_url:
-            update_url = "https://wlerin.github.io/showroom-index/list.json"
-
-        update_data = self.session.get(update_url).json()
-        # TODO: Catch the error this raises when decoding fails
-
-        # TODO: finish this method
-        # 1) compare mod times
-        # 2) get updated and new files
-        # 3) compare contents
+    # def update_from_web(self, update_url=None):
+    #     """
+    #     :param update_url: URL to a list of JDEX files, w/ name, modtime, and path for each.
+    #         Defaults to https://wlerin.github.io/showroom-index/list.json
+    #         which see for an example.
+    #
+    #     Modtime of each file is compared against the local copy and if newer, the contents are
+    #     compared. Priorities and names are not changed. Group and Team may be updated, and any
+    #     new rooms will be added.
+    #
+    #     TODO: decide how to handle ignored rooms, i.e. say someone removes a file from the index
+    #     Or just find a better way to manage who gets downloaded, e.g. a config.json option.
+    #     """
+    #     if not update_url:
+    #         update_url = "https://wlerin.github.io/showroom-index/list.json"
+    #
+    #     update_data = self.session.get(update_url).json()
+    #     # TODO: Catch the error this raises when decoding fails
+    #
+    #     # TODO: finish this method
+    #     # 1) compare mod times
+    #     # 2) get updated and new files
+    #     # 3) compare contents
 
     def start(self):
         self._quitting = False
@@ -494,10 +495,10 @@ class ShowroomIndex(object):
             # TODO: make this a
             self._room_handle_lookup[room.handle] = room
 
-    def _build_url_lookup(self):
-        self._room_url_lookup = {}
+    def _build_url_key_lookup(self):
+        self._room_url_key_lookup = {}
         for room_id, room in self.room_dict.items():
-            self._room_name_lookup[room.url] = room
+            self._room_url_key_lookup[room.room_url_key] = room
 
     @property
     def room_name_lookup(self):
@@ -514,8 +515,13 @@ class ShowroomIndex(object):
         return self._room_handle_lookup
 
     @property
-    def room_url_lookup(self):
+    def room_url_key_lookup(self):
+        """
+        Provides a dictionary of rooms indexed by unique URL components
+        i.e. the room_url_key
+        """
         with self._lock:
-            if not self._room_url_lookup:
-                self._build_url_lookup()
-        return self._room_url_lookup
+            if not self._room_url_key_lookup:
+                self._build_url_key_lookup()
+        return self._room_url_key_lookup
+

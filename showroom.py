@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from showroom.main import main
+from showroom import main
 
 
 if __name__ == "__main__":
