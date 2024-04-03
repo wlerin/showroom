@@ -5,17 +5,15 @@ import time
 import datetime
 from multiprocessing.dummy import Process, JoinableQueue as Queue
 from urllib.error import HTTPError, URLError
-from urllib.parse import urljoin
 from http.client import RemoteDisconnected
 import logging
 from itertools import zip_longest
 import shutil
 
 import requests
-
 try:
     import m3u8
-    # from m3u8 import _parsed_url
+    from m3u8 import _parsed_url
 except ImportError:
     print('Unable to import M3U8 library. Some functionality will be unavailable.')
 
@@ -57,10 +55,6 @@ def _segment_sort_key(file):
     if m:
         return m.group(1), int(m.group(2))
     raise ValueError('Unable to determine sort sequence: {}'.format(file))
-
-
-def _parsed_url(url):
-    return urljoin(url, '.')
 
 
 def load_m3u8(src, url=None, headers=None):

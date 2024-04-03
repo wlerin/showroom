@@ -141,16 +141,5 @@
     "web_url": "https://www.showroom-live.com/sdn48_official",
     "room_id": "263484",
     "priority": 20
-  },
-  {
-    "jpnGroup": "AKB48",
-    "engGroup": "AKB48",
-    "jpnTeam": "",
-    "engTeam": "",
-    "jpnName": "AKB48 第18期生のSHOWROOM番組",
-    "engName": "AKB48 18th Gen Showroom",
-    "web_url": "https://www.showroom-live.com/r/akb48_18th",
-    "room_id": "472393",
-    "priority": 20
   }
 ]

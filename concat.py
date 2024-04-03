@@ -454,13 +454,13 @@ def merge_videos(target_dir, output_dir, copyts=False, copytb=1, skip_exists=Fal
                     run([_ffmpeg,
                         '-i', video,
                         '-c', 'copy',
-                        # '-bsf:v', 'h264_mp4toannexb',
+                        '-bsf:v', 'h264_mp4toannexb',
                         '-f', 'mpegts',
                         tempfile])
                     temp_videos.append(tempfile)
                 videostring = 'concat:' + '|'.join(temp_videos)
                 
-                instructions.extend(['-i', videostring])
+                instructions.extend(['-i', videostring, '-bsf:a', 'aac_adtstoasc'])
 
             if copyts:
                 instructions.append('-copyts')

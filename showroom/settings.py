@@ -175,7 +175,6 @@ DEFAULTS_NEW = {
     "environment": {}
 }
 
-
 def _clean_args(args):
     new_args = {}
     for k, v in vars(args).items():

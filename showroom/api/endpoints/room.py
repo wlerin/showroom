@@ -107,17 +107,6 @@ class RoomEndpointsMixin:
         result = self._api_get(endpoint, params={"room_id": room_id}, default={'ok': 0})
         return bool(result["ok"])
 
-    def room_status(self, room_url_key):
-        """
-        Get status of a room by its url_key (not room_id)
-
-        :param room_url_key:
-        :return:
-        """
-        endpoint = "/api/room/status"
-        result = self._api_get(endpoint, params={"room_url_key": room_url_key})
-        return result
-
     def profile(self, room_id):
         """
         Get profile info for a room

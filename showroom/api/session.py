@@ -10,7 +10,7 @@ from .cookiejar import ClientCookieJar
 #except ImportError:
 #    UserAgent = None
 #    ua = None
-ua_str = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+ua_str = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'
 #else:
 #    ua = UserAgent(fallback='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36')
 #    ua_str = ua.chrome
@@ -80,9 +80,8 @@ class ClientSession(_Session):
                     session_logger.error('Getting {} failed permanently: 404 page not found'.format(url))
                     raise  # PageNotFoundError(e)  # ?
                 elif status_code == 403:
-                    session_logger.error('Getting {} failed: 403 permission denied. Throttled.'.format(url))
-                    wait = min(wait + 2 + error_count, max_delay)*2
-                    # raise  # specific error?
+                    session_logger.error('Getting {} failed permanently: 403 permission denied'.format(url))
+                    raise  # specific error?
                 elif status_code == 402:
                     session_logger.error('Getting {} failed permanently: '
                                          '401 auth required (not implemented)'.format(url))
