@@ -466,6 +466,7 @@ class Downloader(object):
             # '-nostats',  # will this omit any useful information?
             '-loglevel', '40',  # 40+ required for wait() to check output
             '-copytb', '1',
+            '-rw_timeout', str(10*10**6),
             '-i', self.stream_url,
             '-c', 'copy',
             *extra_args,
