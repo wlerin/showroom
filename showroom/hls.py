@@ -22,7 +22,6 @@ from showroom.archive.probe import probe_video2
 from .constants import TOKYO_TZ
 
 
-
 hls_logger = logging.getLogger('showroom.hls')
 _filename_re = re.compile(r'([\w=\-]+?)(\d+).ts')
 
@@ -450,7 +449,8 @@ def check_missing(files):
         expected_segments = set(range(start_index, final_index+1))
         found_segments = set(key(file)[1] for file in pattern_files)
         missing = sorted(expected_segments - found_segments)
-        if start_index != 1:
+        # TODO: fix this for the new patterns
+        if 'media' in pattern and start_index != 1:
             missing.insert(0, 0)
             missing.insert(1, start_index-1)
         result[pattern] = missing
@@ -1006,8 +1006,10 @@ def compare_streams(scan_paths, final_root):
     os.makedirs(dest, exist_ok=True)
     hls_logger.info('Comparing sources for {}'.format(os.path.basename(dest)))
     data = {}
-    for path in scan_paths:
-        data[path] = scan_stream(path)
+
+    # for path in scan_paths:
+    #     data[path] = scan_stream(path)
+    data = scan_streams(scan_paths)
 
     def compare_segments(segments):
         """
@@ -1061,47 +1063,85 @@ def compare_streams(scan_paths, final_root):
     return length, missing
 
 
-def scan_stream(path):
-    """
-    Scan a stream and return info about each saved segment
-    :param path: Path to stream
-    :return: a list of dicts containing info about each segment:
-        - index
-        - name
-        - path
-        - checksum
-        - ffprobe results (to be further parsed)
-        - size
-    """
-    # it would be more efficient to only grab some of this info as needed
-    # especially the checksums
-    files = sorted(glob.glob('{}/*.ts'.format(path)), key=_segment_sort_key)
-    if not files:
-        return
-    # check that there is only one prefix
-    prefixes = set(_segment_sort_key(e)[0] for e in files)
-    if len(prefixes) > 1:
-        raise ValueError('Too many segment filename prefixes in {}'.format(path))
-    final_index = _segment_sort_key(files[-1])[1]
-    segments = {}
-    for file in files:
-        item = {}
-        prefix, index = _segment_sort_key(file)
-        item['index'] = index
-        item['name'] = os.path.basename(file)
-        item['path'] = file
-        segments[index] = item
-
-    # delay time consuming tasks until the file is asked for
-    # TODO: avoid doing any of this unless needed
-    for i in range(1, final_index+1):
-        item = segments.get(i)
-        # if item:
-        #     item['probe_result'] = probe_video2(item['path'])
-        #     # item['checksum'] = md5sum(item['path'])
-        #     item['size'] = os.path.getsize(item['path'])
-        yield item
-
-    # return [segments.get(i) for i in range(1, final_index+1)]
+# def scan_stream(path):
+#     """
+#     Scan a stream and return info about each saved segment
+#     :param path: Path to stream
+#     :return: a list of dicts containing info about each segment:
+#         - index
+#         - name
+#         - path
+#         # - checksum
+#         # - ffprobe results (to be further parsed)
+#         # - size
+#     """
+#     files = sorted(glob.glob('{}/*.ts'.format(path)), key=_segment_sort_key)
+#     if not files:
+#         return
+#     # check that there is only one prefix
+#     prefixes = set(_segment_sort_key(e)[0] for e in files)
+#     if len(prefixes) > 1:
+#         raise ValueError('Too many segment filename prefixes in {}'.format(path))
+#     final_index = _segment_sort_key(files[-1])[1]
+#     segments = {}
+#     for file in files:
+#         item = {}
+#         prefix, index = _segment_sort_key(file)
+#         item['index'] = index
+#         item['name'] = os.path.basename(file)
+#         item['path'] = file
+#         segments[index] = item
+#
+#     # delay time consuming tasks until the file is asked for
+#     # TODO: avoid doing any of this unless needed
+#     for i in range(1, final_index+1):
+#         item = segments.get(i)
+#         # if item:
+#         #     item['probe_result'] = probe_video2(item['path'])
+#         #     # item['checksum'] = md5sum(item['path'])
+#         #     item['size'] = os.path.getsize(item['path'])
+#         yield item
+#     # return [segments.get(i) for i in range(1, final_index+1)]
 
 
+def scan_streams(paths):
+    data = dict()
+    segments = dict()
+    low_index = None
+    high_index = 0
+
+    def yield_by_index(segments, start, end):
+        for i in range(start, end+1):
+            yield segments.get(i)
+
+    for path in paths:
+        segments[path] = dict()
+        files = sorted(sorted(glob.glob('{}/*.ts'.format(path)), key=_segment_sort_key))
+        if not files:
+            continue
+        prefixes = set(_segment_sort_key(e)[0] for e in files)
+        if len(prefixes) > 1:
+            raise ValueError('Too many segment filename prefixes in {}'.format(path))
+
+        li = _segment_sort_key(files[0])[-1]
+        hi = _segment_sort_key(files[-1])[-1]
+        if low_index is None or low_index > li:
+            low_index = li
+        if high_index < hi:
+            high_index = hi
+
+        for file in files:
+            item = dict()
+            prefix, index = _segment_sort_key(file)
+            item['index'] = index
+            item['name'] = os.path.basename(file)
+            item['path'] = file
+            segments[path][index] = item
+
+    if low_index is None:
+        low_index = 1
+
+    for path in paths:
+        data[path] = yield_by_index(segments[path], low_index, high_index)
+
+    return data
