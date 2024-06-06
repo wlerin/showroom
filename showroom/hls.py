@@ -358,10 +358,12 @@ def merge_segments(dest, sort_key=_segment_sort_key, force_yes=False):
     files = sorted(glob.glob('{}/*.ts'.format(glob.escape(dest))), key=sort_key)
 
     # assume sort_key returns an tuple of a str and an integer
+    first_key = sort_key(files[0])
     final_key = sort_key(files[-1])
     try:
+        first_media_sequence = first_key[1]
         final_media_sequence = final_key[1]
-        expected_media_set = set(range(1, final_media_sequence + 1))
+        expected_media_set = set(range(first_media_sequence, final_media_sequence + 1))
         found_media_set = set(sort_key(e)[1] for e in files)
     except TypeError as e:
         hls_logger.warning('Unable to read media-sequence using provided sort_key, will not check for missing files')
@@ -1046,6 +1048,7 @@ def compare_streams(scan_paths, final_root):
     # compare each index starting from 1 until the longest path
     # identify the best at each index, append that to chosen
     # None = no segment for that index
+    # UPDATE: this no longer "starts from 1"
     final_segments = (compare_segments(item) for item in zip_longest(*data.values()))
     missing = []
     i = 0
@@ -1058,7 +1061,7 @@ def compare_streams(scan_paths, final_root):
             # Using os.replace for now because it's faster and i've already made copies
             shutil.copy2(item['path'], destfile)
         else:
-            missing.append(i)
+            missing.append(_segment_sort_key(item)[-1])
     length = i
     return length, missing
 

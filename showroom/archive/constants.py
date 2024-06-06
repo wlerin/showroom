@@ -2,6 +2,7 @@ from showroom.settings import settings
 from showroom.index import ShowroomIndex
 
 # these might only be needed in check.py
+print(settings.directory.index)
 ENGLISH_INDEX = ShowroomIndex(settings.directory.index, language='eng')
 JAPANESE_INDEX = ShowroomIndex(settings.directory.index, language='jpn')
 
