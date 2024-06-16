@@ -988,9 +988,9 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
             raise
         dest = '{}/{}'.format(final_root, os.path.basename(stream_list[0]))
         final_files = compare_streams(stream_list, final_root)
-        missing = check_missing(final_files)
+        prefix, missing = list(check_missing(final_files).items())
         if missing:
-            hls_logger.info('Missing segments for {}: {}'.format(dest, missing))
+            hls_logger.info('Missing segments for {}: {} - {}'.format(dest, prefix.strip('-_'), missing))
 
 
 class TooManyStreamsWithSameKeyError(ValueError):
