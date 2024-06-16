@@ -448,13 +448,27 @@ def check_missing(files):
         pattern_files = [e for e in files if pattern in e]
         start_index = key(pattern_files[0])[1]
         final_index = key(pattern_files[-1])[1]
-        expected_segments = set(range(start_index, final_index+1))
+        expected_segments = range(start_index, final_index+1)
         found_segments = set(key(file)[1] for file in pattern_files)
-        missing = sorted(expected_segments - found_segments)
-        # TODO: fix this for the new patterns
-        if 'media' in pattern and start_index != 1:
-            missing.insert(0, 0)
-            missing.insert(1, start_index-1)
+        missing = []
+        new_run = []
+        for segment in expected_segments:
+            if segment in found_segments:
+                if new_run:
+                    if len(new_run) > 2:
+                        missing.extend((new_run[0], f'..({len(new_run)-2})..', new_run[-1]))
+                    else:
+                        missing.extend(new_run)
+                    new_run = []
+            else:
+                new_run.append(segment)
+        # new_run should always be empty at the end of iteration, right?
+
+        # missing = sorted(expected_segments - found_segments)
+        # # TODO: fix this for the new patterns
+        # if 'media' in pattern and start_index != 1:
+        #     missing.insert(0, 0)
+        #     missing.insert(1, start_index-1)
         result[pattern] = missing
 
     return result
@@ -973,7 +987,8 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
             print(stream_list)
             raise
         dest = '{}/{}'.format(final_root, os.path.basename(stream_list[0]))
-        final_count, missing = compare_streams(stream_list, final_root)
+        final_files = compare_streams(stream_list, final_root)
+        missing = check_missing(final_files)
         if missing:
             hls_logger.info('Missing segments for {}: {}'.format(dest, missing))
 
@@ -1050,8 +1065,7 @@ def compare_streams(scan_paths, final_root):
     # None = no segment for that index
     # UPDATE: this no longer "starts from 1"
     final_segments = (compare_segments(item) for item in zip_longest(*data.values()))
-    missing = []
-    i = 0
+    final_files = []
     for i, item in enumerate(final_segments, 1):
         if item:
             destfile = '{}/{}'.format(dest, item['name'])
@@ -1060,10 +1074,8 @@ def compare_streams(scan_paths, final_root):
             # TODO: use shutil.copy2 instead
             # Using os.replace for now because it's faster and i've already made copies
             shutil.copy2(item['path'], destfile)
-        else:
-            missing.append(_segment_sort_key(item)[-1])
-    length = i
-    return length, missing
+            final_files.append(os.path.basename(destfile))
+    return final_files
 
 
 # def scan_stream(path):
