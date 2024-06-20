@@ -363,12 +363,12 @@ def merge_segments(dest, sort_key=_segment_sort_key, force_yes=False):
     try:
         first_media_sequence = first_key[1]
         final_media_sequence = final_key[1]
-        expected_media_set = set(range(first_media_sequence, final_media_sequence + 1))
-        found_media_set = set(sort_key(e)[1] for e in files)
+        expected_segments = range(first_media_sequence, final_media_sequence + 1)
+        found_segments = sorted(sort_key(e)[1] for e in files)
     except TypeError as e:
         hls_logger.warning('Unable to read media-sequence using provided sort_key, will not check for missing files')
     else:
-        missing_segments = sorted(expected_media_set - found_media_set)
+        missing_segments = format_missing(expected_segments, found_segments)
         if missing_segments:
             hls_logger.warning('Missing segments for {}:\n{}'.format(dest, missing_segments))
             if not force_yes:
@@ -433,6 +433,22 @@ class HLSDownloader:
         return self._running
 
 
+def format_missing(expected, found):
+    missing = []
+    new_run = []
+    for segment in expected:
+        if segment in found:
+            if new_run:
+                if len(new_run) > 2:
+                    missing.extend((new_run[0], f'..({len(new_run)-2})..', new_run[-1]))
+                else:
+                    missing.extend(new_run)
+                new_run = []
+        else:
+            new_run.append(segment)
+    return missing
+
+
 # various additional utilities for processing hls recordings saved by this module
 def check_missing(files):
     # checks a list of files to see if any are missing, based on an int value returned by key
@@ -450,18 +466,18 @@ def check_missing(files):
         final_index = key(pattern_files[-1])[1]
         expected_segments = range(start_index, final_index+1)
         found_segments = set(key(file)[1] for file in pattern_files)
-        missing = []
-        new_run = []
-        for segment in expected_segments:
-            if segment in found_segments:
-                if new_run:
-                    if len(new_run) > 2:
-                        missing.extend((new_run[0], f'..({len(new_run)-2})..', new_run[-1]))
-                    else:
-                        missing.extend(new_run)
-                    new_run = []
-            else:
-                new_run.append(segment)
+        # missing = []
+        # new_run = []
+        # for segment in expected_segments:
+        #     if segment in found_segments:
+        #         if new_run:
+        #             if len(new_run) > 2:
+        #                 missing.extend((new_run[0], f'..({len(new_run)-2})..', new_run[-1]))
+        #             else:
+        #                 missing.extend(new_run)
+        #             new_run = []
+        #     else:
+        #         new_run.append(segment)
         # new_run should always be empty at the end of iteration, right?
 
         # missing = sorted(expected_segments - found_segments)
@@ -469,7 +485,7 @@ def check_missing(files):
         # if 'media' in pattern and start_index != 1:
         #     missing.insert(0, 0)
         #     missing.insert(1, start_index-1)
-        result[pattern] = missing
+        result[pattern] = format_missing(expected_segments, found_segments)
 
     return result
 
@@ -831,7 +847,6 @@ def move_files(files, dest, ignore_checksums=False, no_probe=False):
             hls_logger.warning('{} failed probe'.format(file))
         # both videos were successfully probed
         elif not ignore_checksums and md5sum(file) == md5sum(destfile):
-            # print('{} exists in destination, removing duplicate'.format(file))
             os.remove(file)
         elif os.path.getsize(file) > os.path.getsize(destfile):
             os.replace(file, destfile)
@@ -904,7 +919,11 @@ def compare_archives(archive_paths, final_root, simplify_first=False, check_only
     for path, streams in archive_data.items():
         for stream in streams:
             # assumption: stream names are still those used by showroom.py
-            room_name = split_stream_name(stream)[0]
+            try:
+                room_name = split_stream_name(stream)[0]
+            except ValueError:
+                print('Could not parse stream name:', stream)
+                continue
             if room_name not in rooms:
                 rooms[room_name] = {}
             if path not in rooms[room_name]:
@@ -1134,7 +1153,7 @@ def scan_streams(paths):
 
     for path in paths:
         segments[path] = dict()
-        files = sorted(sorted(glob.glob('{}/*.ts'.format(path)), key=_segment_sort_key))
+        files = sorted(glob.glob('{}/*.ts'.format(path)), key=_segment_sort_key)
         if not files:
             continue
         prefixes = set(_segment_sort_key(e)[0] for e in files)
