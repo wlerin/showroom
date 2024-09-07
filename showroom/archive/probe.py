@@ -8,6 +8,7 @@ ffprobe = os.path.join(os.path.split(ffmpeg)[0], 'ffprobe')
 if ffmpeg.endswith('.exe'):
     ffprobe += '.exe'
 
+
 def get_iframes(filename, read_interval=None):
     """
 
@@ -69,7 +70,7 @@ def get_iframes2(filename, read_interval=None):
     try:
         results = check_output([
             *args
-        ], universal_newlines=True)
+        ], text=True)
     except CalledProcessError:
         return None
     else:
@@ -88,7 +89,7 @@ def probe_video(filename, stream='v', entries=()):
             '-i', filename,
             '-of', 'json'
         ],
-            universal_newlines=True,
+            text=True,
             stderr=DEVNULL,
             stdin=DEVNULL
         )
@@ -116,7 +117,7 @@ def probe_video2(filename):
             '-i', filename,
             '-of', 'json'
         ],
-            universal_newlines=True,
+            text=True,
             stderr=DEVNULL,
             stdin=DEVNULL
         )
@@ -124,3 +125,65 @@ def probe_video2(filename):
         return None
     else:
         return json.loads(results)
+
+
+_stream_checksum_mode_map = dict(
+    video="-map 0:v -f {hash} -",
+    audio="-map 0:a -f {hash} -",
+    separate="-map 0:v -f {hash} - -map 0:a -f {hash} -",
+    both="-map 0:v -map 0:a -f {hash} -"
+)
+_frame_checksum_mode_map = dict(
+    video="-map 0:v -f framehash -hash {hash} -",
+    audio="-map 0:a -f framehash -hash {hash} -",
+    separate="-map 0:v -f framehash -hash {hash} - -map 0:a -f framehash -hash {hash} -",
+    both="-map 0:v -map 0:a -f framehash -hash {hash} -"
+
+)
+
+
+# should mode be an enum?
+def stream_checksum(path, mode='separate', hash='md5'):
+    """
+
+    :param path:
+    :param mode:
+        - video: video stream only
+        - audio: audio stream only
+        - separate: both video and audio, return separate checksums
+        - both: both video and audio, hashed together
+    :param hash: hashing algorithm to use, default: md5
+    :return: list containing one or more checksums of the format HASH=XXXXXXX..XXXX
+    """
+    args = ' '.join((ffmpeg, "-v", "error", "-i", f'"{path}"', _stream_checksum_mode_map[mode].format(hash=hash)))
+    # print(args)
+    try:
+        results = check_output(args, shell=True, text=True)
+    except CalledProcessError:
+        return None
+    else:
+        return [e.strip() for e in results.split('\n') if e.strip()]
+
+
+def frame_checksum(path, mode='both', hash='md5'):
+    """
+
+    :param path:
+    :param mode:
+        - video: video stream only
+        - audio: audio stream only
+        - separate: both video and audio, return separate checksums
+        - both: both video and audio, hashed together
+    :param hash: hashing algorithm to use, default: md5
+    :return: list of strings describing each frame, of the format:
+      stream_index, packet_dts, packet_pts, packet_duration, packet_size, hash
+      the first few lines (starting with #) describe the overall format and settings
+    """
+    args = ' '.join((ffmpeg, "-v", "error", "-i", f'"{path}"', _frame_checksum_mode_map[mode].format(hash=hash)))
+    # print(args)
+    try:
+        results = check_output(args, shell=True, text=True)
+    except CalledProcessError:
+        return None
+    else:
+        return [e.strip() for e in results.split('\n') if e.strip()]
