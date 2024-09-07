@@ -44,6 +44,7 @@ TIMEOUT = 3
 MAX_START_TIME_DIFFERENCE=2*60*60
 
 
+# private utility functions
 def _segment_sort_key(file):
     """
     Returns a tuple containing the filename split into a string and an integer
@@ -62,6 +63,29 @@ def _parsed_url(url):
     return urljoin(url, '.')
 
 
+def _identify_patterns(files):
+    """
+    Identify and return all filename patterns in the provided list of files
+
+    :param files: list of filenames
+    :return: sorted list of filename patterns
+    """
+    return sorted(set(_segment_sort_key(e)[0] for e in files))
+
+
+# decorators
+def preserve_cwd(func):
+    def decorated_func(*args, **kwargs):
+        oldcwd = os.getcwd()
+        try:
+            result = func(*args, **kwargs)
+        finally:
+            os.chdir(oldcwd)
+        return result
+    return decorated_func
+
+
+# helper functions
 def load_m3u8(src, url=None, headers=None):
     # is playlist raw text, a path to a file, or a url?
     if src.upper().startswith('#EXTM3U'):
@@ -85,6 +109,7 @@ def is_m3u8_content(playlist):
         return False
 
 
+# functions
 def save_segment(url, destfile, headers=None, timeout=None, attempts=None):
     if not headers:
         headers = {}
@@ -490,17 +515,11 @@ def check_missing(files):
     return result
 
 
-def _identify_patterns(files):
-    return sorted(set(_segment_sort_key(e)[0] for e in files))
-
-
 # Segment folder consolidation
 def simplify(path, ignore_checksums=False):
     """
     Tries to simplify an archive as much as possible prior to either tar + upload or comparison and merge
     """
-    # TODO: handle filename pattern weirdness, e.g. pattern x -> pattern y -> pattern x
-    # (probably the start_time is wrong for pattern_y)
     oldcwd = os.getcwd()
     os.chdir(path)
 
@@ -509,13 +528,14 @@ def simplify(path, ignore_checksums=False):
     for stream in streams:
         if not os.path.isdir(stream):
             continue
-        date, handle = stream.split(' Showroom - ')
-        handle, time = stream.rsplit(' ', 1)
+        start_date, handle = stream.split(' Showroom - ')
+        handle, start_time = handle.rsplit(' ', 1)
         if handle not in rooms:
             rooms[handle] = []
-        rooms[handle].append((date, time, stream))
+        rooms[handle].append((start_date, start_time, stream))
 
     def move_discontinuity_files(src, dest):
+        # TODO: log if this ever triggers
         chunklists = glob.glob('{}/*.m3u8'.format(src))
         if chunklists:
             move_files(chunklists, dest, no_probe=True)
@@ -529,8 +549,9 @@ def simplify(path, ignore_checksums=False):
         # begin with 2020-01-18
         # if glob.glob('{}/discontinuity*.m3u8'.format(first_stream)):
         #     print(first_stream, 'has a discontinuity.m3u8')
-        # TODO: sort by date not filename
         base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
+
+        # delete empty folders
         if not base_files:
             hls_logger.debug('{} contains no segments, attempting to remove'.format(first_stream))
             try:
@@ -553,6 +574,7 @@ def simplify(path, ignore_checksums=False):
                 first_stream, filename_patterns
             ))
             continue
+
         # TODO: identify the oldest pattern either by file date (preserved through tar) or a discontinuity m3u8
         # except actually we'd want to be using the latest pattern here (and split it from the earlier one(s))
         base_pattern = filename_patterns[0]
@@ -582,8 +604,13 @@ def simplify(path, ignore_checksums=False):
                     return
                 if len(new_patterns) == 2 and base_pattern in new_patterns:
                     # move files that do match the old pattern
+                    # TODO: THIS IS HIGHLY DANGEROUS AND MAY BE A ROOT OF THE CURRENT PROBLEMS
+                    # how do I safely split apart a folder with two different fn patterns inside?
+                    # simplest/stupidest is to just create a new folder with start_time-1 and move the old pattern there
+                    # the simplify will have to be rerun (or handled manually) to then examine
+                    # whether it should be merged into the previous folder
                     move_files((file for file in new_files if base_pattern in file), first_stream, ignore_checksums)
-                    new_patterns.remove(base_pattern)  # will hit the if clause below and then continue
+                    new_patterns.remove(base_pattern)  # will hit the if-clause below and then continue
                     # don't know how to handle more than two patterns in a single folder
                     # at least not without a discontinuity.m3u8, and those don't exist yet in the archives i'm testing
                 else:
@@ -605,6 +632,7 @@ def simplify(path, ignore_checksums=False):
 
             # consolidate a lot of the checking into one function
             if not _stream_identity_check(first_stream, new_stream):
+                # TODO: here is the other possible point of failure, the one I originally expected would be the cause
                 start_date, start_time, first_stream = new_date, new_time, new_stream
                 base_pattern = new_pattern
                 continue
@@ -652,9 +680,10 @@ def _stream_identity_check(stream1, stream2):
     files1 = sorted(glob.glob('{}/*.ts'.format(stream1)), key=_segment_sort_key)
     files2 = sorted(glob.glob('{}/*.ts'.format(stream2)), key=_segment_sort_key)
     if not files1 or not files2:
-        # i dunno what this means
+        # it should never reach this point, as the preceding code before this function gets called
+        # checks for an empty folder and if found, removes it before skipping ahead to the next folder
         hls_logger.warning('Empty folder')
-        return True
+        return False
     if _segment_sort_key(files1[0])[0] != _segment_sort_key(files2[0])[0]:
         hls_logger.warning('Different filename patterns')
         return False
@@ -663,39 +692,45 @@ def _stream_identity_check(stream1, stream2):
     data2 = {}
     for files, data in ((files1, data1), (files2, data2)):
         earliest_modtime = None
-        latest_modtime = None
-        lastseq = 0
+        last_modtime = None
+        # lastseq = 0
         for i, file in enumerate(files):
+            # TODO: this should watch for patterns that don't match
             _, seq = _segment_sort_key(file)
-            modtime = os.stat(file).st_mtime
-            data[file] = (seq, modtime)
+            st = os.stat(file)
+            modtime = st.st_mtime
+            # TODO: (in progress) check sizes as well
+            size = st.st_size
+            data[file] = (seq, modtime, size)
             if i == 0:
-                earliest_modtime = latest_modtime = modtime
-                lastseq = seq
+                earliest_modtime = last_modtime = modtime
+                # lastseq = seq
             else:
                 # if seq - lastseq > 30:
                 #     # see how often this triggers
                 #     hls_logger.debug(
                 #         'More than a minute gap between segments: {}s {}'.format((seq - lastseq)*2, file))
                 #     # too often
-                lastseq = seq
+                # lastseq = seq
                 if modtime < earliest_modtime:
                     gap = earliest_modtime - modtime
-                    if gap > 120:
+                    if gap > 60:
                         raise ValueError(
                             'Too large a gap between segment and start of the stream: {} {}'.format(gap, file))
                     earliest_modtime = modtime
                 else:
-                    gap = modtime - latest_modtime
+                    gap = modtime - last_modtime
                     # if abs(gap) > 60:
                     #     hls_logger.debug(
                     #         'Large modtime gap between segment and previous latest segment: {}s {}'.format(gap, file))
                     if gap > 0:
-                        latest_modtime = modtime
-                    # elif gap < -120:
-                    #     hls_logger.warning('Large modtime decrease: {}s {}'.format(gap, file))
+                        last_modtime = modtime
+                    # this almost certainly needs to be looked at manually
+                    elif gap < -30:
+                        hls_logger.warning('Large modtime decrease: {}s {}'.format(gap, file))
+                        return False
 
-        data.update(dict(start_time=earliest_modtime, end_time=latest_modtime))
+        data.update(dict(start_time=earliest_modtime, end_time=last_modtime))
 
     # make sure the streams are in the correct order
     if data2['start_time'] < data1['start_time']:
@@ -726,6 +761,7 @@ def _stream_identity_check(stream1, stream2):
     endseq1 = data1[files1[-1]][0]
     # endseq2 = data2[files1[-1]][0]
 
+    # TODO: all of these cases assume the old filename pattern
     # case 1: media_792.ts vs media_777.ts (or so)
     # normal sequence progression with overlap from speculative rewind
     # but how big an overlap can it be? surely more than just MAX_TIME_TRAVEL
@@ -734,7 +770,7 @@ def _stream_identity_check(stream1, stream2):
     # case 3: media_792.ts vs media_1.ts
     # long first stream, obviously not the same thing
     # case 4: media_55.ts vs. media_777.ts
-    # no overlap, assume new stream unless the gap is very small
+    # no overlap, assume different stream
     if endseq1 >= startseq2:
         # excludes case 3 and some instances of case 2
         # Hasegawa Rena's 200320 stream had up to 32 files worth of overlap
@@ -745,10 +781,10 @@ def _stream_identity_check(stream1, stream2):
             # hls_logger.info('Sequence overlap between streams is very large, assuming new stream')
             # return False
     else:
-        # case 4, nothing to check so assume same stream, if it passed the modtime check earlier assume the same stream
+        # case 4, nothing to check so assume different stream
         hls_logger.warning(
             'No sequence overlap, but segments are in the correct order: {} -> {}'.format(endseq1, startseq2))
-        return True
+        return False
 
     # TODO: checksum test
     file_overlap = sorted(
@@ -757,32 +793,65 @@ def _stream_identity_check(stream1, stream2):
     )
     if not file_overlap:
         hls_logger.warning('Passed all other tests, but no matching files to test checksums against')
-        if startseq2 > 100:
-            return True
-        else:
-            return False
+        return False
     # half the matching segments, or 5 if more than 10 matches, or 1 if just one match
-    matches_required = min(len(file_overlap) // 2, MAX_CHECKSUM_MATCHES) or 1
-    matches = 0
+    # matches_required = min(len(file_overlap) // 2, MAX_CHECKSUM_MATCHES) or 1
+    # matches = 0
+    # for i, file in enumerate(file_overlap):
+    #     file1 = os.path.join(stream1, file)
+    #     file2 = os.path.join(stream2, file)
+    #     if md5sum(file1) == md5sum(file2):
+    #         matches += 1
+    #         if matches >= matches_required:
+    #             return True
+    #     # wtf was I thinking here? this never worked properly
+    #     elif i > MAX_CHECKSUM_MATCHES*2:
+    #         hls_logger.info('no checksum matches in first {} overlapping files, assuming new stream'.format(
+    #             MAX_CHECKSUM_MATCHES*2
+    #         ))
+    #         break
+    #     # else:
+    #     #     hls_logger.debug('checksum failed: {}'.format(file))
+    # if matches > 0:
+    #     # this needs to be personally investigated
+    #     hls_logger.error('Some checksums match but not as many as desired: {}/{} {} {}'.format(
+    #         matches, len(file_overlap), stream1, stream2))
+    #     raise ValueError('Not enough matches')
+    checksum_matches_needed = min(len(file_overlap) // 2, MAX_CHECKSUM_MATCHES) or 1
+    checksum_matches = 0
+    size_check = True
+    time_check = True
+    hashsum_check = True
+
     for i, file in enumerate(file_overlap):
         file1 = os.path.join(stream1, file)
         file2 = os.path.join(stream2, file)
-        if md5sum(file1) == md5sum(file2):
-            matches += 1
-            if matches >= matches_required:
-                return True
-        elif i > MAX_CHECKSUM_MATCHES*2:
-            hls_logger.info('no checksum matches in first {} overlapping files, assuming new stream'.format(
-                MAX_CHECKSUM_MATCHES*2
-            ))
-            break
-        # else:
-        #     hls_logger.debug('checksum failed: {}'.format(file))
-    if matches > 0:
-        # this needs to be personally investigated
-        hls_logger.error('Some checksums match but not as many as desired: {}/{} {} {}'.format(
-            matches, len(file_overlap), stream1, stream2))
-        raise ValueError('Not enough matches')
+        # check size
+        # check time?
+        # check checksum
+        _, mtime1, size1 = data1[file1]
+        _, mtime2, size2 = data2[file2]
+
+        # this version will be excruciatingly noisy
+        if size1 != size2:
+            # TODO: identify matches with broken files, do a partial checksum?
+            hls_logger.info('Mismatched file sizes: {}\n{} vs {}'.format(file, size1, size2))
+            size_check = False
+            continue  # checksum guaranteed to fail
+
+        # TODO: modtime check
+        if checksum_matches < checksum_matches_needed:
+            if md5sum(file1) == md5sum(file2):
+                checksum_matches += 1
+            else:
+                hashsum_check = False
+
+    if not size_check:
+        hls_logger.info('{} failed file size test'.format(stream2))
+    if not hashsum_check:
+        hls_logger.info('{} failed checksum test.'.format(stream2))
+
+    return all((size_check, time_check, hashsum_check))
 
 
 # def is_checksum_match(files, dest):
