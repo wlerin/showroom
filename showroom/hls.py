@@ -631,8 +631,8 @@ def simplify(path, ignore_checksums=False):
                 continue
 
             # consolidate a lot of the checking into one function
+            # TODO: here is the other possible point of failure, the one I originally expected would be the cause
             if not _stream_identity_check(first_stream, new_stream):
-                # TODO: here is the other possible point of failure, the one I originally expected would be the cause
                 start_date, start_time, first_stream = new_date, new_time, new_stream
                 base_pattern = new_pattern
                 continue
@@ -793,7 +793,7 @@ def _stream_identity_check(stream1, stream2):
     )
     if not file_overlap:
         hls_logger.warning('Passed all other tests, but no matching files to test checksums against')
-        return False
+        return True
     # half the matching segments, or 5 if more than 10 matches, or 1 if just one match
     # matches_required = min(len(file_overlap) // 2, MAX_CHECKSUM_MATCHES) or 1
     # matches = 0
