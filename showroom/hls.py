@@ -728,7 +728,6 @@ def _stream_identity_check(stream1, stream2):
                     # this almost certainly needs to be looked at manually
                     elif gap < -30:
                         hls_logger.warning('Large modtime decrease: {}s {}'.format(gap, file))
-                        return False
 
         data.update(dict(start_time=earliest_modtime, end_time=last_modtime))
 
