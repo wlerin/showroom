@@ -21,6 +21,7 @@ from showroom.utils.media import md5sum
 from showroom.archive.probe import probe_video2
 from .constants import TOKYO_TZ
 
+KNOWN_TRUNCATED_FILESIZES = [100000,]
 
 hls_logger = logging.getLogger('showroom.hls')
 _filename_re = re.compile(r'([\w=\-]+?)(\d+).ts')
@@ -834,8 +835,15 @@ def _stream_identity_check(stream1, stream2):
         # this version will be excruciatingly noisy
         if size1 != size2:
             # TODO: identify matches with broken files, do a partial checksum?
-            hls_logger.info('Mismatched file sizes: {}\n{} vs {}'.format(file, size1, size2))
-            size_check = False
+            if size1 in KNOWN_TRUNCATED_FILESIZES and size2 > size1:
+                # destination file is truncated
+                os.remove(file1)
+            elif size2 in KNOWN_TRUNCATED_FILESIZES and size1 > size2:
+                # newer file is truncated
+                os.remove(file2)
+            else:
+                hls_logger.info('Mismatched file sizes: {}\n{} vs {}'.format(file, size1, size2))
+                size_check = False
             continue  # checksum guaranteed to fail
 
         # TODO: modtime check
