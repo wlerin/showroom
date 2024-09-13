@@ -21,7 +21,7 @@ from showroom.utils.media import md5sum
 from showroom.archive.probe import probe_video2
 from .constants import TOKYO_TZ
 
-KNOWN_TRUNCATED_FILESIZES = [100000,]
+KNOWN_TRUNCATED_FILESIZES = [50000, 100000, 150000, 200000, 250000]
 
 hls_logger = logging.getLogger('showroom.hls')
 _filename_re = re.compile(r'([\w=\-]+?)(\d+).ts')
