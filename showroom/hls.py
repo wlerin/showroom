@@ -781,10 +781,10 @@ def _stream_identity_check(stream1, stream2):
             # hls_logger.info('Sequence overlap between streams is very large, assuming new stream')
             # return False
     else:
-        # case 4, nothing to check so assume different stream
+        # case 4, nothing to check so assume the same stream
         hls_logger.warning(
             'No sequence overlap, but segments are in the correct order: {} -> {}'.format(endseq1, startseq2))
-        return False
+        return True
 
     # TODO: checksum test
     file_overlap = sorted(
