@@ -823,6 +823,10 @@ def _stream_identity_check(stream1, stream2):
     time_check = True
     hashsum_check = True
 
+    def file_truncation_check(file, size):
+        if size % 50000 == 0 and size % 188 != 0:
+            return True
+
     for i, file in enumerate(file_overlap):
         file1 = os.path.join(stream1, file)
         file2 = os.path.join(stream2, file)
@@ -835,10 +839,10 @@ def _stream_identity_check(stream1, stream2):
         # this version will be excruciatingly noisy
         if size1 != size2:
             # TODO: identify matches with broken files, do a partial checksum?
-            if size1 in KNOWN_TRUNCATED_FILESIZES and size2 > size1:
+            if size2 > size1 and file_truncation_check(file1, size1):
                 # destination file is truncated
                 os.remove(file1)
-            elif size2 in KNOWN_TRUNCATED_FILESIZES and size1 > size2:
+            elif size1 > size2 and file_truncation_check(file2, size2):
                 # newer file is truncated
                 os.remove(file2)
             else:
