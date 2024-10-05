@@ -836,7 +836,7 @@ def _stream_identity_check(stream1, stream2):
     def file_truncation_check(file, size):
         if size % 50000 == 0 and size % 188 != 0:
             return True
-        elif size % 188 != 0
+        elif size % 188 != 0:
             hls_logger.info('Bad file size: {}\n{}'.format(file, size))
             return True
 
