@@ -582,11 +582,12 @@ def simplify(path, ignore_checksums=False):
         # step 1: check for multiple filename patterns
         for stream in streams[1:]:
             new_date, new_time, new_stream = stream
-            hls_logger.debug('Beginning analysis of {}...'.format(new_stream))
+            # hls_logger.debug('Beginning analysis of {}...'.format(new_stream))
 
             new_files = sorted(glob.glob('{}/*.ts'.format(new_stream)), key=_segment_sort_key)
-            
-            hls_logger.debug('{} files found'.format(len(new_files)))
+            new_files_count = len(new_files)
+
+            # hls_logger.debug('{} files found'.format(len(new_files)))
             if not new_files:
                 move_discontinuity_files(new_stream, first_stream)
                 try:
@@ -617,14 +618,14 @@ def simplify(path, ignore_checksums=False):
                 else:
                     # can this be dealt with without raising an error?
                     # in theory, even three patterns could be handled if we looked at streams before and after this one
-                    hls_logger.warning('Too many filename patterns detected in stream: {}\n{}'.format(
-                        new_stream, new_patterns
-                    ))
+                    # hls_logger.warning('Too many filename patterns detected in stream: {}\n{}'.format(
+                    #     new_stream, new_patterns
+                    # ))
                     continue
 
             new_pattern = new_patterns[0]
             if base_pattern != new_pattern:
-                hls_logger.debug('Pattern mismatch: {} {}'.format(base_pattern, new_pattern))
+                # hls_logger.debug('Pattern mismatch: {} {}'.format(base_pattern, new_pattern))
                 # Only one pattern in the new file, so this means we're in an actual new stream, not a discontinuity
                 # future "streams" will be merged into this one instead
                 start_date, start_time, first_stream = new_date, new_time, new_stream
@@ -639,6 +640,9 @@ def simplify(path, ignore_checksums=False):
                 continue
 
             num_moved = move_files(new_files, first_stream, ignore_checksums)
+            # do all logging here
+            hls_logger.debug('Completed simplification of {}'.format(new_stream))
+            hls_logger.debug('Found {} files'.format(new_files_count))
             hls_logger.debug('Moved {} files to {}'.format(num_moved, first_stream))
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
