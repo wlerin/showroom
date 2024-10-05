@@ -699,6 +699,7 @@ def _stream_identity_check(stream1, stream2):
         earliest_modtime = None
         last_modtime = None
         # lastseq = 0
+        modtime_decreases = 0
         for i, file in enumerate(files):
             # TODO: this should watch for patterns that don't match
             _, seq = _segment_sort_key(file)
@@ -732,8 +733,13 @@ def _stream_identity_check(stream1, stream2):
                         last_modtime = modtime
                     # this almost certainly needs to be looked at manually
                     elif gap < -30:
-                        hls_logger.warning('Large modtime decrease: {}s {}'.format(gap, file))
-
+                        # hls_logger.warning('Large modtime decrease: {}s {}'.format(gap, file))
+                        modtime_decreases += 1
+        if modtime_decreases:
+            hls_logger.debug('Detected {} modtime decrease(s) greater than 30s: {}'.format(
+                modtime_decreases,
+                os.path.dirname(file)
+            ))
         data.update(dict(start_time=earliest_modtime, end_time=last_modtime))
 
     # make sure the streams are in the correct order
@@ -829,6 +835,9 @@ def _stream_identity_check(stream1, stream2):
 
     def file_truncation_check(file, size):
         if size % 50000 == 0 and size % 188 != 0:
+            return True
+        elif size % 188 != 0
+            hls_logger.info('Bad file size: {}\n{}'.format(file, size))
             return True
 
     for i, file in enumerate(file_overlap):
