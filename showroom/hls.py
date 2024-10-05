@@ -596,7 +596,7 @@ def simplify(path, ignore_checksums=False):
                     hls_logger.info('{} is not empty'.format(new_stream))
                 continue
             new_patterns = _identify_patterns(new_files)
-            hls_logger.debug('{} patterns found'.format(len(new_patterns)))
+            # hls_logger.debug('{} patterns found'.format(len(new_patterns)))
             # is this irrelevant now?
             if len(new_patterns) > 1:
                 if 'media_v2_' in new_patterns:
