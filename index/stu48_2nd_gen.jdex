@@ -11,17 +11,6 @@
     "web_url": "https://www.showroom-live.com/48_SAKO_HIMEKA"
   },
   {
-    "jpnName": "中廣 弥生",
-    "engName": "Nakahiro Yayoi",
-    "jpnTeam": "1期生",
-    "engTeam": "2nd Gen",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "room_id": "270124",
-    "web_url": "https://www.showroom-live.com/48_NAKAHIRO_YAYOI"
-  },
-  {
     "jpnName": "立仙 百佳",
     "engName": "Rissen Momoka",
     "jpnTeam": "1期生",
@@ -42,17 +31,6 @@
     "priority": 20,
     "room_id": "270156",
     "web_url": "https://www.showroom-live.com/48_TANAKA_MIHO"
-  },
-  {
-    "jpnName": "田口 玲佳",
-    "engName": "Taguchi Reika",
-    "jpnTeam": "1期生",
-    "engTeam": "2nd Gen",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "room_id": "270159",
-    "web_url": "https://www.showroom-live.com/48_TAGUCHI_REIKA"
   },
   {
     "jpnName": "吉田 彩良",
@@ -132,17 +110,6 @@
     "web_url": "https://www.showroom-live.com/48_MUNEYUKI_RIKA"
   },
   {
-    "jpnName": "近藤 ありす",
-    "engName": "Kondou Arisu",
-    "jpnTeam": "1期生",
-    "engTeam": "2nd Gen",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "room_id": "270210",
-    "web_url": "https://www.showroom-live.com/48_KONDO_ARISU"
-  },
-  {
     "jpnName": "池田 裕楽",
     "engName": "Ikeda Yura",
     "jpnTeam": "1期生",
@@ -152,28 +119,6 @@
     "priority": 20,
     "room_id": "270195",
     "web_url": "https://www.showroom-live.com/48_IKEDA_YURA"
-  },
-  {
-    "jpnName": "南 有梨菜",
-    "engName": "Minami Yurina",
-    "jpnTeam": "1期生",
-    "engTeam": "2nd Gen",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "room_id": "270187",
-    "web_url": "https://www.showroom-live.com/48_MINAMI_YURINA"
-  },
-  {
-    "jpnName": "田村 菜月",
-    "engName": "Tamura Natsuki",
-    "jpnTeam": "1期生",
-    "engTeam": "2nd Gen",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "room_id": "270173",
-    "web_url": "https://www.showroom-live.com/48_TAMURA_NATSUKI"
   },
   {
     "jpnName": "清水 紗良",
@@ -251,16 +196,5 @@
     "priority": 20,
     "room_id": "270149",
     "web_url": "https://www.showroom-live.com/48_YOSHIZAKI_RINKO"
-  },
-  {
-    "jpnName": "今泉 美利愛",
-    "engName": "Imaizumi Miria",
-    "jpnTeam": "1期生",
-    "engTeam": "2nd Gen",
-    "jpnGroup": "STU48",
-    "engGroup": "STU48",
-    "priority": 20,
-    "room_id": "270164",
-    "web_url": "https://www.showroom-live.com/48_IMAIZUMI_MIRIA"
   }
 ]

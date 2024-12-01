@@ -1,16 +1,5 @@
 [
   {
-    "jpnName": "井口 眞緒",
-    "engName": "Iguchi Mao",
-    "engGroup": "Hinatazaka46",
-    "jpnGroup": "日向坂46",
-    "engTeam": "",
-    "jpnTeam": "",
-    "priority": 20,
-    "room_id": "56594",
-    "web_url": "https://www.showroom-live.com/46_MAO_IGUCHI"
-  },
-  {
     "jpnName": "潮 紗理菜",
     "engName": "Ushio Sarina",
     "engGroup": "Hinatazaka46",
@@ -19,18 +8,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56593",
-    "web_url": "https://www.showroom-live.com/46_SARINA_USHIO"
-  },
-  {
-    "jpnName": "柿崎 芽実",
-    "engName": "Kakizaki Memi",
-    "engGroup": "Hinatazaka46",
-    "jpnGroup": "日向坂46",
-    "engTeam": "",
-    "jpnTeam": "",
-    "priority": 20,
-    "room_id": "56595",
-    "web_url": "https://www.showroom-live.com/46_MEMI_KAKIZAKI"
+    "web_url": "https://www.showroom-live.com/r/46_SARINA_USHIO"
   },
   {
     "jpnName": "影山 優佳",
@@ -41,7 +19,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56603",
-    "web_url": "https://www.showroom-live.com/46_YUKA_KAGEYAMA"
+    "web_url": "https://www.showroom-live.com/r/46_YUKA_KAGEYAMA"
   },
   {
     "jpnName": "加藤 史帆",
@@ -52,7 +30,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56583",
-    "web_url": "https://www.showroom-live.com/46_SHIHO_KATO"
+    "web_url": "https://www.showroom-live.com/r/46_SHIHO_KATO"
   },
   {
     "jpnName": "齊藤 京子",
@@ -63,7 +41,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56586",
-    "web_url": "https://www.showroom-live.com/46_KYOKO_SAITO"
+    "web_url": "https://www.showroom-live.com/r/46_KYOKO_SAITO"
   },
   {
     "jpnName": "佐々木 久美",
@@ -74,7 +52,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56591",
-    "web_url": "https://www.showroom-live.com/46_KUMI_SASAKI"
+    "web_url": "https://www.showroom-live.com/r/46_KUMI_SASAKI"
   },
   {
     "jpnName": "佐々木 美玲",
@@ -85,7 +63,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56584",
-    "web_url": "https://www.showroom-live.com/46_MIREI_SASAKI"
+    "web_url": "https://www.showroom-live.com/r/46_MIREI_SASAKI"
   },
   {
     "jpnName": "高瀬 愛奈",
@@ -96,7 +74,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56596",
-    "web_url": "https://www.showroom-live.com/46_MANA_TAKASE"
+    "web_url": "https://www.showroom-live.com/r/46_MANA_TAKASE"
   },
   {
     "jpnName": "高本 彩花",
@@ -107,7 +85,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56590",
-    "web_url": "https://www.showroom-live.com/46_AYAKA_TAKAMOTO"
+    "web_url": "https://www.showroom-live.com/r/46_AYAKA_TAKAMOTO"
   },
   {
     "jpnName": "東村 芽依",
@@ -118,7 +96,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "56597",
-    "web_url": "https://www.showroom-live.com/46_MEI_HIGASHIMURA"
+    "web_url": "https://www.showroom-live.com/r/46_MEI_HIGASHIMURA"
   },
   {
     "jpnName": "濱岸 ひより",
@@ -129,7 +107,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134047",
-    "web_url": "https://www.showroom-live.com/46_HIYORI_HAMAGISHI"
+    "web_url": "https://www.showroom-live.com/r/46_HIYORI_HAMAGISHI"
   },
   {
     "jpnName": "松田 好花",
@@ -140,7 +118,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134054",
-    "web_url": "https://www.showroom-live.com/46_KONOKA_MATSUDA"
+    "web_url": "https://www.showroom-live.com/r/46_KONOKA_MATSUDA"
   },
   {
     "jpnName": "小坂 菜緒",
@@ -151,7 +129,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134059",
-    "web_url": "https://www.showroom-live.com/46_NAO_KOSAKA"
+    "web_url": "https://www.showroom-live.com/r/46_NAO_KOSAKA"
   },
   {
     "jpnName": "金村 美玖",
@@ -162,7 +140,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134049",
-    "web_url": "https://www.showroom-live.com/46_MIKU_KANEMURA"
+    "web_url": "https://www.showroom-live.com/r/46_MIKU_KANEMURA"
   },
   {
     "jpnName": "渡邉 美穂",
@@ -173,7 +151,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134060",
-    "web_url": "https://www.showroom-live.com/46_MIHO_WATANABE"
+    "web_url": "https://www.showroom-live.com/r/46_MIHO_WATANABE"
   },
   {
     "jpnName": "宮田 愛萌",
@@ -184,7 +162,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134063",
-    "web_url": "https://www.showroom-live.com/46_MANAMO_MIYATA"
+    "web_url": "https://www.showroom-live.com/r/46_MANAMO_MIYATA"
   },
   {
     "jpnName": "河田 陽菜",
@@ -195,7 +173,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134045",
-    "web_url": "https://www.showroom-live.com/46_HINA_KAWATA"
+    "web_url": "https://www.showroom-live.com/r/46_HINA_KAWATA"
   },
   {
     "jpnName": "富田 鈴花",
@@ -206,7 +184,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134055",
-    "web_url": "https://www.showroom-live.com/46_SUZUKA_TOMITA"
+    "web_url": "https://www.showroom-live.com/r/46_SUZUKA_TOMITA"
   },
   {
     "jpnName": "丹生 明里",
@@ -217,7 +195,7 @@
     "jpnTeam": "",
     "priority": 20,
     "room_id": "134056",
-    "web_url": "https://www.showroom-live.com/46_AKARI_NIBU"
+    "web_url": "https://www.showroom-live.com/r/46_AKARI_NIBU"
   },
   {
     "jpnName": "上村 ひなの",
@@ -228,7 +206,7 @@
     "engGroup": "Hinatazaka46",
     "priority": 30,
     "room_id": "199345",
-    "web_url": "https://www.showroom-live.com/46_HINANO_KAMIMURA"
+    "web_url": "https://www.showroom-live.com/r/46_HINANO_KAMIMURA"
   },
   {
     "jpnGroup": "日向坂46",
@@ -240,5 +218,170 @@
     "priority": 20,
     "room_id": "240323",
     "web_url": "https://www.showroom-live.com/hinatazaka46"
+  },
+  {
+    "jpnName": "山口 陽世",
+    "engName": "Yamaguchi Haruyo",
+    "jpnTeam": "3期生",
+    "engTeam": "3rd Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "201110",
+    "web_url": "https://www.showroom-live.com/r/46_HARUYO_YAMAGUCHI"
+  },
+  {
+    "jpnName": "森本 茉莉",
+    "engName": "Marimoto Marie",
+    "jpnTeam": "3期生",
+    "engTeam": "3rd Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "199322",
+    "web_url": "https://www.showroom-live.com/r/46_MARIE_MORIMOTO"
+  },
+  {
+    "jpnName": "髙橋 未来虹",
+    "engName": "Takahashi Mikuni",
+    "jpnTeam": "3期生",
+    "engTeam": "3rd Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "200828",
+    "web_url": "https://www.showroom-live.com/r/46_MIKUNI_TAKAHASHI"
+  },
+  {
+    "jpnName": "石塚 瑶季",
+    "engName": "Ishizuka Tamaki",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457901",
+    "web_url": "https://www.showroom-live.com/r/46_ISHIZUKA_TAMAKI"
+  },
+  {
+    "jpnName": "岸 帆夏",
+    "engName": "Kishi Honoka",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457906",
+    "web_url": "https://www.showroom-live.com/r/46_KISHI_HONOKA"
+  },
+  {
+    "jpnName": "小西 夏菜実",
+    "engName": "Konishi Nanami",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "459312",
+    "web_url": "https://www.showroom-live.com/r/46_KONISHI_NANAMI"
+  },
+  {
+    "jpnName": "清水 理央",
+    "engName": "Shimizu Rio",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457908",
+    "web_url": "https://www.showroom-live.com/r/46_SHIMIZU_RIO"
+  },
+  {
+    "jpnName": "正源司 陽子",
+    "engName": "Shogenji Yoko",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "459313",
+    "web_url": "https://www.showroom-live.com/r/46_SHOGENJI_YOKO"
+  },
+  {
+    "jpnName": "竹内 希来里",
+    "engName": "Takeuchi Kirari",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457910",
+    "web_url": "https://www.showroom-live.com/r/46_TAKEUCHI_KIRARI"
+  },
+  {
+    "jpnName": "平尾 帆夏",
+    "engName": "Hirao Honoka",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457911",
+    "web_url": "https://www.showroom-live.com/r/46_HIRAO_HONOKA"
+  },
+  {
+    "jpnName": "平岡 海月",
+    "engName": "Hiraoka Mitsuki",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "459314",
+    "web_url": "https://www.showroom-live.com/r/46_HIRAOKA_MITSUKI"
+  },
+  {
+    "jpnName": "藤嶌 果歩",
+    "engName": "Fujishima Kaho",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "459315",
+    "web_url": "https://www.showroom-live.com/r/46_FUJISHIMA_KAHO"
+  },
+  {
+    "jpnName": "宮地 すみれ",
+    "engName": "Miyachi Sumire",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457915",
+    "web_url": "https://www.showroom-live.com/r/46_MIYACHI_SUMIRE"
+  },
+  {
+    "jpnName": "山下 葉留花",
+    "engName": "Yamashita Haruka",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457916",
+    "web_url": "https://www.showroom-live.com/r/46_YAMASHITA_HARUKA"
+  },
+  {
+    "jpnName": "渡辺 莉奈",
+    "engName": "Watanabe Rina",
+    "jpnTeam": "4期生",
+    "engTeam": "4th Gen",
+    "jpnGroup": "日向坂46",
+    "engGroup": "Hinatazaka46",
+    "priority": 30,
+    "room_id": "457917",
+    "web_url": "https://www.showroom-live.com/r/46_WATANABE_RINA"
   }
 ]

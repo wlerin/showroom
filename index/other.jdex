@@ -35,7 +35,6 @@
     "engName": "CROW’S BLOOD Reactions",
     "priority": 20
   },
-
   {
     "jpnTeam": "ラジオ",
     "engTeam": "Radio",
@@ -43,24 +42,6 @@
     "room_id": "64547",
     "jpnName": "bayfm おんぱち",
     "engName": "Bayfm ON8",
-    "priority": 10
-  },
-  {
-    "jpnTeam": "SP",
-    "engTeam": "SP",
-    "web_url": "https://www.showroom-live.com/exdkondomn",
-    "room_id": "58139",
-    "jpnName": "【EXD44】近藤正紀",
-    "engName": "Feeling Couple",
-    "priority": 20
-  },
-  {
-    "jpnTeam": "SP",
-    "engTeam": "SP",
-    "web_url": "https://www.showroom-live.com/kimi_dare",
-    "room_id": "75207",
-    "jpnName": "AKB48の君、誰？",
-    "engName": "Kimi Dare",
     "priority": 10
   },
   {
@@ -153,17 +134,6 @@
     "priority": 20
   },
   {
-    "jpnName": "猫舌SHOWROOM",
-    "engName": "Nekojita Showroom",
-    "jpnTeam": "",
-    "engTeam": "",
-    "jpnGroup": "SP",
-    "engGroup": "SP",
-    "priority": 20,
-    "web_url": "https://www.showroom-live.com/nekojita",
-    "room_id": "190685"
-  },
-  {
     "jpnName": "秋元康プロデュース ガールズバンド",
     "engName": "Girls Band Official",
     "jpnTeam": "",
@@ -173,17 +143,6 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/yaband",
     "room_id": "227715"
-  },
-  {
-    "jpnName": "舞台「山犬」特別配信",
-    "engName": "Yamainu Official Stream",
-    "jpnTeam": "",
-    "engTeam": "",
-    "jpnGroup": "SP",
-    "engGroup": "SP",
-    "priority": 20,
-    "web_url": "https://www.showroom-live.com/yamainu2019",
-    "room_id": "230381"
   },
   {
     "jpnName": "AKB48メンバーとリアルタイム対戦！？『逆転オセロニア』",
@@ -206,5 +165,16 @@
     "priority": 20,
     "web_url": "https://www.showroom-live.com/sakamichikenshu",
     "room_id": "273359"
+  },
+  {
+    "jpnName": "☆小さな国ちゃんねる♡",
+    "engName": "Small Worlds Tokyo",
+    "jpnTeam": "",
+    "engTeam": "",
+    "jpnGroup": "SP",
+    "engGroup": "SP",
+    "priority": 20,
+    "web_url": "https://www.showroom-live.com/SMALLWORLDSTOKYO001",
+    "room_id": "324689"
   }
 ]

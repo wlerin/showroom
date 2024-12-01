@@ -4,28 +4,6 @@
     "jpnTeam": "元メンバー",
     "engGroup": "AKB48",
     "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/ayaka_morikawa",
-    "room_id": "72215",
-    "jpnName": "森川 彩香",
-    "engName": "Morikawa Ayaka",
-    "priority": 10
-  },
-  {
-    "jpnGroup": "SKE48",
-    "jpnTeam": "元メンバー",
-    "engGroup": "SKE48",
-    "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/yagami-kumi",
-    "room_id": "56069",
-    "jpnName": "矢神久美",
-    "engName": "Yagami Kumi",
-    "priority": 20
-  },
-  {
-    "jpnGroup": "AKB48",
-    "jpnTeam": "元メンバー",
-    "engGroup": "AKB48",
-    "engTeam": "Graduate",
     "web_url": "https://www.showroom-live.com/takahashi_kira",
     "room_id": "156013",
     "jpnName": "高橋希来",
@@ -55,17 +33,6 @@
     "priority": 20
   },
   {
-    "engName": "Nishinaka Nanami",
-    "priority": 28,
-    "jpnName": "西仲 七海",
-    "engTeam": "KKS",
-    "jpnTeam": "研究生",
-    "web_url": "https://www.showroom-live.com/48_NANAMI_NISHINAKA",
-    "engGroup": "NMB48",
-    "jpnGroup": "NMB48",
-    "room_id": "61759"
-  },
-  {
     "jpnGroup": "HKT48",
     "jpnTeam": "元メンバー",
     "engGroup": "HKT48",
@@ -74,17 +41,6 @@
     "room_id": "182429",
     "jpnName": "山田 麻莉奈",
     "engName": "Yamada Marina",
-    "priority": 20
-  },
-  {
-    "jpnGroup": "NMB48",
-    "jpnTeam": "元メンバー",
-    "engGroup": "NMB48",
-    "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/ririka-suto",
-    "room_id": "192306",
-    "jpnName": "須藤 凜々花",
-    "engName": "Suto Ririka",
     "priority": 20
   },
   {
@@ -107,39 +63,6 @@
     "room_id": "80244",
     "jpnName": "わさみんの何かやるでshow",
     "engName": "Wasamin Show",
-    "priority": 20
-  },
-  {
-    "jpnGroup": "NMB48",
-    "jpnTeam": "元メンバー",
-    "engGroup": "NMB48",
-    "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/EH90798779",
-    "room_id": "214712",
-    "jpnName": "沖田彩華",
-    "engName": "Okita Ayaka",
-    "priority": 20
-  },
-  {
-    "jpnGroup": "AKB48",
-    "jpnTeam": "元メンバー",
-    "engGroup": "AKB48",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/gband00040",
-    "room_id": "205941",
-    "jpnName": "早坂つむぎ",
-    "engName": "Hayasaka Tsumugi (Girls Band Audition)",
-    "priority": 20
-  },
-  {
-    "jpnGroup": "SKE48",
-    "jpnTeam": "元メンバー",
-    "engGroup": "SKE48",
-    "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/minami-hara_pfh",
-    "room_id": "214006",
-    "jpnName": "原望奈美",
-    "engName": "Hara Minami",
     "priority": 20
   },
   {
@@ -171,31 +94,9 @@
     "room_id": "256930",
     "jpnName": "長谷川 玲奈",
     "engName": "Hasegawa Rena",
-    "priority": 10,
+    "priority": 20,
     "engGroup": "NGT48",
     "jpnGroup": "NGT48"
-  },
-  {
-    "jpnTeam": "元メンバー",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/5029f3347498",
-    "room_id": "257350",
-    "jpnName": "佐藤 栞",
-    "engName": "Sato Shiori",
-    "priority": 30,
-    "engGroup": "AKB48",
-    "jpnGroup": "AKB48"
-  },
-  {
-    "jpnTeam": "元メンバー",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/f0a6c3354300",
-    "room_id": "258298",
-    "jpnName": "谷川 聖",
-    "engName": "Tanikawa Hijiri",
-    "priority": 30,
-    "engGroup": "AKB48",
-    "jpnGroup": "AKB48"
   },
   {
     "jpnTeam": "元メンバー",
@@ -204,42 +105,9 @@
     "room_id": "261084",
     "jpnName": "菅原 りこ",
     "engName": "Sugahara Riko",
-    "priority": 10,
+    "priority": 20,
     "engGroup": "NGT48",
     "jpnGroup": "NGT48"
-  },
-  {
-    "jpnTeam": "元メンバー",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/c73513384335",
-    "room_id": "260197",
-    "jpnName": "阿部 芽唯",
-    "engName": "Abe Mei",
-    "priority": 10,
-    "engGroup": "AKB48",
-    "jpnGroup": "AKB48"
-  },
-  {
-    "jpnTeam": "元メンバー",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/room/profile?room_id=260654",
-    "room_id": "260654",
-    "jpnName": "山田 菜々美",
-    "engName": "Yamada Nanami",
-    "priority": 40,
-    "engGroup": "AKB48",
-    "jpnGroup": "AKB48"
-  },
-  {
-    "jpnTeam": "元メンバー",
-    "engTeam": "Graduate",
-    "web_url": "https://www.showroom-live.com/syoji_nagisa",
-    "priority": 10,
-    "jpnName": "庄司なぎさ",
-    "engName": "Shoji Nagisa",
-    "room_id": "252943",
-    "engGroup": "AKB48",
-    "jpnGroup": "ハープスター"
   },
   {
     "jpnTeam": "元メンバー",
@@ -247,42 +115,218 @@
     "web_url": "https://www.showroom-live.com/04e793461162",
     "jpnName": "後藤 萌咲",
     "engName": "Goto Moe",
-    "priority": 8,
+    "priority": 20,
     "room_id": "267158",
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
   },
   {
-    "jpnTeam": "元チーム8メンバー",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/ed55e1702678",
-    "priority": 30,
-    "jpnName": "谷 優里",
-    "engName": "Tani Yuri",
-    "room_id": "130692",
-    "engGroup": "AKB48",
-    "jpnGroup": "AKB48"
-  },
-  {
-    "jpnTeam": "元チーム8メンバー",
-    "engTeam": "Team 8 Graduate",
-    "web_url": "https://www.showroom-live.com/5b19e3560684",
-    "jpnName": "寺田 美咲",
-    "engName": "Terada Misaki",
+    "engGroup": "STU48",
     "priority": 20,
-    "room_id": "275415",
+    "jpnTeam": "元メンバー",
+    "engName": "Mori Kaho",
+    "engTeam": "Graduate",
+    "jpnName": "森 香穂",
+    "web_url": "https://www.showroom-live.com/48_MORI_KAHO",
+    "jpnGroup": "STU48",
+    "room_id": "97203"
+  },
+  {
+    "engGroup": "AKB48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Hirata Rina",
+    "engTeam": "Graduate",
+    "jpnName": "平田 梨奈",
+    "web_url": "https://www.showroom-live.com/rina__hirata",
+    "jpnGroup": "AKB48",
+    "room_id": "301403"
+  },
+  {
+    "engGroup": "HKT48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Komada Hiroka",
+    "engTeam": "Graduate",
+    "jpnName": "駒田 京伽",
+    "web_url": "https://www.showroom-live.com/pychan",
+    "jpnGroup": "HKT48",
+    "room_id": "304378"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/4aae83409720",
+    "room_id": "262996",
+    "jpnName": "渡邉 歩咲",
+    "engName": "Watanabe Ayusa",
+    "priority": 30,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/paruru_free",
+    "room_id": "232836",
+    "jpnName": "島崎 遥香",
+    "engName": "Shimazaki Haruka",
+    "priority": 30,
     "engGroup": "AKB48",
     "jpnGroup": "AKB48"
   },
   {
-    "jpnGroup": "AKB48",
-    "jpnTeam": "元チーム8メンバー",
-    "jpnName": "佐藤 七海",
+    "jpnTeam": "元研究生",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/aa9105677665",
+    "room_id": "368931",
+    "jpnName": "宮島 亜弥",
+    "engName": "Miyajima Aya",
+    "priority": 30,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元研究生",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/yuriaootaki",
+    "room_id": "219504",
+    "jpnName": "大滝 友梨亜",
+    "engName": "Otaki Yuria",
+    "priority": 30,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/2b19b4622114",
+    "room_id": "322740",
+    "jpnName": "髙橋 真生",
+    "engName": "Takahashi Mau",
+    "priority": 30,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/7de646102829",
+    "room_id": "391129",
+    "jpnName": "本田 そら",
+    "engName": "Honda Sora",
+    "priority": 30,
     "engGroup": "AKB48",
-    "engTeam": "Team 8 Graduate",
-    "engName": "Sato Nanami",
-    "priority": 50,
-    "room_id": "274512",
-    "web_url": "https://www.showroom-live.com/408f53529333"
+    "jpnGroup": "AKB48"
+  },
+  {
+    "engName": "Ishizuka Akari",
+    "priority": 20,
+    "jpnName": "石塚 朱莉",
+    "engTeam": "Graduate",
+    "jpnTeam": "元メンバー",
+    "web_url": "https://www.showroom-live.com/48_AKARI_ISHIZUKA",
+    "engGroup": "NMB48",
+    "jpnGroup": "NMB48",
+    "room_id": "61869"
+  },
+  {
+    "engName": "Kushiro Rina",
+    "priority": 28,
+    "jpnName": "久代 梨奈",
+    "engTeam": "Graduate",
+    "jpnTeam": "元メンバー",
+    "web_url": "https://www.showroom-live.com/rina0129",
+    "engGroup": "NMB48",
+    "jpnGroup": "NMB48",
+    "room_id": "61875"
+  },
+  {
+    "jpnName": "横野 すみれ",
+    "engName": "Yokono Sumire",
+    "engTeam": "Graduate",
+    "jpnTeam": "元メンバー",
+    "jpnGroup": "NMB48",
+    "engGroup": "NMB48",
+    "priority": 10,
+    "room_id": "409939",
+    "web_url": "https://www.showroom-live.com/r/yokono_sumire"
+  },
+  {
+    "jpnName": "荻野 由佳",
+    "engName": "Ogino Yuka",
+    "engTeam": "Graduate",
+    "jpnTeam": "元メンバー",
+    "jpnGroup": "NGT48",
+    "engGroup": "NGT48",
+    "priority": 5,
+    "room_id": "413522",
+    "web_url": "https://www.showroom-live.com/r/oginoyuka"
+  },
+  {
+    "engGroup": "STU48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Hoshino Marina",
+    "engTeam": "Graduate",
+    "jpnName": "星乃 まりな",
+    "web_url": "https://www.showroom-live.com/r/c235a5685978",
+    "jpnGroup": "STU48",
+    "room_id": "371499"
+  },
+  {
+    "engGroup": "NGT48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Takahashi Nanami",
+    "engTeam": "Graduate",
+    "jpnName": "高橋 七実",
+    "web_url": "https://www.showroom-live.com/r/nanami_takahashi",
+    "jpnGroup": "NGT48",
+    "room_id": "389097"
+  },
+  {
+    "jpnTeam": "元メンバー",
+    "engTeam": "Graduate",
+    "web_url": "https://www.showroom-live.com/r/TCC_hinata",
+    "room_id": "175379",
+    "jpnName": "諸橋 姫向",
+    "engName": "Morohashi Hinata",
+    "priority": 30,
+    "engGroup": "NGT48",
+    "jpnGroup": "NGT48"
+  },
+  {
+    "engGroup": "STU48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Kadowaki Miyuna",
+    "engTeam": "Graduate",
+    "jpnName": "門脇実優菜",
+    "web_url": "https://www.showroom-live.com/r/KADOWAKI_MIYUNA",
+    "jpnGroup": "STU48",
+    "room_id": "462126"
+  },
+  {
+    "engGroup": "AKB48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Hoshinomiya Sena",
+    "engTeam": "Graduate",
+    "jpnName": "星乃宮 せな",
+    "web_url": "https://www.showroom-live.com/r/ss0005",
+    "jpnGroup": "AKB48",
+    "room_id": "492729"
+  },
+  {
+    "engGroup": "AKB48",
+    "priority": 20,
+    "jpnTeam": "元メンバー",
+    "engName": "Umemoto Izumi",
+    "engTeam": "Graduate",
+    "jpnName": "梅本 和泉",
+    "web_url": "https://www.showroom-live.com/r/vl7046",
+    "jpnGroup": "STU48",
+    "room_id": "402448"
   }
 ]
