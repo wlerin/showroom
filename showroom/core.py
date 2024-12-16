@@ -150,7 +150,7 @@ WATCHSECONDS = (600, 420, 360, 360, 300, 300, 240, 240, 180, 150)
 # currently this checks the onlive list for each of Music, Idol, and Talent/Model
 # schedules are still Idol only
 GENRE_IDS = {101, 102, 103, 104, 105, 106, 107, 200}
-
+EXCLUDED_GENRE_IDS = {0, 703, 704, 701}
 
 
 def watch_seconds(priority: int):
@@ -836,7 +836,7 @@ class WatchManager(object):
 
         # temporary fix for getting multiple genres
         for livelist in onlives:
-            if livelist['genre_id'] in GENRE_IDS:
+            if livelist['genre_id'] not in EXCLUDED_GENRE_IDS:
                 for item in [e for e in livelist['lives'] if 'room_id' in e and str(e['room_id']) in self.index]:
                     room_id = str(item['room_id'])
                     start_time = datetime.datetime.fromtimestamp(float(item['started_at']), tz=TOKYO_TZ)

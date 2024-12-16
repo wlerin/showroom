@@ -42,6 +42,8 @@ full_genre_map = {
     105: ("Comedy/Talk Show", "お笑い・トーク", "Comedians/Talk Show"),
     106: ("Sports", "スポーツ", "Sports"),
     107: ("Virtual", "バーチャル", "Virtual"),
+    108: ("Model", "Model", "Model")
+    109: ("Actor", "俳優", "Actor")
     200: ("Amateur", "アマチュア", "Non-Professionals"),
     703: ("Karaoke", "カラオケ", "Karaoke"),
     704: ("Men's", "メンズ", "MEN'S"),
