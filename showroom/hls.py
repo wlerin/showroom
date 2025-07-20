@@ -646,7 +646,7 @@ def simplify(path, ignore_checksums=False):
             hls_logger.debug('Moved {} files to {}'.format(num_moved, first_stream))
             # TODO: verify that the move works correctly, then delete the "new" stream
             base_files = sorted(glob.glob('{}/*.ts'.format(first_stream)), key=_segment_sort_key)
-            if not set(e.split('/')[-1] for e in new_files) - set(e.split('/')[-1] for e in base_files):
+            if not set(os.path.basename(e) for e in new_files) - set(os.path.basename(e) for e in base_files):
                 # rm_files = glob.glob('{}/*.ts'.format(new_stream))
                 # for file in rm_files:
                 #     os.remove(file)
@@ -921,8 +921,8 @@ def move_files(files, dest, ignore_checksums=False, no_probe=False):
     #                 hls_logger.error('Checksum mismatch in version 2 stream: {}'.format(source))
     #                 return num_moved
     for file in files:
-        filename = file.split('/')[-1]
-        destfile = '{}/{}'.format(dest, filename)
+        filename = os.path.basename(file)
+        destfile = os.path.join(dest, filename)
         if not os.path.exists(destfile):
             num_moved += 1
             os.replace(file, destfile)
@@ -952,12 +952,13 @@ def move_files(files, dest, ignore_checksums=False, no_probe=False):
 def group_by_archive(streams):
     data = {}
     for stream in streams:
-        *_, archive, date, file = stream.split('/')
+        # *_, archive, date, file = stream.split('/')
+        *_, archive, date, file = os.path.normpath(stream).split(os.sep)
         if archive not in data:
             data[archive] = []
         data[archive].append(stream)
     return data
-    
+
 
 def compare_archives(archive_paths, final_root, simplify_first=False, check_only=False):
     """
